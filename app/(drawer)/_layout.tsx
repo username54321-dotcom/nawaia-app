@@ -11,6 +11,9 @@ const DrawerLayout = () => {
           drawerStyle: {},
         }}>
         <Drawer.Screen name="index" options={{ drawerLabel: 'الرئيسة' }}></Drawer.Screen>
+        <Drawer.Screen
+          name="(tabs)"
+          options={{ drawerItemStyle: { display: 'none' } }}></Drawer.Screen>
       </Drawer>
     </>
   );
