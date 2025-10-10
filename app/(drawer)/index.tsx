@@ -1,4 +1,4 @@
-import Banner from './../../components/Banner';
+import Banner from '../../components/Banner/PortraitBanner';
 import { Text, Image, View } from 'react-native';
 import { imgHero } from './../../assets/images/MyImages';
 import { useHeight, useWidth } from '~/utils/Hooks';

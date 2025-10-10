@@ -4,7 +4,7 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { Image } from 'react-native';
 import { useHeight, useWidth } from '~/utils/Hooks';
 
-const Banner = () => {
+const PortraitBanner = () => {
   const nav = useNavigation();
 
   return (
@@ -37,5 +37,5 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default PortraitBanner;
 //1488b2  397029
