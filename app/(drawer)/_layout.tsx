@@ -1,5 +1,6 @@
 import { Drawer } from 'expo-router/drawer';
 import { useWidth } from './../../utils/Hooks';
+import { Home, Info } from 'lucide-react-native';
 
 const DrawerLayout = () => {
   return (
@@ -12,7 +13,18 @@ const DrawerLayout = () => {
           drawerStyle: { width: useWidth(50) },
         }}>
         <Drawer.Screen name="index" options={{ drawerLabel: 'الرئيسة' }}></Drawer.Screen>
-        <Drawer.Screen name="About" options={{ drawerLabel: 'test' }}></Drawer.Screen>
+        <Drawer.Screen name="(Pages)/Courses" options={{ drawerLabel: 'دورات' }}></Drawer.Screen>
+        <Drawer.Screen
+          name="(Pages)/Books"
+          options={{
+            drawerLabel: 'كتب',
+          }}></Drawer.Screen>
+        <Drawer.Screen
+          name="(Pages)/HealthJourney"
+          options={{ drawerLabel: 'رحلات الصحة' }}></Drawer.Screen>
+        <Drawer.Screen
+          name="(Pages)/About"
+          options={{ drawerLabel: 'عن الأكاديمية' }}></Drawer.Screen>
       </Drawer>
     </>
   );
