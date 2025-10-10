@@ -1,10 +1,12 @@
-import PortraitBanner from '~/components/Banner/PortraitBanner';
-import { Text, Image, View } from 'react-native';
-import { imgHero } from '~/assets/images/MyImages';
-import { useHeight, useWidth } from '~/utils/Hooks';
-import { useIsPortrait } from '~/utils/Hooks';
+import { Text } from 'react-native';
 import LandscapeBanner from '~/components/Banner/LandscapeBanner';
-
+import PortraitBanner from '~/components/Banner/PortraitBanner';
+import { useIsPortrait } from '~/utils/Hooks';
 export default function Home() {
-  return <>{useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}</>;
+  return (
+    <>
+      {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
+      <Text>HomePage</Text>
+    </>
+  );
 }

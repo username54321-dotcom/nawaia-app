@@ -9,9 +9,10 @@ const DrawerLayout = () => {
           headerShown: false,
           drawerType: 'front',
           drawerPosition: 'right',
-          drawerStyle: { width: useWidth(33) },
+          drawerStyle: { width: useWidth(50) },
         }}>
         <Drawer.Screen name="index" options={{ drawerLabel: 'الرئيسة' }}></Drawer.Screen>
+        <Drawer.Screen name="About" options={{ drawerLabel: 'test' }}></Drawer.Screen>
       </Drawer>
     </>
   );

@@ -29,7 +29,10 @@ const PortraitBanner = () => {
       <View className="flex w-[16%] flex-row items-center justify-end">
         <Pressable
           className={`m-4 h-fit w-fit rounded-md border-[1.5px] border-neutral-800 bg-neutral-300 p-1`}
-          onPress={() => nav.dispatch(DrawerActions.toggleDrawer())}>
+          onPress={() => {
+            nav.dispatch(DrawerActions.toggleDrawer());
+            console.log('aaaa');
+          }}>
           <Menu size={useHeight(3, 25)} color="black" strokeWidth={2} />
         </Pressable>
       </View>
