@@ -1,6 +1,9 @@
 import '../global.css';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const tanstackQueryClient = new QueryClient();
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -9,9 +12,11 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-      </Stack>
+      <QueryClientProvider client={tanstackQueryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+        </Stack>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }

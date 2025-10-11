@@ -29,7 +29,7 @@ const LandscapeBanner = () => {
         </Pressable>
         <Pressable
           onPress={() => {
-            router.push('/(drawer)/(Pages)/Courses');
+            router.push('/(drawer)/(Pages)/courses');
           }}>
           <Text className="text-l  font-semibold">دورات</Text>
         </Pressable>

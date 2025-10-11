@@ -1,4 +1,4 @@
-import { View, Pressable, Platform } from 'react-native';
+import { View, Pressable, Platform, Text } from 'react-native';
 import { Menu } from 'lucide-react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { Image } from 'react-native';
@@ -22,6 +22,7 @@ const PortraitBanner = () => {
             width: useWidth(66),
           }}
           resizeMode="contain"
+          onLoadStart={() => <Text>test</Text>}
           source={require('~/assets/images/2-Photoroom (2).png')}
         />
       </View>
