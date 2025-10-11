@@ -1,18 +1,13 @@
-import { View, Text, useWindowDimensions, Image, ScrollView } from 'react-native';
-import React from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
-import { FlatList } from 'react-native-gesture-handler';
-import { useIsPortrait, useWidth } from '~/utils/Hooks';
 
 const CoursesFlatlist = () => {
-  const Portrait = useIsPortrait();
-
   const { data, isSuccess } = useQuery({
     queryKey: ['Courses Flatlist'],
     queryFn: async () => (await supabaseClient.from('courses').select('*')).data,
   });
-  const { height, width } = useWindowDimensions();
+
   return isSuccess ? (
     <ScrollView>
       <View className="flex-row flex-wrap justify-evenly bg-neutral-600 pt-4">
