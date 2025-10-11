@@ -13,7 +13,7 @@ const DrawerLayout = () => {
           drawerStyle: { width: useWidth(50) },
         }}>
         <Drawer.Screen name="index" options={{ drawerLabel: 'الرئيسة' }}></Drawer.Screen>
-        <Drawer.Screen name="(Pages)/courses" options={{ drawerLabel: 'دورات' }}></Drawer.Screen>
+        <Drawer.Screen name="(Pages)/Courses" options={{ drawerLabel: 'دورات' }}></Drawer.Screen>
         <Drawer.Screen
           name="(Pages)/Books"
           options={{
