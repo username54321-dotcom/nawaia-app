@@ -1,5 +1,4 @@
 import { View } from 'react-native';
-import React from 'react';
 import { User } from 'lucide-react-native';
 
 const SignedOutButton = () => {
