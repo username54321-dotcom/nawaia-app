@@ -1,8 +1,7 @@
 import { View, Pressable, Text, Image } from 'react-native';
-import { Menu } from 'lucide-react-native';
+import { Menu, User } from 'lucide-react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import { useHeight, useWidth } from '~/utils/Hooks';
-import { LogInIcon, User } from 'lucide-react-native';
+import { useHeight } from '~/utils/Hooks';
 
 const PortraitBanner = () => {
   const nav = useNavigation();
@@ -10,7 +9,7 @@ const PortraitBanner = () => {
   return (
     //Banner View
     <View
-      className={`shadow-inner mx-auto  h-[8vh] min-h-[75] w-[100%] flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-neutral-400 `}>
+      className={` mx-auto  h-[8vh] min-h-[75] w-[100%] flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-neutral-400 `}>
       {/* Left View */}
       <View className="w-[16%] ">
         <User
