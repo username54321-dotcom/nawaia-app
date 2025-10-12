@@ -1,7 +1,8 @@
 import { View, Pressable, Text, Image } from 'react-native';
-import { Menu, User } from 'lucide-react-native';
+import { Menu } from 'lucide-react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { useHeight } from '~/utils/Hooks';
+import SignedOutButton from './UserButton/SignedOutButton';
 
 const PortraitBanner = () => {
   const nav = useNavigation();
@@ -11,14 +12,7 @@ const PortraitBanner = () => {
     <View
       className={` mx-auto  h-[8vh] min-h-[75] w-[100%] flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-neutral-400 `}>
       {/* Left View */}
-      <View className="w-[16%] ">
-        <User
-          className="m-4 min-h-fit min-w-fit rounded-xl border-[0.5px] border-black bg-white p-2 shadow-sm shadow-slate-400 "
-          size={24}
-          strokeWidth={2}
-          strokeOpacity={0.7}
-          color={'#BE1E2D'}></User>
-      </View>
+      <SignedOutButton />
       {/* center View */}
       <View className="h-full flex-1 flex-row items-center justify-center ">
         <Image
