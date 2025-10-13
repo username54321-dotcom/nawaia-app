@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       {/* Banner */}
-      {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
+      {!useIsPortrait() ? <LandscapeBanner /> : <PortraitBanner />}
       {/* Page */}
       <CoursesFlatlist></CoursesFlatlist>
     </>
