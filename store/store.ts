@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { supabaseClient } from '~/utils/supabase';
 
 export interface BearState {
   bears: number;
@@ -6,6 +7,10 @@ export interface BearState {
   removeAllBears: () => void;
   updateBears: (newBears: number) => void;
 }
+
+export const useAuthStore = create((set) => ({
+  isAuth: false,
+}));
 
 export const useStore = create<BearState>((set) => ({
   bears: 0,

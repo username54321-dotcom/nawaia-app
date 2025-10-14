@@ -2,7 +2,7 @@ import { useIsPortrait } from '../../../utils/Hooks';
 import PortraitBanner from '../../../components/Banner/Portrait/PortraitBanner';
 import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanner';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
 
 function Courses() {
@@ -10,6 +10,7 @@ function Courses() {
   const [Password, SetPassword] = useState('');
   const [SiPassword, SetSiPassword] = useState('');
   const [SiEmail, SetSiEmail] = useState('');
+  const [vEmail, setVEmail] = useState('');
   const signUp = async () => {
     const { data, error } = await supabaseClient.auth.signUp({ email: Email, password: Password });
     error ? alert(error) : alert('Success');
@@ -20,7 +21,15 @@ function Courses() {
       password: SiPassword,
     });
     error ? alert('error : ' + JSON.stringify(error)) : alert('success: ' + JSON.stringify(data));
+    setVEmail(data.user?.email);
   };
+  const handleVEmail = async () => {
+    const data = await (await supabaseClient.auth.getUser()).data.user?.email;
+    setVEmail(data);
+  };
+  useEffect(() => {
+    handleVEmail();
+  }, []);
   return (
     <>
       {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
@@ -58,6 +67,25 @@ function Courses() {
         className="m-10 mx-auto flex h-10 w-28 items-center justify-center rounded-xl border bg-green-600 ">
         <Text className="m-4 font-bold text-slate-200">Sign In</Text>
       </Pressable>
+      <Pressable
+        onPress={async () => {
+          supabaseClient.auth.signOut();
+          setVEmail(null);
+        }}
+        className="m-10 flex size-fit items-center justify-center rounded-xl bg-red-500 p-4">
+        <Text className="font-bold text-neutral-100">LogOut</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={async () => {
+          console.log(await supabaseClient.auth.getUser());
+        }}
+        className="m-4 flex size-fit items-center justify-center rounded-xl bg-red-500 p-4">
+        <Text className="font-bold text-neutral-100">getSession</Text>
+      </Pressable>
+      <View className="m-5 mx-auto size-24 rounded-xl border-[1px] border-black bg-red-300 p-2">
+        <Text>{vEmail ? `Logged In as ${vEmail}` : 'Not Logged In'}</Text>
+      </View>
     </>
   );
 }
