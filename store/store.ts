@@ -1,20 +1,15 @@
-import { create } from 'zustand';
 import { supabaseClient } from '~/utils/supabase';
-
-export interface BearState {
-  bears: number;
-  increasePopulation: () => void;
-  removeAllBears: () => void;
-  updateBears: (newBears: number) => void;
-}
+const { create } = require('zustand');
 
 export const useAuthStore = create((set) => ({
   isAuth: false,
+  startAuthTrack: async () => {
+    const session = !!(await supabaseClient.auth.getUser()).data.user;
+    set((state) => ({ ...state, isAuth: session }));
+    supabaseClient.auth.onAuthStateChange((e, session) => {
+      set((state) => ({ ...state, isAuth: !!session }));
+    });
+  },
 }));
 
-export const useStore = create<BearState>((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-  updateBears: (newBears) => set({ bears: newBears }),
-}));
+useAuthStore.getState().startAuthTrack();
