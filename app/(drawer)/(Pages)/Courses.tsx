@@ -4,6 +4,7 @@ import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanne
 import { Pressable, Text, TextInput, View, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
+import { SafeAreaView } from './../../../node_modules/moti/build/components/safe-area-view';
 
 function Courses() {
   const [Email, SetEmail] = useState('');

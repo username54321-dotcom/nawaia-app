@@ -8,7 +8,7 @@ const PortraitBanner = ({ className }: { className?: string }) => {
     // Parent View
     <View
       className={
-        ` z-[1]   h-[8vh] min-h-[75] w-full flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-neutral-400 ` +
+        ` z-[1]   h-[8vh] min-h-[75] w-full flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-neutral-300 ` +
         className
       }>
       {/* Left View */}

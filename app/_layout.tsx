@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
+import { SafeAreaView } from './../node_modules/moti/build/components/safe-area-view';
 
 const tanstackQueryClient = new QueryClient();
 
