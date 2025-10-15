@@ -1,10 +1,7 @@
-import { useIsPortrait } from '../../../utils/Hooks';
-import PortraitBanner from '../../../components/Banner/Portrait/PortraitBanner';
-import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanner';
 import { Pressable, Text, TextInput, View, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
-import { SafeAreaView } from './../../../node_modules/moti/build/components/safe-area-view';
+import DynamicBanner from './../../../components/Banner/DynamicBanner';
 
 function Courses() {
   const [Email, SetEmail] = useState('');
@@ -26,18 +23,18 @@ function Courses() {
       password: SiPassword,
     });
     error ? alert('error : ' + JSON.stringify(error)) : alert('success: ' + JSON.stringify(data));
-    setVEmail(data.user?.email);
+    setVEmail(data.user?.email || '');
   };
   const handleVEmail = async () => {
     const data = await (await supabaseClient.auth.getUser()).data.user?.email;
-    setVEmail(data);
+    setVEmail(data || '');
   };
   useEffect(() => {
     handleVEmail();
   }, []);
   return (
     <>
-      {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
+      <DynamicBanner></DynamicBanner>
       <ScrollView>
         <TextInput
           placeholder="Enter Email"
@@ -80,7 +77,7 @@ function Courses() {
         <Pressable
           onPress={async () => {
             supabaseClient.auth.signOut();
-            setVEmail(null);
+            setVEmail('');
           }}
           className="m-10 flex size-fit items-center justify-center rounded-xl bg-red-500 p-4">
           <Text className="font-bold text-neutral-100">LogOut</Text>

@@ -1,15 +1,12 @@
-import LandscapeBanner from '~/components/Banner/Landscape/LandscapeBanner';
-import PortraitBanner from '~/components/Banner/Portrait/PortraitBanner';
-import { useIsPortrait } from '~/utils/Hooks';
+import Background from './../../components/Background';
 import CoursesFlatlist from './../../components/Home/CoursesFlatlist';
 
 export default function Home() {
   return (
     <>
-      {/* Banner */}
-      {!useIsPortrait() ? <LandscapeBanner /> : <PortraitBanner />}
-      {/* Page */}
-      <CoursesFlatlist></CoursesFlatlist>
+      <Background>
+        <CoursesFlatlist></CoursesFlatlist>
+      </Background>
     </>
   );
 }

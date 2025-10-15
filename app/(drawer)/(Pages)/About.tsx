@@ -1,13 +1,12 @@
-import { useIsPortrait } from '~/utils/Hooks';
-import PortraitBanner from '../../../components/Banner/Portrait/PortraitBanner';
-import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanner';
 import { Text } from 'react-native';
+import Background from './../../../components/Background';
 
 const About = () => {
   return (
     <>
-      {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
-      <Text>About</Text>
+      <Background>
+        <Text>About</Text>
+      </Background>
     </>
   );
 };
