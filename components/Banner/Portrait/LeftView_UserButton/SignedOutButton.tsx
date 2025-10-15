@@ -1,7 +1,6 @@
 import { Pressable, Text, View } from 'react-native';
 import { User } from 'lucide-react-native';
-import { useNavigation, useRouter } from 'expo-router';
-import { supabaseClient } from '~/utils/supabase';
+import { useRouter } from 'expo-router';
 import { useAuthStore } from '~/store/store';
 import { SafeAreaView } from './../../../../node_modules/moti/build/components/safe-area-view';
 
