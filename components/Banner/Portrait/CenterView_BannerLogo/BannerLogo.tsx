@@ -15,8 +15,12 @@ const BannerLogo = () => {
           onLoadStart={() => <Text>test</Text>}
           source={imgLogo}
         />
-        <Text className="ml-1 text-3xl font-bold tracking-wider text-[#BE1E2D]">Dahlia</Text>
-        <Text className="ml-1 pt-1 text-xl font-semibold text-slate-600">Academy</Text>
+        <Text className=" font-PlayywrightHandwritten ml-1 text-3xl font-semibold tracking-wider  text-[#BE1E2D]">
+          Dahlia
+        </Text>
+        <Text className="font-Playywright ml-1 pt-2 text-xl font-semibold text-slate-600">
+          Academy
+        </Text>
       </Pressable>
     </>
   );

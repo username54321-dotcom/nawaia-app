@@ -14,18 +14,14 @@ const SignedOutButton = () => {
     <Pressable onPress={SignInPage} className=" ">
       <User
         className=" min-h-fit min-w-fit rounded-xl   p-2  shadow-slate-400 "
-        size={30}
+        size={28}
         strokeWidth={2}
         strokeOpacity={1}
         color={'#BE1E2D'}></User>
       {!isAuth ? (
         <>
-          <View className="flex-justify-center absolute right-[-5] top-[-5] size-5   items-center  rounded-full border-2 border-red-500 bg-yellow-600 ">
-            <Text className=" font-bold">!</Text>
-          </View>
-          <View className="flex-justify-center absolute right-[-5] top-[-5] size-5 animate-ping items-center rounded-full  border-2 border-red-500 bg-yellow-600 ">
-            <Text className=" font-bold">!</Text>
-          </View>
+          <View className=" flex-justify-center absolute right-0  z-10 size-3 items-center rounded-full     bg-yellow-500   "></View>
+          <View className="flex-justify-center animate-ping-slow-interval absolute  right-0 size-3 items-center rounded-full  border-2  border-red-500 bg-yellow-500 "></View>
         </>
       ) : (
         <View className="flex-justify-center absolute right-[-5] top-[-5] size-5  items-center rounded-full border-green-500 bg-green-400  "></View>

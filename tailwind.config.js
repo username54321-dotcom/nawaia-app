@@ -4,7 +4,35 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'ping-slow-interval': 'ping-with-pause 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        'ping-with-pause': {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+          // The animation happens in the first 33.33% of the total 3s duration
+          '33%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+          // The animation holds its final state for the remaining 66.67% (the 2s pause)
+          '100%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+        },
+      },
+    },
+    fontFamily: {
+      AtomicAge: ['AtomicAge', 'sans-serif'],
+      Kufi: ['Kufi'],
+      Playwrite: ['Playwrite'],
+      PlayywrightHandwritten: ['PlaywriteHandWritten'],
+    },
   },
   plugins: [],
 };
