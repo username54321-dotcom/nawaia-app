@@ -1,14 +1,15 @@
-import { Text } from 'react-native';
-
-import { useIsPortrait } from '../../../utils/Hooks';
-import PortraitBanner from '../../../components/Banner/Portrait/PortraitBanner';
-import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanner';
+import Background from './../../../components/Background';
+import { View } from 'react-native';
+import { MotiView, MotiText } from 'moti';
 
 const HealthJourney = () => {
   return (
     <>
-      {useIsPortrait() ? <PortraitBanner /> : <LandscapeBanner />}
-      <Text>Health journey</Text>
+      <Background>
+        <View>
+          <MotiView></MotiView>
+        </View>
+      </Background>
     </>
   );
 };
