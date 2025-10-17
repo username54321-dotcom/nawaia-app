@@ -22,19 +22,19 @@ const CoursePage = () => {
             source={{ uri: data[0].image }}
             style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
           <View className="m-2 flex flex-row-reverse items-center justify-center">
-            <View className=" ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+            <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
               <DollarSign size={18} color={'#404040'} />
               <Text className=" font-Kufi mr-1 translate-y-[2px] text-xs font-semibold text-neutral-600 ">
                 {data[0].price} ر.س
               </Text>
             </View>
-            <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+            <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
               <AlarmClock size={18} color={'#404040'} />
               <Text className=" font-Kufi mr-2 translate-y-[2px] text-xs font-semibold text-neutral-600 ">
                 {data[0].duration}
               </Text>
             </View>
-            <View className=" ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+            <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
               {GenreIcons[data[0].genre]}
 
               <Text className=" font-Kufi mr-2 translate-y-[2px] text-xs font-semibold text-neutral-600 ">
