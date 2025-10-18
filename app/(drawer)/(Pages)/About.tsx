@@ -1,12 +1,18 @@
-import Carousel from 'react-native-reanimated-carousel';
-import MyCarousal from './../../../components/Carousal';
-import DynamicBanner from './../../../components/Banner/DynamicBanner';
+import { View, Text, BackHandler } from 'react-native';
+import Background from '~/components/Background';
+import FadeIn from './../../../components/Animations/FadeIn';
 
 const About = () => {
   return (
-    <>
-      <DynamicBanner></DynamicBanner>
-    </>
+    <Background>
+      <FadeIn>
+        <View className="h-96 w-full bg-black"></View>
+        <View className="h-96 w-full bg-white"></View>
+        <View className="h-96 w-full bg-black"></View>
+        <View className="h-96 w-full bg-white"></View>
+        <View className="h-96 w-full bg-black"></View>
+      </FadeIn>
+    </Background>
   );
 };
 
