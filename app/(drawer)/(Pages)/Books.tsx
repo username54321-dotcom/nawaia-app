@@ -1,9 +1,5 @@
 import { View, Text } from 'react-native';
-import React from 'react';
-import { useIsPortrait } from '../../../utils/Hooks';
-import PortraitBanner from '../../../components/Banner/Portrait/PortraitBanner';
-import LandscapeBanner from '../../../components/Banner/Landscape/LandscapeBanner';
-import { Skeleton } from 'moti/skeleton';
+
 import Background from '~/components/Background';
 import MySkeleton from './../../../components/MySkeleton';
 

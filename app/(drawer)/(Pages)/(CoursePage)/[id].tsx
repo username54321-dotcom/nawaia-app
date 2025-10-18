@@ -9,6 +9,7 @@ import { Skeleton } from 'moti/skeleton';
 import { useState } from 'react';
 import { imgLogo } from '~/assets/images/ImageExports';
 import FadeIn from './../../../../components/Animations/FadeIn';
+import MySkeleton from './../../../../components/MySkeleton';
 const CoursePage = () => {
   const [loadind, setloading] = useState(true);
   const { id } = useLocalSearchParams();
@@ -44,10 +45,10 @@ const CoursePage = () => {
                   {data[0].duration}
                 </Text>
               </View>
-              <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
+              <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 target:bg-red-500 hover:bg-slate-300">
                 {GenreIcons[data[0].genre]}
 
-                <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
+                <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600  ">
                   {data[0].genre}
                 </Text>
               </View>
@@ -58,19 +59,20 @@ const CoursePage = () => {
         <>
           <Skeleton.Group show={true}>
             <ScrollView className="flex-1 flex-col items-center justify-start p-4">
-              <Skeleton colors={['#dddddd', '#d4d4d4', '#a3a3a3']}>
+              <MySkeleton>
                 <Text className="mt-4 w-1/2 font-Kufi text-2xl font-semibold">fshdflksdhf</Text>
-              </Skeleton>
+              </MySkeleton>
               <View className="h-2 w-full"></View>
 
-              <Skeleton colors={['#dddddd', '#d4d4d4', '#a3a3a3']}>
+              <MySkeleton>
                 <Image
                   className=" m-2 mt-4 self-center rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: imgLogo }}
                   style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
-              </Skeleton>
+              </MySkeleton>
+
               <View className="h-2 w-full"></View>
-              <Skeleton colors={['#dddddd', '#d4d4d4', '#a3a3a3']}>
+              <MySkeleton>
                 <View className="m-2 flex flex-row-reverse items-center justify-center">
                   <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
                     <DollarSign size={18} color={'#404040'} />
@@ -86,14 +88,14 @@ const CoursePage = () => {
                     </Text>
                   </View>
 
-                  <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
+                  <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300 ">
                     كتب
                     <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
                       كتب
                     </Text>
                   </View>
                 </View>
-              </Skeleton>
+              </MySkeleton>
             </ScrollView>
           </Skeleton.Group>
         </>

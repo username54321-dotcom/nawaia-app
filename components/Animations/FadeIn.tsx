@@ -13,7 +13,7 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   return (
     <MotiView
       from={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: [1], scale: [1.03, 1] }}
       transition={{ duration: 200, type: 'timing' }}
       key={isFocused}
       className={className}>
