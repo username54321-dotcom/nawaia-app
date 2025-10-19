@@ -9,14 +9,13 @@ type FadeInProps = {
 };
 
 const FadeIn = ({ className, children }: FadeInProps) => {
-  const isFocused = useIsFocused() ? 'focused' : 'blurred';
-  const number = randomItem([100, 150, 200]);
+  const number = randomItem([1.02, 1.03, 1.04]);
   return (
     <MotiView
       from={{ opacity: 0, scale: 0.1 }}
-      animate={{ opacity: [1], scale: [1.03, 1] }}
-      transition={{ duration: 250, type: 'timing', delay: number }}
-      key={isFocused}
+      animate={{ opacity: [1], scale: [number, 1] }}
+      transition={{ duration: 200, type: 'timing' }}
+      // key={isFocused}
       className={className}>
       {children}
     </MotiView>
