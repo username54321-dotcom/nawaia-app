@@ -1,9 +1,13 @@
+// This must be the very first import
+import 'react-native-url-polyfill/auto';
+
+// Polyfills and global styles first
 import '../global.css';
+import 'react-native-reanimated';
+
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import 'react-native-reanimated';
-import 'react-native-gesture-handler';
 import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
 
 const tanstackQueryClient = new QueryClient();
