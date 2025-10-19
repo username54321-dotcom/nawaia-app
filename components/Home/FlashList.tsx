@@ -36,7 +36,7 @@ const CourseList = () => {
                   </Text>
                   <Pressable
                     onPress={() => HandleOnPress(item)}
-                    className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 hover:bg-[#a01d2a]">
+                    className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 ">
                     <Text className="  font-Kufi text-base font-semibold text-slate-100  ">
                       عرض
                     </Text>

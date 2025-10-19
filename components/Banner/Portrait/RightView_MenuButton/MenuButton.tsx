@@ -7,7 +7,7 @@ const MenuButton = () => {
   const nav = useNavigation();
   return (
     <Pressable
-      className={`m-4  size-fit  rounded-md p-2 hover:bg-neutral-300 `}
+      className={`m-4  size-fit  rounded-md p-2 `}
       onPress={() => {
         nav.dispatch(DrawerActions.toggleDrawer());
         console.log('aaaa');

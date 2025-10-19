@@ -33,22 +33,19 @@ const CoursePage = () => {
                     style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
 
                   <View className="m-2 flex flex-row-reverse  items-center justify-center transition-all duration-200">
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:scale-105 hover:bg-slate-300">
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 ">
                       <DollarSign size={18} color={'#404040'} />
                       <Text className=" mr-1  translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
                         {data[0].price} ر.س
                       </Text>
                     </View>
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 transition-all duration-200 hover:scale-105 hover:bg-slate-300 ">
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 transition-all duration-200  ">
                       <AlarmClock size={18} color={'#404040'} />
                       <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
                         {data[0].duration}
                       </Text>
                     </View>
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 transition-all duration-200 hover:scale-105 hover:bg-slate-300">
-                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2">
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 transition-all duration-200 ">
                       {GenreIcons[data[0].genre]}
 
                       <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600  ">
