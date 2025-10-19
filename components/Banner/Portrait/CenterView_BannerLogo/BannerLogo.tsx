@@ -1,11 +1,10 @@
 import { Text, Image, Pressable } from 'react-native';
 import { imgLogo } from '../../../../assets/images/ImageExports';
-import { useHeight } from '~/utils/Hooks';
 import { useRouter } from 'expo-router';
-import { MotiText, MotiView } from 'moti';
 
 const BannerLogo = () => {
-  const NavHome = () => useRouter().push('/');
+  const router = useRouter();
+  const NavHome = () => router.push('/');
   return (
     <>
       <Pressable

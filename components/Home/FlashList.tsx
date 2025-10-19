@@ -21,11 +21,11 @@ const CourseList = () => {
         {data?.map((item) => (
           <>
             <FadeIn>
-              <View className=" shadow-neutral-100-50 m-4 max-w-fit flex-col items-center justify-start  rounded-2xl  bg-neutral-200 shadow-md">
+              <View className=" shadow-neutral-100-50 m-4 size-fit max-w-fit flex-col items-center  justify-start  rounded-2xl bg-neutral-200 shadow-md">
                 <Image
                   className=" m-2 rounded-b-md rounded-t-2xl shadow-md shadow-neutral-300"
                   source={{ uri: item.image }}
-                  style={{ aspectRatio: 1, width: '80vw', maxWidth: 350 }}></Image>
+                  style={{ aspectRatio: 1, width: 350, height: 350 }}></Image>
 
                 <View className=" w-full flex-1">
                   <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
@@ -36,7 +36,7 @@ const CourseList = () => {
                   </Text>
                   <Pressable
                     onPress={() => HandleOnPress(item)}
-                    className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 ">
+                    className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
                     <Text className="  font-Kufi text-base font-semibold text-slate-100  ">
                       عرض
                     </Text>
