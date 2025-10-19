@@ -9,6 +9,8 @@ import { AnimatePresence, MotiView } from 'moti';
 import Background from '~/components/Background';
 import { GenreIcons } from './../../../../components/GenresIcons';
 import { tw } from 'twrnc';
+import MyImage from './../../../../node_modules/expo-image/build/useImage.d';
+import MyImage1 from './../../../../components/MyImage';
 
 const CoursePage = () => {
   const { id } = useLocalSearchParams();
@@ -29,10 +31,11 @@ const CoursePage = () => {
                 <ScrollView className="flex-1 flex-col  p-4">
                   <View className="flex-1 flex-col items-center justify-start">
                     <Text className="mt-4 font-Kufi text-2xl font-semibold">{data[0]?.title}</Text>
-                    <ExpoImage
-                      className=" m-2 mt-4 self-center rounded-md shadow-md shadow-neutral-300"
+
+                    <MyImage1
+                      className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                       source={{ uri: data[0].image }}
-                      style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></ExpoImage>
+                      style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
 
                     <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">
                       <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 transition-all duration-200 hover:scale-105 hover:bg-slate-200 ">

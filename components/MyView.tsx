@@ -1,9 +1,19 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { MotiView } from 'moti';
+import { ComponentProps } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import tw from 'twrnc';
 
-const MyView = ({ children, className, ...props }: { children: any; className: any }) => {
-  return <MotiView {...props}>{children}</MotiView>;
+type MyViewProps = Omit<ComponentProps<typeof MotiView>, 'style'> & {
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+const MyView = ({ children, className, ...props }: MyViewProps) => {
+  return (
+    <MotiView style={tw`${className || ''}`} {...props}>
+      {children}
+    </MotiView>
+  );
 };
 
 export default MyView;

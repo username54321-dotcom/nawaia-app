@@ -20,14 +20,14 @@ const CourseList = () => {
       <View className="bg-slate-200-200 flex-row flex-wrap justify-center ">
         {data?.map((item) => (
           <>
-            <FadeIn>
-              <View className=" shadow-neutral-100-50 m-4 size-fit max-w-fit flex-col items-center  justify-start  rounded-2xl bg-neutral-200 shadow-md">
+            <FadeIn key={item}>
+              <View className=" m-4 size-fit max-w-fit flex-col items-center justify-start rounded-2xl border-2  bg-neutral-200 shadow-md shadow-neutral-100">
                 <Image
                   className=" m-2 rounded-b-md rounded-t-2xl shadow-md shadow-neutral-300"
                   source={{ uri: item.image }}
                   style={{ aspectRatio: 1, width: 350, height: 350 }}></Image>
 
-                <View className=" w-full flex-1">
+                <View className=" w-full flex-1 shrink-0">
                   <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
                     {item.title}
                   </Text>
