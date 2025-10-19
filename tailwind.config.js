@@ -32,6 +32,7 @@ module.exports = {
       Kufi: ['Kufi'],
       Playwrite: ['Playwrite'],
       PlayywrightHandwritten: ['PlaywriteHandWritten'],
+      Boggle: ['Boggle'],
     },
   },
   plugins: [],

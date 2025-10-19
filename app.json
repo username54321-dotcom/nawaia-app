@@ -11,12 +11,6 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
-      ],
       "expo-web-browser",
       "expo-font"
     ],
@@ -25,10 +19,10 @@
       "tsconfigPaths": true
     },
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/logo-1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/logo-1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -38,7 +32,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo-1.png",
         "backgroundColor": "#ffffff"
       }
     }

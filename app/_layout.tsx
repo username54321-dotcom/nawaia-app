@@ -18,6 +18,7 @@ export default function RootLayout() {
     Kufi: require('~/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf'),
     PlayWrite: require('~/assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf'),
     PlaywriteHandWritten: require('~/assets/fonts/PlaywriteGBS-VariableFont_wght.ttf'),
+    Boggle: require('~/assets/fonts/BBHSansBogle-Regular.ttf'),
   });
 
   if (!Fontloaded) {

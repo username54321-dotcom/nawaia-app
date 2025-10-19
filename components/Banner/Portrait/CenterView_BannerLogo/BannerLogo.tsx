@@ -19,10 +19,10 @@ const BannerLogo = () => {
           source={imgLogo}
         />
 
-        <MotiText className=" font-PlayywrightHandwritten  text-2xl font-semibold tracking-wide  text-[#BE1E2D]">
+        <Text className=" translate-y-0  font-Playwrite text-3xl font-semibold  text-[#BE1E2D]">
           Dahlia
-        </MotiText>
-        <Text className="font-Playywright ml-1 translate-y-1 text-xl font-semibold text-slate-600">
+        </Text>
+        <Text className="font-Playywright ml-1 translate-y-[6px] text-xl font-semibold text-slate-600">
           Academy
         </Text>
       </Pressable>
