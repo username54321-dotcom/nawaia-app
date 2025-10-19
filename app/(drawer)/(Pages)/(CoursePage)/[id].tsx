@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, Redirect } from 'expo-router';
 import { Text, ScrollView, Image, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
@@ -7,7 +7,6 @@ import { AlarmClock, DollarSign } from 'lucide-react-native';
 import FadeIn from './../../../../components/Animations/FadeIn';
 import { AnimatePresence, MotiView } from 'moti';
 import Background from '~/components/Background';
-import MySkeleton from '~/components/MySkeleton';
 import { GenreIcons } from './../../../../components/GenresIcons';
 const CoursePage = () => {
   const { id } = useLocalSearchParams();
@@ -33,7 +32,6 @@ const CoursePage = () => {
                     style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
 
                   <View className="m-2 flex flex-row-reverse  items-center justify-center transition-all duration-200">
-                    ~
                     <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 ">
                       <DollarSign size={18} color={'#404040'} />
                       <Text className=" mr-1  translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
