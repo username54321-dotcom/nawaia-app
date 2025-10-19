@@ -1,105 +1,64 @@
-import DynamicBanner from '~/components/Banner/DynamicBanner';
 import { useLocalSearchParams } from 'expo-router';
 import { Text, ScrollView, Image, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
 import { GenreIcons } from './GenresIcons';
-import { Skeleton } from 'moti/skeleton';
-import { useState } from 'react';
-import { imgLogo } from '~/assets/images/ImageExports';
+
 import FadeIn from './../../../../components/Animations/FadeIn';
-import MySkeleton from './../../../../components/MySkeleton';
+import { AnimatePresence, MotiView } from 'moti';
+import Background from '~/components/Background';
+import MySkeleton from '~/components/MySkeleton';
 const CoursePage = () => {
-  const [loadind, setloading] = useState(true);
   const { id } = useLocalSearchParams();
   const { data, isSuccess } = useQuery({
     queryKey: ['course', id],
     queryFn: async () => {
-      // await new Promise((r) => setTimeout(r, 1));
+      // await new Promise((r) => setTimeout(r, 10000));
       return (await supabaseClient.from('courses').select('*').eq('id', id)).data;
     },
   });
   return (
     <>
-      <DynamicBanner></DynamicBanner>
-      {isSuccess && data?.length > 0 ? (
-        <FadeIn>
-          <ScrollView className="flex-1 flex-col items-center justify-start p-4">
-            <Text className="mt-4 font-Kufi text-2xl font-semibold">{data[0].title}</Text>
-            <Image
-              className=" m-2 mt-4 self-center rounded-md shadow-md shadow-neutral-300"
-              source={{ uri: data[0].image }}
-              style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
+      <Background>
+        <AnimatePresence exitBeforeEnter={true}>
+          {isSuccess && data?.length > 0 && (
+            <MotiView key="content" className="flex-1">
+              <FadeIn>
+                <ScrollView className="flex-1 flex-col items-center justify-start p-4">
+                  <Text className="mt-4 font-Kufi text-2xl font-semibold">{data[0]?.title}</Text>
+                  <Image
+                    className=" m-2 mt-4 self-center rounded-md shadow-md shadow-neutral-300"
+                    source={{ uri: data[0].image }}
+                    style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
 
-            <View className="m-2 flex flex-row-reverse items-center justify-center">
-              <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
-                <DollarSign size={18} color={'#404040'} />
-                <Text className=" mr-1 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
-                  {data[0].price} ر.س
-                </Text>
-              </View>
-              <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
-                <AlarmClock size={18} color={'#404040'} />
-                <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
-                  {data[0].duration}
-                </Text>
-              </View>
-              <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 target:bg-red-500 hover:bg-slate-300">
-                {GenreIcons[data[0].genre]}
+                  <View className="m-2 flex flex-row-reverse items-center justify-center">
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
+                      <DollarSign size={18} color={'#404040'} />
+                      <Text className=" mr-1 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
+                        {data[0].price} ر.س
+                      </Text>
+                    </View>
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
+                      <AlarmClock size={18} color={'#404040'} />
+                      <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
+                        {data[0].duration}
+                      </Text>
+                    </View>
+                    <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 target:bg-red-500 hover:bg-slate-300">
+                      {GenreIcons[data[0].genre]}
 
-                <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600  ">
-                  {data[0].genre}
-                </Text>
-              </View>
-            </View>
-          </ScrollView>
-        </FadeIn>
-      ) : (
-        <>
-          <Skeleton.Group show={true}>
-            <ScrollView className="flex-1 flex-col items-center justify-start p-4">
-              <MySkeleton>
-                <Text className="mt-4 w-1/2 font-Kufi text-2xl font-semibold">fshdflksdhf</Text>
-              </MySkeleton>
-              <View className="h-2 w-full"></View>
-
-              <MySkeleton>
-                <Image
-                  className=" m-2 mt-4 self-center rounded-md shadow-md shadow-neutral-300"
-                  source={{ uri: imgLogo }}
-                  style={{ aspectRatio: 1, width: '80vw', maxWidth: 600 }}></Image>
-              </MySkeleton>
-
-              <View className="h-2 w-full"></View>
-              <MySkeleton>
-                <View className="m-2 flex flex-row-reverse items-center justify-center">
-                  <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
-                    <DollarSign size={18} color={'#404040'} />
-                    <Text className=" mr-1 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
-                      {100} ر.س
-                    </Text>
+                      <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600  ">
+                        {data[0].genre}
+                      </Text>
+                    </View>
                   </View>
-
-                  <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300">
-                    <AlarmClock size={18} color={'#404040'} />
-                    <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
-                      20 minutes
-                    </Text>
-                  </View>
-
-                  <View className="ml-2 size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 px-4 py-2 hover:bg-slate-300 ">
-                    كتب
-                    <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600 ">
-                      كتب
-                    </Text>
-                  </View>
-                </View>
-              </MySkeleton>
-            </ScrollView>
-          </Skeleton.Group>
-        </>
-      )}
+                </ScrollView>
+              </FadeIn>
+            </MotiView>
+          )}
+        </AnimatePresence>
+      </Background>
     </>
   );
 };

@@ -6,7 +6,7 @@ const Background = ({ children }: { children?: React.ReactNode }) => {
   return (
     <SafeAreaView className="flex-1">
       <DynamicBanner></DynamicBanner>
-      <ScrollView className="flex-1">{children}</ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>{children}</ScrollView>
     </SafeAreaView>
   );
 };

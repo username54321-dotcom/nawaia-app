@@ -1,14 +1,29 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 
 import Background from '~/components/Background';
-import MySkeleton from './../../../components/MySkeleton';
+import { AnimatePresence, MotiView } from 'moti';
+import { useState } from 'react';
 
 const Books = () => {
+  const [toggle, setToggle] = useState(true);
   return (
     <>
       <Background>
-        <View className="h-48 w-full"></View>
-        <MySkeleton className="h-12 w-full"></MySkeleton>
+        <AnimatePresence>
+          {toggle && (
+            <MotiView
+              key={1111}
+              exit={{ opacity: 0.2 }}
+              exitTransition={{ type: 'timing', duration: 1000 }}>
+              <View className="h-12 w-28 bg-blue-500"></View>
+            </MotiView>
+          )}
+          <MotiView>
+            <Pressable
+              onPress={() => setToggle(!toggle)}
+              className="m-20 h-12 w-28 bg-green-500 "></Pressable>
+          </MotiView>
+        </AnimatePresence>
       </Background>
     </>
   );
