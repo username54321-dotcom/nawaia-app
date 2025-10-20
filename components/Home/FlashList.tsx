@@ -20,19 +20,17 @@ const CourseList = () => {
 
   return isSuccess ? (
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-      <MyView className="flex-row flex-wrap justify-center  ">
+      <MyView className="flex-row   flex-wrap justify-center  ">
         {data?.map((item) => (
           <>
             <FadeIn key={item}>
-              <MyView
-                style={{ shadowRadius: 5, shadowColor: 'black' }}
-                className="android:bg-blue-500 m-4 size-fit max-w-fit flex-col items-center justify-start   rounded-2xl bg-neutral-200 shadow-lg shadow-neutral-400/50">
+              <MyView className="android:bg-blue-500 shadow-2xlg m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-2xl shadow-black">
                 <MyImage1
                   className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
                   source={{ uri: item.image }}
                   style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
 
-                <MyView className=" w-full flex-1 shrink-0">
+                <MyView className=" w-full  shrink-0">
                   <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
                     {item.title}
                   </Text>

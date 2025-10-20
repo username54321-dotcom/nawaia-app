@@ -10,9 +10,11 @@ type MyViewProps = ComponentProps<typeof MotiView> & {
 
 const MyView = ({ children, style, className, ...props }: MyViewProps) => {
   return (
-    <MotiView style={[tw.style(className), style]} {...props}>
-      {children}
-    </MotiView>
+    <Pressable>
+      <MotiView style={[tw.style(className, ' flex-shrink'), style]} {...props}>
+        {children}
+      </MotiView>
+    </Pressable>
   );
 };
 
