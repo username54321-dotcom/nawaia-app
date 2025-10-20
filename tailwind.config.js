@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,tsx}', './components/**/*.{js,ts,tsx}'],
@@ -30,7 +32,7 @@ module.exports = {
     fontFamily: {
       AtomicAge: ['AtomicAge', 'sans-serif'],
       Kufi: ['Kufi'],
-      Playwrite: ['Playwrite'],
+      Playwrite: ['Playwrite DE Grund Thin'],
       PlayywrightHandwritten: ['PlaywriteHandWritten'],
       Boggle: ['Boggle'],
     },

@@ -10,9 +10,10 @@ type MyImageProps = Omit<ImageProps, 'className'> & {
 };
 
 const MyImage1 = ({ className, ...imageProps }: MyImageProps) => {
+  const key = Math.random();
   return (
-    <MotiView style={tw`${className}`}>
-      <Image {...imageProps} />
+    <MotiView key={key} style={tw`${className || ''} overflow-hidden`}>
+      <Image key={key} {...imageProps} />
     </MotiView>
   );
 };

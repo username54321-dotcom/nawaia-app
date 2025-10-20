@@ -1,8 +1,5 @@
 import { Drawer } from 'expo-router/drawer';
 
-import { useWidth } from './../../utils/Hooks';
-import { Home, Info } from 'lucide-react-native';
-
 const DrawerLayout = () => {
   return (
     <>

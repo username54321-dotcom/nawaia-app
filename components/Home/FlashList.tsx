@@ -1,11 +1,14 @@
-import { View, Text, Image, ScrollView, Pressable, TouchableOpacity } from 'react-native';
+import { Text, Image, ScrollView, Pressable, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import FadeIn from './../Animations/FadeIn';
+import MyView from '../MyView';
+import MyImage1 from '../MyImage';
 
 const CourseList = () => {
   const router = useRouter();
+  const key = Math.random();
   const HandleOnPress = (item) => {
     router.push({ pathname: `/(drawer)/(Pages)/(CoursePage)/${item.id}` });
   };
@@ -17,17 +20,19 @@ const CourseList = () => {
 
   return isSuccess ? (
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-      <View className="bg-slate-200-200 flex-row flex-wrap justify-center ">
+      <MyView className="flex-row flex-wrap justify-center  ">
         {data?.map((item) => (
           <>
             <FadeIn key={item}>
-              <View className=" m-4 size-fit max-w-fit flex-col items-center justify-start rounded-2xl border-2  bg-neutral-200 shadow-md shadow-neutral-100">
-                <Image
-                  className=" m-2 rounded-b-md rounded-t-2xl shadow-md shadow-neutral-300"
+              <MyView
+                style={{ shadowRadius: 5, shadowColor: 'black' }}
+                className="android:bg-blue-500 m-4 size-fit max-w-fit flex-col items-center justify-start   rounded-2xl bg-neutral-200 shadow-lg shadow-neutral-400/50">
+                <MyImage1
+                  className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
                   source={{ uri: item.image }}
-                  style={{ aspectRatio: 1, width: 350, height: 350 }}></Image>
+                  style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
 
-                <View className=" w-full flex-1 shrink-0">
+                <MyView className=" w-full flex-1 shrink-0">
                   <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
                     {item.title}
                   </Text>
@@ -41,12 +46,12 @@ const CourseList = () => {
                       عرض
                     </Text>
                   </Pressable>
-                </View>
-              </View>
+                </MyView>
+              </MyView>
             </FadeIn>
           </>
         ))}
-      </View>
+      </MyView>
     </ScrollView>
   ) : null;
 };

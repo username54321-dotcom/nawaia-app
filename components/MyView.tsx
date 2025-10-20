@@ -1,18 +1,19 @@
-import { MotiView } from 'moti';
+import { motify } from 'moti';
 import { ComponentProps } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { View } from 'react-native';
 import tw from 'twrnc';
 
-type MyViewProps = Omit<ComponentProps<typeof MotiView>, 'style'> & {
+const MotifiedView = motify(View)();
+
+type MyViewProps = ComponentProps<typeof MotifiedView> & {
   className?: string;
-  style?: StyleProp<ViewStyle>;
 };
 
-const MyView = ({ children, className, ...props }: MyViewProps) => {
+const MyView = ({ children, style, className, ...props }: MyViewProps) => {
   return (
-    <MotiView style={tw`${className || ''}`} {...props}>
+    <MotifiedView className={className} style={[tw.style(className || ''), style]} {...props}>
       {children}
-    </MotiView>
+    </MotifiedView>
   );
 };
 

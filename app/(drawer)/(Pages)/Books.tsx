@@ -11,7 +11,7 @@ const Books = () => {
     <>
       <Background>
         {' '}
-        <View style={tw`size-48 bg-black`}></View>{' '}
+        <MotiView className="size-24 bg-black"></MotiView>
       </Background>
     </>
   );

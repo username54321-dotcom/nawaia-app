@@ -20,6 +20,7 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   return (
     <MotiView
       state={animation}
+      key={Math.random()}
       transition={{ duration: 200, type: 'timing' }}
       onLayout={() => animation.transitionTo('animate')}
       onBlur={() => animation.transitionTo('from')}
