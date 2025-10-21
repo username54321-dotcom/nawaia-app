@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import { useIsFocused } from '@react-navigation/native';
 import randomItem from 'random-item';
@@ -10,20 +10,19 @@ type FadeInProps = {
 
 const FadeIn = ({ className, children }: FadeInProps) => {
   const number = randomItem([1.02, 1.03, 1.04]);
-  const animation = useAnimationState(
-    {
-      from: { opacity: 0, scale: 0 },
-      animate: { opacity: 1, scale: [number, 1] },
-    },
-    {}
-  );
+  const isFocus = useIsFocused();
+  const animation = useAnimationState({
+    from: { opacity: 0, scale: 0 },
+    animate: { opacity: 1, scale: [number, 1] },
+  });
+  useEffect(() => {
+    isFocus ? animation.transitionTo('animate') : animation.transitionTo('from');
+  }, [isFocus]);
   return (
     <MotiView
       state={animation}
       key={Math.random()}
       transition={{ duration: 200, type: 'timing' }}
-      onLayout={() => animation.transitionTo('animate')}
-      onBlur={() => animation.transitionTo('from')}
       className={className}>
       {children}
     </MotiView>
