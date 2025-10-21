@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import FadeIn from './../Animations/FadeIn';
-import MyView from '../MyView';
 import MyImage1 from '../MyImage';
 
 const CourseList = () => {
@@ -20,17 +19,17 @@ const CourseList = () => {
 
   return isSuccess ? (
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-      <MyView className="flex-row   flex-wrap justify-center  ">
+      <View className="flex-row   flex-wrap justify-center  ">
         {data?.map((item) => (
           <>
             <FadeIn key={item}>
-              <MyView className="android:bg-blue-500 shadow-2xlg m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-2xl shadow-black">
+              <View className="  android:border-[0.1px] m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
                 <MyImage1
                   className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
                   source={{ uri: item.image }}
                   style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
 
-                <MyView className=" w-full  shrink-0">
+                <View className=" w-full  shrink-0">
                   <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
                     {item.title}
                   </Text>
@@ -44,12 +43,12 @@ const CourseList = () => {
                       عرض
                     </Text>
                   </Pressable>
-                </MyView>
-              </MyView>
+                </View>
+              </View>
             </FadeIn>
           </>
         ))}
-      </MyView>
+      </View>
     </ScrollView>
   ) : null;
 };

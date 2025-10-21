@@ -10,8 +10,7 @@ const Books = () => {
   return (
     <>
       <Background>
-        {' '}
-        <MotiView className="size-24 bg-black"></MotiView>
+        <View className="size-24 bg-black"></View>
       </Background>
     </>
   );

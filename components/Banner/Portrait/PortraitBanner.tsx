@@ -3,14 +3,10 @@ import SignedOutButton from './LeftView_UserButton/SignedOutButton';
 import BannerLogo from './CenterView_BannerLogo/BannerLogo';
 import MenuButton from './RightView_MenuButton/MenuButton';
 
-const PortraitBanner = ({ className }: { className?: string }) => {
+const PortraitBanner = () => {
   return (
     // Parent View
-    <View
-      className={
-        ` z-[1]   h-[8vh] min-h-[75] w-full flex-row items-center justify-between  bg-neutral-200 shadow-md shadow-slate-300 ` +
-        className
-      }>
+    <View className=" z-10 h-[8vh] w-full flex-row items-center justify-between bg-neutral-200 shadow-md shadow-slate-300 ">
       {/* Left View */}
       <View className="flex h-full w-[16%] items-center justify-center">
         <SignedOutButton />

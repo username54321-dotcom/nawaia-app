@@ -7,11 +7,11 @@ const MenuButton = () => {
   const nav = useNavigation();
   return (
     <Pressable
-      className={`m-4  size-fit  rounded-md p-2 `}
       onPress={() => {
         nav.dispatch(DrawerActions.toggleDrawer());
-        console.log('aaaa');
-      }}>
+      }}
+      className={`m-4  size-fit rounded-md   hover:bg-slate-900 `}
+      shadow={'shadow-lg shadow-black'}>
       <Menu size={28} color="#BE1E2D" strokeWidth={2} />
     </Pressable>
   );
