@@ -1,8 +1,6 @@
 import { Link, useRouter } from 'expo-router';
 import { LinkIcon } from 'lucide-react-native';
-import { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
-import * as Linking from 'expo-linking';
+import { View, Text } from 'react-native';
 
 const IdContent = ({ data }: { data: any }) => {
   const router = useRouter();

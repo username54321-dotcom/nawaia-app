@@ -11,6 +11,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import tw from 'twrnc';
 import { useState } from 'react';
 import IdContent from './../../../../components/Pages/[id]/Content';
+import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
+import MyModal from './../../../../components/Pages/[id]/MyModal';
 const CoursePage = () => {
   const [TextExpand, setTextExpand] = useState(false);
   const { id } = useLocalSearchParams();
@@ -24,6 +26,7 @@ const CoursePage = () => {
   return (
     <>
       <Background>
+        <MyModal></MyModal>
         {isSuccess && data?.length > 0 && (
           <FadeIn>
             <View
@@ -60,33 +63,8 @@ const CoursePage = () => {
                   </Text>
                 </View>
               </View>
-              <View
-                aria-label="Description Container "
-                className=" mx-4 my-6 flex size-fit rounded-md border-2 border-slate-600 bg-slate-200 pt-1 ">
-                <Text
-                  aria-label="Long Description Text"
-                  className=" m-2  text-center font-Kufi   text-lg font-semibold  text-neutral-700">
-                  {data[0].short_description}
-                </Text>
-                <View
-                  aria-label="Separator"
-                  className="m-4 h-1 w-4/5 self-center border-t-2 opacity-75"></View>
-                <Text
-                  aria-label="Long Description Text"
-                  className={`z-10 m-2 mb-0 w-[90%] self-center  px-4 text-right  font-Kufi text-base text-neutral-700 transition-all  duration-300 ${TextExpand ? null : 'line-clamp-6'}`}>
-                  {data[0].long_description}
-                </Text>
-                <Pressable
-                  className="flex items-center justify-start"
-                  onPress={() => setTextExpand((state) => !state)}>
-                  <Text className="text-md m-2 font-Kufi font-semibold text-red-800">
-                    {TextExpand ? 'أخفاء' : 'عرض المزيد'}
-                  </Text>
-                </Pressable>
-                <View
-                  aria-label="Separator"
-                  className="my-4 h-1 w-4/5 self-center border-t-2 opacity-75"></View>
-              </View>
+              <TextAccordion data={data[0]}></TextAccordion>
+
               <IdContent data={data}></IdContent>
             </View>
           </FadeIn>
