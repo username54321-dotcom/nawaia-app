@@ -20,6 +20,7 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   }, [isFocus]);
   return (
     <MotiView
+      style={{ transform: [{ rotateZ: 0 }] }}
       state={animation}
       key={Math.random()}
       transition={{ duration: 200, type: 'timing' }}

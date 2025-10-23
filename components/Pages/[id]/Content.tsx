@@ -1,14 +1,17 @@
-import { Link, useRouter } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 import { LinkIcon } from 'lucide-react-native';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
+import * as Linking from 'expo-linking';
+import { useIsAuth, useModalVisible } from '~/store/store';
 
 const IdContent = ({ data }: { data: any }) => {
-  const router = useRouter();
   const content = data[0].content;
+  const { isAuth } = useIsAuth();
+  const { setModalVisible } = useModalVisible();
 
   return (
     <>
-      {content.map((item, index) => {
+      {content.map((item) => {
         return (
           <>
             <View
@@ -37,9 +40,12 @@ const IdContent = ({ data }: { data: any }) => {
                     </Text>
                   </View>
                   <View>
-                    <Link href={item.LessonLink} target="_blank">
+                    <Pressable
+                      onPress={() =>
+                        isAuth ? Linking.openURL(item.LessonLink) : setModalVisible(true)
+                      }>
                       <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
-                    </Link>
+                    </Pressable>
                   </View>
                 </View>
               </>

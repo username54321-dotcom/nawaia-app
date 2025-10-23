@@ -9,10 +9,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
+import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
+import { useModalVisible } from '~/store/store';
 
 const tanstackQueryClient = new QueryClient();
 
 export default function RootLayout() {
+  const { ModalVisible } = useModalVisible();
   const [Fontloaded] = useFonts({
     AtomicAge: AtomicAge_400Regular,
     Kufi: require('~/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf'),
@@ -31,6 +34,7 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         </Stack>
+        <MyModal show={ModalVisible}></MyModal>
       </QueryClientProvider>
     </GestureHandlerRootView>
   );

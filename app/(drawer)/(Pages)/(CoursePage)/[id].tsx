@@ -1,4 +1,4 @@
-import { useLocalSearchParams, Redirect } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { Text, View, Pressable } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
@@ -7,14 +7,11 @@ import FadeIn from './../../../../components/Animations/FadeIn';
 import Background from '~/components/Background';
 import { GenreIcons } from './../../../../components/GenresIcons';
 import MyImage1 from './../../../../components/MyImage';
-import { LinearGradient } from 'expo-linear-gradient';
-import tw from 'twrnc';
-import { useState } from 'react';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
-import MyModal from './../../../../components/Pages/[id]/MyModal';
+import { useModalVisible } from '~/store/store';
 const CoursePage = () => {
-  const [TextExpand, setTextExpand] = useState(false);
+  const { ModalVisible, setModalVisible } = useModalVisible();
   const { id } = useLocalSearchParams();
   const { data, isSuccess } = useQuery({
     queryKey: ['course', id],
@@ -26,12 +23,11 @@ const CoursePage = () => {
   return (
     <>
       <Background>
-        <MyModal></MyModal>
         {isSuccess && data?.length > 0 && (
           <FadeIn>
             <View
               aria-label="Main Course Card"
-              className="mx-auto max-w-[700px] flex-1 flex-col items-center justify-start">
+              className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{data[0]?.title}</Text>
 
               <MyImage1

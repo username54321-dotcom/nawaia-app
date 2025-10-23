@@ -1,11 +1,10 @@
 import { Pressable, Text, View } from 'react-native';
 import { User } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { useAuthStore } from '~/store/store';
-import { SafeAreaView } from './../../../../node_modules/moti/build/components/safe-area-view';
+import { useIsAuth } from '~/store/store';
 
 const SignedOutButton = () => {
-  const { isAuth } = useAuthStore();
+  const { isAuth } = useIsAuth();
   const router = useRouter();
   const SignInPage = () => {
     router.push('/(drawer)/(Pages)/Courses');
