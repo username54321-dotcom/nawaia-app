@@ -16,7 +16,12 @@ const MyModal = () => {
   const [LoginError, setLoginError] = useState(false);
   const EmailInput = useRef(null);
   const PasswordInput = useRef(null);
-
+  const HandleCancelButton = () => {
+    setLoginError(false);
+    setModalVisible(false);
+    setShowPassword(false);
+    setShowPasswordIcon(false);
+  };
   const HandleSignIn = async () => {
     const email = EmailInput.current.value;
     const password = PasswordInput.current.value;
@@ -50,7 +55,7 @@ const MyModal = () => {
           <View className="flex-col items-center justify-center rounded-xl border-4 border-slate-600 bg-slate-300 px-10 pt-10   ">
             {/* Cancel Button */}
             <Pressable
-              onPress={() => setModalVisible(false)}
+              onPress={HandleCancelButton}
               className="absolute right-1 top-1 flex size-fit items-center justify-center rounded-xl p-1 ">
               <X color={'#334155'} strokeWidth={2} />
             </Pressable>
