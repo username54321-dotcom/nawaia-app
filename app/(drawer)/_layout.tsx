@@ -1,6 +1,8 @@
 import { Drawer } from 'expo-router/drawer';
+import { useIsAuth } from '~/store/store';
 
 const DrawerLayout = () => {
+  const { isAuth } = useIsAuth();
   return (
     <>
       <Drawer
@@ -27,6 +29,12 @@ const DrawerLayout = () => {
         <Drawer.Screen
           name="(Pages)/(CoursePage)/[id]"
           options={{ drawerItemStyle: { display: 'none' } }}></Drawer.Screen>
+        <Drawer.Screen
+          name="(Pages)/SignUp"
+          options={{
+            drawerItemStyle: { display: !isAuth ? 'flex' : 'none' },
+            drawerLabel: 'انشيء حسابك',
+          }}></Drawer.Screen>
       </Drawer>
     </>
   );

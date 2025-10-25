@@ -1,12 +1,14 @@
 import { View, Text, Pressable, Modal, TextInput } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
-import { MotiView, useAnimationState } from 'moti';
+import { MotiText, MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
 import { useIsAuth, useModalVisible } from '~/store/store';
 
 import { useRouter } from 'expo-router';
 import { supabaseClient } from '~/utils/supabase';
+import tw from 'twrnc';
+import FadeIn from './../../../Animations/FadeIn';
 
 const MyModal = () => {
   const { ModalVisible, setModalVisible } = useModalVisible();
@@ -14,6 +16,7 @@ const MyModal = () => {
   const [ShowPasswordIcon, setShowPasswordIcon] = useState(false);
   const [ShowPassword, setShowPassword] = useState(false);
   const [LoginError, setLoginError] = useState(false);
+  const [SignInSuccess, setSignInSuccess] = useState(false);
   const EmailInput = useRef(null);
   const PasswordInput = useRef(null);
   const HandleCancelButton = () => {
@@ -30,7 +33,10 @@ const MyModal = () => {
       password: password,
     });
     error && setLoginError(true);
-    data.user && setModalVisible(false) && setLoginError(false);
+    data.user && setSignInSuccess(true);
+    setTimeout(() => {
+      HandleCancelButton();
+    }, 1000);
   };
 
   const HandleShowPassword = (v) => {
@@ -97,6 +103,12 @@ const MyModal = () => {
               className="mt-4 rounded-md border-[1px] bg-red-700  px-4 py-1">
               <Text className="font-Kufi text-sm leading-6 text-slate-100 ">تسجيل الدخول</Text>
             </Pressable>
+            {/**SignIn Succesfull */}
+            {SignInSuccess && (
+              <FadeIn>
+                <Text className="mt-2 font-Kufi">تم تسجبل الدخول بنجاح !</Text>
+              </FadeIn>
+            )}
             {/**Separator */}
             <View className="mt-4 w-full border-[1px] border-slate-700 opacity-75"></View>
             {/**Create Your Account */}
@@ -104,8 +116,8 @@ const MyModal = () => {
               <Text className="font-Kufi text-xs">غير مشترك ؟ </Text>
               <Pressable
                 onPress={() => {
-                  router.push('/(drawer)/(Pages)/Courses');
                   setModalVisible(false);
+                  router.push('/(drawer)/(Pages)/Courses');
                 }}>
                 <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
                   أنشيء حسابك الآن
