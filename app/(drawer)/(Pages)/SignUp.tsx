@@ -1,9 +1,13 @@
-import Background from '~/components/Background';
+import React from 'react';
 import { z } from 'zod';
-import { useForm, Controller } from 'react-hook-form';
-
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { TvIcon } from 'lucide-react-native';
+
+import Background from '~/components/Background';
 import MyController from './../../../components/Pages/SignUp/SignUpInput';
+import { Pressable, View } from 'react-native';
+
 // *Schema
 const schema = z
   .object({
@@ -12,10 +16,9 @@ const schema = z
       .min(3, { message: 'اسم المستخدم يجب أن يتكون من 3 أحرف على الأقل.' })
       .max(20, { message: 'اسم المستخدم يجب ألا يزيد عن 20 حرفًا.' })
       .regex(/^[a-zA-Z0-9_]+$/, {
-        message: 'اسم المستخدم يمكن أن يحتوي فقط على أحرف وأرقام وشرطة سفلية (_).',
+        message: 'اسم المستخدم يجب أن يتكون من أحرف وأرقام أنجليزية',
       }),
     email: z.string().email({ message: 'الرجاء إدخال عنوان بريد إلكتروني صالح.' }),
-
     password: z
       .string()
       .min(8, { message: 'كلمة المرور يجب أن تتكون من 8 أحرف على الأقل.' })
@@ -28,18 +31,16 @@ const schema = z
       .regex(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/, {
         message: 'الرجاء استخدام الحروف الإنجليزية والأرقام والرموز فقط لكلمة المرور.',
       }),
-
     confirmPassword: z.string(),
-
-    // يمكنك إضافة حقول اختيارية مثل هذا
-    termsAccepted: z
-      .boolean()
-      .refine((val) => val === true, { message: 'يجب عليك الموافقة على الشروط والأحكام.' }),
+    // termsAccepted: z
+    //   .boolean()
+    //   .refine((val) => val === true, { message: 'يجب عليك الموافقة على الشروط والأحكام.' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'كلمتا المرور غير متطابقتين.',
-    path: ['confirmPassword'], // هنا نحدد مكان ظهور رسالة الخطأ
+    path: ['confirmPassword'],
   });
+
 //* Types
 type FormTypes = z.infer<typeof schema>;
 
@@ -59,16 +60,37 @@ const SignUp = () => {
     <Background>
       <MyController
         control={control}
+        error={errors.username}
+        name="username"
+        placeholder="أسم المستخدم"
+        title="أسم المستخدم"
+      />
+      <MyController
+        control={control}
         error={errors.email}
         name="email"
-        className=""
-        placeholder="email"></MyController>
+        placeholder="Email"
+        title="البريد الالكتروني"
+      />
       <MyController
         control={control}
         error={errors.password}
+        secure={true}
+        icon={TvIcon}
         name="password"
-        className="border-4"
-        placeholder="password"></MyController>
+        placeholder="Password"
+        title="كلمة السر"
+      />
+      <MyController
+        control={control}
+        error={errors.confirmPassword}
+        secure={true}
+        icon={TvIcon}
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        title="تأكيد كلمة السر"
+      />
+      <Pressable onPress={handleSubmit(HandleOnSubmit)} className="size-16 bg-red-500"></Pressable>
     </Background>
   );
 };
