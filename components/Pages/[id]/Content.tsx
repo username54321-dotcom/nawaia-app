@@ -11,9 +11,9 @@ const IdContent = ({ data }: { data: any }) => {
 
   return (
     <>
-      {content.map((item) => {
+      {content.map((item, index) => {
         return (
-          <>
+          <View key={index}>
             <View
               aria-label="ChapterName Container"
               className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl"
@@ -25,10 +25,9 @@ const IdContent = ({ data }: { data: any }) => {
               </Text>
             </View>
             {item.Lessons.map((item, index) => (
-              <>
+              <View key={index}>
                 <View
                   aria-label="Lesson Conatainer"
-                  key={index}
                   className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
                   <View
                     aria-label="LessonName container "
@@ -49,9 +48,9 @@ const IdContent = ({ data }: { data: any }) => {
                     </Pressable>
                   </View>
                 </View>
-              </>
+              </View>
             ))}
-          </>
+          </View>
         );
       })}
     </>
