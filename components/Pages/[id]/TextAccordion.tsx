@@ -16,7 +16,7 @@ const TextAccordion = ({ data }: { data: any }) => {
     <>
       <MotiView
         state={animation}
-        style={tw`h-[300px] overflow-hidden mx-4 my-6 flex size-fit rounded-md border-2 border-slate-600 bg-slate-200 pt-1 `}>
+        style={tw`h-[300px] overflow-hidden w-4/5 max-w-[600px] mx-4 my-6 flex size-fit rounded-md border-2 border-slate-600 bg-slate-200 pt-1 `}>
         <View onLayout={(e) => setTextHeight(e.nativeEvent.layout.height + 50)}>
           <Text
             aria-label="Long Description Text"

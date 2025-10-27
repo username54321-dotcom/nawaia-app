@@ -20,8 +20,8 @@ const CourseList = () => {
   return isSuccess ? (
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <View className="flex-row   flex-wrap justify-center  ">
-        {data?.map((item) => (
-          <>
+        {data?.map((item, i) => (
+          <View key={i}>
             <FadeIn key={item}>
               <View className="  android:border-[0.1px] m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
                 <MyImage1
@@ -46,7 +46,7 @@ const CourseList = () => {
                 </View>
               </View>
             </FadeIn>
-          </>
+          </View>
         ))}
       </View>
     </ScrollView>

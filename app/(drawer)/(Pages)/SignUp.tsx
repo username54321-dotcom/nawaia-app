@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TvIcon } from 'lucide-react-native';
-
 import Background from '~/components/Background';
 import MyController from '../../../components/Pages/SignUp/MyController';
 import { Pressable, Text, View } from 'react-native';
@@ -11,7 +10,7 @@ import MyImage1 from './../../../components/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
-import { useIsAuth, useModalVisible } from '~/store/store';
+import { useModalVisible } from '~/store/store';
 
 // *Schema
 const schema = z
@@ -74,7 +73,7 @@ const SignUp = () => {
   return (
     <Background>
       {/**SignUp Card */}
-      <View className="mx-auto mt-8 w-4/5 self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8">
+      <View className="mx-auto mt-8 w-4/5 max-w-[400px] self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8 ">
         {/**Logo */}
         <MyImage1 className="size-18 mb-6 self-center" source={imgLogo}></MyImage1>
         {/**Separator */}
@@ -125,8 +124,8 @@ const SignUp = () => {
 
         <Pressable
           onPress={handleSubmit(HandleOnSubmit)}
-          className=" mt-6 size-fit self-center rounded-xl bg-red-500 px-6 py-2">
-          <Text className="font-Kufi font-bold  text-gray-50">أشتراك</Text>
+          className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
+          <Text className="font-Kufi   text-gray-50">أشتراك</Text>
         </Pressable>
         <Text>{SignUpError}</Text>
         {/**Separator */}
@@ -134,6 +133,9 @@ const SignUp = () => {
         <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
           <Text>لديك حساب ؟ سجل دخولك</Text>
         </Pressable>
+        <Pressable
+          onPress={async () => await supabaseClient.auth.signOut()}
+          className="size-12 bg-red-500"></Pressable>
       </View>
     </Background>
   );

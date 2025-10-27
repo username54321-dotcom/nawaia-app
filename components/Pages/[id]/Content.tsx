@@ -13,7 +13,7 @@ const IdContent = ({ data }: { data: any }) => {
     <>
       {content.map((item, index) => {
         return (
-          <View key={index}>
+          <View className="w-full" key={index}>
             <View
               aria-label="ChapterName Container"
               className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl"
