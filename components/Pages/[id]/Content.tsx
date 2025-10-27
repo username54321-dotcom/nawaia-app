@@ -5,7 +5,7 @@ import * as Linking from 'expo-linking';
 import { useIsAuth, useModalVisible } from '~/store/store';
 
 const IdContent = ({ data }: { data: any }) => {
-  const content = data[0].content;
+  const content = data.content;
   const { isAuth } = useIsAuth();
   const { setModalVisible } = useModalVisible();
 
@@ -16,7 +16,8 @@ const IdContent = ({ data }: { data: any }) => {
           <>
             <View
               aria-label="ChapterName Container"
-              className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl">
+              className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl"
+              key={item.id}>
               <Text
                 aria-label="ChapterName Text"
                 className="font-Kufi text-lg font-semibold text-slate-600">
@@ -27,7 +28,7 @@ const IdContent = ({ data }: { data: any }) => {
               <>
                 <View
                   aria-label="Lesson Conatainer"
-                  id={index}
+                  key={index}
                   className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
                   <View
                     aria-label="LessonName container "
