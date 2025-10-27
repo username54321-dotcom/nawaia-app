@@ -7,7 +7,7 @@ const SignedOutButton = () => {
   const { isAuth } = useIsAuth();
   const router = useRouter();
   const SignInPage = () => {
-    router.push('/(drawer)/(Pages)/Courses');
+    router.push({ pathname: '/(drawer)/(Pages)/SignUp' });
   };
   return (
     <Pressable onPress={SignInPage} className=" ">

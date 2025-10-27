@@ -14,7 +14,7 @@ const MyController = ({
 }: {
   control: any;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   error: any;
   secure?: boolean;
@@ -27,18 +27,20 @@ const MyController = ({
         control={control}
         name={name}
         render={({ field: { value, onChange, onBlur } }) => (
-          <>
-            <Text className="font-Kufi font-bold">{title}</Text>
+          <View className="mt-2 flex-1 flex-col items-center justify-center ">
+            <Text className="mb-2 mt-2 self-end  font-Kufi text-xs font-bold text-gray-900">
+              {title}
+            </Text>
             <TextInput
               onChange={onChange}
               secureTextEntry={secure}
               onBlur={onBlur}
               placeholder={placeholder}
               value={value}
-              className=" rounded-md  bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
-          </>
+              className={`size-fit w-full rounded-md border-[1px] border-gray-500 bg-slate-100 p-2  outline-none placeholder:text-right placeholder:text-gray-500 ${error && 'border-red-500'} ${className} `}></TextInput>
+            {error && <Text className="font-Kufi text-xs text-red-600">{error.message}</Text>}
+          </View>
         )}></Controller>
-      {error && <Text className="font-Kufi text-red-600">{error.message}</Text>}
     </>
   );
 };
