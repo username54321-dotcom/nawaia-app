@@ -84,9 +84,7 @@ function Courses() {
         </Pressable>
 
         <Pressable
-          onPress={async () => {
-            console.log(await supabaseClient.auth.getUser());
-          }}
+          onPress={async () => {}}
           className="m-4 flex size-fit items-center justify-center rounded-xl bg-red-500 p-4">
           <Text className="font-bold text-neutral-100">getSession</Text>
         </Pressable>

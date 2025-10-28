@@ -1,21 +1,27 @@
 import { useNavigation, useRouter } from 'expo-router';
 import { LinkIcon } from 'lucide-react-native';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, TextInput } from 'react-native';
 import * as Linking from 'expo-linking';
 import { useIsAuth, useModalVisible } from '~/store/store';
+import { useState } from 'react';
+import { supabaseClient } from '~/utils/supabase';
 
-const IdContent = ({ data }: { data: any }) => {
+const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   const content = data.content;
+  const [Note, setNote] = useState<string | null>(null);
   const { isAuth } = useIsAuth();
   const { setModalVisible } = useModalVisible();
+  const getContent = (lesson_id) => {
+    return data?.notes?.filter((item) => item.lesson_id == lesson_id)[0]?.content;
+  };
 
   return (
     <>
-      {content.map((item, index) => {
+      {content.map((item: any, index: any) => {
         return (
           <View className="w-full" key={index}>
+            {/**Chapter Name Container */}
             <View
-              aria-label="ChapterName Container"
               className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl"
               key={item.id}>
               <Text
@@ -24,14 +30,13 @@ const IdContent = ({ data }: { data: any }) => {
                 {item.chapterName}
               </Text>
             </View>
-            {item.Lessons.map((item, index) => (
+            {/** Lessons List */}
+            {item.Lessons.map((item: any, index: any) => (
               <View key={index}>
-                <View
-                  aria-label="Lesson Conatainer"
-                  className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
-                  <View
-                    aria-label="LessonName container "
-                    className="flex-row-reverse items-center justify-end px-4">
+                {/**Lesson Container */}
+                <View className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
+                  {/**Lesson Name and Icon */}
+                  <View className="flex-row-reverse items-center justify-end px-4">
                     <LinkIcon size={16} strokeWidth={2.5} className="ml-6 " />
                     <Text
                       aria-label="LessonName Text"
@@ -39,6 +44,7 @@ const IdContent = ({ data }: { data: any }) => {
                       {item.lessonName}
                     </Text>
                   </View>
+                  {/** Watch Lesson Button */}
                   <View>
                     <Pressable
                       onPress={() =>
@@ -48,6 +54,21 @@ const IdContent = ({ data }: { data: any }) => {
                     </Pressable>
                   </View>
                 </View>
+
+                <TextInput className="border-2" onChangeText={(e) => setNote(e)}></TextInput>
+                <Pressable
+                  onPress={async () => {
+                    const { data: any } = await supabaseClient
+                      .from('notes')
+                      .upsert(
+                        { lesson_id: item.uuid, content: Note, course_id: data.id },
+                        { onConflict: 'user_id, lesson_id' }
+                      );
+                    data && refetch();
+                  }}
+                  className="size-8 bg-red-500"></Pressable>
+
+                <Text className="min-w-1">{getContent(item.uuid)}</Text>
               </View>
             ))}
           </View>

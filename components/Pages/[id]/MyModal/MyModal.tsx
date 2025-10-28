@@ -13,18 +13,22 @@ import FadeIn from './../../../Animations/FadeIn';
 const MyModal = () => {
   const { ModalVisible, setModalVisible } = useModalVisible();
   const router = useRouter();
+  //States
   const [ShowPasswordIcon, setShowPasswordIcon] = useState(false);
   const [ShowPassword, setShowPassword] = useState(false);
   const [LoginError, setLoginError] = useState(false);
   const [SignInSuccess, setSignInSuccess] = useState(false);
+  // Input Refs
   const EmailInput = useRef(null);
   const PasswordInput = useRef(null);
+  //Clear and Cancel
   const HandleCancelButton = () => {
     setLoginError(false);
     setModalVisible(false);
     setShowPassword(false);
     setShowPasswordIcon(false);
   };
+  //Try to Sign In
   const HandleSignIn = async () => {
     const email = EmailInput.current.value;
     const password = PasswordInput.current.value;
@@ -38,11 +42,11 @@ const MyModal = () => {
       data.user && HandleCancelButton();
     }, 1000);
   };
-
+  // Show Password
   const HandleShowPassword = (v) => {
     v.length > 0 ? setShowPasswordIcon(true) : setShowPasswordIcon(false);
   };
-
+  // Animations (required for modals * always visible !!)
   const animation = useAnimationState({
     from: { opacity: 0, scale: 0 },
     to: { opacity: 1, scale: 1 },

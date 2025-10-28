@@ -61,7 +61,6 @@ const SignUp = () => {
     });
     SignUpData && router.push({ pathname: '/' }) && console.log(SignUpData);
     SignUpError && setSignUpError(SignUpError.message) && console.log(SignUpError);
-    console.log(SignUpData, SignUpError);
   };
   const {
     formState: { errors },

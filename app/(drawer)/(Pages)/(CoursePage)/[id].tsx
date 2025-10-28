@@ -9,36 +9,40 @@ import { GenreIcons } from './../../../../components/GenresIcons';
 import MyImage1 from './../../../../components/MyImage';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
-import { useModalVisible } from '~/store/store';
+import { useIsAuth, useModalVisible } from '~/store/store';
+import { useEffect } from 'react';
 const CoursePage = () => {
+  const { isAuth } = useIsAuth();
   const { ModalVisible, setModalVisible } = useModalVisible();
   const { id } = useLocalSearchParams();
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, refetch } = useQuery({
     queryKey: ['course', id],
     queryFn: async () => {
       // await new Promise((r) => setTimeout(r, 10000));
-      return (await supabaseClient.from('courses').select('*').eq('id', id).limit(1).single()).data;
+      const { data } = !isAuth
+        ? await supabaseClient.from('courses').select('*').eq('id', id).limit(1).single()
+        : await supabaseClient
+            .from('auth_courses')
+            .select('*,notes(content,lesson_id)')
+            .eq('id', id)
+            .limit(1)
+            .single();
+      return data;
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [isAuth, refetch]);
   return (
     <>
       <Background>
-        <Pressable
-          className="size-12 bg-red-500"
-          onPress={async () =>
-            await supabaseClient.from('test').insert({ course_title: data.title })
-          }></Pressable>
         {isSuccess && data && (
           <FadeIn>
-            <Pressable
-              onPress={async () =>
-                console.log(await supabaseClient.from('test').select('course_title,id'))
-              }
-              className="size-12 bg-green-800"></Pressable>
             <View
               aria-label="Main Course Card"
               className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
-              <Text className="mt-4 font-Kufi text-2xl font-semibold">{data[0]?.title}</Text>
+              <Text className="mt-4 font-Kufi text-2xl font-semibold">{data.title}</Text>
 
               <MyImage1
                 aria-label="Course Image"
@@ -71,7 +75,7 @@ const CoursePage = () => {
               </View>
               <TextAccordion data={data}></TextAccordion>
 
-              <IdContent data={data}></IdContent>
+              <IdContent refetch={refetch} data={data}></IdContent>
             </View>
           </FadeIn>
         )}
