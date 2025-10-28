@@ -35,7 +35,7 @@ const MyModal = () => {
     error && setLoginError(true);
     data.user && setSignInSuccess(true);
     setTimeout(() => {
-      HandleCancelButton();
+      data.user && HandleCancelButton();
     }, 1000);
   };
 

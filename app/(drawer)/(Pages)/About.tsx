@@ -1,17 +1,53 @@
-import { View, Text, BackHandler } from 'react-native';
+import { View, Text, BackHandler, Pressable } from 'react-native';
 import Background from '~/components/Background';
 import FadeIn from './../../../components/Animations/FadeIn';
+import { supabaseClient } from '~/utils/supabase';
+import IdContent from './../../../components/Pages/[id]/Content';
 
 const About = () => {
   return (
     <Background>
-      <FadeIn>
-        <View className="h-96 w-full bg-black"></View>
-        <View className="h-96 w-full bg-white"></View>
-        <View className="h-96 w-full bg-black"></View>
-        <View className="h-96 w-full bg-white"></View>
-        <View className="h-96 w-full bg-black"></View>
-      </FadeIn>
+      <Pressable
+        onPress={async () => {
+          const { data } = await supabaseClient.from('1_courses').select(`
+      id,
+      title,
+      chapters:2_chapters (
+        id,
+        title,
+        position,
+        lessons:3_lessons (
+          id,
+          title,
+          position
+          links:4_links!lesson_id(link)
+        )
+      )
+    `);
+          console.log(data[0].chapters[0].lessons[0].positionlinks);
+        }}
+        className="size-12 bg-red-500"></Pressable>
+
+      {/** */}
+
+      <Pressable
+        onPress={async () => {
+          const { data } = await supabaseClient
+            .from('1_courses')
+            .insert({ title: 'myTitle' })
+            .select()
+            .single();
+          let uuid = data.id;
+          console.log('courseID ', uuid);
+          const { data: chapterData } = await supabaseClient
+            .from('2_chapters')
+            .insert({ course_id: uuid })
+            .select()
+            .single();
+          uuid = chapterData.id;
+          console.log(uuid);
+        }}
+        className="size-12 bg-blue-500"></Pressable>
     </Background>
   );
 };
