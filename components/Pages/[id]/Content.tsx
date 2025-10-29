@@ -3,8 +3,9 @@ import { LinkIcon } from 'lucide-react-native';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import * as Linking from 'expo-linking';
 import { useIsAuth, useModalVisible } from '~/store/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
+import FadeIn from './../../Animations/FadeIn';
 
 const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   const content = data.content;
@@ -14,7 +15,9 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   const getContent = (lesson_id) => {
     return data?.notes?.filter((item) => item.lesson_id == lesson_id)[0]?.content;
   };
-
+  useEffect(() => {
+    refetch();
+  }, [isAuth, refetch]);
   return (
     <>
       {content.map((item: any, index: any) => {
