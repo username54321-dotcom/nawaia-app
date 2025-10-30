@@ -1,19 +1,17 @@
-import { useNavigation, useRouter } from 'expo-router';
 import { LinkIcon } from 'lucide-react-native';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import * as Linking from 'expo-linking';
 import { useIsAuth, useModalVisible } from '~/store/store';
 import { useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
-import FadeIn from './../../Animations/FadeIn';
 
 const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   const content = data.content;
   const [Note, setNote] = useState<string | null>(null);
   const { isAuth } = useIsAuth();
   const { setModalVisible } = useModalVisible();
-  const getContent = (lesson_id) => {
-    return data?.notes?.filter((item) => item.lesson_id == lesson_id)[0]?.content;
+  const getContent = (lesson_id: string) => {
+    return data?.notes?.filter((item: any) => item.lesson_id === lesson_id)[0]?.content;
   };
   useEffect(() => {
     refetch();
@@ -41,9 +39,7 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
                   {/**Lesson Name and Icon */}
                   <View className="flex-row-reverse items-center justify-end px-4">
                     <LinkIcon size={16} strokeWidth={2.5} className="ml-6 " />
-                    <Text
-                      aria-label="LessonName Text"
-                      className="font-Kufi font-semibold group-hover:text-red-700">
+                    <Text className="font-Kufi font-semibold group-hover:text-red-700">
                       {item.lessonName}
                     </Text>
                   </View>
@@ -61,7 +57,7 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
                 <TextInput className="border-2" onChangeText={(e) => setNote(e)}></TextInput>
                 <Pressable
                   onPress={async () => {
-                    const { data: any } = await supabaseClient
+                    await supabaseClient
                       .from('notes')
                       .upsert(
                         { lesson_id: item.uuid, content: Note, course_id: data.id },
@@ -69,9 +65,11 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
                       );
                     data && refetch();
                   }}
-                  className="size-8 bg-red-500"></Pressable>
+                  className="-y2 size-fit rounded-md bg-red-500 px-6">
+                  <Text className="font-Playwrite font-semibold text-white">Save</Text>
+                </Pressable>
 
-                <Text className="min-w-1">{getContent(item.uuid)}</Text>
+                <Text className="">{getContent(item.uuid)}</Text>
               </View>
             ))}
           </View>

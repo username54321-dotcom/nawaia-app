@@ -1,13 +1,12 @@
 import { View, Text, Pressable, Modal, TextInput } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
-import { MotiText, MotiView, useAnimationState } from 'moti';
+import React, { useEffect, useRef, useState } from 'react';
+import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
-import { useIsAuth, useModalVisible } from '~/store/store';
+import { useModalVisible } from '~/store/store';
 
 import { useRouter } from 'expo-router';
 import { supabaseClient } from '~/utils/supabase';
-import tw from 'twrnc';
 import FadeIn from './../../../Animations/FadeIn';
 
 const MyModal = () => {
@@ -27,11 +26,12 @@ const MyModal = () => {
     setModalVisible(false);
     setShowPassword(false);
     setShowPasswordIcon(false);
+    setSignInSuccess(false);
   };
   //Try to Sign In
   const HandleSignIn = async () => {
     const email = EmailInput.current.value;
-    const password = PasswordInput.current.value;
+    const password = PasswordInput?.current?.value;
     const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: email,
       password: password,
