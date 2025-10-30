@@ -59,8 +59,8 @@ const SignUp = () => {
       password: data.password,
       options: { data: { display_name: data.username } },
     });
-    SignUpData && router.push({ pathname: '/' }) && console.log(SignUpData);
-    SignUpError && setSignUpError(SignUpError.message) && console.log(SignUpError);
+    SignUpData && router.push({ pathname: '/' });
+    SignUpError && setSignUpError(SignUpError.message);
   };
   const {
     formState: { errors },

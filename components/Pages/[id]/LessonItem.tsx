@@ -10,7 +10,7 @@ interface PropsTypes {
   Lesson: { lessonName: string; LessonLink: string; uuid: string };
   refetch: () => void;
   courseID: number;
-  notes?: string[];
+  notes?: { content: string }[];
 }
 
 const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
@@ -18,7 +18,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
   const [Note, setNote] = useState<string | null>(null);
   const { isAuth } = useIsAuth();
   const getContent = (lesson_id: string) => {
-    return notes?.filter((item: any) => item.lesson_id === lesson_id)[0]?.content;
+    return notes?.filter((note: any) => note.lesson_id == lesson_id)[0]?.content;
   };
 
   return (
@@ -42,7 +42,6 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
           </Pressable>
         </View>
       </View>
-
       <TextInput className="border-2" onChangeText={(e) => setNote(e)}></TextInput>
       <Pressable
         onPress={async () => {
@@ -51,14 +50,16 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
             .upsert(
               { lesson_id: Lesson.uuid, content: Note, course_id: courseID },
               { onConflict: 'user_id, lesson_id' }
-            );
+            )
+            .select();
           isUpserted && refetch();
         }}
         className="-y2 size-fit rounded-md bg-red-500 px-6">
         <Text className="font-Playwrite font-semibold text-white">Save</Text>
       </Pressable>
-
-      <Text className="">{getContent(Lesson.uuid)}</Text>
+      <Pressable className="border-2">
+        <Text className="h-12">{getContent(Lesson.uuid)}</Text>
+      </Pressable>
     </>
   );
 };

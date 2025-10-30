@@ -1,18 +1,12 @@
-import { LinkIcon } from 'lucide-react-native';
-import { View, Text, Pressable, TextInput } from 'react-native';
-import * as Linking from 'expo-linking';
-import { useIsAuth, useModalVisible } from '~/store/store';
-import { useEffect, useState } from 'react';
-import { supabaseClient } from '~/utils/supabase';
+import { View, Text } from 'react-native';
+import { useIsAuth } from '~/store/store';
+import { useEffect, memo } from 'react';
+import LessonItem from './LessonItem';
 
 const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   const content = data.content;
-  const [Note, setNote] = useState<string | null>(null);
   const { isAuth } = useIsAuth();
-  const { setModalVisible } = useModalVisible();
-  const getContent = (lesson_id: string) => {
-    return data?.notes?.filter((item: any) => item.lesson_id === lesson_id)[0]?.content;
-  };
+
   useEffect(() => {
     refetch();
   }, [isAuth, refetch]);
@@ -32,44 +26,13 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
               </Text>
             </View>
             {/** Lessons List */}
-            {item.Lessons.map((item: any, index: any) => (
+            {item.Lessons.map((Lesson: any, index: any) => (
               <View key={index}>
-                {/**Lesson Container */}
-                <View className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
-                  {/**Lesson Name and Icon */}
-                  <View className="flex-row-reverse items-center justify-end px-4">
-                    <LinkIcon size={16} strokeWidth={2.5} className="ml-6 " />
-                    <Text className="font-Kufi font-semibold group-hover:text-red-700">
-                      {item.lessonName}
-                    </Text>
-                  </View>
-                  {/** Watch Lesson Button */}
-                  <View>
-                    <Pressable
-                      onPress={() =>
-                        isAuth ? Linking.openURL(item.LessonLink) : setModalVisible(true)
-                      }>
-                      <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <TextInput className="border-2" onChangeText={(e) => setNote(e)}></TextInput>
-                <Pressable
-                  onPress={async () => {
-                    await supabaseClient
-                      .from('notes')
-                      .upsert(
-                        { lesson_id: item.uuid, content: Note, course_id: data.id },
-                        { onConflict: 'user_id, lesson_id' }
-                      );
-                    data && refetch();
-                  }}
-                  className="-y2 size-fit rounded-md bg-red-500 px-6">
-                  <Text className="font-Playwrite font-semibold text-white">Save</Text>
-                </Pressable>
-
-                <Text className="">{getContent(item.uuid)}</Text>
+                <LessonItem
+                  Lesson={Lesson}
+                  courseID={data.id}
+                  refetch={refetch}
+                  notes={data.notes}></LessonItem>
               </View>
             ))}
           </View>
@@ -79,4 +42,4 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   );
 };
 
-export default IdContent;
+export default memo(IdContent);
