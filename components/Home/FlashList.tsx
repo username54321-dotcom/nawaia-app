@@ -4,6 +4,8 @@ import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import FadeIn from './../Animations/FadeIn';
 import MyImage1 from '../Reusebales/MyImage';
+import { FlashList } from '@shopify/flash-list';
+import { useIsPortrait } from '~/utils/Hooks';
 
 const CourseList = () => {
   const router = useRouter();

@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import { useIsFocused } from '@react-navigation/native';
 
