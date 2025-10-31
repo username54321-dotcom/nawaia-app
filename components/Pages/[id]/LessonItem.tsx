@@ -21,7 +21,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
   const [Note, setNote] = useState<string | null>(null);
   const { isAuth } = useIsAuth();
   const getContent = (lesson_id: string) => {
-    return notes?.filter((note: any) => note.lesson_id == lesson_id)[0]?.content;
+    return notes?.filter((note: any) => +note.lesson_id === +lesson_id)[0]?.content;
   };
 
   return (
@@ -30,12 +30,11 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
       <View className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
         {/**Lesson Name and Icon */}
         <View className="flex-row-reverse items-center justify-end px-4">
-          <RotatingChevron onPress={() => setExpand((v) => !v)} className="ml-4"></RotatingChevron>
+          <RotatingChevron
+            onPress={() => setExpand((v) => !v)}
+            className="ml-4 rounded-md "></RotatingChevron>
 
-          {/* <LinkIcon size={16} strokeWidth={2.5} className="ml-6 " /> */}
-          <Text
-            aria-label="LessonName Text"
-            className="font-Kufi font-semibold group-hover:text-red-700">
+          <Text className="font-Kufi font-semibold group-hover:text-red-700">
             {Lesson.lessonName}
           </Text>
         </View>
