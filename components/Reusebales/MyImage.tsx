@@ -1,6 +1,6 @@
 import { Image, ImageProps } from 'expo-image';
 import { MotiView } from 'moti';
-import { ComponentProps } from 'react';
+import { ComponentProps, memo } from 'react';
 import tw from 'twrnc';
 
 type MyImageProps = Omit<ImageProps, 'className'> & {
@@ -18,4 +18,4 @@ const MyImage1 = ({ className, ...imageProps }: MyImageProps) => {
   );
 };
 
-export default MyImage1;
+export default memo(MyImage1);

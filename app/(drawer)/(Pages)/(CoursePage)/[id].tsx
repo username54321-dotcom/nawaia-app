@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Text, View, Pressable } from 'react-native';
+import { Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
@@ -9,11 +9,10 @@ import { GenreIcons } from './../../../../components/GenresIcons';
 import MyImage1 from '../../../../components/Reusebales/MyImage';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
-import { useIsAuth, useModalVisible } from '~/store/store';
-import { useEffect } from 'react';
+import { useIsAuth } from '~/store/store';
+import { memo, useEffect } from 'react';
 const CoursePage = () => {
   const { isAuth } = useIsAuth();
-  const { ModalVisible, setModalVisible } = useModalVisible();
   const { id } = useLocalSearchParams();
   const { data, isSuccess, refetch } = useQuery({
     queryKey: ['course', id],
@@ -84,4 +83,4 @@ const CoursePage = () => {
   );
 };
 
-export default CoursePage;
+export default memo(CoursePage);

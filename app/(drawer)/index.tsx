@@ -3,8 +3,9 @@ import { Text } from 'react-native';
 import CourseList from './../../components/Home/FlashList';
 import MyCarousal from './../../components/Carousal';
 import FadeIn from './../../components/Animations/FadeIn';
+import { memo } from 'react';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Background>
@@ -28,4 +29,5 @@ export default function Home() {
       </Background>
     </>
   );
-}
+};
+export default memo(Home);
