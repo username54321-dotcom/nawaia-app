@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import FadeIn from './../Animations/FadeIn';
-import MyImage1 from '../MyImage';
+import MyImage1 from '../Reusebales/MyImage';
 
 const CourseList = () => {
   const router = useRouter();

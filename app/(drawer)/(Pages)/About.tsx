@@ -3,6 +3,7 @@ import Background from '~/components/Background';
 import FadeIn from './../../../components/Animations/FadeIn';
 import { supabaseClient } from '~/utils/supabase';
 import IdContent from './../../../components/Pages/[id]/Content';
+import MyAccordion from '~/components/Reusebales/MyAccordion';
 
 const About = () => {
   return (
@@ -45,6 +46,9 @@ const About = () => {
           uuid = chapterData.id;
         }}
         className="size-12 bg-blue-500"></Pressable>
+      <MyAccordion initialHeight={200} className="h-12 w-1/2">
+        <View className="size-[700px] bg-red-500"></View>
+      </MyAccordion>
     </Background>
   );
 };

@@ -6,7 +6,7 @@ import { TvIcon } from 'lucide-react-native';
 import Background from '~/components/Background';
 import MyController from '../../../components/Pages/SignUp/MyController';
 import { Pressable, Text, View } from 'react-native';
-import MyImage1 from './../../../components/MyImage';
+import MyImage1 from '../../../components/Reusebales/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';

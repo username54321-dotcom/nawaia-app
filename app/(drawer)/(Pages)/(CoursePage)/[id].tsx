@@ -6,7 +6,7 @@ import { AlarmClock, DollarSign } from 'lucide-react-native';
 import FadeIn from './../../../../components/Animations/FadeIn';
 import Background from '~/components/Background';
 import { GenreIcons } from './../../../../components/GenresIcons';
-import MyImage1 from './../../../../components/MyImage';
+import MyImage1 from '../../../../components/Reusebales/MyImage';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
 import { useIsAuth, useModalVisible } from '~/store/store';
