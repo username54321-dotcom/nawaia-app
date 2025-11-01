@@ -10,10 +10,12 @@ import MyImage1 from '../../../../components/Reusebales/MyImage';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
 import { useIsAuth } from '~/store/store';
-import { memo, useEffect } from 'react';
+import { JSX, memo, useEffect } from 'react';
+
 const CoursePage = () => {
   const { isAuth } = useIsAuth();
   const { id } = useLocalSearchParams();
+  // Course Query
   const { data, isSuccess, refetch } = useQuery({
     queryKey: ['course', id],
     queryFn: async () => {
@@ -29,7 +31,7 @@ const CoursePage = () => {
       return data;
     },
   });
-
+  // Refetch when Auth Changes
   useEffect(() => {
     refetch();
   }, [isAuth, refetch]);

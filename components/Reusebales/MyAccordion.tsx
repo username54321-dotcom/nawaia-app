@@ -1,8 +1,7 @@
 import React, { memo, ReactNode, useEffect, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
-import { View, Pressable } from 'react-native';
+import { View } from 'react-native';
 import tw from 'twrnc';
-import { ChevronDown, ChevronsDown, ChevronsUp } from 'lucide-react-native';
 
 interface propTypes {
   children: ReactNode;
@@ -12,7 +11,6 @@ interface propTypes {
 
 const MyAccordion = ({ children, className, expandProp }: propTypes) => {
   const [ExpandedHeight, setExpandedHeight] = useState(0);
-  const [IsExpand, setIsExpand] = useState(false);
 
   //Animation State
   const animationState = useAnimationState({
@@ -27,11 +25,11 @@ const MyAccordion = ({ children, className, expandProp }: propTypes) => {
     } else {
       animationState.transitionTo('collapse');
     }
-  }, [expandProp, animationState]);
+  }, [expandProp, animationState, ExpandedHeight]);
   return (
     <>
       <View className={` ${className}`}>
-        <MotiView state={animationState} style={[tw`overflow-hidden  `]}>
+        <MotiView state={animationState} style={tw.style([`overflow-hidden `])}>
           <View onLayout={(e) => setExpandedHeight(e.nativeEvent.layout.height)}>{children}</View>
         </MotiView>
       </View>
@@ -39,4 +37,4 @@ const MyAccordion = ({ children, className, expandProp }: propTypes) => {
   );
 };
 
-export default MyAccordion;
+export default memo(MyAccordion);
