@@ -16,6 +16,7 @@ export default function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isHighlight, setIsHighlight] = useState(false);
+  const [isCode, setIsCode] = useState(false);
   const [elementFormat, setElementFormat] = useState('left');
 
   const updateToolbar = useCallback(() => {
@@ -26,13 +27,12 @@ export default function ToolbarPlugin() {
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsHighlight(selection.hasFormat('highlight'));
+      setIsCode(selection.hasFormat('code'));
 
       // Element formatting
       const anchorNode = selection.anchor.getNode();
       const element =
-        anchorNode.getKey() === 'root'
-          ? anchorNode
-          : anchorNode.getTopLevelElementOrThrow();
+        anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
 
       if ($isElementNode(element)) {
         setElementFormat(element.getFormatType());
@@ -49,7 +49,7 @@ export default function ToolbarPlugin() {
     return unregister;
   }, [editor, updateToolbar]);
 
-  const formatText = (format: 'bold' | 'italic' | 'underline' | 'highlight') => {
+  const formatText = (format: 'bold' | 'italic' | 'underline' | 'highlight' | 'code') => {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
   };
 
@@ -58,47 +58,45 @@ export default function ToolbarPlugin() {
   };
 
   return (
-    <View className="flex-row items-center justify-center p-2 border-b border-gray-200 bg-gray-100">
+    <View className="flex-row items-center justify-center border-b border-gray-200 bg-gray-100 p-2">
       <TouchableOpacity
         onPress={() => formatText('bold')}
-        className={`p-2 rounded mr-1 ${isBold ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`mr-1 rounded p-2 ${isBold ? 'bg-gray-300' : 'bg-white'}`}>
         <Text className="font-bold">B</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatText('italic')}
-        className={`p-2 rounded mr-1 ${isItalic ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`mr-1 rounded p-2 ${isItalic ? 'bg-gray-300' : 'bg-white'}`}>
         <Text className="italic">I</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatText('underline')}
-        className={`p-2 rounded mr-1 ${isUnderline ? 'bg-gray-300' : 'bg-white'}`}
-      >
-        <Text className="underline">U</Text>
+        className={`mr-1 rounded p-2 ${isUnderline ? 'bg-gray-300' : 'bg-white'}`}>
+        <Text style={{ textDecorationLine: 'underline' }}>U</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatText('highlight')}
-        className={`p-2 rounded mr-1 ${isHighlight ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`mr-1 rounded p-2 ${isHighlight ? 'bg-gray-300' : 'bg-white'}`}>
         <Highlighter size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={() => formatText('code')}
+        className={`mr-1 rounded p-2 ${isCode ? 'bg-gray-300' : 'bg-white'}`}>
+        <Text>&lt;/&gt;</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => formatElement('left')}
-        className={`p-2 rounded mr-1 ${elementFormat === 'left' ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`mr-1 rounded p-2 ${elementFormat === 'left' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignLeft size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatElement('center')}
-        className={`p-2 rounded mr-1 ${elementFormat === 'center' ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`mr-1 rounded p-2 ${elementFormat === 'center' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignCenter size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatElement('right')}
-        className={`p-2 rounded ${elementFormat === 'right' ? 'bg-gray-300' : 'bg-white'}`}
-      >
+        className={`rounded p-2 ${elementFormat === 'right' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignRight size={20} color="black" />
       </TouchableOpacity>
     </View>
