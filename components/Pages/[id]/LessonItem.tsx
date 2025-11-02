@@ -5,6 +5,8 @@ import { supabaseClient } from '~/utils/supabase';
 import * as Linking from 'expo-linking';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import RotatingChevron from './../../Animations/RotatingChevron';
+import Lexical from './../../Reusebales/Lexical';
+import RenderHTML from './../../../node_modules/react-native-render-html/lib/typescript/RenderHTML.d';
 
 interface PropsTypes {
   Lesson: { lessonName: string; LessonLink: string; uuid: string };
@@ -50,10 +52,13 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
       {/** Notes Accordion */}
       <MyAccordion expandProp={expand}>
         <View className="mt-2 size-fit items-center self-center rounded-md border-[1px] p-2">
-          <TextInput
+          <Lexical
+            initialHtml={getContent(Lesson.uuid)}
+            onStateChange={({ html }) => (Note.current = html)}></Lexical>
+          {/* <TextInput
             onChangeText={(v) => (Note.current = v)}
             multiline={true}
-            className="outline-none"></TextInput>
+            className="outline-none"></TextInput> */}
         </View>
         <Pressable
           onPress={async () => {
@@ -69,7 +74,8 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
           className="my-1 size-fit self-center rounded-md bg-red-500 px-6">
           <Text className="font-Playwrite font-semibold text-white">Save</Text>
         </Pressable>
-        <Text>{getContent(Lesson.uuid)}</Text>
+        <RenderHTML contentWidth={200} source={{ html: '<div></div>' }} />
+        {/* <Text>{getContent(Lesson.uuid)}</Text> */}
       </MyAccordion>
     </>
   );
