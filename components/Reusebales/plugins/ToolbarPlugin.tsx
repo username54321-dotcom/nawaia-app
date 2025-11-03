@@ -58,10 +58,10 @@ export default function ToolbarPlugin() {
   };
 
   return (
-    <View className="flex-row items-center justify-center border-b border-gray-200 bg-gray-100 p-2">
+    <View className="flex-row items-center justify-center rounded-t-md border-2 border-gray-200  p-2">
       <TouchableOpacity
         onPress={() => formatText('bold')}
-        className={`mr-1 rounded p-2 ${isBold ? 'bg-gray-300' : 'bg-white'}`}>
+        className={`mr-1 rounded  p-2 ${isBold ? 'bg-gray-300' : 'bg-white'}`}>
         <Text className="font-bold">B</Text>
       </TouchableOpacity>
       <TouchableOpacity

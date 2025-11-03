@@ -1,5 +1,5 @@
 import { memo, useRef, useState } from 'react';
-import { View, Text, Pressable, TextInput } from 'react-native';
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useIsAuth, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import * as Linking from 'expo-linking';
@@ -20,7 +20,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
   const { setModalVisible } = useModalVisible(); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const { isAuth } = useIsAuth(); // Auth State
-  const Note = useRef<string | null>(null); // State for note user input
+  const Note = useRef<string | null | undefined>(null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);
 
   // Filter Notes for Selected Lesson
@@ -56,17 +56,23 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
         {/** Rich Text Editor Editor */}
         {expand && ViewEditor && (
           <>
-            <View className="mt-2 w-full items-center self-center rounded-md border-[1px] p-2">
-              <Lexical
-                initialHtml={getContent(Lesson.uuid)}
-                onStateChange={({ html }) => (Note.current = html)}></Lexical>
-            </View>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+              <View className="mt-2 w-full items-center self-center rounded-md  p-2">
+                <Lexical
+                  initialHtml={getContent(Lesson.uuid)}
+                  onStateChange={({ html }) => (Note.current = html)}></Lexical>
+              </View>
+            </KeyboardAvoidingView>
             <Pressable
               onPress={async () => {
                 const { data: isUpserted } = await supabaseClient
                   .from('notes')
                   .upsert(
-                    { lesson_id: Lesson.uuid, content: Note.current, course_id: courseID },
+                    {
+                      lesson_id: Lesson.uuid,
+                      content: Note.current?.length > 24 ? Note.current : null,
+                      course_id: courseID,
+                    },
                     { onConflict: 'user_id, lesson_id' }
                   )
                   .select();
@@ -82,17 +88,21 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
         {expand && !ViewEditor && (
           <>
             {/**Notes HTML */}
-            <RenderHTML
-              contentWidth={2000}
-              baseStyle={tw`bg-blue-100 p-4 rounded-md self-center w-11/12`}
-              source={{ html: getContent(Lesson.uuid) || 'لا توجد ملاحظات' }}
-            />
+            <ScrollView
+              // style={tw`max-h-75 self-center w-11/12`}
+              className="mt-2 max-h-[600px] w-11/12 self-center  rounded-xl ">
+              <RenderHTML
+                contentWidth={2000}
+                baseStyle={tw`bg-slate-200 px-4 py-2 `}
+                source={{ html: getContent(Lesson.uuid) || 'لا توجد ملاحظات' }}
+              />
+            </ScrollView>
             {/**Edit Notes Button */}
             <Pressable
               onPress={() => setViewEditor(true)}
               className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
               <Text className="font font-Kufi font-semibold text-neutral-50">
-                {getContent(Lesson.uuid) ? 'تعديل' : 'أضف ملاحظاتك'}
+                {getContent(Lesson.uuid)?.length > 24 ? 'تعديل' : 'أضف ملاحظاتك'}
               </Text>
             </Pressable>
           </>

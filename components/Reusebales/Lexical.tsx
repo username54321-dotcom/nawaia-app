@@ -20,9 +20,9 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { theme } from './plugins/EditorTheme';
 
 // import TreeViewPlugin from './plugins/TreeViewPlugin';
-const placeholder = 'Enter some rich text...11';
+const placeholder = 'دوّن ملاحظاتك';
 const editorConfig = {
-  namespace: 'React.js Demo',
+  namespace: 'Notes Editor',
   theme: theme,
   nodes: [
     HeadingNode,
@@ -88,11 +88,11 @@ export default function Lexical({ onChange, onStateChange, initialHtml }) {
     <LexicalComposer initialConfig={editorConfig}>
       <div className=" w-full bg-white">
         <ToolbarPlugin />
-        <div className="relative">
+        <div className="relative rounded-b-md border-2 border-t-0">
           <RichTextPlugin
             contentEditable={
               <ContentEditable
-                className=" min-h-[150px]  whitespace-pre-wrap break-words   p-2 leading-normal caret-black outline-none"
+                className=" max-h-[300px] min-h-[150px] overflow-y-auto whitespace-pre-wrap break-words p-2 leading-normal caret-black outline-none"
                 aria-placeholder={placeholder}
                 placeholder={
                   <div className="pointer-events-none absolute left-2 top-2 select-none text-gray-400">
@@ -104,7 +104,7 @@ export default function Lexical({ onChange, onStateChange, initialHtml }) {
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
-          <AutoFocusPlugin />
+          {/* <AutoFocusPlugin /> */}
           {/* <TreeViewPlugin /> */}
           <OnChangePlugin onChange={onChange} onStateChange={onStateChange} />
           {initialHtml && <SetInitialStatePlugin html={initialHtml} />}
