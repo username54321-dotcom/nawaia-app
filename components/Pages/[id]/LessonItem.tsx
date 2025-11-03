@@ -70,7 +70,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
                   .upsert(
                     {
                       lesson_id: Lesson.uuid,
-                      content: Note.current?.length > 24 ? Note.current : null,
+                      content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
                       course_id: courseID,
                     },
                     { onConflict: 'user_id, lesson_id' }
@@ -102,7 +102,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
               onPress={() => setViewEditor(true)}
               className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
               <Text className="font font-Kufi font-semibold text-neutral-50">
-                {getContent(Lesson.uuid)?.length > 24 ? 'تعديل' : 'أضف ملاحظاتك'}
+                {getContent(Lesson.uuid) ? 'تعديل' : 'أضف ملاحظاتك'}
               </Text>
             </Pressable>
           </>
