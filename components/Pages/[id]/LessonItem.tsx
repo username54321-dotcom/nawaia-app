@@ -6,7 +6,8 @@ import * as Linking from 'expo-linking';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import RotatingChevron from './../../Animations/RotatingChevron';
 import Lexical from './../../Reusebales/Lexical';
-import RenderHTML from './../../../node_modules/react-native-render-html/lib/typescript/RenderHTML.d';
+import RenderHTML from 'react-native-render-html';
+import tw from 'twrnc';
 
 interface PropsTypes {
   Lesson: { lessonName: string; LessonLink: string; uuid: string };
@@ -20,6 +21,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const { isAuth } = useIsAuth(); // Auth State
   const Note = useRef<string | null>(null); // State for note user input
+  const [ViewEditor, setViewEditor] = useState(false);
 
   // Filter Notes for Selected Lesson
   const getContent = (lesson_id: string) => {
@@ -51,31 +53,50 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
       </View>
       {/** Notes Accordion */}
       <MyAccordion expandProp={expand}>
-        <View className="mt-2 size-fit items-center self-center rounded-md border-[1px] p-2">
-          <Lexical
-            initialHtml={getContent(Lesson.uuid)}
-            onStateChange={({ html }) => (Note.current = html)}></Lexical>
-          {/* <TextInput
-            onChangeText={(v) => (Note.current = v)}
-            multiline={true}
-            className="outline-none"></TextInput> */}
-        </View>
-        <Pressable
-          onPress={async () => {
-            const { data: isUpserted } = await supabaseClient
-              .from('notes')
-              .upsert(
-                { lesson_id: Lesson.uuid, content: Note.current, course_id: courseID },
-                { onConflict: 'user_id, lesson_id' }
-              )
-              .select();
-            isUpserted && refetch();
-          }}
-          className="my-1 size-fit self-center rounded-md bg-red-500 px-6">
-          <Text className="font-Playwrite font-semibold text-white">Save</Text>
-        </Pressable>
-        <RenderHTML contentWidth={200} source={{ html: '<div></div>' }} />
-        {/* <Text>{getContent(Lesson.uuid)}</Text> */}
+        {/** Rich Text Editor Editor */}
+        {expand && ViewEditor && (
+          <>
+            <View className="mt-2 w-full items-center self-center rounded-md border-[1px] p-2">
+              <Lexical
+                initialHtml={getContent(Lesson.uuid)}
+                onStateChange={({ html }) => (Note.current = html)}></Lexical>
+            </View>
+            <Pressable
+              onPress={async () => {
+                const { data: isUpserted } = await supabaseClient
+                  .from('notes')
+                  .upsert(
+                    { lesson_id: Lesson.uuid, content: Note.current, course_id: courseID },
+                    { onConflict: 'user_id, lesson_id' }
+                  )
+                  .select();
+                isUpserted && refetch();
+                setViewEditor(false);
+              }}
+              className="my-1 size-fit self-center rounded-md bg-red-500 px-6">
+              <Text className="font-Playwrite font-semibold text-white">Save</Text>
+            </Pressable>
+          </>
+        )}
+        {/** Notes Container */}
+        {expand && !ViewEditor && (
+          <>
+            {/**Notes HTML */}
+            <RenderHTML
+              contentWidth={2000}
+              baseStyle={tw`bg-blue-100 p-4 rounded-md self-center w-11/12`}
+              source={{ html: getContent(Lesson.uuid) || 'لا توجد ملاحظات' }}
+            />
+            {/**Edit Notes Button */}
+            <Pressable
+              onPress={() => setViewEditor(true)}
+              className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
+              <Text className="font font-Kufi font-semibold text-neutral-50">
+                {getContent(Lesson.uuid) ? 'تعديل' : 'أضف ملاحظاتك'}
+              </Text>
+            </Pressable>
+          </>
+        )}
       </MyAccordion>
     </>
   );

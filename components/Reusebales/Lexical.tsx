@@ -86,13 +86,13 @@ function SetInitialStatePlugin({ html }) {
 export default function Lexical({ onChange, onStateChange, initialHtml }) {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="bg-white">
+      <div className=" w-full bg-white">
         <ToolbarPlugin />
         <div className="relative">
           <RichTextPlugin
             contentEditable={
               <ContentEditable
-                className="min-h-[150px] whitespace-pre-wrap break-words p-2 leading-normal caret-black outline-none"
+                className=" min-h-[150px]  whitespace-pre-wrap break-words   p-2 leading-normal caret-black outline-none"
                 aria-placeholder={placeholder}
                 placeholder={
                   <div className="pointer-events-none absolute left-2 top-2 select-none text-gray-400">
