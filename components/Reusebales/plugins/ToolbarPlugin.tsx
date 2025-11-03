@@ -1,5 +1,5 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import {
   FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
@@ -10,7 +10,7 @@ import {
 import { View, Text, TouchableOpacity } from 'react-native';
 import { AlignCenter, AlignLeft, AlignRight, Highlighter } from 'lucide-react-native';
 
-export default function ToolbarPlugin() {
+function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -102,3 +102,4 @@ export default function ToolbarPlugin() {
     </View>
   );
 }
+export default memo(ToolbarPlugin);

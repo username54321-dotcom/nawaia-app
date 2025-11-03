@@ -13,7 +13,7 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { $getRoot, $insertNodes } from 'lexical';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 
@@ -83,7 +83,7 @@ function SetInitialStatePlugin({ html }) {
   return null;
 }
 
-export default function Lexical({ onChange, onStateChange, initialHtml }) {
+function Lexical({ onChange, onStateChange, initialHtml }) {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className=" w-full bg-white">
@@ -113,3 +113,4 @@ export default function Lexical({ onChange, onStateChange, initialHtml }) {
     </LexicalComposer>
   );
 }
+export default memo(Lexical);
