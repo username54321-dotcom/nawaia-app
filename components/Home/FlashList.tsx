@@ -6,6 +6,7 @@ import FadeIn from './../Animations/FadeIn';
 import MyImage1 from '../Reusebales/MyImage';
 import { FlashList } from '@shopify/flash-list';
 import { useIsPortrait } from '~/utils/Hooks';
+import { memo } from 'react';
 
 const CourseList = () => {
   const router = useRouter();
@@ -55,4 +56,4 @@ const CourseList = () => {
   ) : null;
 };
 
-export default CourseList;
+export default memo(CourseList);

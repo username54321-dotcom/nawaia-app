@@ -1,6 +1,7 @@
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DynamicBanner from './Banner/DynamicBanner';
+import { memo } from 'react';
 
 const Background = ({ children }: { children?: React.ReactNode }) => {
   return (
@@ -13,4 +14,4 @@ const Background = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
-export default Background;
+export default memo(Background);

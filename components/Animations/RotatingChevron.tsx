@@ -2,7 +2,7 @@ import { MotiView, useAnimationState, View } from 'moti';
 import { ChevronDown } from 'lucide-react-native';
 import { style } from 'twrnc';
 import { Pressable } from 'react-native';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import tw from 'twrnc';
 
 const RotatingChevron = ({ className, onPress }: { className?: string; onPress?: () => void }) => {
@@ -30,4 +30,4 @@ const RotatingChevron = ({ className, onPress }: { className?: string; onPress?:
   );
 };
 
-export default RotatingChevron;
+export default memo(RotatingChevron);

@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import tw from 'twrnc';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -56,4 +56,4 @@ const TextAccordion = ({ data }: { data: any }) => {
   );
 };
 
-export default TextAccordion;
+export default memo(TextAccordion);

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { View, Image } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { supabaseClient } from '~/utils/supabase';
@@ -55,4 +55,4 @@ function MyCarousal({ className }: { className?: string }) {
   );
 }
 
-export default MyCarousal;
+export default memo(MyCarousal);

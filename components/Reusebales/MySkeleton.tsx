@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, memo } from 'react';
 import { Skeleton } from 'moti/skeleton';
 import { MotiView } from 'moti';
 
@@ -27,4 +27,4 @@ const MySkeleton = ({ className, radius, children, ...skeletonProps }: MySkeleto
   );
 };
 
-export default MySkeleton;
+export default memo(MySkeleton);

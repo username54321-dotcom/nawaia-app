@@ -1,6 +1,7 @@
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { Menu } from 'lucide-react-native';
+import { memo } from 'react';
 import { Pressable } from 'react-native';
 
 const MenuButton = () => {
@@ -16,4 +17,4 @@ const MenuButton = () => {
   );
 };
 
-export default MenuButton;
+export default memo(MenuButton);

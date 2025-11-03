@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import SignedOutButton from './LeftView_UserButton/SignedOutButton';
 import BannerLogo from './CenterView_BannerLogo/BannerLogo';
 import MenuButton from './RightView_MenuButton/MenuButton';
+import { memo } from 'react';
 
 const PortraitBanner = () => {
   return (
@@ -23,4 +24,4 @@ const PortraitBanner = () => {
   );
 };
 
-export default PortraitBanner;
+export default memo(PortraitBanner);

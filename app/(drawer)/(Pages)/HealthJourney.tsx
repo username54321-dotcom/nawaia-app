@@ -4,6 +4,7 @@ import { MotiView, MotiText } from 'moti';
 import DynamicBanner from './../../../components/Banner/DynamicBanner';
 import { v4 as uuid } from 'uuid';
 import { supabaseClient } from '~/utils/supabase';
+import { memo } from 'react';
 
 const HealthJourney = () => {
   const data = [
@@ -87,4 +88,4 @@ const HealthJourney = () => {
   );
 };
 
-export default HealthJourney;
+export default memo(HealthJourney);

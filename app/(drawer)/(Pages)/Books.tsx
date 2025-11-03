@@ -1,5 +1,6 @@
 import Background from '~/components/Background';
 import Lexical from './../../../components/Reusebales/Lexical';
+import { memo } from 'react';
 
 const Books = () => {
   return (
@@ -13,4 +14,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default memo(Books);

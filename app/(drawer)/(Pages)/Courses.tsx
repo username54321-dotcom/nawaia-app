@@ -1,5 +1,5 @@
 import { Pressable, Text, TextInput, View, ScrollView } from 'react-native';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
 import DynamicBanner from './../../../components/Banner/DynamicBanner';
 
@@ -96,4 +96,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default memo(Courses);

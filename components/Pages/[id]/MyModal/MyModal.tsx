@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Modal, TextInput } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
@@ -135,4 +135,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default memo(MyModal);

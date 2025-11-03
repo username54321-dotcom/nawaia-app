@@ -1,6 +1,7 @@
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { Eye, Lock } from 'lucide-react-native';
+import { memo } from 'react';
 
 const MyController = ({
   control,
@@ -45,4 +46,4 @@ const MyController = ({
   );
 };
 
-export default MyController;
+export default memo(MyController);

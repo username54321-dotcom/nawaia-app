@@ -1,6 +1,7 @@
 import { View, Text, Image, Pressable } from 'react-native';
 import { useHeight } from '~/utils/Hooks';
 import { useRouter } from 'expo-router';
+import { memo } from 'react';
 
 const LandscapeBanner = () => {
   const router = useRouter();
@@ -53,4 +54,4 @@ const LandscapeBanner = () => {
   );
 };
 
-export default LandscapeBanner;
+export default memo(LandscapeBanner);

@@ -1,4 +1,5 @@
 import { Drawer } from 'expo-router/drawer';
+import { memo } from 'react';
 import { useIsAuth } from '~/store/store';
 
 const DrawerLayout = () => {
@@ -40,4 +41,4 @@ const DrawerLayout = () => {
   );
 };
 
-export default DrawerLayout;
+export default memo(DrawerLayout);

@@ -2,6 +2,7 @@ import { Pressable, Text, View } from 'react-native';
 import { User } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useIsAuth } from '~/store/store';
+import { memo } from 'react';
 
 const SignedOutButton = () => {
   const { isAuth } = useIsAuth();
@@ -26,4 +27,4 @@ const SignedOutButton = () => {
   );
 };
 
-export default SignedOutButton;
+export default memo(SignedOutButton);

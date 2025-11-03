@@ -1,6 +1,7 @@
 import { Text, Image, Pressable } from 'react-native';
 import { imgLogo } from '../../../../assets/images/ImageExports';
 import { useRouter } from 'expo-router';
+import { memo } from 'react';
 
 const BannerLogo = () => {
   const router = useRouter();
@@ -29,4 +30,4 @@ const BannerLogo = () => {
   );
 };
 
-export default BannerLogo;
+export default memo(BannerLogo);
