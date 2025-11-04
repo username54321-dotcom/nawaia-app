@@ -1,10 +1,6 @@
-// This must be the very first import
 import 'react-native-url-polyfill/auto';
-
-// Polyfills and global styles first
 import '../global.css';
 import 'react-native-reanimated';
-
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -12,6 +8,7 @@ import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth, useModalVisible } from '~/store/store';
 
+//Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
 
 export default function RootLayout() {

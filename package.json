@@ -24,6 +24,7 @@
     "@lexical/html": "^0.38.2",
     "@lexical/react": "^0.38.2",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-picker/picker": "^2.11.4",
     "@react-navigation/bottom-tabs": "^7.0.5",
     "@react-navigation/drawer": "^7.0.0",
     "@react-navigation/native": "^7.0.3",

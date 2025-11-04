@@ -19,21 +19,21 @@ export type Database = {
           course_id: number | null
           created_at: string
           id: number
-          name: string | null
+          name: string
           position: number | null
         }
         Insert: {
           course_id?: number | null
           created_at?: string
           id?: number
-          name?: string | null
+          name: string
           position?: number | null
         }
         Update: {
           course_id?: number | null
           created_at?: string
           id?: number
-          name?: string | null
+          name?: string
           position?: number | null
         }
         Relationships: [
@@ -55,6 +55,7 @@ export type Database = {
           image: string
           long_description: string
           price: number
+          published: boolean
           short_description: string
           title: string
         }
@@ -66,6 +67,7 @@ export type Database = {
           image: string
           long_description: string
           price: number
+          published?: boolean
           short_description: string
           title: string
         }
@@ -77,6 +79,7 @@ export type Database = {
           image?: string
           long_description?: string
           price?: number
+          published?: boolean
           short_description?: string
           title?: string
         }
@@ -87,21 +90,21 @@ export type Database = {
           chapter_id: number | null
           created_at: string
           id: number
-          name: string | null
+          name: string
           position: number | null
         }
         Insert: {
           chapter_id?: number | null
           created_at?: string
           id?: number
-          name?: string | null
+          name: string
           position?: number | null
         }
         Update: {
           chapter_id?: number | null
           created_at?: string
           id?: number
-          name?: string | null
+          name?: string
           position?: number | null
         }
         Relationships: [
