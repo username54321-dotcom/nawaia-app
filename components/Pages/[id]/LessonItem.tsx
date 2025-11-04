@@ -8,15 +8,24 @@ import RotatingChevron from './../../Animations/RotatingChevron';
 import Lexical from './../../Reusebales/Lexical';
 import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
-
-interface PropsTypes {
-  Lesson: { lessonName: string; LessonLink: string; uuid: string };
+interface propTypes {
+  lessonData: {
+    id: number;
+    name: string;
+    links: { link: string }[];
+  };
+  notes?: {
+    id: number;
+    content: string;
+    user_id: string;
+    lesson_id: number;
+    created_at: string;
+  }[];
   refetch: () => void;
-  courseID: number;
-  notes?: { content: string }[];
+  courseId: number;
 }
 
-const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
+const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
   const { setModalVisible } = useModalVisible(); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const { isAuth } = useIsAuth(); // Auth State
@@ -24,7 +33,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
   const [ViewEditor, setViewEditor] = useState(false);
 
   // Filter Notes for Selected Lesson
-  const getContent = (lesson_id: string) => {
+  const getContent = (lesson_id: number) => {
     return notes?.filter((note: any) => +note.lesson_id === +lesson_id)[0]?.content;
   };
 
@@ -40,13 +49,15 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
             className="ml-4 rounded-md "></RotatingChevron>
 
           <Text className="font-Kufi font-semibold group-hover:text-red-700">
-            {Lesson.lessonName}
+            {lessonData.name}
           </Text>
         </View>
         {/** Watch Lesson Button */}
         <View>
           <Pressable
-            onPress={() => (isAuth ? Linking.openURL(Lesson.LessonLink) : setModalVisible(true))}>
+            onPress={() =>
+              isAuth ? Linking.openURL(lessonData.links[0].link) : setModalVisible(true)
+            }>
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
           </Pressable>
         </View>
@@ -56,22 +67,21 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
         {/** Rich Text Editor Editor */}
         {expand && ViewEditor && (
           <>
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-              <View className="mt-2 w-full items-center self-center rounded-md  p-2">
-                <Lexical
-                  initialHtml={getContent(Lesson.uuid)}
-                  onStateChange={({ html }) => (Note.current = html)}></Lexical>
-              </View>
-            </KeyboardAvoidingView>
+            <View className="mt-2 w-full items-center self-center rounded-md  p-2">
+              <Lexical
+                initialHtml={getContent(lessonData.id)}
+                onStateChange={({ html }) => (Note.current = html)}></Lexical>
+            </View>
+
             <Pressable
               onPress={async () => {
                 const { data: isUpserted } = await supabaseClient
                   .from('notes')
                   .upsert(
                     {
-                      lesson_id: Lesson.uuid,
+                      lesson_id: lessonData.id,
                       content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
-                      course_id: courseID,
+                      course_id: courseId,
                     },
                     { onConflict: 'user_id, lesson_id' }
                   )
@@ -94,7 +104,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
               <RenderHTML
                 contentWidth={2000}
                 baseStyle={tw`bg-slate-200 px-4 py-2 `}
-                source={{ html: getContent(Lesson.uuid) || 'لا توجد ملاحظات' }}
+                source={{ html: getContent(lessonData.id) || 'لا توجد ملاحظات' }}
               />
             </ScrollView>
             {/**Edit Notes Button */}
@@ -102,7 +112,7 @@ const LessonItem = ({ Lesson, refetch, courseID, notes }: PropsTypes) => {
               onPress={() => setViewEditor(true)}
               className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
               <Text className="font font-Kufi font-semibold text-neutral-50">
-                {getContent(Lesson.uuid) ? 'تعديل' : 'أضف ملاحظاتك'}
+                {getContent(lessonData.id) ? 'تعديل' : 'أضف ملاحظاتك'}
               </Text>
             </Pressable>
           </>

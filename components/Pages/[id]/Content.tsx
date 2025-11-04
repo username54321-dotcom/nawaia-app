@@ -3,8 +3,21 @@ import { useIsAuth } from '~/store/store';
 import { useEffect, memo } from 'react';
 import LessonItem from './LessonItem';
 
-const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
-  const content = data.content;
+type chapterType = {
+  id: number;
+  name: string;
+  lessons: { id: number; name: string; position: number; links?: { link: string }[] }[];
+};
+
+const IdContent = ({
+  courseID,
+  chaptersData,
+  refetch,
+}: {
+  courseID: number;
+  chaptersData: chapterType[];
+  refetch: () => void;
+}) => {
   const { isAuth } = useIsAuth();
 
   useEffect(() => {
@@ -12,27 +25,22 @@ const IdContent = ({ data, refetch }: { data: any; refetch: any }) => {
   }, [isAuth, refetch]);
   return (
     <>
-      {content.map((item: any, index: any) => {
+      {chaptersData.map((chapter: chapterType, index: number) => {
         return (
-          <View className="w-full" key={index}>
+          <View key={index} className="w-full">
             {/**Chapter Name Container */}
-            <View
-              className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl"
-              key={item.id}>
-              <Text
-                aria-label="ChapterName Text"
-                className="font-Kufi text-lg font-semibold text-slate-600">
-                {item.chapterName}
-              </Text>
+            <View className="m-2  h-12 w-full items-center self-center rounded-md bg-slate-200 p-2 px-6 text-xl">
+              <Text className="font-Kufi text-lg font-semibold text-slate-600">{chapter.name}</Text>
             </View>
             {/** Lessons List */}
-            {item.Lessons.map((Lesson: any, index: any) => (
+            {chapter.lessons.map((Lesson: any, index: any) => (
               <View key={index}>
                 <LessonItem
-                  Lesson={Lesson}
-                  courseID={data.id}
+                  lessonData={chapter.lessons}
+                  courseID={courseID}
                   refetch={refetch}
-                  notes={data.notes}></LessonItem>
+                  // notes={data.notes}
+                ></LessonItem>
               </View>
             ))}
           </View>

@@ -1,5 +1,3 @@
-'use dom';
-
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -42,8 +40,12 @@ const editorConfig = {
     throw error;
   },
 };
+interface OnChangePluginProps {
+  onChange?: (text: string) => void;
+  onStateChange?: (state: { json: object; html: string }) => void;
+}
 
-function OnChangePlugin({ onChange, onStateChange }) {
+function OnChangePlugin({ onChange, onStateChange }: OnChangePluginProps) {
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
@@ -63,7 +65,7 @@ function OnChangePlugin({ onChange, onStateChange }) {
   return null;
 }
 
-function SetInitialStatePlugin({ html }) {
+function SetInitialStatePlugin({ html }: { html: string }) {
   const [editor] = useLexicalComposerContext();
   const hasSetInitialHtml = useRef(false);
 
@@ -82,8 +84,12 @@ function SetInitialStatePlugin({ html }) {
 
   return null;
 }
-
-function Lexical({ onChange, onStateChange, initialHtml }) {
+interface LexicalPropTypes {
+  onChange?: (text: string) => void;
+  onStateChange?: (state: { json: object; html: string }) => void;
+  initialHtml?: string;
+}
+function Lexical({ onChange, onStateChange, initialHtml }: LexicalPropTypes) {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className=" w-full bg-white">

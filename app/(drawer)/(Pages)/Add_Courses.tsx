@@ -89,11 +89,21 @@ const Add_Courses = () => {
       }
     }
   };
+  //   const getRow = async () => {
+  //     const { data, error } = await supabaseClient
+  //       .from('courses')
+  //       .select('title,chapters(name)')
+  //       .eq('id', '12')
+  //       .single();
+  //     // error && console.log(error);
+  //     console.log(data);
+  //   };
   return (
     <>
       <Background>
         <View className="flex-1 items-center justify-center border-2">
           <Pressable onPress={handleOnPress} className="size-12 bg-red-500"></Pressable>
+          <Pressable className="m-10 size-12 bg-blue-500"></Pressable>
         </View>
       </Background>
     </>
