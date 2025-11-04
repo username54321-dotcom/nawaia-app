@@ -30,7 +30,7 @@ const MyModal = () => {
   };
   //Try to Sign In
   const HandleSignIn = async () => {
-    const email = EmailInput.current.value;
+    const email = EmailInput.current?.value;
     const password = PasswordInput?.current?.value;
     const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: email,

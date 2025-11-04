@@ -36,7 +36,7 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         </Stack>
-        <MyModal show={ModalVisible}></MyModal>
+        <MyModal></MyModal>
       </QueryClientProvider>
     </GestureHandlerRootView>
   );
