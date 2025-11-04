@@ -6,7 +6,7 @@ const About = () => {
   const {
     data,
   } = async () => {
-    await supabaseClient.from('courses').select('title');
+    await supabaseClient.from('courses').select('t');
   };
   return <Background></Background>;
 };
