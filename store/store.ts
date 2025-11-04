@@ -1,5 +1,6 @@
 import { supabaseClient } from '~/utils/supabase';
 import type { StateCreator } from 'zustand';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { create } = require('zustand');
 
 interface AuthState {
@@ -19,8 +20,6 @@ const authStoreCreator: StateCreator<AuthState> = (set) => ({
 });
 
 export const useIsAuth = create(authStoreCreator);
-
-useIsAuth.getState().startAuthTrack();
 
 interface ModalState {
   ModalVisible: boolean;

@@ -10,17 +10,14 @@ import MyImage1 from '../../../../components/Reusebales/MyImage';
 import IdContent from './../../../../components/Pages/[id]/Content';
 import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
 import { useIsAuth } from '~/store/store';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 const CoursePage = () => {
+  const isMounted = useRef(false);
   const { isAuth } = useIsAuth();
   const { id } = useLocalSearchParams();
   // Course Query
-  const {
-    data: courseData,
-
-    refetch,
-  } = useQuery({
+  const { data: courseData, refetch } = useQuery({
     queryKey: ['Course Data', id],
     queryFn: async () => {
       const { data, error } = await supabaseClient
@@ -36,7 +33,8 @@ const CoursePage = () => {
   });
   // Refetch when Auth Changes
   useEffect(() => {
-    refetch();
+    // eslint-disable-next-line no-unused-expressions
+    !isMounted.current ? (isMounted.current = true) : refetch();
   }, [isAuth, refetch]);
   return (
     <>

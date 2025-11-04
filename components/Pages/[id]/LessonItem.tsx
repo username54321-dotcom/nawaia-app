@@ -78,7 +78,6 @@ const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
                     {
                       lesson_id: lessonData.id,
                       content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
-                      // course_id: courseId,
                     },
                     { onConflict: 'user_id, lesson_id' }
                   )
@@ -95,9 +94,7 @@ const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
         {expand && !ViewEditor && (
           <>
             {/**Notes HTML */}
-            <ScrollView
-              // style={tw`max-h-75 self-center w-11/12`}
-              className="mt-2 max-h-[600px] w-11/12 self-center  rounded-xl ">
+            <ScrollView className="mt-2 max-h-[600px] w-11/12 self-center  rounded-xl ">
               <RenderHTML
                 contentWidth={2000}
                 baseStyle={tw`bg-slate-200 px-4 py-2 `}

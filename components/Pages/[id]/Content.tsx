@@ -28,20 +28,16 @@ type lessonType = {
   notes: { id: number; content: string; user_id: string; lesson_id: number; created_at: string }[];
 };
 
-const IdContent = ({
-  courseId,
-  chaptersData,
-  refetch,
-}: {
-  courseId: number;
+type propTypes = {
   chaptersData: chapterType[];
   refetch: () => void;
-}) => {
+};
+const IdContent = ({ chaptersData, refetch }: propTypes) => {
   const { isAuth } = useIsAuth();
 
-  useEffect(() => {
-    refetch();
-  }, [isAuth, refetch]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [isAuth, refetch]);
   return (
     <>
       {chaptersData.map((chapter: chapterType, index: number) => {
