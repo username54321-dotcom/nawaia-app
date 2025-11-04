@@ -6,15 +6,34 @@ import LessonItem from './LessonItem';
 type chapterType = {
   id: number;
   name: string;
-  lessons: { id: number; name: string; position: number; links?: { link: string }[] }[];
+  lessons: {
+    id: number;
+    name: string;
+    position: number;
+    links: { link: string }[];
+    notes: {
+      id: number;
+      content: string;
+      user_id: string;
+      lesson_id: number;
+      created_at: string;
+    }[];
+  }[];
+};
+type lessonType = {
+  id: number;
+  name: string;
+  position: number;
+  links?: { link: string }[];
+  notes: { id: number; content: string; user_id: string; lesson_id: number; created_at: string }[];
 };
 
 const IdContent = ({
-  courseID,
+  courseId,
   chaptersData,
   refetch,
 }: {
-  courseID: number;
+  courseId: number;
   chaptersData: chapterType[];
   refetch: () => void;
 }) => {
@@ -33,12 +52,12 @@ const IdContent = ({
               <Text className="font-Kufi text-lg font-semibold text-slate-600">{chapter.name}</Text>
             </View>
             {/** Lessons List */}
-            {chapter.lessons.map((Lesson: any, index: any) => (
+            {chapter.lessons.map((Lesson: lessonType, index: any) => (
               <View key={index}>
                 <LessonItem
-                  lessonData={chapter.lessons}
-                  courseID={courseID}
+                  lessonData={Lesson}
                   refetch={refetch}
+                  note={Lesson.notes[0]?.content}
                   // notes={data.notes}
                 ></LessonItem>
               </View>

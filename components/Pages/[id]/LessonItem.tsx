@@ -12,30 +12,27 @@ interface propTypes {
   lessonData: {
     id: number;
     name: string;
-    links: { link: string }[];
+    position: number;
+    links: { link: string };
+    notes?: {
+      id: number;
+      content: string;
+      user_id: string;
+      lesson_id: number;
+      created_at: string;
+    }[];
   };
-  notes?: {
-    id: number;
-    content: string;
-    user_id: string;
-    lesson_id: number;
-    created_at: string;
-  }[];
+
+  note?: string;
   refetch: () => void;
-  courseId: number;
 }
 
-const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
+const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
   const { setModalVisible } = useModalVisible(); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const { isAuth } = useIsAuth(); // Auth State
   const Note = useRef<string | null | undefined>(null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);
-
-  // Filter Notes for Selected Lesson
-  const getContent = (lesson_id: number) => {
-    return notes?.filter((note: any) => +note.lesson_id === +lesson_id)[0]?.content;
-  };
 
   return (
     <>
@@ -56,7 +53,7 @@ const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
         <View>
           <Pressable
             onPress={() =>
-              isAuth ? Linking.openURL(lessonData.links[0].link) : setModalVisible(true)
+              isAuth ? Linking.openURL(lessonData.links.link) : setModalVisible(true)
             }>
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
           </Pressable>
@@ -69,7 +66,7 @@ const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
           <>
             <View className="mt-2 w-full items-center self-center rounded-md  p-2">
               <Lexical
-                initialHtml={getContent(lessonData.id)}
+                initialHtml={note}
                 onStateChange={({ html }) => (Note.current = html)}></Lexical>
             </View>
 
@@ -81,7 +78,7 @@ const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
                     {
                       lesson_id: lessonData.id,
                       content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
-                      course_id: courseId,
+                      // course_id: courseId,
                     },
                     { onConflict: 'user_id, lesson_id' }
                   )
@@ -104,7 +101,7 @@ const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
               <RenderHTML
                 contentWidth={2000}
                 baseStyle={tw`bg-slate-200 px-4 py-2 `}
-                source={{ html: getContent(lessonData.id) || 'لا توجد ملاحظات' }}
+                source={{ html: note || 'لا توجد ملاحظات' }}
               />
             </ScrollView>
             {/**Edit Notes Button */}
@@ -112,7 +109,7 @@ const LessonItem = ({ lessonData, refetch, courseId, notes }: propTypes) => {
               onPress={() => setViewEditor(true)}
               className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
               <Text className="font font-Kufi font-semibold text-neutral-50">
-                {getContent(lessonData.id) ? 'تعديل' : 'أضف ملاحظاتك'}
+                {note ? 'تعديل' : 'أضف ملاحظاتك'}
               </Text>
             </Pressable>
           </>

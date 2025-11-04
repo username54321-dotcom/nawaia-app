@@ -83,7 +83,7 @@ const CoursePage = () => {
 
               <IdContent
                 refetch={refetch}
-                courseID={courseData.id}
+                courseId={courseData.id}
                 chaptersData={courseData.chapters}></IdContent>
             </View>
           </FadeIn>
