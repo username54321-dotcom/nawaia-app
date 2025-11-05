@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { Text, View } from 'react-native';
-import AdminUpdateField from './../../../components/Pages/AdminPage/AdminUpdateField';
-import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminUpdateField from '../../../components/Pages/AdminPage/AdminUpdateField';
+import AdminPublishButton from '../../../components/Pages/AdminPage/AdminPublishButton';
 
-const Admin_AddPages = () => {
+const Admin_EditCourse = () => {
   const { data: courseList, refetch } = useQuery({
     queryKey: ['Admin courses'],
     queryFn: async () => {
@@ -29,9 +29,9 @@ const Admin_AddPages = () => {
                 refetch={refetch}
                 table="courses"></AdminPublishButton>
               {/**Course Information */}
-              <Text className="m-2 text-2xl font-extrabold">Course Information</Text>
+              <Text className="mb-4 text-2xl font-semibold">{itemCourse.title}</Text>
               <View className=" w-[95%] flex-col items-center  bg-slate-300 p-4">
-                <Text className="text-2xl font-semibold">{itemCourse.title}</Text>
+                <Text className="m-2 text-2xl font-extrabold">Course Information</Text>
                 <AdminUpdateField
                   fieldName="title"
                   id={itemCourse.id}
@@ -128,4 +128,4 @@ const Admin_AddPages = () => {
   );
 };
 
-export default Admin_AddPages;
+export default Admin_EditCourse;

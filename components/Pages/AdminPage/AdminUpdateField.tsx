@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 
@@ -47,4 +47,4 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch }: propType
   );
 };
 
-export default AdminUpdateField;
+export default memo(AdminUpdateField);

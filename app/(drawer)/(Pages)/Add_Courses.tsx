@@ -89,15 +89,15 @@ const Add_Courses = () => {
       }
     }
   };
-  //   const getRow = async () => {
-  //     const { data, error } = await supabaseClient
-  //       .from('courses')
-  //       .select('title,chapters(name)')
-  //       .eq('id', '12')
-  //       .single();
-  //     // error && console.log(error);
-  //     console.log(data);
-  //   };
+  const getRow = async () => {
+    const { data, error } = await supabaseClient
+      .from('courses')
+      .select('title,chapters(name)')
+      .eq('id', 12)
+      .single();
+    // error && console.log(error);
+    console.log(data);
+  };
   return (
     <>
       <Background>
