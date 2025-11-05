@@ -12,9 +12,10 @@ import { useIsAuth, useModalVisible } from '~/store/store';
 const tanstackQueryClient = new QueryClient();
 
 export default function RootLayout() {
-  useIsAuth.getState().startAuthTrack();
+  useIsAuth.getState().startAuthTrack(); // Track User Authentication
 
-  const { ModalVisible } = useModalVisible();
+  const { ModalVisible } = useModalVisible(); // State For Modal Visibility
+  // Loading Fonts
   const [Fontloaded] = useFonts({
     AtomicAge: AtomicAge_400Regular,
     Kufi: require('~/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf'),
@@ -26,7 +27,6 @@ export default function RootLayout() {
   if (!Fontloaded) {
     return null;
   }
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={tanstackQueryClient}>

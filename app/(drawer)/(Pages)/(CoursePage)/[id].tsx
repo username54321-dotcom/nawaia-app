@@ -36,6 +36,37 @@ const CoursePage = () => {
     // eslint-disable-next-line no-unused-expressions
     !isMounted.current ? (isMounted.current = true) : refetch();
   }, [isAuth, refetch]);
+  //Realtime
+  useEffect(() => {
+    const a = supabaseClient
+      .channel('courses')
+      .on('postgres_changes', { table: 'courses', schema: 'public', event: '*' }, () => refetch())
+      .subscribe();
+    const b = supabaseClient
+      .channel('chapters')
+      .on('postgres_changes', { table: 'chapters', schema: 'public', event: '*' }, () => refetch())
+      .subscribe();
+    const c = supabaseClient
+      .channel('lessons')
+      .on('postgres_changes', { table: 'lessons', schema: 'public', event: '*' }, () => refetch())
+      .subscribe();
+    const d = supabaseClient
+      .channel('links')
+      .on('postgres_changes', { table: 'links', schema: 'public', event: '*' }, () => refetch())
+      .subscribe();
+    const e = supabaseClient
+      .channel('notes')
+      .on('postgres_changes', { table: 'notes', schema: 'public', event: '*' }, () => refetch())
+      .subscribe();
+
+    return () => {
+      supabaseClient.removeChannel(a);
+      supabaseClient.removeChannel(b);
+      supabaseClient.removeChannel(c);
+      supabaseClient.removeChannel(d);
+      supabaseClient.removeChannel(e);
+    };
+  }, [refetch, supabaseClient]);
   return (
     <>
       <Background>

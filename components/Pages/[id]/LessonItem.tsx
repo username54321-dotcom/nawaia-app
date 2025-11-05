@@ -82,7 +82,7 @@ const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
                     { onConflict: 'user_id, lesson_id' }
                   )
                   .select();
-                isUpserted && refetch();
+
                 setViewEditor(false);
               }}
               className="my-1 size-fit self-center rounded-md bg-red-500 px-6">
