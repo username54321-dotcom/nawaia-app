@@ -8,8 +8,11 @@ import MyImage from '~/components/Reusebales/MyImage';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
 import { Plus } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
+import { MotiView } from 'moti';
+import { useRouter } from 'expo-router';
 
 const Admin_SelectCourse = () => {
+  const router = useRouter();
   //Main Query
   const { data: courseList, refetch } = useQuery({
     queryKey: ['Admin Get Courses'],
@@ -27,6 +30,10 @@ const Admin_SelectCourse = () => {
   const handleAddDummyCourse = async () => {
     await addDummyCourse();
     refetch();
+  };
+  //Navigate to edit page
+  const handleEditCourse = (id: number) => {
+    router.navigate({ pathname: '/(drawer)/(Pages)/Admin_EditCourse', params: { id: id } });
   };
   return (
     <Background>
@@ -54,11 +61,18 @@ const Admin_SelectCourse = () => {
                         {/** Delete Edit Publish Container */}
                         <View className="size-fit w-full flex-row items-center justify-between ">
                           {/**Delete Button */}
+
                           <Pressable
                             onLongPress={() => handleDelete(itemCourse.id)}
                             delayLongPress={7000}
                             className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
                             <Text className="text-white">Delete</Text>
+                          </Pressable>
+                          {/**Edit Course */}
+                          <Pressable
+                            onPress={() => handleEditCourse(itemCourse.id)}
+                            className="items-center justify-center rounded-md bg-blue-500">
+                            <Text className="px-6 py-2 text-xl font-semibold text-white">Edit</Text>
                           </Pressable>
                           {/**Publish Button */}
                           <AdminPublishButton
