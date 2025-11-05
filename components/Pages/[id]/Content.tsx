@@ -1,45 +1,33 @@
 import { View, Text } from 'react-native';
 import { useIsAuth } from '~/store/store';
-import { useEffect, memo } from 'react';
+import { memo } from 'react';
 import LessonItem from './LessonItem';
+import { Tables } from '~/utils/database.types';
 
-type chapterType = {
-  id: number;
-  name: string;
-  lessons: {
-    id: number;
-    name: string;
-    position: number;
-    links: { link: string }[];
-    notes: {
-      id: number;
-      content: string;
-      user_id: string;
-      lesson_id: number;
-      created_at: string;
-    }[];
-  }[];
-};
-type lessonType = {
-  id: number;
-  name: string;
-  position: number;
-  links?: { link: string }[];
-  notes: { id: number; content: string; user_id: string; lesson_id: number; created_at: string }[];
+type lessonsType = Tables<'lessons'> & {
+  notes: Tables<'notes'>[];
+  links: Tables<'links'>[];
 };
 
-type propTypes = {
-  chaptersData: chapterType[];
-  refetch: () => void;
-};
-const IdContent = ({ chaptersData, refetch }: propTypes) => {
+export type ChaptersArrayType = (Tables<'chapters'> & {
+  lessons: lessonsType[];
+})[];
+type refetchType = () => void;
+
+const IdContent = ({
+  chaptersData,
+  refetch,
+}: {
+  chaptersData: ChaptersArrayType;
+  refetch: refetchType;
+}) => {
   const { isAuth } = useIsAuth();
 
   return (
     <>
       {chaptersData
         .sort((a, b) => a.id - b.id)
-        .map((chapter: chapterType, index: number) => {
+        .map((chapter, index) => {
           return (
             <View key={index} className="w-full">
               {/**Chapter Name Container */}
@@ -49,10 +37,10 @@ const IdContent = ({ chaptersData, refetch }: propTypes) => {
                 </Text>
               </View>
               {/** Lessons List */}
-              {chapter.lessons.map((Lesson: lessonType, index: any) => (
+              {chapter.lessons.map((Lesson, index) => (
                 <View key={index}>
                   <LessonItem
-                    lessonData={Lesson}
+                    LessonItemProp={Lesson}
                     refetch={refetch}
                     note={Lesson.notes[0]?.content}
                     // notes={data.notes}

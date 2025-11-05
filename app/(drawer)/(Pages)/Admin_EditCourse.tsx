@@ -6,6 +6,7 @@ import AdminUpdateField from '../../../components/Pages/AdminPage/AdminUpdateFie
 import AdminPublishButton from '../../../components/Pages/AdminPage/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
 import { Equal } from 'lucide-react-native';
+import { memo } from 'react';
 
 const Admin_EditCourse = () => {
   const { id }: { id: number } = useLocalSearchParams();
@@ -129,4 +130,4 @@ const Admin_EditCourse = () => {
   );
 };
 
-export default Admin_EditCourse;
+export default memo(Admin_EditCourse);

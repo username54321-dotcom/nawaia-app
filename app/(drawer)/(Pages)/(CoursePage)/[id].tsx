@@ -66,7 +66,7 @@ const CoursePage = () => {
       supabaseClient.removeChannel(d);
       supabaseClient.removeChannel(e);
     };
-  }, [refetch, supabaseClient]);
+  }, [refetch]);
   return (
     <>
       <Background>

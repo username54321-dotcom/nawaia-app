@@ -8,26 +8,18 @@ import RotatingChevron from './../../Animations/RotatingChevron';
 import Lexical from './../../Reusebales/Lexical';
 import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
-interface propTypes {
-  lessonData: {
-    id: number;
-    name: string;
-    position: number;
-    links: { link: string };
-    notes?: {
-      id: number;
-      content: string;
-      user_id: string;
-      lesson_id: number;
-      created_at: string;
-    }[];
+import { Tables } from '~/utils/database.types';
+
+type props = {
+  LessonItemProp: Tables<'lessons'> & {
+    notes: Tables<'notes'>[];
+    links: Tables<'links'>[];
   };
-
-  note?: string;
+  note: string | null;
   refetch: () => void;
-}
+};
 
-const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
+const LessonItem = ({ LessonItemProp, note }: props) => {
   const { setModalVisible } = useModalVisible(); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const { isAuth } = useIsAuth(); // Auth State
@@ -46,14 +38,14 @@ const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
             className="ml-4 rounded-md "></RotatingChevron>
 
           <Text className="font-Kufi font-semibold group-hover:text-red-700">
-            {lessonData.name}
+            {LessonItemProp.name}
           </Text>
         </View>
         {/** Watch Lesson Button */}
         <View>
           <Pressable
             onPress={() =>
-              isAuth ? Linking.openURL(lessonData.links.link) : setModalVisible(true)
+              isAuth ? Linking.openURL(LessonItemProp.links[0].link) : setModalVisible(true)
             }>
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
           </Pressable>
@@ -76,7 +68,7 @@ const LessonItem = ({ lessonData, refetch, note }: propTypes) => {
                   .from('notes')
                   .upsert(
                     {
-                      lesson_id: lessonData.id,
+                      lesson_id: LessonItemProp.id,
                       content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
                     },
                     { onConflict: 'user_id, lesson_id' }

@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
@@ -99,4 +99,4 @@ const Admin_SelectCourse = () => {
   );
 };
 
-export default Admin_SelectCourse;
+export default memo(Admin_SelectCourse);

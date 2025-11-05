@@ -87,7 +87,7 @@ function SetInitialStatePlugin({ html }: { html: string }) {
 interface LexicalPropTypes {
   onChange?: (text: string) => void;
   onStateChange?: (state: { json: object; html: string }) => void;
-  initialHtml?: string;
+  initialHtml?: string | null;
 }
 function Lexical({ onChange, onStateChange, initialHtml }: LexicalPropTypes) {
   return (
