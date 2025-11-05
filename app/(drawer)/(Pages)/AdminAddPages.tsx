@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import AdminUpdateField from './../../../components/Pages/AdminPage/AdminUpdateField';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
-import LessonItem from '~/components/Pages/[id]/LessonItem';
 
 const Admin_AddPages = () => {
   const { data: courseList, refetch } = useQuery({
@@ -31,7 +30,8 @@ const Admin_AddPages = () => {
                 table="courses"></AdminPublishButton>
               {/**Course Information */}
               <Text className="m-2 text-2xl font-extrabold">Course Information</Text>
-              <View className=" flex-col items-center justify-center bg-slate-300 p-4">
+              <View className=" w-[95%] flex-col items-center  bg-slate-300 p-4">
+                <Text className="text-2xl font-semibold">{itemCourse.title}</Text>
                 <AdminUpdateField
                   fieldName="title"
                   id={itemCourse.id}
@@ -76,39 +76,51 @@ const Admin_AddPages = () => {
                   refetch={refetch}></AdminUpdateField>
               </View>
               {/**Chapter Information */}
-              <Text>Chapters Info</Text>
-              {itemCourse.chapters.map((itemChapter, index) => {
-                return (
-                  <View key={index}>
-                    <AdminUpdateField
-                      fieldName="name"
-                      id={itemChapter.id}
-                      table="chapters"
-                      liveValue={itemChapter.name}
-                      refetch={refetch}></AdminUpdateField>
-                    {/**lesson Infromation */}
-                    <Text>Lesson Information</Text>
-                    {itemChapter.lessons.map((itemLesson, index) => {
-                      return (
-                        <View key={index}>
-                          <AdminUpdateField
-                            fieldName="name"
-                            id={itemLesson.id}
-                            table="lessons"
-                            liveValue={itemLesson.name}
-                            refetch={refetch}></AdminUpdateField>
-                          <AdminUpdateField
-                            fieldName="link"
-                            id={itemLesson.links?.id}
-                            table="links"
-                            liveValue={itemLesson.links?.link}
-                            refetch={refetch}></AdminUpdateField>{' '}
-                        </View>
-                      );
-                    })}
-                  </View>
-                );
-              })}
+              <Text className="m-2 text-2xl font-extrabold">Chapters Info</Text>
+              {itemCourse.chapters
+                .sort((a, b) => a.id - b.id)
+                .map((itemChapter, index) => {
+                  return (
+                    <View className=" w-[95%] flex-col items-center  bg-slate-300 p-2" key={index}>
+                      <Text className="text-xl font-bold">{itemChapter.name}</Text>
+                      <View className="w-full items-center rounded-md border-[3px] p-2">
+                        <AdminUpdateField
+                          fieldName="name"
+                          id={itemChapter.id}
+                          table="chapters"
+                          liveValue={itemChapter.name}
+                          refetch={refetch}></AdminUpdateField>
+                        {/**lesson Infromation */}
+                        <Text className="m-2 text-2xl font-extrabold">Lesson Information</Text>
+                        {itemChapter.lessons
+                          .sort((a, b) => a.id - b.id)
+                          .map((itemLesson, index) => {
+                            return (
+                              <View
+                                className=" w-[95%] flex-col items-center  bg-slate-300 p-4"
+                                key={index}>
+                                <View className="w-full items-center rounded-md p-4">
+                                  <AdminUpdateField
+                                    fieldName="name"
+                                    id={itemLesson.id}
+                                    table="lessons"
+                                    liveValue={itemLesson.name}
+                                    refetch={refetch}></AdminUpdateField>
+
+                                  <AdminUpdateField
+                                    fieldName="link"
+                                    id={itemLesson.links?.id}
+                                    table="links"
+                                    liveValue={itemLesson.links?.link}
+                                    refetch={refetch}></AdminUpdateField>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                    </View>
+                  );
+                })}
             </View>
           );
         })}
