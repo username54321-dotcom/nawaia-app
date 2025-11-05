@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
@@ -37,4 +37,4 @@ const CourseCard = ({ courseItem }: { courseItem: Tables<'courses'> }) => {
   );
 };
 
-export default CourseCard;
+export default memo(CourseCard);
