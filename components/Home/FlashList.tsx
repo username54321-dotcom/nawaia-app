@@ -4,23 +4,36 @@ import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import FadeIn from './../Animations/FadeIn';
 import MyImage1 from '../Reusebales/MyImage';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 const CourseList = () => {
   const router = useRouter();
+  // Navigate to Course
   const HandleOnPress = (CourseId: number) => {
     router.push({ pathname: `/(drawer)/(Pages)/(CoursePage)/${CourseId}` });
   };
-  const { data: courseList } = useQuery({
+  //Main Query
+  const { data: courseList, refetch } = useQuery({
     queryKey: ['Public Courses List'],
 
     queryFn: async () => {
-      const { data } = await supabaseClient
-        .from('courses')
-        .select('id,title, image, short_description ');
+      const { data } = await supabaseClient.from('courses').select('*');
       return data;
     },
   });
+  //Real Time
+  useEffect(() => {
+    const channel = supabaseClient.channel('refetch courses');
+    channel
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'courses' }, () => {
+        refetch();
+      })
+      .subscribe();
+
+    return () => {
+      supabaseClient.removeChannel(channel);
+    };
+  }, []);
 
   return (
     courseList && (
