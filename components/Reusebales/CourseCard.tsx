@@ -9,7 +9,7 @@ const CourseCard = ({ courseItem }: { courseItem: Tables<'courses'> }) => {
   const router = useRouter();
   // Navigate to Course
   const HandleOnPress = (CourseId: number) => {
-    router.push({ pathname: `/(drawer)/(Pages)/(CoursePage)/${CourseId}` });
+    router.push({ pathname: `/(drawer)/(Pages)/Course`, params: { id: CourseId } });
   };
   return (
     <FadeIn>

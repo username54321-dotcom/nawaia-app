@@ -3,14 +3,14 @@ import { Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
-import FadeIn from './../../../../components/Animations/FadeIn';
 import Background from '~/components/Background';
-import { GenreIcons } from './../../../../components/GenresIcons';
-import MyImage1 from '../../../../components/Reusebales/MyImage';
-import IdContent from './../../../../components/Pages/[id]/Content';
-import TextAccordion from './../../../../components/Pages/[id]/TextAccordion';
+import { GenreIcons } from '../../../components/GenresIcons';
+import MyImage1 from '../../../components/Reusebales/MyImage';
+import IdContent from '../../../components/Pages/[id]/Content';
+import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { useIsAuth } from '~/store/store';
 import { memo, useEffect, useRef } from 'react';
+import FadeIn from '~/components/Animations/FadeIn';
 
 const CoursePage = () => {
   const isMounted = useRef(false);
