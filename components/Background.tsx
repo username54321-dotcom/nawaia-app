@@ -11,11 +11,7 @@ const Background = ({ children }: { children?: React.ReactNode }) => {
   return (
     <SafeAreaView className="flex-1">
       <DynamicBanner></DynamicBanner>
-      <Pressable
-        className="size-12 bg-red-500"
-        onPress={() => {
-          nav.goBack();
-        }}></Pressable>
+
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
         {children}
       </ScrollView>

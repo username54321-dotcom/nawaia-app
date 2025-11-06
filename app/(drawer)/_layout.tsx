@@ -28,7 +28,7 @@ const DrawerLayout = () => {
           name="(Pages)/About"
           options={{ drawerLabel: 'عن الأكاديمية' }}></Drawer.Screen>
         <Drawer.Screen
-          name="(Pages)/(CoursePage)/[id]"
+          name="(Pages)/Course"
           options={{ drawerItemStyle: { display: 'none' } }}></Drawer.Screen>
         <Drawer.Screen
           name="(Pages)/SignUp"
