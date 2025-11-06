@@ -16,6 +16,7 @@ const CoursePage = () => {
   const isMounted = useRef(false);
   const { isAuth } = useIsAuth();
   const { id } = useLocalSearchParams();
+  console.log(id);
   // Course Query
   const { data: courseData, refetch } = useQuery({
     queryKey: ['Course Data', id],
@@ -27,6 +28,7 @@ const CoursePage = () => {
         .single();
       return data;
     },
+    // enabled: !!id,
   });
   // Refetch when Auth Changes
   useEffect(() => {

@@ -7,8 +7,7 @@ import { useNavigation, useRouter } from 'expo-router';
 const Background = ({ children }: { children?: React.ReactNode }) => {
   const router = useRouter();
   const nav = useNavigation();
-  console.log(router.canGoBack());
-  console.log(nav.canGoBack());
+
   return (
     <SafeAreaView className="flex-1">
       <DynamicBanner></DynamicBanner>

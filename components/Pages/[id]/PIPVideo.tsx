@@ -18,7 +18,6 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   const [playerVisible, setPlayerVisible] = useState(false);
   const updateTimeStamp = () => {
     triggerCount.current += 1;
-    console.log('updated ' + triggerCount.current);
   };
   const playEventListener = player.addListener(
     'playingChange',

@@ -82,9 +82,8 @@ export const addDummyCourse = async () => {
     })
     .select()
     .single();
-  console.log('courseData :', courseData);
+
   const courseId = courseData?.id; // Inserted CourseID
-  console.log('courseID: ', courseId);
 
   //Loop for every Chapter
   for await (const item_inputChapter of inputChapters) {
@@ -98,7 +97,6 @@ export const addDummyCourse = async () => {
       .select()
       .single();
     const chapterId = chapterData?.id; // Inserted Chapter ID
-    console.log('chapter ID: ', chapterId);
     // Loop to Insert Every Lesson
 
     for await (const item_inputLesson of item_inputChapter.lessons) {

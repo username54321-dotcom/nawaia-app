@@ -13,7 +13,7 @@ const Admin_EditPage = () => {
       const { data } = await supabaseClient
         .from('courses')
         .select('*, chapters(*, lessons(*, links(*)))');
-      console.log(data);
+
       return data;
     },
   });
