@@ -6,7 +6,8 @@ import { Tables } from '~/utils/database.types';
 
 type lessonsType = Tables<'lessons'> & {
   notes: Tables<'notes'>[];
-  links: Tables<'links'>[];
+  links: Tables<'links'>;
+  video_progress: Tables<'video_progress'>;
 };
 
 export type ChaptersArrayType = (Tables<'chapters'> & {

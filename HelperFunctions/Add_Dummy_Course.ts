@@ -5,27 +5,63 @@ const inputChapters = [
     name: '_الفصل الأول',
     position: 1,
     lessons: [
-      { name: 'الدرس الأول', position: 1, link: 'example.com' },
-      { name: 'الدرس الثاني', position: 2, link: 'example.com' },
-      { name: 'الدرس الثالث', position: 3, link: 'example.com' },
+      {
+        name: 'الدرس الأول',
+        position: 1,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثاني',
+        position: 2,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثالث',
+        position: 3,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
     ],
   },
   {
     name: '_الفصل الثاني',
     position: 2,
     lessons: [
-      { name: 'الدرس الأول', position: 1, link: 'example.com' },
-      { name: 'الدرس الثاني', position: 2, link: 'example.com' },
-      { name: 'الدرس الثالث', position: 3, link: 'example.com' },
+      {
+        name: 'الدرس الأول',
+        position: 1,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثاني',
+        position: 2,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثالث',
+        position: 3,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
     ],
   },
   {
     name: '_الفصل الثالث',
     position: 3,
     lessons: [
-      { name: 'الدرس الأول', position: 1, link: 'example.com' },
-      { name: 'الدرس الثاني', position: 2, link: 'example.com' },
-      { name: 'الدرس الثالث', position: 3, link: 'example.com' },
+      {
+        name: 'الدرس الأول',
+        position: 1,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثاني',
+        position: 2,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
+      {
+        name: 'الدرس الثالث',
+        position: 3,
+        link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+      },
     ],
   },
 ];

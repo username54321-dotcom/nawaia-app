@@ -178,6 +178,38 @@ export type Database = {
           },
         ]
       }
+      video_progress: {
+        Row: {
+          created_at: string
+          id: number
+          lesson_id: number
+          timstamp: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          lesson_id: number
+          timstamp?: number | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          lesson_id?: number
+          timstamp?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

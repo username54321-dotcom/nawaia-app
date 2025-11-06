@@ -27,13 +27,11 @@ const MyAccordion = ({ children, className, expandProp }: propTypes) => {
     }
   }, [expandProp, animationState, ExpandedHeight]);
   return (
-    <>
-      <View className={` ${className}`}>
-        <MotiView state={animationState} style={tw.style([`overflow-hidden `])}>
-          <View onLayout={(e) => setExpandedHeight(e.nativeEvent.layout.height)}>{children}</View>
-        </MotiView>
-      </View>
-    </>
+    <View className={` ${className}`}>
+      <MotiView state={animationState} style={tw.style([`overflow-hidden `])}>
+        <View onLayout={(e) => setExpandedHeight(e.nativeEvent.layout.height)}>{children}</View>
+      </MotiView>
+    </View>
   );
 };
 

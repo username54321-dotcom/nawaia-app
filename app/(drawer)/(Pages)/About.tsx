@@ -1,29 +1,29 @@
 import Background from '~/components/Background';
-import { memo, useEffect, useState } from 'react';
-import { supabaseClient } from '~/utils/supabase';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { VideoView, useVideoPlayer } from 'expo-video';
+import { View, Pressable } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 
 const About = () => {
-  const [courses, setCourses] = useState<any[]>([]); // Replace 'any' with proper type later
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // ✅ VALID USAGE: Autocomplete works here
-      const { data, error } = await supabaseClient
-        .from('courses') // ✅ Autocomplete works
-        .select('id'); // ✅ ALL TABLE COLUMNS WILL AUTO COMPLETE
-
-      if (error) console.error('Fetch error:', error);
-      else setCourses(data || []);
-    };
-
-    fetchData();
-  }, []);
+  const player = useVideoPlayer({
+    uri: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383240/PlaceHolderVideo_rovqaa.mp4',
+  });
+  const playerRef = useRef<VideoView>(null);
+  player.seekBy(5);
 
   return (
     <Background>
-      {courses.map((course) => (
-        <div key={course.id}>{course.title}</div>
-      ))}
+      <View className="size-40">
+        <Pressable className="size-12 bg-red-500"></Pressable>
+        <VideoView
+          onFirstFrameRender={() => player.seekBy(5)}
+          ref={playerRef}
+          startsPictureInPictureAutomatically={true}
+          playsInline={true}
+          allowsFullscreen={true}
+          allowsPictureInPicture={true}
+          player={player}></VideoView>
+      </View>
     </Background>
   );
 };
