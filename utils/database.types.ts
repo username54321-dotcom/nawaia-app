@@ -183,21 +183,21 @@ export type Database = {
           created_at: string
           id: number
           lesson_id: number
-          timstamp: number | null
+          timestamp: number
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
           lesson_id: number
-          timstamp?: number | null
+          timestamp?: number
           user_id?: string
         }
         Update: {
           created_at?: string
           id?: number
           lesson_id?: number
-          timstamp?: number | null
+          timestamp?: number
           user_id?: string
         }
         Relationships: [

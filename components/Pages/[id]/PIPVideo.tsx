@@ -13,20 +13,38 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   const player = useVideoPlayer({ uri: link });
   const playerRef = useRef<VideoView>(null);
   const didLoad = useRef(false);
+  const didSeek = useRef(false);
   const triggerCount = useRef(0);
   const updateTimeStamp = () => {
     triggerCount.current += 1;
+    console.log('updated ' + triggerCount.current);
   };
   const playEventListener = player.addListener(
     'playingChange',
-    ({ isPlaying }) => !isPlaying && updateTimeStamp()
+    async ({ isPlaying, oldIsPlaying }) =>
+      !isPlaying &&
+      oldIsPlaying &&
+      (await supabaseClient
+        .from('video_progress')
+        .upsert(
+          { lesson_id: lessonId, timestamp: player.currentTime.toFixed(0) },
+          { onConflict: 'user_id,lesson_id' }
+        ))
   );
 
-  const handleOnFirstFrame = () => {
+  const handleOnFirstFrame = async () => {
     playerRef.current?.startPictureInPicture();
     didLoad.current = true;
+    const { data, error } = await supabaseClient
+      .from('video_progress')
+      .select('timestamp')
+      .eq('lesson_id', lessonId)
+      .single();
+    console.log(data);
+    player.seekBy(data?.timestamp ?? 0);
+    didSeek.current = true;
   };
-
+  //Interval sendTimestamp
   useEffect(() => {
     const interval = setInterval(async () => {
       if (didLoad) {
@@ -34,16 +52,19 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
         const { data, error } = await supabaseClient
           .from('video_progress')
           .upsert(
-            { lesson_id: lessonId, timstamp: currentTimeStamp },
+            { lesson_id: lessonId, timestamp: currentTimeStamp },
             { onConflict: 'user_id,lesson_id' }
           );
       }
-    }, 100000);
+    }, 30 * 1000);
     return () => {
       clearInterval(interval);
       player.release();
     };
-  }, [player, lessonId, triggerCount]);
+  }, [player, lessonId]);
+
+  //Triggered Timestamp
+
   return (
     <View className="aspect-video self-center border-2">
       <VideoView

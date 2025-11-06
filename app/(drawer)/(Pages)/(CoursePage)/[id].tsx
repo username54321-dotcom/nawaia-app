@@ -22,13 +22,9 @@ const CoursePage = () => {
     queryFn: async () => {
       const { data, error } = await supabaseClient
         .from('courses')
-        .select(
-          'id,title, image, short_description, price,long_description, duration,genre,chapters(id, position,name,lessons(id,name,position,links(link),notes(*),video_progress(*)))'
-        )
+        .select('*,chapters(*,lessons(*,links(*),notes(*),video_progress(*)))')
         .eq('id', id)
         .single();
-      error && console.log(error);
-      console.log(data);
       return data;
     },
   });
