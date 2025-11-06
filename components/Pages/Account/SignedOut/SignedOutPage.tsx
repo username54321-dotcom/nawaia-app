@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TvIcon } from 'lucide-react-native';
 import Background from '~/components/Background';
-import MyController from '../../../components/Pages/SignUp/MyController';
 import { Pressable, Text, View } from 'react-native';
-import MyImage1 from '../../../components/Reusebales/MyImage';
+import MyImage from '~/components/Reusebales/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import { useModalVisible } from '~/store/store';
+import MyController from './MyController';
 
 // *Schema
 const schema = z
@@ -59,7 +59,7 @@ const SignUp = () => {
       password: data.password,
       options: { data: { display_name: data.username } },
     });
-    SignUpData && router.push({ pathname: '/' });
+    SignUpData && router.push({ pathname: '/(drawer)' });
     SignUpError && setSignUpError(SignUpError.message);
   };
   const {
@@ -74,7 +74,7 @@ const SignUp = () => {
       {/**SignUp Card */}
       <View className="mx-auto mt-8 w-4/5 max-w-[400px] self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8 ">
         {/**Logo */}
-        <MyImage1 className="size-18 mb-6 self-center" source={imgLogo}></MyImage1>
+        <MyImage className="size-18 mb-6 self-center" source={imgLogo}></MyImage>
         {/**Separator */}
         <View className=" mb-4 w-4/5 self-center border-t-[1px] border-gray-500"></View>
         {/**Inputs Parent View*/}
@@ -130,7 +130,10 @@ const SignUp = () => {
         {/**Separator */}
         <View className=" mb-4 mt-6 w-4/5 self-center border-t-[1px] border-gray-500"></View>
         <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
-          <Text>لديك حساب ؟ سجل دخولك</Text>
+          <Text className="font-Kufi text-xs">مشترك ؟</Text>
+          <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
+            تسجيل الدخول
+          </Text>
         </Pressable>
         <Pressable
           onPress={async () => await supabaseClient.auth.signOut()}

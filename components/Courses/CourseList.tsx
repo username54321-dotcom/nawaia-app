@@ -1,11 +1,9 @@
-import { Text, ScrollView, Pressable, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
-import { useRouter } from 'expo-router';
-import FadeIn from './../Animations/FadeIn';
-import MyImage1 from '../Reusebales/MyImage';
+
 import { memo, useEffect } from 'react';
-import CourseCard from './../Reusebales/CourseCard';
+import CourseCard from '../Reusebales/CourseCard';
 
 const CourseList = () => {
   //Main Query
@@ -29,7 +27,7 @@ const CourseList = () => {
     return () => {
       supabaseClient.removeChannel(channel);
     };
-  }, []);
+  }, [refetch]);
   return (
     courseList && (
       <ScrollView showsVerticalScrollIndicator={false}>

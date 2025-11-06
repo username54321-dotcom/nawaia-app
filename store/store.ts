@@ -6,6 +6,7 @@ const { create } = require('zustand');
 interface AuthState {
   isAuth: boolean;
   startAuthTrack: () => Promise<void>;
+  userUUID: () => void;
 }
 
 const authStoreCreator: StateCreator<AuthState> = (set) => ({
@@ -17,6 +18,7 @@ const authStoreCreator: StateCreator<AuthState> = (set) => ({
       set({ isAuth: !!session });
     });
   },
+  userUUID: async () => (await supabaseClient.auth.getUser()).data.user?.id,
 });
 
 export const useIsAuth = create(authStoreCreator);

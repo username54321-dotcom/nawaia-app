@@ -1,6 +1,6 @@
 import Background from './../../components/Background';
 import { Text } from 'react-native';
-import CourseList from './../../components/Home/FlashList';
+import CourseList from '../../components/Courses/CourseList';
 import MyCarousal from './../../components/Carousal';
 import FadeIn from './../../components/Animations/FadeIn';
 import { memo } from 'react';
@@ -24,8 +24,6 @@ const Home = () => {
             sit odio atque dolore dicta fugit! Quos sed minus delectus maxime!
           </Text>
         </FadeIn>
-
-        <CourseList></CourseList>
       </Background>
     </>
   );
