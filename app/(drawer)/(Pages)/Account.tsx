@@ -3,7 +3,6 @@ import SignedOutPage from '~/components/Pages/Account/SignedOut/SignedOutPage';
 
 const Account = () => {
   const { isAuth } = useIsAuth();
-  console.log(isAuth);
   return (
     isAuth && (
       <>

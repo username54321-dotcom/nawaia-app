@@ -178,6 +178,35 @@ export type Database = {
           },
         ]
       }
+      user_course_history: {
+        Row: {
+          course_id: number
+          created_at: string
+          id: number
+          user_id: string
+        }
+        Insert: {
+          course_id: number
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Update: {
+          course_id?: number
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_course_history_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       video_progress: {
         Row: {
           created_at: string

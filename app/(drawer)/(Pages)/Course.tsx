@@ -27,7 +27,9 @@ const CoursePage = () => {
     queryFn: async () => {
       const { data, error } = await supabaseClient
         .from('courses')
-        .select('*,chapters(*,lessons(*,links(*),notes(*),video_progress(*)))')
+        .select(
+          '*,user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
+        )
         .eq('id', id)
         .single();
       return data;
@@ -71,15 +73,19 @@ const CoursePage = () => {
     };
   }, [refetch]);
 
+  //Add to History
+  const seenBefore = courseData?.user_course_history.length !== 0;
+  const addToHistory = async () => {
+    !seenBefore &&
+      (await supabaseClient.from('user_course_history').insert({ course_id: courseData.id }));
+  };
+  addToHistory();
   return (
     <>
       <Background>
-        <View onLayout={() => console.log('parent rendered')}></View>
         {courseData && id && status === 'success' && (
           <FadeIn>
-            <View
-              onLayout={() => console.log('rendered')}
-              className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
+            <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{courseData.title}</Text>
 
               <MyImage1
