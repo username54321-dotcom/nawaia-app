@@ -1,6 +1,6 @@
 import { View, Pressable } from 'react-native';
 import { useVideoPlayer } from 'expo-video/build/VideoPlayer.web';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { VideoView } from 'expo-video';
 import { supabaseClient } from '~/utils/supabase';
 
@@ -15,21 +15,26 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   const didLoad = useRef(false);
   const didSeek = useRef(false);
   const triggerCount = useRef(0);
+  const [playerVisible, setPlayerVisible] = useState(false);
   const updateTimeStamp = () => {
     triggerCount.current += 1;
     console.log('updated ' + triggerCount.current);
   };
   const playEventListener = player.addListener(
     'playingChange',
-    async ({ isPlaying, oldIsPlaying }) =>
-      !isPlaying &&
-      oldIsPlaying &&
-      (await supabaseClient
-        .from('video_progress')
-        .upsert(
-          { lesson_id: lessonId, timestamp: player.currentTime.toFixed(0) },
-          { onConflict: 'user_id,lesson_id' }
-        ))
+    async ({ isPlaying, oldIsPlaying }) => {
+      if (!isPlaying && oldIsPlaying) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        !isPlaying &&
+          oldIsPlaying &&
+          (await supabaseClient
+            .from('video_progress')
+            .upsert(
+              { timestamp: player.currentTime.toFixed(0), lesson_id: lessonId },
+              { onConflict: 'user_id,lesson_id' }
+            ));
+      }
+    }
   );
 
   const handleOnFirstFrame = async () => {
@@ -40,8 +45,8 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
       .select('timestamp')
       .eq('lesson_id', lessonId)
       .single();
-    console.log(data);
     player.seekBy(data?.timestamp ?? 0);
+    player.play();
     didSeek.current = true;
   };
   //Interval sendTimestamp
@@ -59,6 +64,7 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
     }, 30 * 1000);
     return () => {
       clearInterval(interval);
+
       player.release();
     };
   }, [player, lessonId]);
@@ -66,11 +72,14 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   //Triggered Timestamp
 
   return (
-    <View className="aspect-video self-center border-2">
+    <View className={` aspect-video self-center border-2 ${playerVisible ? '' : 'hidden'}`}>
       <VideoView
         ref={playerRef}
+        allowsFullscreen={true}
         allowsPictureInPicture={true}
         startsPictureInPictureAutomatically={true}
+        onPictureInPictureStart={() => setPlayerVisible(false)}
+        onPictureInPictureStop={() => setPlayerVisible(true)}
         onFirstFrameRender={handleOnFirstFrame}
         contentFit="fill"
         player={player}></VideoView>
