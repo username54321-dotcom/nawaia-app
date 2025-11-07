@@ -1,7 +1,6 @@
 import Background from './../../components/Background';
 import { Text } from 'react-native';
-import CourseList from '../../components/Courses/CourseList';
-import MyCarousal from './../../components/Carousal';
+
 import FadeIn from './../../components/Animations/FadeIn';
 import { memo } from 'react';
 
@@ -9,9 +8,6 @@ const Home = () => {
   return (
     <>
       <Background>
-        <FadeIn>
-          <MyCarousal className="p-10  font-semibold"></MyCarousal>
-        </FadeIn>
         <FadeIn>
           <Text className="m-2 mb-0 font-Playwrite text-2xl">Example Title</Text>
           <Text className="m-4 font-Playwrite">

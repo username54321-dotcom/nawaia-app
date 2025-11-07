@@ -6,7 +6,7 @@ import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
-import { useIsAuth, useModalVisible } from '~/store/store';
+import { useIsAuth } from '~/store/store';
 import { StrictMode } from 'react';
 
 //Tanstack Query Init
@@ -15,7 +15,6 @@ const tanstackQueryClient = new QueryClient();
 export default function RootLayout() {
   useIsAuth.getState().startAuthTrack(); // Track User Authentication
 
-  const { ModalVisible } = useModalVisible(); // State For Modal Visibility
   // Loading Fonts
   const [Fontloaded] = useFonts({
     AtomicAge: AtomicAge_400Regular,

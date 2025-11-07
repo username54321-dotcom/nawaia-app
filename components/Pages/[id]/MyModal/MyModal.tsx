@@ -122,7 +122,7 @@ const MyModal = () => {
               <Pressable
                 onPress={() => {
                   setModalVisible(false);
-                  router.push('/(drawer)/(Pages)/SignUp');
+                  router.push('/(drawer)/(Pages)/Account');
                 }}>
                 <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
                   أنشيء حسابك الآن

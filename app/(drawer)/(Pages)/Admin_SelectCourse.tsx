@@ -4,12 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
-import MyImage from '~/components/Reusebales/MyImage';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
 import { Plus } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
 import { MotiView } from 'moti';
 import { useRouter } from 'expo-router';
+import MyImage1 from '~/components/Reusebales/MyImage';
 
 const Admin_SelectCourse = () => {
   const router = useRouter();
@@ -51,10 +51,10 @@ const Admin_SelectCourse = () => {
                 <View key={index}>
                   <FadeIn>
                     <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
-                      <MyImage
+                      <MyImage1
                         className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
                         source={{ uri: itemCourse.image }}
-                        style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
+                        style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
 
                       <View className=" w-full  shrink-0">
                         <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
