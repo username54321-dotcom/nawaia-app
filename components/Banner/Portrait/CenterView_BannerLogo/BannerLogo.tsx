@@ -1,7 +1,8 @@
-import { Text, Image, Pressable } from 'react-native';
+import { Text, Pressable } from 'react-native';
 import { imgLogo } from '../../../../assets/images/ImageExports';
 import { useRouter } from 'expo-router';
 import { memo } from 'react';
+import { Image } from 'expo-image';
 
 const BannerLogo = () => {
   const router = useRouter();
@@ -14,8 +15,7 @@ const BannerLogo = () => {
         <Image
           className="translate-x-[-4px]"
           style={{ height: 45, width: 45 }}
-          resizeMode="contain"
-          onLoadStart={() => <Text>test</Text>}
+          contentFit="contain"
           source={imgLogo}
         />
 
