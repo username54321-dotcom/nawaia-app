@@ -42,12 +42,14 @@ const CourseCard = ({
             <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
           </Pressable>
         </View>
-        <View
-          className={`absolute  rounded-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
-          <Text className="font-semibold text-white ">
-            {courseItem.published ? 'Published' : 'UnPublished'}
-          </Text>
-        </View>
+        {!courseItem.published && (
+          <View
+            className={`absolute  rounded-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
+            <Text className="font-semibold text-white ">
+              {courseItem.published ? 'Published' : 'UnPublished'}
+            </Text>
+          </View>
+        )}
       </View>
     </FadeIn>
   );
