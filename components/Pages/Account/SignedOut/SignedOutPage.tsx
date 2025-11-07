@@ -11,6 +11,7 @@ import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
 import { useModalVisible } from '~/store/store';
 import MyController from './MyController';
+import FadeIn from '~/components/Animations/FadeIn';
 
 // *Schema
 const schema = z
@@ -72,73 +73,72 @@ const SignUp = () => {
   return (
     <Background>
       {/**SignUp Card */}
-      <View className="mx-auto mt-8 w-4/5 max-w-[400px] self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8 ">
-        {/**Logo */}
-        <MyImage className="size-18 mb-6 self-center" source={imgLogo}></MyImage>
-        {/**Separator */}
-        <View className=" mb-4 w-4/5 self-center border-t-[1px] border-gray-500"></View>
-        {/**Inputs Parent View*/}
-        <View className="mx-2">
-          {/**Username */}
-          <MyController
-            control={control}
-            error={errors.username}
-            name="username"
-            placeholder="أسم المستخدم"
-            title="أسم المستخدم"
-          />
-          {/**E-Mail */}
+      <FadeIn>
+        <View className="mx-auto mt-8 w-4/5 max-w-[400px] self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8 ">
+          {/**Logo */}
+          <MyImage className="size-18 mb-6 self-center" source={imgLogo}></MyImage>
+          {/**Separator */}
+          <View className=" mb-4 w-4/5 self-center border-t-[1px] border-gray-500"></View>
+          {/**Inputs Parent View*/}
+          <View className="mx-2">
+            {/**Username */}
+            <MyController
+              control={control}
+              error={errors.username}
+              name="username"
+              placeholder="أسم المستخدم"
+              title="أسم المستخدم"
+            />
+            {/**E-Mail */}
 
-          <MyController
-            control={control}
-            error={errors.email}
-            name="email"
-            placeholder="البريد الالكتروني"
-            title="البريد الالكتروني"
-          />
-          {/**Password */}
+            <MyController
+              control={control}
+              error={errors.email}
+              name="email"
+              placeholder="البريد الالكتروني"
+              title="البريد الالكتروني"
+            />
+            {/**Password */}
 
-          <MyController
-            control={control}
-            error={errors.password}
-            secure={true}
-            icon={TvIcon}
-            name="password"
-            placeholder="كلمة السر"
-            title="كلمة السر"
-          />
-          {/**Confirm Password */}
+            <MyController
+              control={control}
+              error={errors.password}
+              secure={true}
+              icon={TvIcon}
+              name="password"
+              placeholder="كلمة السر"
+              title="كلمة السر"
+            />
+            {/**Confirm Password */}
 
-          <MyController
-            control={control}
-            error={errors.confirmPassword}
-            secure={true}
-            icon={TvIcon}
-            name="confirmPassword"
-            placeholder="تأكيد كلمة السر"
-            title="تأكيد كلمة السر"
-          />
+            <MyController
+              control={control}
+              error={errors.confirmPassword}
+              secure={true}
+              icon={TvIcon}
+              name="confirmPassword"
+              placeholder="تأكيد كلمة السر"
+              title="تأكيد كلمة السر"
+            />
+          </View>
+          {/**Sign Up Button */}
+
+          <Pressable
+            onPress={handleSubmit(HandleOnSubmit)}
+            className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
+            <Text className="font-Kufi   text-gray-50">أشتراك</Text>
+          </Pressable>
+          <Text>{SignUpError}</Text>
+          {/**Separator */}
+          <View className=" mb-4 mt-6 w-4/5 self-center border-t-[1px] border-gray-500"></View>
+          <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
+            <Text className="font-Kufi text-xs">مشترك ؟</Text>
+            <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
+              تسجيل الدخول
+            </Text>
+          </Pressable>
         </View>
-        {/**Sign Up Button */}
-
-        <Pressable
-          onPress={handleSubmit(HandleOnSubmit)}
-          className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
-          <Text className="font-Kufi   text-gray-50">أشتراك</Text>
-        </Pressable>
-        <Text>{SignUpError}</Text>
-        {/**Separator */}
-        <View className=" mb-4 mt-6 w-4/5 self-center border-t-[1px] border-gray-500"></View>
-        <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
-          <Text className="font-Kufi text-xs">مشترك ؟</Text>
-          <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
-            تسجيل الدخول
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={async () => await supabaseClient.auth.signOut()}
-          className="size-12 bg-red-500"></Pressable>
-      </View>
+      </FadeIn>
     </Background>
   );
 };

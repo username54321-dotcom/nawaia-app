@@ -5,7 +5,13 @@ import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
 
-const CourseCard = ({ courseItem }: { courseItem: Tables<'courses'> }) => {
+const CourseCard = ({
+  courseItem,
+  className,
+}: {
+  courseItem: Tables<'courses'>;
+  className?: string;
+}) => {
   const router = useRouter();
   // Navigate to Course
   const HandleOnPress = (CourseId: number) => {
@@ -13,7 +19,11 @@ const CourseCard = ({ courseItem }: { courseItem: Tables<'courses'> }) => {
   };
   return (
     <FadeIn>
-      <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
+      <View
+        className={
+          'm-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
+          className
+        }>
         <MyImage
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
           source={{ uri: courseItem.image }}
