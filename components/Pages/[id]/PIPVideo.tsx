@@ -16,9 +16,7 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   const didSeek = useRef(false);
   const triggerCount = useRef(0);
   const [playerVisible, setPlayerVisible] = useState(false);
-  const updateTimeStamp = () => {
-    triggerCount.current += 1;
-  };
+
   const playEventListener = player.addListener(
     'playingChange',
     async ({ isPlaying, oldIsPlaying }) => {
@@ -37,7 +35,7 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   );
 
   const handleOnFirstFrame = async () => {
-    playerRef.current?.startPictureInPicture();
+    // playerRef.current?.startPictureInPicture();
     didLoad.current = true;
     const { data, error } = await supabaseClient
       .from('video_progress')
@@ -71,14 +69,17 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
   //Triggered Timestamp
 
   return (
-    <View className={` aspect-video self-center border-2 ${playerVisible ? '' : 'hidden'}`}>
+    <View
+      className={` } aspect-video self-center 
+    border-2
+    `}>
       <VideoView
         ref={playerRef}
         allowsFullscreen={true}
         allowsPictureInPicture={true}
-        startsPictureInPictureAutomatically={true}
-        onPictureInPictureStart={() => setPlayerVisible(false)}
-        onPictureInPictureStop={() => setPlayerVisible(true)}
+        startsPictureInPictureAutomatically={false}
+        // onPictureInPictureStart={() => setPlayerVisible(false)}
+        // onPictureInPictureStop={() => setPlayerVisible(true)}
         onFirstFrameRender={handleOnFirstFrame}
         contentFit="fill"
         player={player}></VideoView>
