@@ -8,10 +8,12 @@ const DrawerLayout = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     (async () => {
-      const admin =
-        (await supabaseClient.auth.getUser()).data.user?.id ===
-        '50e44d88-7255-41a4-888f-54906447f692';
-      setIsAdmin(admin);
+      const userUUID = (await supabaseClient.auth.getUser()).data.user?.id;
+      const isAdmin = [
+        '50e44d88-7255-41a4-888f-54906447f692',
+        'dd678e74-531f-4a4f-8974-4fc45974a2ef',
+      ].includes(userUUID || '');
+      setIsAdmin(isAdmin);
     })();
   }, [isAuth]);
   return (

@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
@@ -26,11 +26,16 @@ const Admin_SelectCourse = () => {
     await supabaseClient.from('courses').delete().eq('id', id);
     refetch();
   };
+  //Prevent Double Adding Courses
+  const [cantAdd, setCantAdd] = useState(false);
   // Add a Dummy Course
   const handleAddDummyCourse = async () => {
+    setCantAdd(true);
     await addDummyCourse();
     refetch();
+    setCantAdd(false);
   };
+
   //Navigate to edit page
   const handleEditCourse = (id: number) => {
     router.navigate({ pathname: '/(drawer)/(Pages)/Admin_EditCourse', params: { id: id } });
@@ -89,8 +94,9 @@ const Admin_SelectCourse = () => {
             })}
           {/**Add a new course */}
           <Pressable
+            disabled={cantAdd}
             onPress={handleAddDummyCourse}
-            className="m-4 size-24 items-center justify-center rounded-full bg-blue-500">
+            className={`m-4 size-24 items-center justify-center rounded-full bg-blue-500 ${cantAdd && 'bg-red-500'}`}>
             <Plus size={50} color={'white'} />
           </Pressable>
         </View>
