@@ -17,7 +17,7 @@ const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefi
       <View className="rounded-full bg-white p-[2px]">
         <MyImage
           source={logo}
-          className="bg-withe size-[20px] translate-x-[-0.5]  rounded-full "></MyImage>
+          className="bg-MyImage size-[20px] translate-x-[-0.5]  rounded-full "></MyImage>
       </View>
       {/* <Text className=" mr-1  font-Kufi text-xs font-semibold text-neutral-600">
         جروب التليجرام

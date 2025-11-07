@@ -8,15 +8,16 @@ type FadeInProps = {
 };
 
 const FadeIn = ({ className, children }: FadeInProps) => {
+  const isMounted = useRef(false);
   const isFocus = useIsFocused();
   const animation = useAnimationState({
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: [1] },
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
     from: { opacity: 0, scale: 0 },
   });
   useEffect(() => {
     !isFocus && animation.transitionTo('hidden');
-    isFocus && animation.transitionTo('visible');
+    isFocus && (isMounted.current = true) && animation.transitionTo('visible');
   }, [isFocus, animation]);
 
   return (

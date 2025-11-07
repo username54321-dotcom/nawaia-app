@@ -3,9 +3,9 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 
 interface propTypes {
-  liveValue: string;
+  liveValue: string | undefined | null;
   table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links';
-  id: number;
+  id: number | undefined;
   fieldName: string;
   refetch: () => void;
 }
@@ -16,7 +16,7 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch }: propType
     const { data: error } = await supabaseClient
       .from(table)
       .update({ [fieldName]: visibleValue, id: id })
-      .eq('id', id);
+      .eq('id', id ?? 99999);
     refetch();
   };
   useEffect(() => {
@@ -28,7 +28,7 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch }: propType
         <Text className="font-bold">{fieldName}</Text>
         <TextInput
           multiline={true}
-          value={visibleValue}
+          value={visibleValue ?? ''}
           onChangeText={setVisibleValue}
           className=" h-full rounded-sm border-2 bg-slate-100 p-2"></TextInput>
       </View>
