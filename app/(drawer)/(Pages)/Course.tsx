@@ -11,6 +11,7 @@ import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { useIsAuth } from '~/store/store';
 import { memo, useEffect, useRef } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
+import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 
 const CoursePage = () => {
   const { isAuth } = useIsAuth();
@@ -114,6 +115,7 @@ const CoursePage = () => {
                   </Text>
                 </View>
               </View>
+              <TelegramButton telegramLink="example.com"></TelegramButton>
               <TextAccordion
                 shortDescription={courseData.short_description}
                 LongDescription={courseData.long_description}></TextAccordion>
