@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
@@ -41,6 +41,12 @@ const CourseCard = ({
             className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
             <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
           </Pressable>
+        </View>
+        <View
+          className={`absolute  rounded-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
+          <Text className="font-semibold text-white ">
+            {courseItem.published ? 'Published' : 'UnPublished'}
+          </Text>
         </View>
       </View>
     </FadeIn>
