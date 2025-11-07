@@ -22,8 +22,6 @@ const IdContent = ({
   chaptersData: ChaptersArrayType;
   refetch: refetchType;
 }) => {
-  const { isAuth } = useIsAuth();
-
   return (
     <>
       {chaptersData

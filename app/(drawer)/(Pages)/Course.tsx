@@ -35,7 +35,7 @@ const CoursePage = () => {
         .single();
       return data;
     },
-    enabled: !!id,
+    enabled: false,
   });
   // Refetch when Auth Changes
   useEffect(() => {
@@ -108,7 +108,7 @@ const CoursePage = () => {
                   </Text>
                 </View>
                 <View className="ml-2 size-fit flex-row-reverse items-center justify-center  rounded-xl border-[1px]   border-slate-400 px-4 py-2 transition-all duration-200 hover:scale-105 hover:bg-slate-200 ">
-                  {GenreIcons[courseData.genre]}
+                  {/* {GenreIcons[courseData.genre]} */}
 
                   <Text className=" mr-2 translate-y-[2px] font-Kufi text-xs font-semibold text-neutral-600  ">
                     {courseData.genre}
