@@ -5,18 +5,17 @@ import { Text, View } from 'react-native';
 import AdminUpdateField from '../../../components/Pages/AdminPage/AdminUpdateField';
 import AdminPublishButton from '../../../components/Pages/AdminPage/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
-import { Equal } from 'lucide-react-native';
 import { memo } from 'react';
 
 const Admin_EditCourse = () => {
-  const { id }: { id: number } = useLocalSearchParams();
+  const { id }: { id: string } = useLocalSearchParams();
   const { data: course, refetch } = useQuery({
     queryKey: ['edit course', id],
     queryFn: async () => {
       const { data } = await supabaseClient
         .from('courses')
         .select('*,telegram_links(*), chapters(*, lessons(*, links(*)))')
-        .eq('id', id)
+        .eq('id', +id)
         .single();
       return data;
     },

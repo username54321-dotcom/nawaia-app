@@ -17,7 +17,7 @@ const CoursePage = () => {
   const { isAuth } = useIsAuth();
   const isMounted = useRef(false);
 
-  const { id } = useLocalSearchParams();
+  const { id }: { id: string } = useLocalSearchParams();
   // Course Query
   const {
     data: courseData,
@@ -31,7 +31,7 @@ const CoursePage = () => {
         .select(
           '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
         )
-        .eq('id', id)
+        .eq('id', +id)
         .single();
       return data;
     },

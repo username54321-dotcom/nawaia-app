@@ -88,6 +88,7 @@ const MyModal = () => {
                   ref={PasswordInput}
                   secureTextEntry={!ShowPassword}
                   onChangeText={HandleShowPassword}
+                  onSubmitEditing={HandleSignIn}
                   placeholder="كلمة المرور"
                   className=" rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
                 <Pressable
