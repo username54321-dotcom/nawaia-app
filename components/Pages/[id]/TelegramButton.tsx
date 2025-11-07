@@ -2,12 +2,12 @@ import { Text, Pressable, Linking } from 'react-native';
 import MyImage from '~/components/Reusebales/MyImage';
 import { useIsAuth, useModalVisible } from '~/store/store';
 
-const TelegramButton = ({ telegramLink }: { telegramLink: string }) => {
+const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefined }) => {
   const logo = require('assets/svg/telegram_.png');
   const { setModalVisible } = useModalVisible();
   const { isAuth } = useIsAuth();
   const handleOnPress = async () => {
-    isAuth && Linking.openURL(telegramLink);
+    isAuth && Linking.openURL(telegramLink ?? 'https://web.telegram.org');
     !isAuth && setModalVisible(true);
   };
   return (

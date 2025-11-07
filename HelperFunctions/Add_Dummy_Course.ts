@@ -82,6 +82,10 @@ export const addDummyCourse = async () => {
     })
     .select()
     .single();
+  //insert Telegram Link
+  const {} = await supabaseClient
+    .from('telegram_links')
+    .insert({ course_id: courseData?.id, telegram_link: 'https://web.telegram.org' });
 
   const courseId = courseData?.id; // Inserted CourseID
 

@@ -15,7 +15,7 @@ const Admin_EditCourse = () => {
     queryFn: async () => {
       const { data } = await supabaseClient
         .from('courses')
-        .select('*, chapters(*, lessons(*, links(*)))')
+        .select('*,telegram_links(*), chapters(*, lessons(*, links(*)))')
         .eq('id', id)
         .single();
       return data;
@@ -40,6 +40,12 @@ const Admin_EditCourse = () => {
               id={course.id}
               table="courses"
               liveValue={course.title}
+              refetch={refetch}></AdminUpdateField>
+            <AdminUpdateField
+              fieldName="telegram_link"
+              id={course.telegram_links?.id ?? 9999}
+              table="telegram_links"
+              liveValue={course.telegram_links?.telegram_link}
               refetch={refetch}></AdminUpdateField>
             <AdminUpdateField
               fieldName="image"

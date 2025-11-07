@@ -178,6 +178,35 @@ export type Database = {
           },
         ]
       }
+      telegram_links: {
+        Row: {
+          course_id: number
+          created_at: string
+          id: number
+          telegram_link: string | null
+        }
+        Insert: {
+          course_id: number
+          created_at?: string
+          id?: number
+          telegram_link?: string | null
+        }
+        Update: {
+          course_id?: number
+          created_at?: string
+          id?: number
+          telegram_link?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "telegram_links_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: true
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_course_history: {
         Row: {
           course_id: number

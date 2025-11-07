@@ -4,7 +4,7 @@ import { supabaseClient } from '~/utils/supabase';
 
 interface propTypes {
   liveValue: string;
-  table: 'courses' | 'lessons' | 'chapters' | 'links';
+  table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links';
   id: number;
   fieldName: string;
   refetch: () => void;

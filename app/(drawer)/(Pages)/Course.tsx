@@ -29,7 +29,7 @@ const CoursePage = () => {
       const { data, error } = await supabaseClient
         .from('courses')
         .select(
-          '*,user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
+          '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
         )
         .eq('id', id)
         .single();
@@ -115,7 +115,8 @@ const CoursePage = () => {
                   </Text>
                 </View>
               </View>
-              <TelegramButton telegramLink="example.com"></TelegramButton>
+              <TelegramButton
+                telegramLink={courseData.telegram_links?.telegram_link}></TelegramButton>
               <TextAccordion
                 shortDescription={courseData.short_description}
                 LongDescription={courseData.long_description}></TextAccordion>
