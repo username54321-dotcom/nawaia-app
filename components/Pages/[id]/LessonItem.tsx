@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
-import { useIsAuth, useModalVisible } from '~/store/store';
+import { ModalState, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import RotatingChevron from './../../Animations/RotatingChevron';
@@ -20,9 +20,9 @@ type props = {
 };
 
 const LessonItem = ({ LessonItemProp, note }: props) => {
-  const { setModalVisible } = useModalVisible(); // Change Modal Visibility
+  const setModalVisible = useModalVisible((state: ModalState) => state.setModalVisible); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
-  const { isAuth } = useIsAuth((state) => state.isAuth);
+  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   // Auth State
   const Note = useRef<string | null | undefined>(null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);

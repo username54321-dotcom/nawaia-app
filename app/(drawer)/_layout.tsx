@@ -1,10 +1,10 @@
 import { Stack } from 'expo-router';
 import { memo, useEffect, useState } from 'react';
-import { useIsAuth } from '~/store/store';
+import { useIsAuth, useIsAuthType } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 
 const DrawerLayout = () => {
-  const { isAuth } = useIsAuth((state) => state.isAuth);
+  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     (async () => {

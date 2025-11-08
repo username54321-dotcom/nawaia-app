@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native';
-import { useIsAuth } from '~/store/store';
 import { memo } from 'react';
 import LessonItem from './LessonItem';
 import { Tables } from '~/utils/database.types';

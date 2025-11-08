@@ -3,28 +3,27 @@ import type { StateCreator } from 'zustand';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { create } = require('zustand');
 
-interface AuthState {
+export interface useIsAuthType {
   isAuth: boolean;
-  startAuthTrack: () => Promise<void>;
-  userUUID: () => void;
+  setIsAuth: (value: boolean) => void;
+  isAdmin: boolean;
+  setIsAdmin: (value: boolean) => void;
 }
 
-const authStoreCreator: StateCreator<AuthState> = (set) => ({
+const authStoreCreator: StateCreator<useIsAuthType> = (set) => ({
   isAuth: false,
-  startAuthTrack: async () => {
-    // const session = !!(await supabaseClient.auth.getUser()).data.user;
-    // set({ isAuth: session });
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
-      set({ isAuth: !!session });
-      console.log('auth test');
-    });
+  setIsAuth: (value) => {
+    set({ isAuth: value });
   },
-  userUUID: async () => (await supabaseClient.auth.getUser()).data.user?.id,
+  isAdmin: false,
+  setIsAdmin: (value) => {
+    set({ isAdmin: value });
+  },
 });
 
 export const useIsAuth = create(authStoreCreator);
 
-interface ModalState {
+export interface ModalState {
   ModalVisible: boolean;
   setModalVisible: (value: boolean) => void;
 }
@@ -35,11 +34,3 @@ const modalStoreCreator: StateCreator<ModalState> = (set) => ({
 });
 
 export const useModalVisible = create(modalStoreCreator);
-
-export const useDrawer = create((set: any) => ({
-  drawerVisible: false,
-  setDrawerVisible: (value: boolean) =>
-    set({
-      drawerVisible: value,
-    }),
-}));

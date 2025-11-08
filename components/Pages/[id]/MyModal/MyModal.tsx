@@ -3,14 +3,16 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
-import { useModalVisible } from '~/store/store';
+import { ModalState, useModalVisible } from '~/store/store';
 
 import { useRouter } from 'expo-router';
 import { supabaseClient } from '~/utils/supabase';
 import FadeIn from './../../../Animations/FadeIn';
 
 const MyModal = () => {
-  const { ModalVisible, setModalVisible } = useModalVisible();
+  const setModalVisible = useModalVisible((state: ModalState) => state.setModalVisible);
+  const ModalVisible = useModalVisible((state: ModalState) => state.ModalVisible);
+
   const router = useRouter();
   //States
   const [ShowPasswordIcon, setShowPasswordIcon] = useState(false);
