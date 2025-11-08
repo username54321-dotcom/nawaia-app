@@ -2,14 +2,15 @@ import { useEffect } from 'react';
 import { useAnimationState, MotiView } from 'moti';
 import { Modal, Pressable, Text, View } from 'react-native';
 import { style } from 'twrnc';
-import { useRoute } from '@react-navigation/native';
 import DrawerItem from './DrawerItem';
+import { useIsAuth, useIsAuthType } from '~/store/store';
 interface propTypes {
   drawerVisible: boolean;
   setDrawerVisible: (value: boolean) => void;
 }
 
 const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
+  const isAdmin = useIsAuth((state: useIsAuthType) => state.isAdmin);
   const animation = useAnimationState({
     hide: { scaleX: 0 },
     show: { scaleX: 1 },
@@ -41,6 +42,12 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
                 setDrawerVisible={setDrawerVisible}
                 label="كتب"
                 targetPage="/Books"></DrawerItem>
+              {isAdmin && (
+                <DrawerItem
+                  setDrawerVisible={setDrawerVisible}
+                  label="أضافة أو تعديل المحتوي"
+                  targetPage="/Admin_SelectCourse"></DrawerItem>
+              )}
             </View>
           </MotiView>
         </Pressable>

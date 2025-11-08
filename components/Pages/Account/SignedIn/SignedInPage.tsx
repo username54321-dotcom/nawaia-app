@@ -14,6 +14,7 @@ const SignedInPage = () => {
       const { data } = await supabaseClient.from('user_course_history').select('*,courses(*) ');
       return data;
     },
+    staleTime: Infinity,
   });
 
   useEffect(() => {

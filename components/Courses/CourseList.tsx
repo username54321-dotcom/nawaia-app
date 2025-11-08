@@ -14,6 +14,7 @@ const CourseList = () => {
       const { data } = await supabaseClient.from('courses').select('*');
       return data;
     },
+    staleTime: Infinity,
   });
   //Real Time
   useEffect(() => {

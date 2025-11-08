@@ -7,12 +7,14 @@ import FadeIn from '~/components/Animations/FadeIn';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
 import { Plus } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
-import { MotiView } from 'moti';
 import { useRouter } from 'expo-router';
 import MyImage1 from '~/components/Reusebales/MyImage';
+import { useIsAuth, useIsAuthType } from '~/store/store';
 
 const Admin_SelectCourse = () => {
   const router = useRouter();
+  const isAdmin = useIsAuth((state: useIsAuthType) => state.isAdmin);
+  !isAdmin && router.replace('/');
   //Main Query
   const { data: courseList, refetch } = useQuery({
     queryKey: ['Admin Get Courses'],
@@ -20,6 +22,7 @@ const Admin_SelectCourse = () => {
       const { data } = await supabaseClient.from('courses').select('*');
       return data;
     },
+    staleTime: Infinity,
   });
   //Delete a Course
   const handleDelete = async (id: number) => {

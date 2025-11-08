@@ -39,7 +39,7 @@ export default function RootLayout() {
       setIsAdmin(isAdmin);
     }
     apply();
-  }, [IsAuth]);
+  }, [IsAuth, setIsAdmin]);
 
   // Loading Fonts
   const [Fontloaded] = useFonts({
