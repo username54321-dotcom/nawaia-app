@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { memo, useEffect, useState } from 'react';
 import { useIsAuth } from '~/store/store';
@@ -18,7 +19,15 @@ const DrawerLayout = () => {
   }, [isAuth]);
   return (
     <>
-      <Drawer
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(Pages)/Account" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Admin_EditCourse" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Admin_SelectCourse" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Books" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Courses" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Course" options={{ headerShown: false }} />
+      </Stack>
+      {/* <Drawer
         screenOptions={{
           headerShown: false,
           drawerType: 'back',
@@ -54,7 +63,7 @@ const DrawerLayout = () => {
               display: isAdmin ? 'flex' : 'none',
             },
           }}></Drawer.Screen>
-      </Drawer>
+      </Drawer> */}
     </>
   );
 };
