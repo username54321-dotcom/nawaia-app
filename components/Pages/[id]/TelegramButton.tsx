@@ -5,7 +5,8 @@ import MyImage1 from '~/components/Reusebales/MyImage';
 const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefined }) => {
   const logo = require('assets/svg/telegram_.png');
   const { setModalVisible } = useModalVisible();
-  const { isAuth } = useIsAuth();
+  const { isAuth } = useIsAuth((state) => state.isAuth);
+
   const handleOnPress = async () => {
     isAuth && Linking.openURL(telegramLink ?? 'https://web.telegram.org');
     !isAuth && setModalVisible(true);

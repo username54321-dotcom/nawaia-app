@@ -1,11 +1,10 @@
 import { Stack } from 'expo-router';
-import { Drawer } from 'expo-router/drawer';
 import { memo, useEffect, useState } from 'react';
 import { useIsAuth } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 
 const DrawerLayout = () => {
-  const { isAuth } = useIsAuth();
+  const { isAuth } = useIsAuth((state) => state.isAuth);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     (async () => {
@@ -26,6 +25,7 @@ const DrawerLayout = () => {
         <Stack.Screen name="(Pages)/Books" options={{ headerShown: false }} />
         <Stack.Screen name="(Pages)/Courses" options={{ headerShown: false }} />
         <Stack.Screen name="(Pages)/Course" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Test" options={{ headerShown: false }} />
       </Stack>
       {/* <Drawer
         screenOptions={{

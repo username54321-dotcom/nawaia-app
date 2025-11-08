@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, usePathname } from 'expo-router';
 import { Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
@@ -12,9 +12,10 @@ import { useIsAuth } from '~/store/store';
 import { memo, useEffect, useRef } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
+import { useRoute } from '@react-navigation/native';
 
 const CoursePage = () => {
-  const { isAuth } = useIsAuth();
+  // const { isAuth } = useIsAuth();
   const isMounted = useRef(false);
 
   const { id }: { id: string } = useLocalSearchParams();
@@ -26,22 +27,23 @@ const CoursePage = () => {
   } = useQuery({
     queryKey: ['Course Data', id],
     queryFn: async () => {
-      const { data, error } = await supabaseClient
-        .from('courses')
-        .select(
-          '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
-        )
-        .eq('id', +id)
-        .single();
-      return data;
+      if (id) {
+        const { data, error } = await supabaseClient
+          .from('courses')
+          .select(
+            '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
+          )
+          .eq('id', +id)
+          .single();
+        return data;
+      }
+      return null;
     },
-    enabled: false,
+    enabled: !!id,
   });
+
   // Refetch when Auth Changes
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    !isMounted.current ? (isMounted.current = true) : refetch();
-  }, [isAuth, refetch]);
+
   // Realtime
   useEffect(() => {
     const a = supabaseClient

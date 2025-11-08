@@ -1,9 +1,13 @@
 import { useIsAuth } from '~/store/store';
 import SignedOutPage from '~/components/Pages/Account/SignedOut/SignedOutPage';
 import SignedInPage from './../../../components/Pages/Account/SignedIn/SignedInPage';
+import { useRoute } from '@react-navigation/native';
 
 const Account = () => {
-  const { isAuth } = useIsAuth();
+  console.log(useRoute().path);
+
+  const { isAuth } = useIsAuth((state) => state.isAuth);
+
   return isAuth ? (
     <>
       <SignedInPage></SignedInPage>

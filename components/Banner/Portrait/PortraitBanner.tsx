@@ -2,12 +2,13 @@ import { View } from 'react-native';
 import SignedOutButton from './LeftView_UserButton/SignedOutButton';
 import BannerLogo from './CenterView_BannerLogo/BannerLogo';
 import MenuButton from './RightView_MenuButton/MenuButton';
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import MyDrawer from './../../MyDrawer/MyDrawer';
 
 const PortraitBanner = () => {
   return (
     // Parent View
-    <View className=" z-10 h-[8vh] w-full flex-row items-center justify-between bg-neutral-200 shadow-md shadow-slate-300 ">
+    <View className="  h-[8vh] w-full flex-row items-center justify-between bg-neutral-200 shadow-md shadow-slate-300 ">
       {/* Left View */}
       <View className="flex h-full w-[16%] items-center justify-center">
         <SignedOutButton />

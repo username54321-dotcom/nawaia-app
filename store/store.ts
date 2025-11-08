@@ -12,10 +12,11 @@ interface AuthState {
 const authStoreCreator: StateCreator<AuthState> = (set) => ({
   isAuth: false,
   startAuthTrack: async () => {
-    const session = !!(await supabaseClient.auth.getUser()).data.user;
-    set({ isAuth: session });
+    // const session = !!(await supabaseClient.auth.getUser()).data.user;
+    // set({ isAuth: session });
     supabaseClient.auth.onAuthStateChange((_event, session) => {
       set({ isAuth: !!session });
+      console.log('auth test');
     });
   },
   userUUID: async () => (await supabaseClient.auth.getUser()).data.user?.id,
@@ -34,3 +35,11 @@ const modalStoreCreator: StateCreator<ModalState> = (set) => ({
 });
 
 export const useModalVisible = create(modalStoreCreator);
+
+export const useDrawer = create((set: any) => ({
+  drawerVisible: false,
+  setDrawerVisible: (value: boolean) =>
+    set({
+      drawerVisible: value,
+    }),
+}));

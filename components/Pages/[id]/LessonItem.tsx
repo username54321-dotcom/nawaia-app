@@ -22,7 +22,8 @@ type props = {
 const LessonItem = ({ LessonItemProp, note }: props) => {
   const { setModalVisible } = useModalVisible(); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
-  const { isAuth } = useIsAuth(); // Auth State
+  const { isAuth } = useIsAuth((state) => state.isAuth);
+  // Auth State
   const Note = useRef<string | null | undefined>(null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);
   const [VideoPlayer, setVideoPlayer] = useState(false);

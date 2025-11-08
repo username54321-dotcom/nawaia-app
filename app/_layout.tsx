@@ -8,12 +8,16 @@ import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth } from '~/store/store';
 import { StrictMode } from 'react';
+import MyDrawer from './../components/MyDrawer/MyDrawer';
+import { View } from 'react-native';
+import { supabaseClient } from '~/utils/supabase';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
 
 export default function RootLayout() {
-  useIsAuth.getState().startAuthTrack(); // Track User Authentication
+  const trackAuth = useIsAuth((state) => state.startAuthTrack); // Track User Authentication
+  trackAuth();
 
   // Loading Fonts
   const [Fontloaded] = useFonts({

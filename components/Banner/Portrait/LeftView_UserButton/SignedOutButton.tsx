@@ -5,7 +5,8 @@ import { useIsAuth } from '~/store/store';
 import { memo } from 'react';
 
 const SignedOutButton = () => {
-  const { isAuth } = useIsAuth();
+  const { isAuth } = useIsAuth((state) => state.isAuth);
+
   const router = useRouter();
   const SignInPage = () => {
     router.push({ pathname: '/(drawer)/(Pages)/Account' });
