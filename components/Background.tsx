@@ -7,9 +7,6 @@ import MyDrawer from './MyDrawer/MyDrawer';
 import { useRoute } from '@react-navigation/native';
 
 const Background = ({ children }: { children?: React.ReactNode }) => {
-  console.log(useRoute().path);
-  console.log(usePathname());
-
   return (
     <SafeAreaView className="h-screen w-screen">
       <DynamicBanner></DynamicBanner>

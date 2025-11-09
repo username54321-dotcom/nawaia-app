@@ -46,8 +46,6 @@ export default function RootLayout() {
     AtomicAge: AtomicAge_400Regular,
     Kufi: require('~/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf'),
     'Playwrite DE Grund Thin': require('~/assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf'),
-    'Playwrite GB S Thin': require('~/assets/fonts/PlaywriteGBS-VariableFont_wght.ttf'),
-    Boggle: require('~/assets/fonts/BBHSansBogle-Regular.ttf'),
   });
 
   if (!Fontloaded) {

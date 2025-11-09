@@ -30,11 +30,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      AtomicAge: ['AtomicAge', 'sans-serif'],
       Kufi: ['Kufi'],
       Playwrite: ['Playwrite DE Grund Thin'],
-      PlayywrightHandwritten: ['PlaywriteHandWritten'],
-      Boggle: ['Boggle'],
     },
   },
   plugins: [],

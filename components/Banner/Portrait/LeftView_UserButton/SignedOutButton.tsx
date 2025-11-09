@@ -1,15 +1,15 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { User } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { useIsAuth } from '~/store/store';
+import { useIsAuth, useIsAuthType } from '~/store/store';
 import { memo } from 'react';
 
 const SignedOutButton = () => {
-  const isAuth = useIsAuth((state) => state.isAuth);
+  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
 
   const router = useRouter();
   const SignInPage = () => {
-    router.push({ pathname: '/(drawer)/(Pages)/Account' });
+    router.push('/Account');
   };
   return (
     <Pressable onPress={SignInPage} className=" ">

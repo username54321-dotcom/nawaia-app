@@ -1,22 +1,24 @@
 import { Text, Pressable } from 'react-native';
 import { imgLogo } from '../../../../assets/images/ImageExports';
 import { useRouter } from 'expo-router';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Image } from 'expo-image';
 
 const BannerLogo = () => {
   const router = useRouter();
-  const NavHome = () => router.push('/');
+
   return (
     <>
       <Pressable
-        onPress={NavHome}
+        onPress={() => router.push('/')}
         className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
         <Image
           className="translate-x-[-4px]"
+          transition={null}
           style={{ height: 45, width: 45 }}
           contentFit="contain"
           source={imgLogo}
+          cachePolicy={'memory-disk'}
         />
 
         <Text className=" translate-y-0  font-Playwrite text-3xl font-semibold  text-[#BE1E2D]">

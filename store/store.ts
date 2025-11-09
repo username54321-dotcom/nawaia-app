@@ -1,4 +1,3 @@
-import { supabaseClient } from '~/utils/supabase';
 import type { StateCreator } from 'zustand';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { create } = require('zustand');

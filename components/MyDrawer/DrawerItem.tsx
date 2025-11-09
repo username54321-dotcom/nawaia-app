@@ -21,9 +21,9 @@ const DrawerItem = ({ targetPage, label, setDrawerVisible }: propTypes) => {
     <>
       <Pressable
         onPress={handleNavigation}
-        className={`my-2 w-full items-center rounded-xl   py-1 ${samePath && 'bg-neutral-600'}`}>
+        className={`my-2 w-full items-center rounded-xl py-1 ${samePath && ' bg-neutral-600'}`}>
         <Text
-          className={`font-Kufi font-semibold text-neutral-600 ${samePath && 'text-neutral-200'}`}>
+          className={`font-Kufi font-semibold  ${samePath ? ' text-neutral-200' : ' text-neutral-600'}`}>
           {label}
         </Text>
       </Pressable>
