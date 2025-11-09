@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -6,7 +6,9 @@ type FadeInProps = {
   className?: string;
   children?: React.ReactNode;
 };
-
+// Memo Objects
+const transition = { type: 'spring' } as const;
+// Component
 const FadeIn = ({ className, children }: FadeInProps) => {
   const isMounted = useRef(false);
   const isFocus = useIsFocused();
@@ -21,7 +23,7 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   }, [isFocus, animation]);
 
   return (
-    <MotiView state={animation} transition={{ type: 'spring' }} className={className}>
+    <MotiView state={animation} transition={transition} className={className}>
       {children}
     </MotiView>
   );

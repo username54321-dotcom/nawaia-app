@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React, { memo, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
@@ -14,7 +14,8 @@ import { useIsAuth, useIsAuthType } from '~/store/store';
 const Admin_SelectCourse = () => {
   const router = useRouter();
   const isAdmin = useIsAuth((state: useIsAuthType) => state.isAdmin);
-  !isAdmin && router.replace('/');
+  !isAdmin && router.replace('/'); //redirects if not admin
+
   //Main Query
   const { data: courseList, refetch } = useQuery({
     queryKey: ['Admin Get Courses'],
@@ -24,25 +25,43 @@ const Admin_SelectCourse = () => {
     },
     staleTime: Infinity,
   });
+
   //Delete a Course
-  const handleDelete = async (id: number) => {
+  const handleDelete = useCallback(async (id: number) => {
     await supabaseClient.from('courses').delete().eq('id', id);
-    refetch();
-  };
+  }, []);
+
   //Prevent Double Adding Courses
   const [cantAdd, setCantAdd] = useState(false);
+
   // Add a Dummy Course
-  const handleAddDummyCourse = async () => {
+  const handleAddDummyCourse = useCallback(async () => {
     setCantAdd(true);
     await addDummyCourse();
     refetch();
     setCantAdd(false);
-  };
+  }, [refetch]);
 
   //Navigate to edit page
-  const handleEditCourse = (id: number) => {
-    router.navigate({ pathname: '/(drawer)/(Pages)/Admin_EditCourse', params: { id: id } });
-  };
+  const handleEditCourse = useCallback(
+    (id: number) => {
+      router.navigate({ pathname: '/(drawer)/(Pages)/Admin_EditCourse', params: { id: id } });
+    },
+    [router]
+  );
+
+  // RealTime
+  useEffect(() => {
+    const channel = supabaseClient.channel('realtime select course');
+    channel
+      .on('postgres_changes', { event: '*', table: 'courses', schema: 'public' }, () => refetch())
+      .subscribe();
+
+    return () => {
+      supabaseClient.removeChannel(channel);
+    };
+  }, [refetch]);
+
   return (
     <Background>
       {courseList && (
@@ -86,8 +105,7 @@ const Admin_SelectCourse = () => {
                           <AdminPublishButton
                             id={itemCourse.id}
                             isPublished={itemCourse.published}
-                            table="courses"
-                            refetch={refetch}></AdminPublishButton>
+                            table="courses"></AdminPublishButton>
                         </View>
                       </View>
                     </View>

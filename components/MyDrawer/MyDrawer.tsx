@@ -17,7 +17,7 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
   });
   const handleDisableDrawer = useCallback(() => setDrawerVisible(false), [setDrawerVisible]);
   const motiStyles = useMemo(() => {
-    style('flex-1', { transformOrigin: 'right' });
+    return style(['flex-1'], { transformOrigin: 'right' });
   }, []);
   useEffect(() => {
     drawerVisible && animation.transitionTo('show');

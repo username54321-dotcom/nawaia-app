@@ -1,22 +1,20 @@
-import { memo } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { memo, useCallback } from 'react';
+import { Text, Pressable } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 
 interface propTypes {
   isPublished: boolean;
   table: 'courses' | 'lessons' | 'chapters' | 'links';
   id: number;
-  refetch: () => void;
 }
 
-const AdminPublishButton = ({ id, isPublished, table, refetch }: propTypes) => {
-  const handlePublish = async () => {
-    const { data, error } = await supabaseClient
+const AdminPublishButton = ({ id, isPublished, table }: propTypes) => {
+  const handlePublish = useCallback(async () => {
+    const {} = await supabaseClient
       .from(table)
       .update({ id: id, published: !isPublished })
       .eq('id', id);
-    refetch();
-  };
+  }, [isPublished, id, table]);
   return (
     <Pressable
       onPress={handlePublish}
