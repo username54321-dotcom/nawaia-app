@@ -85,6 +85,38 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_completed: {
+        Row: {
+          created_at: string
+          id: number
+          is_completed: boolean
+          lesson_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          is_completed?: boolean
+          lesson_id: number
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          is_completed?: boolean
+          lesson_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_completed_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lessons: {
         Row: {
           chapter_id: number | null
