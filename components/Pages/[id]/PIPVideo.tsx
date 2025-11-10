@@ -1,41 +1,66 @@
-import { View, Pressable } from 'react-native';
-import { useVideoPlayer } from 'expo-video/build/VideoPlayer.web';
-import { useEffect, useRef, useState } from 'react';
-import { VideoView } from 'expo-video';
+import { View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { supabaseClient } from '~/utils/supabase';
 
 type propTypes = {
   link: string;
   lessonId: number;
+  isCompleted: boolean;
 };
 
-const VideoModal = ({ link, lessonId }: propTypes) => {
-  const player = useVideoPlayer({ uri: link });
+const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
+  console.log(isCompleted);
+  const player = useVideoPlayer(link, (player) => {
+    player.timeUpdateEventInterval = 1000;
+    player.muted = true;
+  });
   const playerRef = useRef<VideoView>(null);
   const didLoad = useRef(false);
   const didSeek = useRef(false);
-  const triggerCount = useRef(0);
-  const [playerVisible, setPlayerVisible] = useState(false);
 
-  const playEventListener = player.addListener(
-    'playingChange',
-    async ({ isPlaying, oldIsPlaying }) => {
-      if (!isPlaying && oldIsPlaying) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        !isPlaying &&
-          oldIsPlaying &&
-          (await supabaseClient
-            .from('video_progress')
-            .upsert(
-              { timestamp: player.currentTime.toFixed(0), lesson_id: lessonId },
-              { onConflict: 'user_id,lesson_id' }
-            ));
+  // Save Progress on Pause
+  useEffect(() => {
+    const playEventListener = player.addListener(
+      'playingChange',
+      async ({ isPlaying, oldIsPlaying }) => {
+        if (!isPlaying && oldIsPlaying) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          !isPlaying &&
+            oldIsPlaying &&
+            (await supabaseClient
+              .from('video_progress')
+              .upsert(
+                { timestamp: player.currentTime.toFixed(0), lesson_id: lessonId },
+                { onConflict: 'user_id,lesson_id' }
+              ));
+        }
       }
-    }
-  );
+    );
+  }, [player, lessonId]);
+
+  // Set Video Watched on 90%
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      // console.log(player.currentTime);
+      const duration = player.duration;
+      const timestamp = player.currentTime;
+      const is90percent = timestamp / duration >= 0.9;
+      // console.log(is90percent);
+      console.log(isCompleted);
+      is90percent &&
+        !isCompleted &&
+        (await supabaseClient
+          .from('lesson_completed')
+          .insert({ is_completed: true, lesson_id: lessonId }));
+    }, 1000);
+    console.log(isCompleted);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleOnFirstFrame = async () => {
-    // playerRef.current?.startPictureInPicture();
     didLoad.current = true;
     const { data, error } = await supabaseClient
       .from('video_progress')
@@ -66,8 +91,6 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
     };
   }, [player, lessonId]);
 
-  //Triggered Timestamp
-
   return (
     <View
       className={` } aspect-video self-center 
@@ -78,8 +101,6 @@ const VideoModal = ({ link, lessonId }: propTypes) => {
         allowsFullscreen={true}
         allowsPictureInPicture={true}
         startsPictureInPictureAutomatically={false}
-        // onPictureInPictureStart={() => setPlayerVisible(false)}
-        // onPictureInPictureStop={() => setPlayerVisible(true)}
         onFirstFrameRender={handleOnFirstFrame}
         contentFit="fill"
         player={player}></VideoView>

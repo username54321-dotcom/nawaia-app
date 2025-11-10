@@ -8,11 +8,9 @@ import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage1 from '../../../components/Reusebales/MyImage';
 import IdContent from '../../../components/Pages/[id]/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
-import { useIsAuth } from '~/store/store';
 import { memo, useEffect, useRef } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
-import { useRoute } from '@react-navigation/native';
 
 const CoursePage = () => {
   // const { isAuth } = useIsAuth();
@@ -31,7 +29,7 @@ const CoursePage = () => {
         const { data, error } = await supabaseClient
           .from('courses')
           .select(
-            '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*)))'
+            '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*),lesson_completed(*)))'
           )
           .eq('id', +id)
           .single();
@@ -66,6 +64,13 @@ const CoursePage = () => {
       .channel('notes')
       .on('postgres_changes', { table: 'notes', schema: 'public', event: '*' }, () => refetch())
       .subscribe();
+    const f = supabaseClient
+      .channel('lesson_completed')
+      .on('postgres_changes', { table: 'lesson_completed', schema: 'public', event: '*' }, () => {
+        console.log('refetched');
+        refetch();
+      })
+      .subscribe();
 
     return () => {
       supabaseClient.removeChannel(a);
@@ -73,6 +78,7 @@ const CoursePage = () => {
       supabaseClient.removeChannel(c);
       supabaseClient.removeChannel(d);
       supabaseClient.removeChannel(e);
+      supabaseClient.removeChannel(f);
     };
   }, [refetch]);
 

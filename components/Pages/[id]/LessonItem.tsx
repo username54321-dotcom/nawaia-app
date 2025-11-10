@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
-import { ModalState, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
+import { useModalVisibleType, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import RotatingChevron from './../../Animations/RotatingChevron';
@@ -9,18 +9,20 @@ import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
 import { Tables } from '~/utils/database.types';
 import VideoModal from './PIPVideo';
+import { Check, CheckCheck, CircleCheck } from 'lucide-react-native';
 type props = {
   LessonItemProp: Tables<'lessons'> & {
     notes: Tables<'notes'>[];
     links: Tables<'links'>;
     video_progress: Tables<'video_progress'>;
+    lesson_completed: Tables<'lesson_completed'>[];
   };
   note: string | null;
   refetch: () => void;
 };
 
-const LessonItem = ({ LessonItemProp, note }: props) => {
-  const setModalVisible = useModalVisible((state: ModalState) => state.setModalVisible); // Change Modal Visibility
+const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
+  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Modal Visibility
   const [expand, setExpand] = useState(false); // Expand Accordion State
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   // Auth State
@@ -33,7 +35,10 @@ const LessonItem = ({ LessonItemProp, note }: props) => {
       {/** VideoPlayer Modal */}
       <MyAccordion expandProp={VideoPlayer}>
         {VideoPlayer && (
-          <VideoModal lessonId={LessonItemProp.id} link={LessonItemProp.links.link}></VideoModal>
+          <VideoModal
+            isCompleted={LessonItemProp.lesson_completed[0]?.is_completed ?? false}
+            lessonId={LessonItemProp.id}
+            link={LessonItemProp.links.link}></VideoModal>
         )}
       </MyAccordion>
       {/**Lesson Container */}
@@ -53,7 +58,15 @@ const LessonItem = ({ LessonItemProp, note }: props) => {
         {/** Watch Lesson Button */}
         <View>
           <Pressable
+            className="flex-row items-center"
             onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}>
+            {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
+              <>
+                <View className="ml-2 rounded-full bg-emerald-500 p-1">
+                  <Check size={18} color={'white'} />
+                </View>
+              </>
+            )}
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
           </Pressable>
         </View>
