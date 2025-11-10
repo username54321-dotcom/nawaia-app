@@ -31,7 +31,7 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
         <View className="flex-1 flex-row-reverse justify-between  gap-2 ">
           {/** live value container */}
           <View className="  w-2/5 flex-1 rounded-md border-[1px] bg-slate-500">
-            <Text className="p-2 text-right font-Kufi text-base text-slate-50">{liveValue}</Text>
+            <Text className="p-2 text-right   text-slate-50">{liveValue}</Text>
           </View>
           {/**Text Input */}
           <TextInput

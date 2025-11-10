@@ -25,8 +25,8 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
   }, [drawerVisible, animation]);
   return (
     <Modal visible={drawerVisible} transparent={true} animationType="fade">
-      <Pressable onPress={handleDisableDrawer} className="flex-1 bg-black/20 ">
-        <Pressable className="h-full w-2/3 self-end">
+      <Pressable onPress={handleDisableDrawer} className="flex-1 bg-black/40 ">
+        <Pressable className="h-full w-1/3 min-w-fit self-end">
           <MotiView
             transition={{ type: 'timing', duration: 200 }}
             style={motiStyles}
