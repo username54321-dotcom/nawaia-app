@@ -10,6 +10,7 @@ import tw from 'twrnc';
 import { Tables } from '~/utils/database.types';
 import VideoModal from './PIPVideo';
 import { Check, CheckCheck, CircleCheck } from 'lucide-react-native';
+import { FadeIn } from '~/components/Animations/FadeIn';
 type props = {
   LessonItemProp: Tables<'lessons'> & {
     notes: Tables<'notes'>[];
@@ -62,9 +63,11 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
             onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}>
             {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
               <>
-                <View className="ml-2 rounded-full bg-emerald-500 p-1">
-                  <Check size={18} color={'white'} />
-                </View>
+                <FadeIn>
+                  <View className="ml-2 rounded-full bg-emerald-500 p-1">
+                    <Check size={18} color={'white'} />
+                  </View>
+                </FadeIn>
               </>
             )}
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
