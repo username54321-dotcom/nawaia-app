@@ -17,7 +17,6 @@
   "dependencies": {
     "@10play/react-native-web-webview": "^0.0.3",
     "@10play/tentap-editor": "^0.7.4",
-    "@expo-google-fonts/atomic-age": "^0.4.1",
     "@expo/vector-icons": "^15.0.2",
     "@futurejj/react-native-visibility-sensor": "^1.4.4",
     "@hookform/resolvers": "^5.2.2",

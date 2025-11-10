@@ -4,7 +4,7 @@ import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useFonts } from '@expo-google-fonts/atomic-age';
+import { useFonts } from 'expo-font';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 import { StrictMode, useEffect } from 'react';
