@@ -10,7 +10,7 @@ import tw from 'twrnc';
 import { Tables } from '~/utils/database.types';
 import VideoModal from './PIPVideo';
 import { Check, CheckCheck, CircleCheck } from 'lucide-react-native';
-import { FadeIn } from '~/components/Animations/FadeIn';
+import FadeIn from '~/components/Animations/FadeIn';
 type props = {
   LessonItemProp: Tables<'lessons'> & {
     notes: Tables<'notes'>[];
