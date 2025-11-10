@@ -32,7 +32,6 @@ const Admin_EditCourse = () => {
       const { error } = await supabaseClient
         .from('chapters')
         .insert({ name: '_فصل جديد', course_id: course_id });
-      error && console.log(error);
       refetch();
     },
     [refetch]
@@ -56,7 +55,6 @@ const Admin_EditCourse = () => {
   const handleDeleteChapter = useCallback(
     async (chapter_id: number) => {
       const { error } = await supabaseClient.from('chapters').delete().eq('id', chapter_id);
-      error && console.log(error);
       refetch();
     },
     [refetch]
@@ -64,7 +62,6 @@ const Admin_EditCourse = () => {
   const handleDeleteLesson = useCallback(
     async (lesson_id: number) => {
       const { error } = await supabaseClient.from('lessons').delete().eq('id', lesson_id);
-      error && console.log(error);
       refetch();
     },
     [refetch]
