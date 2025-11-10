@@ -4,7 +4,7 @@ import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useFonts, AtomicAge_400Regular } from '@expo-google-fonts/atomic-age';
+import { useFonts } from '@expo-google-fonts/atomic-age';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 import { StrictMode, useEffect } from 'react';
@@ -43,7 +43,6 @@ export default function RootLayout() {
 
   // Loading Fonts
   const [Fontloaded] = useFonts({
-    AtomicAge: AtomicAge_400Regular,
     Kufi: require('~/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf'),
     'Playwrite DE Grund Thin': require('~/assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf'),
   });
