@@ -1,4 +1,4 @@
-import { useLocalSearchParams, usePathname } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
@@ -8,12 +8,16 @@ import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage1 from '../../../components/Reusebales/MyImage';
 import IdContent from '../../../components/Pages/[id]/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
+import CompletionBar from './../../../components/Pages/[id]/CompletionBar';
 
 const CoursePage = () => {
-  const [percCompleted, setPercentCompleted] = useState(0);
+  console.log('rendered');
+  const [allLessonNumber, setAllLessonNumber] = useState(0);
+  const [completedLessonNumber, setCompletedLessonNumber] = useState(0);
+  const [percentCompleted, setPercentCompleted] = useState(0);
   const { id }: { id: string } = useLocalSearchParams();
   // Course Query
   const {
@@ -38,6 +42,7 @@ const CoursePage = () => {
     enabled: !!id,
   });
 
+  // Track Percentage of Lessons Completed
   useEffect(() => {
     if (courseData) {
       const allLessons = [
@@ -49,7 +54,9 @@ const CoursePage = () => {
       ].flat();
 
       const allLessonNumber = allLessons.length;
+      setAllLessonNumber(allLessonNumber);
       const completedLessonNumber = allLessons.filter((lesson) => lesson[0] ?? false).length;
+      setCompletedLessonNumber(completedLessonNumber);
       const percentCompleted = (completedLessonNumber / allLessonNumber) * 100;
       setPercentCompleted(+percentCompleted.toFixed(0));
     }
@@ -115,13 +122,11 @@ const CoursePage = () => {
                   source={{ uri: courseData.image }}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
                 {/** Completion Container */}
-                <View className="h-4 w-full flex-row-reverse overflow-hidden rounded-full border-[1px]">
-                  <View
-                    style={{ width: `${percCompleted}%` }}
-                    className="h-full items-center justify-center rounded-full bg-green-500">
-                    <Text>{percCompleted}</Text>
-                  </View>
-                </View>
+
+                <CompletionBar
+                  allLessonNumber={allLessonNumber}
+                  completedLessonNumber={completedLessonNumber}
+                  percentCompleted={percentCompleted}></CompletionBar>
               </View>
 
               <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">
