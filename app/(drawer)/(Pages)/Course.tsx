@@ -121,12 +121,10 @@ const CoursePage = () => {
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: courseData.image }}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
-                {/** Completion Container */}
-
-                <CompletionBar
-                  allLessonNumber={allLessonNumber}
-                  completedLessonNumber={completedLessonNumber}
-                  percentCompleted={percentCompleted}></CompletionBar>
+                {/** Completion Bar */}
+                <View className="mb-4 w-[90%]">
+                  <CompletionBar percentCompleted={percentCompleted}></CompletionBar>
+                </View>
               </View>
 
               <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">
