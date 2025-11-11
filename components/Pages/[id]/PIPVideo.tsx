@@ -10,7 +10,6 @@ type propTypes = {
 };
 
 const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
-  console.log(isCompleted);
   const player = useVideoPlayer(link, (player) => {
     player.timeUpdateEventInterval = 1000;
     player.muted = true;
@@ -31,7 +30,7 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
             (await supabaseClient
               .from('video_progress')
               .upsert(
-                { timestamp: player.currentTime.toFixed(0), lesson_id: lessonId },
+                { timestamp: +player.currentTime.toFixed(0), lesson_id: lessonId },
                 { onConflict: 'user_id,lesson_id' }
               ));
         }
@@ -42,19 +41,15 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
   // Set Video Watched on 90%
   useEffect(() => {
     const interval = setInterval(async () => {
-      // console.log(player.currentTime);
       const duration = player.duration;
       const timestamp = player.currentTime;
       const is90percent = timestamp / duration >= 0.9;
-      // console.log(is90percent);
-      console.log(isCompleted);
       is90percent &&
         !isCompleted &&
         (await supabaseClient
           .from('lesson_completed')
           .insert({ is_completed: true, lesson_id: lessonId }));
     }, 1000);
-    console.log(isCompleted);
     return () => {
       clearInterval(interval);
     };

@@ -51,15 +51,15 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <StrictMode>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <QueryClientProvider client={tanstackQueryClient}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-          </Stack>
-          <MyModal></MyModal>
-        </QueryClientProvider>
-      </GestureHandlerRootView>
-    </StrictMode>
+    // <StrictMode>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={tanstackQueryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+        </Stack>
+        <MyModal></MyModal>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
+    // </StrictMode>
   );
 }
