@@ -34,9 +34,11 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
         {/** Completion Bar */}
         {isAuth && (
           <>
-            <CompletionBar
-              className="mb-2 w-48 self-center "
-              percentCompleted={percentCompleted ?? 0}></CompletionBar>
+            <View className="w-[80%]">
+              <CompletionBar
+                className="mx-4 mb-2 w-48 self-center "
+                percentCompleted={percentCompleted ?? 0}></CompletionBar>
+            </View>
           </>
         )}
         <View className=" w-full  shrink-0">

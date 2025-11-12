@@ -70,7 +70,7 @@ const CourseList = () => {
             ?.map((itemCourse, index) => (
               <CourseCard
                 key={index}
-                percentCompleted={getCompletedPercent(itemCourse)}
+                percentCompleted={+getCompletedPercent(itemCourse)}
                 courseItem={itemCourse}></CourseCard>
             ))}
         </View>

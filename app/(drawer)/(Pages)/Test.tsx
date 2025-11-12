@@ -11,7 +11,7 @@ const Test = ({ show }: { show: boolean }) => {
   return (
     <>
       <Background>
-        <ProgressCircle></ProgressCircle>
+        <ProgressCircle PercentCompleted={30}></ProgressCircle>
       </Background>
     </>
   );

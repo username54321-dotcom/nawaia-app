@@ -12,7 +12,7 @@ const CompletionBar = ({ percentCompleted, className }: propTypes) => {
     <>
       {/** Main Container */}
       <View
-        className={`h-4 w-full flex-row-reverse overflow-hidden rounded-2xl border-[1px] ${percentCompleted <= 30 && ' border-red-700'} ${percentCompleted > 30 && percentCompleted < 60 && ' border-yellow-700'} ${percentCompleted >= 60 && ' border-green-700'} ${className}`}>
+        className={`mx-6 h-4 w-full flex-row-reverse self-center overflow-hidden rounded-md border-[1px] ${percentCompleted <= 30 && ' border-red-900'} ${percentCompleted > 30 && percentCompleted < 60 && ' border-yellow-900'} ${percentCompleted >= 60 && ' border-green-900'} ${className}`}>
         {/** Conditional Centered Percentage Progress == 0 ?   */}
         {percentCompleted == 0 && (
           <>
@@ -27,10 +27,10 @@ const CompletionBar = ({ percentCompleted, className }: propTypes) => {
           animate={{ width: `${percentCompleted}%` }}>
           {/**Progress Bar */}
           <View
-            className={` flex-1 items-center justify-center rounded-2xl ${percentCompleted <= 30 && ' bg-red-300'} ${percentCompleted > 30 && percentCompleted < 60 && ' bg-yellow-400'} ${percentCompleted >= 60 && ' bg-green-500'}`}>
+            className={` flex-1 items-center justify-center rounded-2xl rounded-l-md ${percentCompleted <= 30 && ' bg-red-300'} ${percentCompleted > 30 && percentCompleted < 60 && ' bg-yellow-400'} ${percentCompleted >= 60 && ' bg-green-500'}`}>
             {/** Progress Percent */}
             <Text
-              className={`font-bold  ${percentCompleted > 0 && percentCompleted <= 30 && ' text-red-700'} ${percentCompleted > 30 && percentCompleted < 60 && ' text-yellow-700'} ${percentCompleted >= 60 && ' text-green-700'}`}>
+              className={`font-bold  ${percentCompleted > 0 && percentCompleted <= 30 && ' text-red-900'} ${percentCompleted > 30 && percentCompleted < 60 && ' text-yellow-900'} ${percentCompleted >= 60 && ' text-green-900'}`}>
               {percentCompleted > 0 && percentCompleted + '%'}
             </Text>
           </View>
