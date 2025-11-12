@@ -26,5 +26,6 @@ config.resolver.resolveRequest = (context, realModuleName, platform, moduleName)
   }
   return context.resolveRequest(context, realModuleName, platform, moduleName);
 };
-
+const defaultAssetExts = config.resolver.assetExts;
+config.resolver.assetExts = [...defaultAssetExts, 'lottie'];
 module.exports = withNativeWind(config, { input: './global.css' });

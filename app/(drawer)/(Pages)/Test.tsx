@@ -1,14 +1,25 @@
-import { View } from 'react-native';
-import { useEffect } from 'react';
 import Background from '~/components/Background';
-import { MotiView, useAnimationState } from 'moti';
-import { style } from 'twrnc';
-import { LottieView } from './../../../node_modules/lottie-react-native/src/LottieView/index';
+
+import LottieView from 'lottie-react-native';
+import { useRef } from 'react';
+import { Pressable } from 'react-native';
+import { DotLottie, Dotlottie } from '@lottiefiles/dotlottie-react-native';
+
 const Test = ({ show }: { show: boolean }) => {
+  const lottieRef = useRef<Dotlottie>(null);
+
   return (
     <>
       <Background>
-        <LottieView></LottieView>
+        <DotLottie
+          ref={lottieRef}
+          style={{ width: 200, height: 200 }}
+          source={require('~/assets/lottie/Loading Bar  Progress Bar.lottie')}></DotLottie>
+        <Pressable
+          className="size-12 bg-red-500"
+          onPress={() => {
+            lottieRef.current?.play();
+          }}></Pressable>
       </Background>
     </>
   );

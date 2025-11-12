@@ -19,7 +19,8 @@
           "supportsBackgroundPlayback": true,
           "supportsPictureInPicture": true
         }
-      ]
+      ],
+      "@lottiefiles/dotlottie-react-native/plugin"
     ],
     "experiments": {
       "typedRoutes": true,
