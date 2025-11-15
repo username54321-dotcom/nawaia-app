@@ -7,7 +7,7 @@ const Booking = () => {
     <Background>
       <View className=" items-center justify-center">
         <View className=" my-6 items-center justify-center self-center">
-          <Text className="mx-6 font-Kufi text-base text-neutral-800 xl:w-1/3">
+          <Text className="mx-6 font-Kufi text-base text-neutral-800 lg:w-2/3 xl:w-1/2">
             {`
 اتت فكرة تقديم الاستشارة اون لاين مواكبة للعصر وايضاً لان لديها الكثير من المميزات حيث يمكنكم طلب الاستشارة وانت جالس في منزلك دون ان تتكلف أعباء الخروج من المنزل، وايضاً الوقت، حيث يمكنكم اخذ الاستشارة خارج توقيت ساعات دوام العمل الرسمي، و تتميز بالسرية حيث تبقى الهوية الحقيقية لطالب الاستشارة غير معلنة، لان الاستشارة ستكون عبر خدمة السكايب فقط صوتياً، بدون ضرورة فتح الكاميرا، وبهذا تستطيع التعبير عن نفسك بأريحية اكبر.  
 
