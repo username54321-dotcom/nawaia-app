@@ -44,6 +44,10 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
                 setDrawerVisible={setDrawerVisible}
                 label="كتب"
                 targetPage="/Books"></DrawerItem>
+              <DrawerItem
+                setDrawerVisible={setDrawerVisible}
+                label="أحجز أستشارة"
+                targetPage="/Booking"></DrawerItem>
               {isAdmin && (
                 <DrawerItem
                   setDrawerVisible={setDrawerVisible}
