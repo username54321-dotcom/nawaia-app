@@ -1,11 +1,8 @@
 import { View, Text, Pressable, Linking } from 'react-native';
 import Background from '~/components/Background';
-import { DotLottie, Dotlottie } from '@lottiefiles/dotlottie-react-native';
-import { useRouter } from 'expo-router';
-import { Target } from 'lucide-react-native';
+import { DotLottie } from '@lottiefiles/dotlottie-react-native';
 
 const Booking = () => {
-  const router = useRouter();
   return (
     <Background>
       <View className=" items-center justify-center">

@@ -77,6 +77,11 @@ const LandscapeBanner = () => {
                   كتب
                 </Text>
               </Pressable>
+              <Pressable className="group" onPress={() => router.push('/(drawer)/(Pages)/Booking')}>
+                <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
+                  أحجز أستشارة
+                </Text>
+              </Pressable>
               {isAdmin && (
                 <Pressable
                   className="bg- rounded-lg bg-slate-300"
