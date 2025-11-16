@@ -1,21 +1,19 @@
 import { Pressable, Linking, View } from 'react-native';
 import { useModalVisible, useIsAuth, useIsAuthType, useModalVisibleType } from '~/store/store';
 import MyImage1 from '~/components/Reusebales/MyImage';
-import { DotLottie, Dotlottie, Mode } from '@lottiefiles/dotlottie-react-native';
-import { style } from 'twrnc';
-import { useMemo } from 'react';
+
+import { memo, useMemo, useCallback } from 'react';
 
 const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefined }) => {
-  const logo = require('assets/svg/telegram_.png');
+  const logo = useMemo(() => require('assets/svg/telegram_.png'), []);
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
 
-  const handleOnPress = async () => {
+  const handleOnPress = useCallback(async () => {
     isAuth && Linking.openURL(telegramLink ?? 'https://web.telegram.org');
     !isAuth && setModalVisible(true);
-  };
+  }, [isAuth, setModalVisible, telegramLink]);
 
-  const source = useMemo(() => require('~/assets/lottie/telegram icon.lottie'), []);
   return (
     <Pressable
       onPress={handleOnPress}
@@ -29,4 +27,4 @@ const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefi
   );
 };
 
-export default TelegramButton;
+export default memo(TelegramButton);

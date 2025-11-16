@@ -14,7 +14,6 @@ import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import CompletionBar from './../../../components/Pages/[id]/CompletionBar';
 
 const CoursePage = () => {
-  console.log('rendered');
   const [allLessonNumber, setAllLessonNumber] = useState(0);
   const [completedLessonNumber, setCompletedLessonNumber] = useState(0);
   const [percentCompleted, setPercentCompleted] = useState(0);
