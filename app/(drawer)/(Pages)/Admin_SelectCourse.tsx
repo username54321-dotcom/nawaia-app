@@ -5,7 +5,7 @@ import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
-import { Plus } from 'lucide-react-native';
+import { Plus, Trash2 } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
 import { useFocusEffect, useRouter } from 'expo-router';
 import MyImage1 from '~/components/Reusebales/MyImage';
@@ -93,7 +93,7 @@ const Admin_SelectCourse = () => {
                             onLongPress={() => handleDelete(itemCourse.id)}
                             delayLongPress={7000}
                             className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
-                            <Text className="text-white">Delete</Text>
+                            <Trash2 color={'white'} />
                           </Pressable>
                           {/**Edit Course */}
                           <Pressable
