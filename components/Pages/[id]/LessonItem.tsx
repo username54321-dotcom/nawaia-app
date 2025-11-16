@@ -9,8 +9,9 @@ import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
 import { Tables } from '~/utils/database.types';
 import VideoModal from './PIPVideo';
-import { Check, CheckCheck, CircleCheck } from 'lucide-react-native';
+import { Check, NotebookPen } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
+import DraftIcon from './DraftIcon';
 type props = {
   LessonItemProp: Tables<'lessons'> & {
     notes: Tables<'notes'>[];
@@ -24,7 +25,7 @@ type props = {
 
 const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Modal Visibility
-  const [expand, setExpand] = useState(false); // Expand Accordion State
+  const [expand, setExpand] = useState<boolean>(false); // Expand Accordion State
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   // Auth State
   const Note = useRef<string | null | undefined>(null); // State for note user input
@@ -46,21 +47,19 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
       <View className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
         {/**Lesson Name and Icon */}
         <View className="flex-row-reverse items-center justify-end px-4">
-          {isAuth && (
-            <RotatingChevron
-              onPress={() => setExpand((v) => !v)}
-              className="ml-4 rounded-md "></RotatingChevron>
-          )}
+          {isAuth && <DraftIcon setExpand={setExpand}></DraftIcon>}
 
           <Text className="font-Kufi font-semibold group-hover:text-red-700">
             {LessonItemProp.name}
           </Text>
         </View>
+
         {/** Watch Lesson Button */}
         <View>
           <Pressable
             className="flex-row items-center"
             onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}>
+            {/** Conditional  Icon */}
             {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
               <>
                 <FadeIn>
@@ -101,8 +100,8 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
 
                   setViewEditor(false);
                 }}
-                className="my-1 size-fit self-center rounded-md bg-red-500 px-6">
-                <Text className="font-Playwrite font-semibold text-white">Save</Text>
+                className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2">
+                <Text className="font font-Kufi font-semibold text-neutral-50">حفظ</Text>
               </Pressable>
             </>
           )}
@@ -114,7 +113,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
                 <RenderHTML
                   contentWidth={2000}
                   baseStyle={tw`bg-slate-200 px-4 py-2 `}
-                  source={{ html: note || 'لا توجد ملاحظات' }}
+                  source={{ html: note || 'لا توجد مذكرات' }}
                 />
               </ScrollView>
               {/**Edit Notes Button */}
@@ -122,7 +121,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
                 onPress={() => setViewEditor(true)}
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
                 <Text className="font font-Kufi font-semibold text-neutral-50">
-                  {note ? 'تعديل' : 'أضف ملاحظاتك'}
+                  {note ? 'تعديل' : 'أضف مذكراتك'}
                 </Text>
               </Pressable>
             </>

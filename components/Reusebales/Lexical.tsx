@@ -18,7 +18,7 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { theme } from './plugins/EditorTheme';
 
 // import TreeViewPlugin from './plugins/TreeViewPlugin';
-const placeholder = 'دوّن ملاحظاتك';
+const placeholder = 'دوّن مذكراتك';
 const editorConfig = {
   namespace: 'Notes Editor',
   theme: theme,
