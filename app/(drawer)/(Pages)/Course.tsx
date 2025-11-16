@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
@@ -62,7 +62,7 @@ const CoursePage = () => {
   }, [courseData]);
 
   // Realtime
-  useEffect(() => {
+  useFocusEffect(() => {
     const a = supabaseClient
       .channel('courses')
       .on('postgres_changes', { table: 'courses', schema: 'public', event: '*' }, () => refetch())
@@ -98,7 +98,7 @@ const CoursePage = () => {
       supabaseClient.removeChannel(e);
       supabaseClient.removeChannel(f);
     };
-  }, [refetch]);
+  });
 
   //Add to History
   const seenBefore = courseData?.user_course_history.length !== 0;

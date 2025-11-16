@@ -7,7 +7,7 @@ import FadeIn from '~/components/Animations/FadeIn';
 import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
 import { Plus } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import MyImage1 from '~/components/Reusebales/MyImage';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 
@@ -51,7 +51,7 @@ const Admin_SelectCourse = () => {
   );
 
   // RealTime
-  useEffect(() => {
+  useFocusEffect(() => {
     const channel = supabaseClient.channel('realtime select course');
     channel
       .on('postgres_changes', { event: '*', table: 'courses', schema: 'public' }, () => refetch())
@@ -60,7 +60,7 @@ const Admin_SelectCourse = () => {
     return () => {
       supabaseClient.removeChannel(channel);
     };
-  }, [refetch]);
+  });
 
   return (
     <Background>
