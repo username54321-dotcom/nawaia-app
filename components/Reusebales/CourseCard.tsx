@@ -19,7 +19,7 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
   // Navigate to Course
   const HandleOnPress = useCallback(
     (CourseId: number) => {
-      router.push({ pathname: `/(drawer)/(Pages)/Course`, params: { id: CourseId } });
+      router.push({ pathname: `/Course`, params: { id: CourseId } });
     },
     [router]
   );
