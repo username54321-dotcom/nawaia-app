@@ -1,20 +1,21 @@
 import { View, Text, Pressable } from 'react-native';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
-import AdminPublishButton from './../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
 import { Plus, Trash2 } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
 import { useFocusEffect, useRouter } from 'expo-router';
 import MyImage1 from '~/components/Reusebales/MyImage';
-import { useIsAuth, useIsAuthType } from '~/store/store';
+import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
+import Admin_EditAssestsComponent from '../../../../components/Pages/AdminPage/Admin_EditAssestsComponent';
 
 const Admin_SelectCourse = () => {
   const router = useRouter();
-  const isAdmin = useIsAuth((state: useIsAuthType) => state.isAdmin);
-  !isAdmin && router.replace('/'); //redirects if not admin
+
+  useAdminOnly();
 
   //Main Query
   const { data: courseList, refetch } = useQuery({
@@ -64,6 +65,7 @@ const Admin_SelectCourse = () => {
 
   return (
     <Background>
+      <Admin_EditAssestsComponent></Admin_EditAssestsComponent>{' '}
       {courseList && (
         <View className="flex-1 flex-row flex-wrap items-center justify-center">
           {courseList

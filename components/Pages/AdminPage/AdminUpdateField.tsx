@@ -2,24 +2,29 @@ import { memo, useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 
+// PropTypes
 interface propTypes {
   liveValue: string | undefined | null;
   table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links';
   id: number | undefined;
   fieldName: string;
-  refetch: () => void;
+  refetch?: () => void;
   label: string;
 }
 
 const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: propTypes) => {
+  // Dont Touch
   const [visibleValue, setVisibleValue] = useState(liveValue);
+
+  // Update Value
   const handleUpdate = async () => {
     const { data: error } = await supabaseClient
       .from(table)
       .update({ [fieldName]: visibleValue, id: id })
       .eq('id', id ?? 99999);
-    refetch();
+    refetch && refetch();
   };
+  // Dont Touch
   useEffect(() => {
     setVisibleValue(liveValue);
   }, [liveValue]);
@@ -30,8 +35,9 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
         <Text className="mb-2 mr-2 self-end font-Kufi text-base font-semibold">{label}</Text>
         <View className="flex-1 flex-row-reverse justify-between  gap-2 ">
           {/** live value container */}
+
           <View className="  w-2/5 flex-1 rounded-md border-[1px] bg-slate-500">
-            <Text className="p-2 text-right   text-slate-50">{liveValue}</Text>
+            <Text className=" p-2 text-right  text-slate-50">{liveValue}</Text>
           </View>
           {/**Text Input */}
           <TextInput

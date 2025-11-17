@@ -210,6 +210,27 @@ export type Database = {
           },
         ]
       }
+      public_assets: {
+        Row: {
+          booking_page: string | null
+          created_at: string
+          home_page: string | null
+          id: number
+        }
+        Insert: {
+          booking_page?: string | null
+          created_at?: string
+          home_page?: string | null
+          id?: number
+        }
+        Update: {
+          booking_page?: string | null
+          created_at?: string
+          home_page?: string | null
+          id?: number
+        }
+        Relationships: []
+      }
       telegram_links: {
         Row: {
           course_id: number

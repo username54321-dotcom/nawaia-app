@@ -2,15 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { Text, View, TouchableOpacity } from 'react-native';
-import AdminUpdateField from '../../../components/Pages/AdminPage/AdminUpdateField';
-import AdminPublishButton from '../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminUpdateField from '../../../../components/Pages/AdminPage/AdminUpdateField';
+import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import { Trash2 } from 'lucide-react-native';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
+import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 
 const Admin_EditCourse = () => {
+  useAdminOnly(); // Admin Only
   const { id }: { id: string } = useLocalSearchParams();
 
   // Main Query
