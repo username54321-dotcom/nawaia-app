@@ -73,7 +73,7 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
             </Text>
           </View>
         )}
-        <FavouriteStar></FavouriteStar>
+        {/* <FavouriteStar></FavouriteStar> */}
       </View>
     </FadeIn>
   );
