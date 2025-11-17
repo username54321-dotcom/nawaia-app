@@ -1,31 +1,22 @@
 import { View, Text, Pressable, Linking } from 'react-native';
 import Background from '~/components/Background';
 import { DotLottie } from '@lottiefiles/dotlottie-react-native';
-import { useQuery } from '@tanstack/react-query';
-import { supabaseClient } from '~/utils/supabase';
+
 import { RenderHTML } from 'react-native-render-html';
+import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAssests';
+import FadeIn from '~/components/Animations/FadeIn';
 
 const Booking = () => {
-  const { data } = useQuery({
-    queryKey: ['public_assets'],
-    queryFn: async () => {
-      const { data } = await supabaseClient
-        .from('public_assets')
-        .select('booking_page')
-        .eq('id', 1)
-        .limit(1)
-        .single();
-      return data;
-    },
-    staleTime: Infinity,
-  });
+  const { data } = useQueryGetPublicAssets();
   return (
     <Background>
       <View className=" flex-col items-center justify-start">
         {data && (
           <>
             <View className="my-4 w-5/6   lg:w-2/3 xl:w-1/2">
-              <RenderHTML source={{ html: data.booking_page }}></RenderHTML>
+              <FadeIn>
+                <RenderHTML source={{ html: data.booking_page }}></RenderHTML>
+              </FadeIn>
             </View>
           </>
         )}
