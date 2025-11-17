@@ -44,7 +44,9 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
         )}
       </MyAccordion>
       {/**Lesson Container */}
-      <View className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
+      <Pressable
+        onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}
+        className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
         {/**Lesson Name and Icon */}
         <View className="flex-row-reverse items-center justify-end px-4">
           {isAuth && <DraftIcon setExpand={setExpand}></DraftIcon>}
@@ -56,9 +58,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
 
         {/** Watch Lesson Button */}
         <View>
-          <Pressable
-            className="flex-row items-center"
-            onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}>
+          <Pressable className="flex-row items-center">
             {/** Conditional  Icon */}
             {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
               <>
@@ -72,7 +72,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
           </Pressable>
         </View>
-      </View>
+      </Pressable>
       {/** Notes Accordion */}
       {isAuth && (
         <MyAccordion expandProp={expand}>
