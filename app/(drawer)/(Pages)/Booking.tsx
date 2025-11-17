@@ -15,7 +15,7 @@ const Booking = () => {
           <>
             <View className="my-4 w-5/6   lg:w-2/3 xl:w-1/2">
               <FadeIn>
-                <RenderHTML source={{ html: data.booking_page }}></RenderHTML>
+                <RenderHTML source={{ html: data.booking_page ?? '' }}></RenderHTML>
               </FadeIn>
             </View>
           </>
