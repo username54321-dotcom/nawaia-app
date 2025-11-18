@@ -58,7 +58,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
 
         {/** Watch Lesson Button */}
         <View>
-          <Pressable className="flex-row items-center">
+          <View className="flex-row items-center">
             {/** Conditional  Icon */}
             {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
               <>
@@ -70,7 +70,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
               </>
             )}
             <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
-          </Pressable>
+          </View>
         </View>
       </Pressable>
       {/** Notes Accordion */}
