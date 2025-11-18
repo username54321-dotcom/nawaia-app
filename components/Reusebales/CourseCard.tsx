@@ -73,7 +73,10 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
             </Text>
           </View>
         )}
-        {/* <FavouriteStar></FavouriteStar> */}
+        {/** Favourite Animation */}
+        <View className=" absolute right-[-75] top-[-30]">
+          <FavouriteStar isFavourite={false}></FavouriteStar>
+        </View>
       </View>
     </FadeIn>
   );

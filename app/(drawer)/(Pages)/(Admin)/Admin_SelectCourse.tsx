@@ -46,7 +46,7 @@ const Admin_SelectCourse = () => {
   //Navigate to edit page
   const handleEditCourse = useCallback(
     (id: number) => {
-      router.navigate({ pathname: '/(drawer)/(Pages)/Admin_EditCourse', params: { id: id } });
+      router.navigate({ pathname: '/Admin_EditCourse', params: { id: id } });
     },
     [router]
   );

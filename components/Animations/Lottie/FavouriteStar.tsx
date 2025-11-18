@@ -1,18 +1,42 @@
-import { useMemo } from 'react';
-import { DotLottie } from '@lottiefiles/dotlottie-react-native';
-import { View } from 'moti';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Dotlottie, DotLottie } from '@lottiefiles/dotlottie-react-native';
+import { Pressable } from 'react-native';
 
-const FavouriteStar = () => {
+interface propTypes {
+  isFavourite: boolean;
+}
+
+const FavouriteStar = ({ isFavourite }: propTypes) => {
+  console.log('rendered');
   const source = useMemo(() => require('assets/lottie/Favourite app icon.lottie'), []);
+  const ref = useRef<Dotlottie>(null);
+  const [state, setState] = useState<boolean>(isFavourite);
+  const handlePress = async () => {
+    if (!state) {
+      ref.current?.play();
+      setState(true);
+      return;
+    }
+    ref.current?.setFrame(80);
+    setState(false);
+  };
+
+  useEffect(() => {
+    if (ref.current) ref.current.setFrame(80);
+  }, [ref]);
   return (
-    <>
-      <View className="size-fit border-2">
-        <DotLottie source={source} style={style.lotie}></DotLottie>
-      </View>
-    </>
+    <Pressable
+      onPress={handlePress}
+      className={`transition-all duration-300 ${state ? ' scale-125' : 'opacity-50'}`}>
+      {/* <View className="absolute -z-10 flex size-full items-center justify-center ">
+        <View className="size-10 items-center justify-center rounded-full  bg-neutral-300/50"></View>
+      </View> */}
+      {state && <DotLottie autoplay ref={ref} source={source} style={style.lotie}></DotLottie>}
+      {!state && <DotLottie segment={[79, 80]} source={source} style={style.lotie}></DotLottie>}
+    </Pressable>
   );
 };
 
 export default FavouriteStar;
 
-const style = { lotie: { width: 200, height: 100 } };
+const style = { lotie: { width: 160, height: 75 } };
