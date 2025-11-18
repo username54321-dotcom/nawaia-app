@@ -17,26 +17,22 @@ const FavouriteStar = ({ isFavourite }: propTypes) => {
       setState(true);
       return;
     }
-    ref.current?.setFrame(80);
+    ref.current?.setFrame(0);
     setState(false);
   };
 
-  useEffect(() => {
-    if (ref.current) ref.current.setFrame(80);
-  }, [ref]);
   return (
     <Pressable
       onPress={handlePress}
-      className={`transition-all duration-300 ${state ? ' scale-125' : 'opacity-50'}`}>
+      className={`transition-all duration-300 ${state ? ' scale-125' : ''}`}>
       {/* <View className="absolute -z-10 flex size-full items-center justify-center ">
         <View className="size-10 items-center justify-center rounded-full  bg-neutral-300/50"></View>
       </View> */}
-      {state && <DotLottie autoplay ref={ref} source={source} style={style.lotie}></DotLottie>}
-      {!state && <DotLottie segment={[79, 80]} source={source} style={style.lotie}></DotLottie>}
+      <DotLottie ref={ref} source={source} style={style.lotie}></DotLottie>
     </Pressable>
   );
 };
 
 export default FavouriteStar;
 
-const style = { lotie: { width: 160, height: 75 } };
+const style = { lotie: { width: 165, height: 75 } };

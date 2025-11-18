@@ -60,7 +60,7 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
           {/** Navigate to Course Button */}
           <Pressable
             onPress={() => HandleOnPress(courseItem.id)}
-            className="relative bottom-0 m-6 mt-auto flex  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+            className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
             <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
           </Pressable>
         </View>
