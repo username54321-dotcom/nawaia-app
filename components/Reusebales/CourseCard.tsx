@@ -74,7 +74,7 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
           </View>
         )}
         {/** Favourite Animation */}
-        <View className=" absolute right-[-75] top-[-30]">
+        <View className=" top-[-30 ] absolute     right-[-75]">
           <FavouriteStar isFavourite={false}></FavouriteStar>
         </View>
       </View>
