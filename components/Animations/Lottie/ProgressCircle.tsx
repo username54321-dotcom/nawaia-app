@@ -13,7 +13,7 @@ const ProgressCircle = ({ PercentCompleted }: { PercentCompleted: number }) => {
         autoplay={true}
         segment={[-1, PercentCompleted * 2.5]}
         ref={lottieRef}
-        style={{ width: 200, height: 200 }}
+        style={{ width: 35, height: 35 }}
         source={source}></DotLottie>
     </>
   );

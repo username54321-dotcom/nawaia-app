@@ -7,14 +7,16 @@ import { useRouter } from 'expo-router';
 import CompletionBar from './../Pages/[id]/CompletionBar';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 import FavouriteStar from './../Animations/Lottie/FavouriteStar';
+import ProgressCircle from './../Animations/Lottie/ProgressCircle';
 
 interface propTypes {
   courseItem: Tables<'courses'>;
   className?: string;
   percentCompleted?: number;
+  is_favourite: boolean;
 }
 
-const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
+const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: propTypes) => {
   const router = useRouter();
   // Navigate to Course
   const HandleOnPress = useCallback(
@@ -37,8 +39,15 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
           source={{ uri: courseItem.image }}
           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
+        {/** Favourite Animation */}
+        <View className="ml-4 w-full flex-row items-center justify-center">
+          {(percentCompleted ?? 0) > 10 && isAuth && (
+            <ProgressCircle PercentCompleted={percentCompleted ?? 0}></ProgressCircle>
+          )}
+          <FavouriteStar courseID={courseItem.id} isFavourite={is_favourite}></FavouriteStar>
+        </View>
         {/** Completion Bar */}
-        {isAuth && (
+        {/* {isAuth && (
           <>
             <View className="w-[80%]">
               <CompletionBar
@@ -46,11 +55,11 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
                 percentCompleted={percentCompleted ?? 0}></CompletionBar>
             </View>
           </>
-        )}
+        )} */}
         {/** Course Details Container */}
         <View className=" w-full  shrink-0">
           {/** Course Title */}
-          <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
+          <Text className="m-2 mr-4 mt-2 self-end font-Kufi  text-2xl font-bold text-slate-700">
             {courseItem.title}
           </Text>
           {/** Course Short Description */}
@@ -73,10 +82,6 @@ const CourseCard = ({ courseItem, className, percentCompleted }: propTypes) => {
             </Text>
           </View>
         )}
-        {/** Favourite Animation */}
-        <View className=" top-[-30 ] absolute     right-[-75]">
-          <FavouriteStar isFavourite={false}></FavouriteStar>
-        </View>
       </View>
     </FadeIn>
   );

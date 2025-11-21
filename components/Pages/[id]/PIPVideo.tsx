@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { useEffect, useRef } from 'react';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { supabaseClient } from '~/utils/supabase';
+import { useQueryClient } from '@tanstack/react-query';
 
 type propTypes = {
   link: string;
@@ -10,6 +11,7 @@ type propTypes = {
 };
 
 const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
+  const queryClient = useQueryClient();
   const player = useVideoPlayer(link, (player) => {
     player.timeUpdateEventInterval = 1000;
     player.muted = true;
@@ -44,11 +46,12 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
       const duration = player.duration;
       const timestamp = player.currentTime;
       const is90percent = timestamp / duration >= 0.9;
-      is90percent &&
-        !isCompleted &&
-        (await supabaseClient
+      if (is90percent && !isCompleted) {
+        await supabaseClient
           .from('lesson_completed')
-          .insert({ is_completed: true, lesson_id: lessonId }));
+          .insert({ is_completed: true, lesson_id: lessonId });
+        queryClient.invalidateQueries({ queryKey: ['Public Courses List'] });
+      }
     }, 1000);
     return () => {
       clearInterval(interval);

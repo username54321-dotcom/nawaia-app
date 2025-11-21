@@ -1,9 +1,9 @@
 import { ScrollView, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 
 import { memo, useCallback, useEffect } from 'react';
 import CourseCard from '../Reusebales/CourseCard';
+import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 
 interface itemCourseTypes {
   created_at: string;
@@ -37,17 +37,7 @@ const CourseList = () => {
     return percentComplete.toFixed(0);
   }, []);
   //Main Query
-  const { data: courseList, refetch } = useQuery({
-    queryKey: ['Public Courses List'],
-
-    queryFn: async () => {
-      const { data } = await supabaseClient
-        .from('courses')
-        .select('*,chapters(lessons(lesson_completed(is_completed)))');
-      return data;
-    },
-    staleTime: Infinity,
-  });
+  const { data: courseList, refetch } = useQueryGetCourseList();
   //Real Time
   useEffect(() => {
     const channel = supabaseClient.channel('refetch courses');
@@ -70,6 +60,7 @@ const CourseList = () => {
             ?.map((itemCourse, index) => (
               <CourseCard
                 key={index}
+                is_favourite={itemCourse.user_favourites[0]?.is_favourite ?? false}
                 percentCompleted={+getCompletedPercent(itemCourse)}
                 courseItem={itemCourse}></CourseCard>
             ))}

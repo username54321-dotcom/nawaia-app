@@ -289,6 +289,38 @@ export type Database = {
           },
         ]
       }
+      user_favourites: {
+        Row: {
+          course_id: number
+          created_at: string
+          id: number
+          is_favourite: boolean
+          user_id: string
+        }
+        Insert: {
+          course_id: number
+          created_at?: string
+          id?: number
+          is_favourite: boolean
+          user_id?: string
+        }
+        Update: {
+          course_id?: number
+          created_at?: string
+          id?: number
+          is_favourite?: boolean
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_favourites_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       video_progress: {
         Row: {
           created_at: string
