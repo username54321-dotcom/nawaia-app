@@ -14,6 +14,77 @@ export type Database = {
   }
   public: {
     Tables: {
+      book_links: {
+        Row: {
+          book_id: number
+          book_link: string
+          created_at: string
+          id: number
+          telegram_link: string | null
+        }
+        Insert: {
+          book_id: number
+          book_link: string
+          created_at?: string
+          id?: number
+          telegram_link?: string | null
+        }
+        Update: {
+          book_id?: number
+          book_link?: string
+          created_at?: string
+          id?: number
+          telegram_link?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_links_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      books: {
+        Row: {
+          book_name: string
+          cover_image: string
+          created_at: string
+          duration: string | null
+          genre: string | null
+          id: number
+          is_published: boolean
+          long_description: string | null
+          price: number | null
+          short_description: string | null
+        }
+        Insert: {
+          book_name: string
+          cover_image: string
+          created_at?: string
+          duration?: string | null
+          genre?: string | null
+          id?: number
+          is_published?: boolean
+          long_description?: string | null
+          price?: number | null
+          short_description?: string | null
+        }
+        Update: {
+          book_name?: string
+          cover_image?: string
+          created_at?: string
+          duration?: string | null
+          genre?: string | null
+          id?: number
+          is_published?: boolean
+          long_description?: string | null
+          price?: number | null
+          short_description?: string | null
+        }
+        Relationships: []
+      }
       chapters: {
         Row: {
           course_id: number | null

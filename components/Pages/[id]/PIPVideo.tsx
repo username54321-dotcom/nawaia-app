@@ -38,6 +38,9 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
         }
       }
     );
+    return () => {
+      playEventListener.remove();
+    };
   }, [player, lessonId]);
 
   // Set Video Watched on 90%

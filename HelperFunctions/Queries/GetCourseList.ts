@@ -6,7 +6,6 @@ export function useQueryGetCourseList() {
     queryKey: ['Public Courses List'],
 
     queryFn: async () => {
-      console.log('fetched');
       const { data } = await supabaseClient
         .from('courses')
         .select(

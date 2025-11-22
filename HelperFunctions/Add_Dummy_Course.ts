@@ -32,13 +32,15 @@ export const addDummyCourse = async () => {
     .select()
     .single();
   //insert Telegram Link
-  const {} = await supabaseClient
-    .from('telegram_links')
-    .insert({ course_id: courseData?.id, telegram_link: 'https://web.telegram.org' });
-
+  if (courseData) {
+    const {} = await supabaseClient
+      .from('telegram_links')
+      .insert({ course_id: courseData?.id, telegram_link: 'https://web.telegram.org' });
+  }
   const courseId = courseData?.id; // Inserted CourseID
 
   //Loop for every Chapter
+
   for await (const item_inputChapter of inputChapters) {
     const { data: chapterData } = await supabaseClient
       .from('chapters')
@@ -65,11 +67,13 @@ export const addDummyCourse = async () => {
         .single();
       const lessonId = lessonData?.id; // Lesson ID
       //Insert Lesson Link
-      const { data: linkData } = await supabaseClient
-        .from('links')
-        .insert({ lesson_id: lessonId, link: item_inputLesson.link })
-        .select()
-        .single();
+      if (lessonId) {
+        const { data: linkData } = await supabaseClient
+          .from('links')
+          .insert({ lesson_id: lessonId, link: item_inputLesson.link })
+          .select()
+          .single();
+      }
     }
   }
 };

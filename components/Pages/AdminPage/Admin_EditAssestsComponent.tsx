@@ -1,8 +1,6 @@
-import { useRouter } from 'expo-router';
+import { Href, router, useRouter } from 'expo-router';
 import { useCallback } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import * as router from 'expo-router';
-import { Database, Tables, TablesInsert } from '~/utils/database.types';
+import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 
 //handleNavigateTypes
 export interface navTypes {
@@ -23,9 +21,12 @@ const Admin_EditAssestsComponent = () => {
     },
     [nav]
   );
+  const simpleNav = useCallback((path: Href) => {
+    router.push(path);
+  }, []);
   return (
-    <View className="my-4 flex-row  flex-wrap items-center justify-center">
-      <TouchableOpacity
+    <View className="m-4 flex-row  flex-wrap items-center justify-center">
+      <Pressable
         onPress={() =>
           handleNavigate({
             table: 'public_assets',
@@ -34,10 +35,10 @@ const Admin_EditAssestsComponent = () => {
             label: 'الصفحة الرئيسية',
           })
         }
-        className="mx-2 rounded-md bg-blue-500 p-4">
+        className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الصفحة الرئيسية</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Pressable>
+      <Pressable
         onPress={() =>
           handleNavigate({
             table: 'public_assets',
@@ -46,9 +47,19 @@ const Admin_EditAssestsComponent = () => {
             label: 'صفحة حجز الاستشارة',
           })
         }
-        className="mx-2 rounded-md bg-blue-500 p-4">
+        className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة حجز الاستشارة</Text>
-      </TouchableOpacity>
+      </Pressable>
+      <Pressable
+        onPress={() => simpleNav('/Admin_SelectBook')}
+        className="m-2 rounded-md bg-blue-500 p-4">
+        <Text className="font-Kufi font-semibold text-blue-50">تعديل الكتب</Text>
+      </Pressable>{' '}
+      <Pressable
+        onPress={() => simpleNav('/(drawer)/(Pages)/(Admin)/Admin_SelectCourse')}
+        className="m-2 rounded-md bg-blue-500 p-4">
+        <Text className="font-Kufi font-semibold text-blue-50">تعديل الدورات</Text>
+      </Pressable>
     </View>
   );
 };

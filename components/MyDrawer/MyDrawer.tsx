@@ -52,7 +52,7 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
                 <DrawerItem
                   setDrawerVisible={setDrawerVisible}
                   label="أضافة أو تعديل المحتوي"
-                  targetPage="/Admin_SelectCourse"></DrawerItem>
+                  targetPage="/Admin_SelectEditOption"></DrawerItem>
               )}
             </View>
           </MotiView>

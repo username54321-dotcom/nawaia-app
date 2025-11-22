@@ -5,7 +5,7 @@ import { supabaseClient } from '~/utils/supabase';
 // PropTypes
 interface propTypes {
   liveValue: string | undefined | null;
-  table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links';
+  table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links' | 'books' | 'book_links';
   id: number | undefined;
   fieldName: string;
   refetch?: () => void;
@@ -20,7 +20,7 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
   const handleUpdate = async () => {
     const { data: error } = await supabaseClient
       .from(table)
-      .update({ [fieldName]: visibleValue, id: id })
+      .update({ [fieldName]: visibleValue })
       .eq('id', id ?? 99999);
     refetch && refetch();
   };
