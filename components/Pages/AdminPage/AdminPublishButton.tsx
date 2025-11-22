@@ -6,18 +6,23 @@ interface propTypes {
   isPublished: boolean;
   table: 'courses' | 'lessons' | 'chapters' | 'links' | 'books';
   id: number;
+  refetch?: () => void;
 }
 
-const AdminPublishButton = ({ id, isPublished, table }: propTypes) => {
+const AdminPublishButton = ({ id, isPublished, table, refetch }: propTypes) => {
   // refactor problem
   const handlePublish = useCallback(async () => {
     const isPublishedObject =
       table === 'books' ? { is_published: !isPublished } : { published: !isPublished };
-    const {} = await supabaseClient
+    const { data: success } = await supabaseClient
       .from(table)
       .update({ id: id, ...isPublishedObject })
-      .eq('id', id);
-  }, [isPublished, id, table]);
+      .eq('id', id)
+      .select();
+    if (success && refetch) {
+      refetch();
+    }
+  }, [isPublished, id, table, refetch]);
   return (
     <Pressable
       onPress={handlePublish}

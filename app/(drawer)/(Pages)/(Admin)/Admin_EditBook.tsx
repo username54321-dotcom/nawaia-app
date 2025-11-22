@@ -25,6 +25,7 @@ const Admin_EditBook = () => {
             <View className="flex-1 flex-col items-center">
               {/** Publish Button */}
               <AdminPublishButton
+                refetch={refetch}
                 id={book.id}
                 isPublished={book.is_published}
                 table="books"></AdminPublishButton>
