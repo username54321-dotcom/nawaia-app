@@ -85,7 +85,7 @@ const LandscapeBanner = () => {
               {isAdmin && (
                 <Pressable
                   className="bg- rounded-lg bg-slate-300"
-                  onPress={() => router.push('/Admin_SelectCourse')}>
+                  onPress={() => router.push('/Admin_SelectEditOption')}>
                   <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
                     ( انشاء و تعديل المحتوي )
                   </Text>

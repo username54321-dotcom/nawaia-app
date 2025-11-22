@@ -1,18 +1,24 @@
-import { useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import { Text, View, Pressable, Linking } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
-import { AlarmClock, DollarSign } from 'lucide-react-native';
+import { AlarmClock, DollarSign, SquareArrowOutUpRight } from 'lucide-react-native';
 import Background from '~/components/Background';
 import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage1 from '../../../components/Reusebales/MyImage';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
+import tw from 'twrnc';
 
 const CoursePage = () => {
   const { id }: { id: string } = useLocalSearchParams();
+  //Navigation
+  const router = useRouter();
+  const simpleNav = useCallback(() => {
+    router.push('/Books');
+  }, [router]);
   // Course Query
   const { data: bookData, refetch, status } = useQueryGetBook(+id);
 
@@ -69,10 +75,25 @@ const CoursePage = () => {
                   </Text>
                 </View>
               </View>
-              <TelegramButton telegramLink={bookData.book_links[0].telegram_link}></TelegramButton>
+              {/** Telegram Button */}
+              <TelegramButton
+                telegramLink={bookData.book_links[0]?.telegram_link ?? null}></TelegramButton>
               <TextAccordion
                 shortDescription={bookData.short_description ?? ''}
                 LongDescription={bookData.long_description ?? ''}></TextAccordion>
+              <View className="h-fit w-full items-center justify-center bg-slate-300 py-4">
+                <Pressable
+                  onPress={() => Linking.openURL(bookData.book_links[0]?.book_link)}
+                  className=" size-fit self-center rounded-xl bg-[#BE1E2D] px-10 py-2">
+                  <Text className="font-Kufi text-xl font-bold text-neutral-50">رابط التحميل</Text>
+                </Pressable>
+                <Pressable onPress={simpleNav} className="my-4 flex-row items-center gap-2">
+                  <Text className="font-Kufi font-semibold text-neutral-700">
+                    تصفح المزيد من الكتب
+                  </Text>
+                  <SquareArrowOutUpRight size={18} color={tw.color('blue-600')} strokeWidth={3} />
+                </Pressable>
+              </View>
             </View>
           </FadeIn>
         )}
