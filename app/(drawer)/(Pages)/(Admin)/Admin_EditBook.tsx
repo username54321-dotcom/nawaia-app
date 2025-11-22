@@ -1,11 +1,10 @@
 import Background from '~/components/Background';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
 import AdminUpdateField from '../../../../components/Pages/AdminPage/AdminUpdateField';
 import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
-import { Trash2 } from 'lucide-react-native';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';

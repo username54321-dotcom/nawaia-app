@@ -25,13 +25,13 @@ const CoursePage = () => {
   // Course Query
   const { data: bookData, refetch, status } = useQueryGetBook(+id);
   // Open Book Link
-  const handleOpenBookLink = () => {
+  const handleOpenBookLink = useCallback(() => {
     if (!isAuth) {
       setModalVisible(true);
     } else {
       Linking.openURL(bookData?.book_links[0]?.book_link ?? '');
     }
-  };
+  }, [bookData?.book_links, isAuth, setModalVisible]);
   // Realtime
   useFocusEffect(() => {
     const a = supabaseClient

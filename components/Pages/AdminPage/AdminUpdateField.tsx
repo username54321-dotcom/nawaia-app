@@ -18,7 +18,7 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
 
   // Update Value
   const handleUpdate = async () => {
-    const { data: error } = await supabaseClient
+    const { data } = await supabaseClient
       .from(table)
       .update({ [fieldName]: visibleValue })
       .eq('id', id ?? 99999);

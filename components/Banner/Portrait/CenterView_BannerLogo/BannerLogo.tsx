@@ -24,9 +24,9 @@ const BannerLogo = () => {
         <Text className=" translate-y-0  font-Playwrite text-3xl font-semibold  text-[#BE1E2D]">
           Nawaia
         </Text>
-        <Text className="font-Playywright ml-1 translate-y-[6px] text-xl font-semibold text-slate-600">
+        {/* <Text className="font-Playywright ml-1 translate-y-[6px] text-xl font-semibold text-slate-600">
           Academy
-        </Text>
+        </Text> */}
       </Pressable>
     </>
   );

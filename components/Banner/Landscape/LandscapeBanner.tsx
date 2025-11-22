@@ -60,9 +60,9 @@ const LandscapeBanner = () => {
               <Text className=" font-Playywrite  translate-y-0 text-3xl font-bold  text-[#BE1E2D]">
                 NAWAIA
               </Text>
-              <Text className="font-Playywrite font-base  ml-1 translate-y-0 text-3xl  text-slate-600">
+              {/* <Text className="font-Playywrite font-base  ml-1 translate-y-0 text-3xl  text-slate-600">
                 Academy
-              </Text>
+              </Text> */}
             </Pressable>
             {/** Navigation Container */}
             <View className="flex-row-reverse ">
