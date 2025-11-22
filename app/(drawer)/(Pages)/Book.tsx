@@ -11,8 +11,11 @@ import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
 import tw from 'twrnc';
+import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 
 const CoursePage = () => {
+  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
+  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
   const { id }: { id: string } = useLocalSearchParams();
   //Navigation
   const router = useRouter();
@@ -21,7 +24,14 @@ const CoursePage = () => {
   }, [router]);
   // Course Query
   const { data: bookData, refetch, status } = useQueryGetBook(+id);
-
+  // Open Book Link
+  const handleOpenBookLink = () => {
+    if (!isAuth) {
+      setModalVisible(true);
+    } else {
+      Linking.openURL(bookData?.book_links[0]?.book_link ?? '');
+    }
+  };
   // Realtime
   useFocusEffect(() => {
     const a = supabaseClient
@@ -83,7 +93,7 @@ const CoursePage = () => {
                 LongDescription={bookData.long_description ?? ''}></TextAccordion>
               <View className="h-fit w-full items-center justify-center bg-slate-300 py-4">
                 <Pressable
-                  onPress={() => Linking.openURL(bookData.book_links[0]?.book_link)}
+                  onPress={handleOpenBookLink}
                   className=" size-fit self-center rounded-xl bg-[#BE1E2D] px-10 py-2">
                   <Text className="font-Kufi text-xl font-bold text-neutral-50">رابط التحميل</Text>
                 </Pressable>
