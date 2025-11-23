@@ -1,6 +1,5 @@
 import { View, ActivityIndicator } from 'react-native';
 import { memo, useEffect, useState } from 'react';
-import FadeIn from '~/components/Animations/FadeIn';
 
 interface propTypes {
   show: boolean;
@@ -13,7 +12,7 @@ const LoadingAnimation = ({ show }: propTypes) => {
       if (show) {
         setShowLoading(true);
       }
-    }, 200);
+    }, 1);
     if (!show) {
       setShowLoading(false);
     }
