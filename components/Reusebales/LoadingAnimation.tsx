@@ -23,13 +23,11 @@ const LoadingAnimation = ({ show }: propTypes) => {
   }, [show]);
   return (
     <>
-      <FadeIn>
-        {showLoading && (
-          <View className="min-h-[90vh] min-w-[100vw] items-center justify-center">
-            <ActivityIndicator size={36} color={'#be1e2d'}></ActivityIndicator>
-          </View>
-        )}
-      </FadeIn>
+      {showLoading && (
+        <View className="min-h-[90vh] min-w-[100vw] items-center justify-center">
+          <ActivityIndicator size={36} color={'#be1e2d'}></ActivityIndicator>
+        </View>
+      )}
     </>
   );
 };
