@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import { useIsFocused } from '@react-navigation/native';
+import tw from 'twrnc';
 
 type FadeInProps = {
   className?: string;
@@ -23,7 +24,7 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   }, [isFocus, animation]);
 
   return (
-    <MotiView state={animation} transition={transition} className={className}>
+    <MotiView state={animation} transition={transition} style={tw`${className ?? ''}`}>
       {children}
     </MotiView>
   );
