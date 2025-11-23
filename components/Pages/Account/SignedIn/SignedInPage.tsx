@@ -87,7 +87,7 @@ const SignedInPage = () => {
                   onPress={() => {
                     scrollref.current?.scrollTo({
                       x:
-                        Math.ceil(scrollProgress.current / cardWidth.current - 1) *
+                        Math.floor(scrollProgress.current / cardWidth.current - 1) *
                         cardWidth.current,
                     });
                   }}>
