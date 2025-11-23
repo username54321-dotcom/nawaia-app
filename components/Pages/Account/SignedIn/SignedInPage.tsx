@@ -81,19 +81,19 @@ const SignedInPage = () => {
             {screenWidth < scrollContentsWidth && (
               // Main Container
               <View className=" flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105">
-                {/** Go Forward */}
+                {/** Go Backward */}
                 <TouchableOpacity
                   className=" rounded-full transition-all duration-200 hover:scale-110"
                   onPress={() => {
                     scrollref.current?.scrollTo({
                       x:
-                        Math.floor(scrollProgress.current / cardWidth.current - 1) *
+                        Math.ceil(scrollProgress.current / cardWidth.current - 1) *
                         cardWidth.current,
                     });
                   }}>
                   <ArrowBigLeft color={'#be1e2d'} strokeWidth={2} size={30} />
                 </TouchableOpacity>
-                {/** Go Backward */}
+                {/** Go Forward */}
 
                 <TouchableOpacity
                   className=" rounded-full transition-all duration-200 hover:scale-110 "
