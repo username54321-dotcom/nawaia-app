@@ -1,5 +1,5 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
-import { Text, View, Pressable, Linking } from 'react-native';
+import { Text, View, Pressable, Linking, ActivityIndicator } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign, SquareArrowOutUpRight } from 'lucide-react-native';
 import Background from '~/components/Background';
@@ -12,6 +12,7 @@ import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
 import tw from 'twrnc';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const CoursePage = () => {
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
@@ -22,8 +23,8 @@ const CoursePage = () => {
   const simpleNav = useCallback(() => {
     router.push('/Books');
   }, [router]);
-  // Course Query
-  const { data: bookData, refetch, status } = useQueryGetBook(+id);
+  // Main Query
+  const { data: bookData, refetch, status, isLoading } = useQueryGetBook(+id);
   // Open Book Link
   const handleOpenBookLink = useCallback(() => {
     if (!isAuth) {
@@ -52,6 +53,7 @@ const CoursePage = () => {
   return (
     <>
       <Background>
+        <LoadingAnimation show={isLoading}></LoadingAnimation>
         {bookData && id && status === 'success' && (
           <FadeIn>
             <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">

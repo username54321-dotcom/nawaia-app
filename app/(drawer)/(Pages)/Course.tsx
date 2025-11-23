@@ -1,5 +1,5 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
@@ -12,6 +12,8 @@ import { memo, useEffect, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import CompletionBar from './../../../components/Pages/[id]/CompletionBar';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { useQueryGetCourse } from '~/HelperFunctions/Queries/GetCourse';
 
 const CoursePage = () => {
   const [allLessonNumber, setAllLessonNumber] = useState(0);
@@ -19,27 +21,7 @@ const CoursePage = () => {
   const [percentCompleted, setPercentCompleted] = useState(0);
   const { id }: { id: string } = useLocalSearchParams();
   // Course Query
-  const {
-    data: courseData,
-    refetch,
-    status,
-  } = useQuery({
-    queryKey: ['Course Data', id],
-    queryFn: async () => {
-      if (id) {
-        const { data, error } = await supabaseClient
-          .from('courses')
-          .select(
-            '*,telegram_links(*),user_course_history(*),chapters(*,lessons(*,links(*),notes(*),video_progress(*),lesson_completed(*)))'
-          )
-          .eq('id', +id)
-          .single();
-        return data;
-      }
-      return null;
-    },
-    enabled: !!id,
-  });
+  const { data: courseData, refetch, status, isLoading } = useQueryGetCourse(+id);
 
   // Track Percentage of Lessons Completed
   useEffect(() => {
@@ -110,6 +92,8 @@ const CoursePage = () => {
   return (
     <>
       <Background>
+        {/** Loading Indicator */}
+        <LoadingAnimation show={isLoading}></LoadingAnimation>
         {courseData && id && status === 'success' && (
           <FadeIn>
             <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">

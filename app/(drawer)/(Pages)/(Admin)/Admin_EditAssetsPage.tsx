@@ -3,11 +3,13 @@ import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import AdminUpdateField from '~/components/Pages/AdminPage/AdminUpdateField';
+import FadeIn from '~/components/Animations/FadeIn';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const Admin_EditAssetsPage = () => {
   const { id, table, fieldName, label } = useLocalSearchParams();
   console.log();
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ['edit assets', id, table, fieldName],
     queryFn: async () => {
       const { data } = await supabaseClient
@@ -22,15 +24,18 @@ const Admin_EditAssetsPage = () => {
   return (
     <>
       <Background>
+        <LoadingAnimation show={isLoading}></LoadingAnimation>
         {data && (
           <>
-            <AdminUpdateField
-              fieldName={fieldName as string}
-              id={+id}
-              label={label as string}
-              liveValue={data[0][fieldName]}
-              table={table}
-              refetch={refetch}></AdminUpdateField>
+            <FadeIn>
+              <AdminUpdateField
+                fieldName={fieldName as string}
+                id={+id}
+                label={label as string}
+                liveValue={data[0][fieldName]}
+                table={table}
+                refetch={refetch}></AdminUpdateField>
+            </FadeIn>
           </>
         )}
       </Background>

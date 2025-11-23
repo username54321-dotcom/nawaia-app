@@ -1,9 +1,9 @@
 import { ScrollView, View } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
-
 import { memo, useCallback, useEffect } from 'react';
 import CourseCard from '../Reusebales/CourseCard';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 interface itemCourseTypes {
   created_at: string;
@@ -37,7 +37,7 @@ const CourseList = () => {
     return percentComplete.toFixed(0);
   }, []);
   //Main Query
-  const { data: courseList, refetch } = useQueryGetCourseList();
+  const { data: courseList, refetch, isLoading } = useQueryGetCourseList();
   //Real Time
   useEffect(() => {
     const channel = supabaseClient.channel('refetch courses');
@@ -52,21 +52,26 @@ const CourseList = () => {
     };
   }, [refetch]);
   return (
-    courseList && (
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="flex-row flex-wrap justify-center">
-          {courseList
-            .sort((a, b) => b.id - a.id)
-            ?.map((itemCourse, index) => (
-              <CourseCard
-                key={index}
-                is_favourite={itemCourse.user_favourites[0]?.is_favourite ?? false}
-                percentCompleted={+getCompletedPercent(itemCourse)}
-                courseItem={itemCourse}></CourseCard>
-            ))}
-        </View>
-      </ScrollView>
-    )
+    <>
+      {/** Loading Indicator */}
+      <LoadingAnimation show={isLoading}></LoadingAnimation>
+
+      {courseList && (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="flex-row flex-wrap justify-center">
+            {courseList
+              .sort((a, b) => b.id - a.id)
+              ?.map((itemCourse, index) => (
+                <CourseCard
+                  key={index}
+                  is_favourite={itemCourse.user_favourites[0]?.is_favourite ?? false}
+                  percentCompleted={+getCompletedPercent(itemCourse)}
+                  courseItem={itemCourse}></CourseCard>
+              ))}
+          </View>
+        </ScrollView>
+      )}
+    </>
   );
 };
 

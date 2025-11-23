@@ -8,16 +8,18 @@ import FadeIn from '~/components/Animations/FadeIn';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const Admin_EditBook = () => {
   useAdminOnly(); // Admin Only
   const { id }: { id: string } = useLocalSearchParams();
 
   // Main Query
-  const { data: book, refetch } = useQueryGetBook(+id);
+  const { data: book, refetch, isLoading } = useQueryGetBook(+id);
 
   return (
     <Background>
+      <LoadingAnimation show={isLoading}></LoadingAnimation>
       {book && (
         <FadeIn>
           <MyAccordion expandProp={true}>

@@ -5,13 +5,20 @@ import { memo } from 'react';
 
 import { RenderHTML } from 'react-native-render-html';
 import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAssests';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const Home = () => {
   // Public Assets Query
-  const { data } = useQueryGetPublicAssets();
+  const { data, isLoading } = useQueryGetPublicAssets();
 
   return (
     <Background>
+      {/** Loading Indicator */}
+
+      <>
+        <LoadingAnimation show={isLoading}></LoadingAnimation>
+      </>
+
       <FadeIn>
         <View className="flex-1 flex-col items-center justify-start">
           {data && (

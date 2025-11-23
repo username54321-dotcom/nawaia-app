@@ -11,6 +11,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import MyImage1 from '~/components/Reusebales/MyImage';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const Admin_SelectCourse = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Admin_SelectCourse = () => {
   useAdminOnly();
 
   //Main Query
-  const { data: courseList, refetch } = useQueryGetCourseList();
+  const { data: courseList, refetch, isLoading } = useQueryGetCourseList();
 
   //Delete a Course
   const handleDelete = useCallback(async (id: number) => {
@@ -58,65 +59,70 @@ const Admin_SelectCourse = () => {
 
   return (
     <Background>
-      <Text className="m-4 mx-auto font-Kufi  text-3xl">تعديل الدورات</Text>
-      {courseList && (
-        <View className="flex-1 flex-row flex-wrap items-center justify-center">
-          {courseList
-            .sort((a, b) => a.id - b.id)
-            .map((itemCourse, index) => {
-              return (
-                <View key={index}>
-                  <FadeIn>
-                    <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
-                      <MyImage1
-                        className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
-                        source={{ uri: itemCourse.image }}
-                        style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
+      <LoadingAnimation show={isLoading}></LoadingAnimation>
+      <FadeIn>
+        <Text className="m-4 mx-auto font-Kufi  text-3xl">تعديل الدورات</Text>
+        {courseList && (
+          <View className="flex-1 flex-row flex-wrap items-center justify-center">
+            {courseList
+              .sort((a, b) => a.id - b.id)
+              .map((itemCourse, index) => {
+                return (
+                  <View key={index}>
+                    <FadeIn>
+                      <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
+                        <MyImage1
+                          className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
+                          source={{ uri: itemCourse.image }}
+                          style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
 
-                      <View className=" w-full  shrink-0">
-                        <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
-                          {itemCourse.title}
-                        </Text>
-                        <Text className="  mb-4 mt-1 line-clamp-2 h-12 max-w-[345px] self-end pl-2 pr-[12px] text-right  font-Kufi text-sm font-semibold text-slate-500 ">
-                          {itemCourse.short_description}
-                        </Text>
-                        {/** Delete Edit Publish Container */}
-                        <View className="size-fit w-full flex-row items-center justify-between ">
-                          {/**Delete Button */}
+                        <View className=" w-full  shrink-0">
+                          <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
+                            {itemCourse.title}
+                          </Text>
+                          <Text className="  mb-4 mt-1 line-clamp-2 h-12 max-w-[345px] self-end pl-2 pr-[12px] text-right  font-Kufi text-sm font-semibold text-slate-500 ">
+                            {itemCourse.short_description}
+                          </Text>
+                          {/** Delete Edit Publish Container */}
+                          <View className="size-fit w-full flex-row items-center justify-between ">
+                            {/**Delete Button */}
 
-                          <Pressable
-                            onLongPress={() => handleDelete(itemCourse.id)}
-                            delayLongPress={7000}
-                            className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
-                            <Trash2 color={'white'} />
-                          </Pressable>
-                          {/**Edit Course */}
-                          <Pressable
-                            onPress={() => handleEditCourse(itemCourse.id)}
-                            className="items-center justify-center rounded-md bg-blue-500">
-                            <Text className="px-6 py-2 text-xl font-semibold text-white">Edit</Text>
-                          </Pressable>
-                          {/**Publish Button */}
-                          <AdminPublishButton
-                            id={itemCourse.id}
-                            isPublished={itemCourse.published}
-                            table="courses"></AdminPublishButton>
+                            <Pressable
+                              onLongPress={() => handleDelete(itemCourse.id)}
+                              delayLongPress={7000}
+                              className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
+                              <Trash2 color={'white'} />
+                            </Pressable>
+                            {/**Edit Course */}
+                            <Pressable
+                              onPress={() => handleEditCourse(itemCourse.id)}
+                              className="items-center justify-center rounded-md bg-blue-500">
+                              <Text className="px-6 py-2 text-xl font-semibold text-white">
+                                Edit
+                              </Text>
+                            </Pressable>
+                            {/**Publish Button */}
+                            <AdminPublishButton
+                              id={itemCourse.id}
+                              isPublished={itemCourse.published}
+                              table="courses"></AdminPublishButton>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </FadeIn>
-                </View>
-              );
-            })}
-          {/**Add a new course */}
-          <Pressable
-            disabled={cantAdd}
-            onPress={handleAddDummyCourse}
-            className={`m-4 size-24 items-center justify-center rounded-full bg-blue-500 ${cantAdd && 'bg-red-500'}`}>
-            <Plus size={50} color={'white'} />
-          </Pressable>
-        </View>
-      )}
+                    </FadeIn>
+                  </View>
+                );
+              })}
+            {/**Add a new course */}
+            <Pressable
+              disabled={cantAdd}
+              onPress={handleAddDummyCourse}
+              className={`m-4 size-24 items-center justify-center rounded-full bg-blue-500 ${cantAdd && 'bg-red-500'}`}>
+              <Plus size={50} color={'white'} />
+            </Pressable>
+          </View>
+        )}
+      </FadeIn>
     </Background>
   );
 };

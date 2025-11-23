@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { Text, View, TouchableOpacity } from 'react-native';
@@ -10,25 +9,17 @@ import FadeIn from '~/components/Animations/FadeIn';
 import { Trash2 } from 'lucide-react-native';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
+import { useQueryEditCourse } from '~/HelperFunctions/Queries/EditCourse';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const Admin_EditCourse = () => {
   useAdminOnly(); // Admin Only
   const { id }: { id: string } = useLocalSearchParams();
 
   // Main Query
-  const { data: course, refetch } = useQuery({
-    queryKey: ['edit course', id],
-    queryFn: async () => {
-      const { data } = await supabaseClient
-        .from('courses')
-        .select('*,telegram_links(*), chapters(*, lessons(*, links(*)))')
-        .eq('id', +id)
-        .single();
-      return data;
-    },
-    staleTime: Infinity,
-  });
+  const { data: course, refetch, isLoading } = useQueryEditCourse(+id);
 
+  // Add Chapter
   const handleAddChapter = useCallback(
     async (course_id: number) => {
       const { error } = await supabaseClient
@@ -38,6 +29,7 @@ const Admin_EditCourse = () => {
     },
     [refetch]
   );
+  // Add Lesson
   const handleAddLesson = useCallback(
     async (chapter_id: number) => {
       const { data: lesson } = await supabaseClient
@@ -54,6 +46,8 @@ const Admin_EditCourse = () => {
     },
     [refetch]
   );
+
+  // Delete Chapter
   const handleDeleteChapter = useCallback(
     async (chapter_id: number) => {
       const { error } = await supabaseClient.from('chapters').delete().eq('id', chapter_id);
@@ -61,6 +55,8 @@ const Admin_EditCourse = () => {
     },
     [refetch]
   );
+
+  // Delete Lesson
   const handleDeleteLesson = useCallback(
     async (lesson_id: number) => {
       const { error } = await supabaseClient.from('lessons').delete().eq('id', lesson_id);
@@ -71,6 +67,7 @@ const Admin_EditCourse = () => {
 
   return (
     <Background>
+      <LoadingAnimation show={isLoading}></LoadingAnimation>
       {course && (
         <FadeIn>
           <MyAccordion expandProp={true}>

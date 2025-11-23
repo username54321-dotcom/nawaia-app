@@ -1,22 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
 import Background from '~/components/Background';
 import CourseCard from '~/components/Reusebales/CourseCard';
 import { supabaseClient } from '~/utils/supabase';
 import { Text, View, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
+import { useQueryGetCourseHistory } from '~/HelperFunctions/Queries/GetCourseHistory';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
 const SignedInPage = () => {
   const router = useRouter();
-  const { data, refetch } = useQuery({
-    queryKey: ['course history'],
-    queryFn: async () => {
-      const { data } = await supabaseClient.from('user_course_history').select('*,courses(*) ');
-      return data;
-    },
-    staleTime: Infinity,
-  });
+  // Main Query
+  const { data, refetch, isLoading } = useQueryGetCourseHistory();
 
+  // Realtime
   useEffect(() => {
     const channel = supabaseClient.channel('course_history');
     channel
@@ -31,6 +27,7 @@ const SignedInPage = () => {
 
   return (
     <Background>
+      <LoadingAnimation show={isLoading}></LoadingAnimation>
       {data && (
         <>
           {/**My Courses Title */}
@@ -45,7 +42,10 @@ const SignedInPage = () => {
             {data
               ?.sort((a, b) => b.id - a.id)
               .map((item_course, index) => (
-                <CourseCard key={index} courseItem={item_course.courses}></CourseCard>
+                <CourseCard
+                  is_favourite={item_course.courses.user_favourites[0]?.is_favourite}
+                  key={index}
+                  courseItem={item_course.courses}></CourseCard>
               ))}
           </View>
           {/** SignOut Button */}
