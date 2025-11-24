@@ -4,6 +4,14 @@ import { Modal, Pressable, Text, View } from 'react-native';
 import { style } from 'twrnc';
 import DrawerItem from './DrawerItem';
 import { useIsAuth, useIsAuthType } from '~/store/store';
+import {
+  ArrowBigDown,
+  CalendarDays,
+  GraduationCap,
+  House,
+  LibraryBig,
+  Users,
+} from 'lucide-react-native';
 interface propTypes {
   drawerVisible: boolean;
   setDrawerVisible: (value: boolean) => void;
@@ -33,27 +41,33 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
             state={animation}>
             <View className="flex-1 flex-col items-center  rounded-l-xl bg-neutral-300 px-6 py-6">
               <DrawerItem
+                Icon={House}
                 setDrawerVisible={setDrawerVisible}
                 label="الرئيسية"
                 targetPage="/"></DrawerItem>
               <DrawerItem
+                Icon={GraduationCap}
                 setDrawerVisible={setDrawerVisible}
                 label="دورات"
                 targetPage="/Courses"></DrawerItem>
               <DrawerItem
+                Icon={LibraryBig}
                 setDrawerVisible={setDrawerVisible}
                 label="كتب"
                 targetPage="/Books"></DrawerItem>
               <DrawerItem
+                Icon={CalendarDays}
                 setDrawerVisible={setDrawerVisible}
                 label="أحجز أستشارة"
                 targetPage="/Booking"></DrawerItem>
               <DrawerItem
+                Icon={Users}
                 setDrawerVisible={setDrawerVisible}
-                label="من نحن"
+                label="من نحن ؟"
                 targetPage="/AboutUs"></DrawerItem>
               {isAdmin && (
                 <DrawerItem
+                  Icon={ArrowBigDown}
                   setDrawerVisible={setDrawerVisible}
                   label="أضافة أو تعديل المحتوي"
                   targetPage="/Admin_SelectEditOption"></DrawerItem>
