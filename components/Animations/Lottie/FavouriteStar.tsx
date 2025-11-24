@@ -1,8 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Dotlottie, DotLottie, Mode } from '@lottiefiles/dotlottie-react-native';
+import { Dotlottie, DotLottie } from '@lottiefiles/dotlottie-react-native';
 import { Pressable } from 'react-native';
-import { useQueryClient } from '@tanstack/react-query';
-import { useIsFirstRender } from '@uidotdev/usehooks';
+
 import { supabaseClient } from '~/utils/supabase';
 
 interface propTypes {
@@ -11,8 +10,8 @@ interface propTypes {
 }
 
 const FavouriteStar = ({ isFavourite, courseID }: propTypes) => {
-  const QueryClient = useQueryClient();
-  const firstRender = useIsFirstRender();
+  const [showStar, setShowStar] = useState(false);
+
   const source = useMemo(() => require('assets/lottie/Favourite app icon.lottie'), []);
   const iconRef = useRef<Dotlottie>(null);
   const [iconLoaded, setIconLoaded] = useState(false);
@@ -56,15 +55,27 @@ const FavouriteStar = ({ isFavourite, courseID }: propTypes) => {
     effect();
   }, [iconLoaded, isFavourite]);
 
+  // Show Star After Delay
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowStar(true);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <Pressable
       onPress={handlePress}
       className={` flex size-8 items-center justify-center overflow-hidden `}>
-      <DotLottie
-        onLoad={() => setIconLoaded(true)}
-        ref={iconRef}
-        source={source}
-        style={style.lottie}></DotLottie>
+      {showStar && (
+        <DotLottie
+          onLoad={() => setIconLoaded(true)}
+          ref={iconRef}
+          source={source}
+          style={style.lottie}></DotLottie>
+      )}
     </Pressable>
   );
 };
@@ -72,4 +83,4 @@ const FavouriteStar = ({ isFavourite, courseID }: propTypes) => {
 export default memo(FavouriteStar);
 
 const iconScale = 1.7;
-const style = { lottie: { width: 77 * iconScale, height: 32 * iconScale } };
+const style = { lottie: { width: Math.round(77 * iconScale), height: Math.round(32 * iconScale) } };

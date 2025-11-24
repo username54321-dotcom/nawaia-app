@@ -1,5 +1,4 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
 import Background from '~/components/Background';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import FadeIn from '~/components/Animations/FadeIn';
