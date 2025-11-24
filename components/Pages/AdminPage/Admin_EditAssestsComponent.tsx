@@ -1,6 +1,6 @@
 import { Href, router, useRouter } from 'expo-router';
 import { useCallback } from 'react';
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 
 //handleNavigateTypes
 export interface navTypes {
@@ -49,6 +49,18 @@ const Admin_EditAssestsComponent = () => {
         }
         className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة حجز الاستشارة</Text>
+      </Pressable>
+      <Pressable
+        onPress={() =>
+          handleNavigate({
+            table: 'public_assets',
+            id: 1,
+            fieldName: 'about_us_page_content',
+            label: 'صفحة من نحن ؟ ',
+          })
+        }
+        className="m-2 rounded-md bg-blue-500 p-4">
+        <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة من نحن ؟</Text>
       </Pressable>
       <Pressable
         onPress={() => simpleNav('/Admin_SelectBook')}

@@ -283,18 +283,21 @@ export type Database = {
       }
       public_assets: {
         Row: {
+          about_us_page_content: string | null
           booking_page: string | null
           created_at: string
           home_page: string | null
           id: number
         }
         Insert: {
+          about_us_page_content?: string | null
           booking_page?: string | null
           created_at?: string
           home_page?: string | null
           id?: number
         }
         Update: {
+          about_us_page_content?: string | null
           booking_page?: string | null
           created_at?: string
           home_page?: string | null
