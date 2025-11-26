@@ -4,12 +4,9 @@ import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
-import { useIsAuth, useIsAuthType } from '~/store/store';
-import FavouriteStar from '../Animations/Lottie/FavouriteStar';
-import ProgressCircle from '../Animations/Lottie/ProgressCircle';
 
 interface propTypes {
-  bookItem: Tables<'books'> & { book_links: Tables<'book_links'>[] };
+  bookItem: Tables<'books'>;
   className?: string;
 }
 
@@ -22,7 +19,6 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
     },
     [router]
   );
-  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   return (
     <FadeIn>
       {/** Main Container */}

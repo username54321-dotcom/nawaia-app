@@ -96,17 +96,14 @@ const SignedInPage = () => {
               {data
                 ?.sort((a, b) => a.id - b.id)
                 .map((item, index) => (
-                  <View key={item.id}>
+                  <>
                     {'course_id' in item && item.course_id && (
-                      <CourseCard
-                        // is_favourite={item_course.courses.user_favourites[0]?.is_favourite}
-                        key={item.id}
-                        courseItem={item.courses}></CourseCard>
+                      <CourseCard courseItem={item.courses}></CourseCard>
                     )}
                     {'book_id' in item && item.book_id && (
                       <BookCard bookItem={item.books} key={item.id}></BookCard>
                     )}
-                  </View>
+                  </>
                 ))}
             </ScrollView>
             {/** Crousal Controls */}
