@@ -1,21 +1,24 @@
 import { Text, Pressable } from 'react-native';
 import { imgLogo } from '../../../../assets/images/ImageExports';
 import { useRouter } from 'expo-router';
-import { memo, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { Image } from 'expo-image';
 
 const BannerLogo = () => {
   const router = useRouter();
+  const handleGotoHome = useCallback(() => {
+    router.push('/');
+  }, [router]);
 
   return (
     <>
       <Pressable
-        onPress={() => router.push('/')}
+        onPress={handleGotoHome}
         className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
         <Image
           className="translate-x-[-4px]"
           transition={null}
-          style={{ height: 45, width: 45 }}
+          style={imageStyle}
           contentFit="contain"
           source={imgLogo}
           cachePolicy={'memory-disk'}
@@ -33,3 +36,4 @@ const BannerLogo = () => {
 };
 
 export default memo(BannerLogo);
+const imageStyle = { height: 45, width: 45 };
