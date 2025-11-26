@@ -67,12 +67,12 @@ const BookPage = () => {
         {bookData && id && status === 'success' && (
           <FadeIn>
             <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
-              <Text className="mt-4 font-Kufi text-2xl font-semibold">{bookData.book_name}</Text>
+              <Text className="mt-4 font-Kufi text-2xl font-semibold">{bookData.title}</Text>
               {/**Image and Completion Container */}
               <View className="flex-col  items-center justify-center">
                 <MyImage1
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
-                  source={{ uri: bookData.cover_image }}
+                  source={{ uri: bookData.image }}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
               </View>
 

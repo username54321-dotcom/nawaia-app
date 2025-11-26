@@ -48,40 +48,40 @@ export type Database = {
       }
       books: {
         Row: {
-          book_name: string
-          cover_image: string
           created_at: string
           duration: string | null
           genre: string | null
           id: number
-          is_published: boolean
+          image: string
           long_description: string | null
           price: number | null
+          published: boolean
           short_description: string | null
+          title: string
         }
         Insert: {
-          book_name: string
-          cover_image: string
           created_at?: string
           duration?: string | null
           genre?: string | null
           id?: number
-          is_published?: boolean
+          image: string
           long_description?: string | null
           price?: number | null
+          published?: boolean
           short_description?: string | null
+          title: string
         }
         Update: {
-          book_name?: string
-          cover_image?: string
           created_at?: string
           duration?: string | null
           genre?: string | null
           id?: number
-          is_published?: boolean
+          image?: string
           long_description?: string | null
           price?: number | null
+          published?: boolean
           short_description?: string | null
+          title?: string
         }
         Relationships: []
       }
@@ -394,27 +394,37 @@ export type Database = {
       }
       user_favourites: {
         Row: {
-          course_id: number
+          book_id: number | null
+          course_id: number | null
           created_at: string
           id: number
           is_favourite: boolean
           user_id: string
         }
         Insert: {
-          course_id: number
+          book_id?: number | null
+          course_id?: number | null
           created_at?: string
           id?: number
           is_favourite: boolean
           user_id?: string
         }
         Update: {
-          course_id?: number
+          book_id?: number | null
+          course_id?: number | null
           created_at?: string
           id?: number
           is_favourite?: boolean
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "user_favourites_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "user_favourites_course_id_fkey"
             columns: ["course_id"]

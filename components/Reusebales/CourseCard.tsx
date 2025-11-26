@@ -10,7 +10,7 @@ interface propTypes {
   courseItem: Tables<'courses'>;
   className?: string;
   percentCompleted?: number;
-  is_favourite: boolean;
+  is_favourite?: boolean;
 }
 
 const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: propTypes) => {

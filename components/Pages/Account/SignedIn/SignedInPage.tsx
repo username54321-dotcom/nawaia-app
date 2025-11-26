@@ -14,11 +14,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useQueryGetCourseHistory } from '~/HelperFunctions/Queries/GetCourseHistory';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
+import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
+import BookCard from '~/components/Reusebales/BookCard';
 
 const SignedInPage = () => {
   const router = useRouter();
   // Main Query
-  const { data, refetch, isLoading } = useQueryGetCourseHistory();
+  const { data, refetch, isLoading } = useQueryCourseBookHistory();
 
   // Realtime
   useEffect(() => {
@@ -62,18 +64,23 @@ const SignedInPage = () => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
               {data
-                ?.sort((a, b) => b.id - a.id)
-                .map((item_course, index) => (
+                ?.sort((a, b) => a.id - b.id)
+                .map((item, index) => (
                   <View
                     onLayout={(dimensions) =>
                       cardWidth.current === 0 &&
                       (cardWidth.current = dimensions.nativeEvent.layout.width)
                     }
-                    key={index}>
-                    <CourseCard
-                      is_favourite={item_course.courses.user_favourites[0]?.is_favourite}
-                      key={index}
-                      courseItem={item_course.courses}></CourseCard>
+                    key={item.id}>
+                    {'course_id' in item && item.course_id && (
+                      <CourseCard
+                        // is_favourite={item_course.courses.user_favourites[0]?.is_favourite}
+                        key={item.id}
+                        courseItem={item.courses}></CourseCard>
+                    )}
+                    {'book_id' in item && item.book_id && (
+                      <BookCard bookItem={item.books} key={item.id}></BookCard>
+                    )}
                   </View>
                 ))}
             </ScrollView>

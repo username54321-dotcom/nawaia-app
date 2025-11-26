@@ -28,12 +28,12 @@ const Admin_EditBook = () => {
               <AdminPublishButton
                 refetch={refetch}
                 id={book.id}
-                isPublished={book.is_published}
+                isPublished={book.published}
                 table="books"></AdminPublishButton>
               {/**Main Container */}
               <View className=" w-[95%] flex-col items-center  rounded-lg bg-slate-300 p-4">
                 <Text className="mb-4 rounded-xl bg-slate-500 p-4 font-Kufi text-2xl font-extrabold text-slate-100 underline underline-offset-4">
-                  {book.book_name}
+                  {book.title}
                 </Text>
                 {/** Book Title ( non- Editable ) */}
                 <Text className="m-2 mr-4 place-self-end font-Kufi text-2xl font-semibold">
@@ -41,10 +41,10 @@ const Admin_EditBook = () => {
                 </Text>
                 <AdminUpdateField
                   label="عنوان الكتاب"
-                  fieldName="book_name"
+                  fieldName="title"
                   id={book.id}
                   table="books"
-                  liveValue={book.book_name}
+                  liveValue={book.title}
                   refetch={refetch}></AdminUpdateField>
                 <AdminUpdateField
                   label="رابط التليجرام"
@@ -58,7 +58,7 @@ const Admin_EditBook = () => {
                   fieldName="image"
                   id={book.id}
                   table="books"
-                  liveValue={book.cover_image}
+                  liveValue={book.image}
                   refetch={refetch}></AdminUpdateField>
                 <AdminUpdateField
                   label="الوصف القصير"

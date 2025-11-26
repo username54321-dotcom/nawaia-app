@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { supabaseClient } from '~/utils/supabase';
 import { useQueryClient } from '@tanstack/react-query';
+import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 
 type propTypes = {
   link: string;

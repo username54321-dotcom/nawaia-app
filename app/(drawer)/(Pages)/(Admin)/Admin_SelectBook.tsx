@@ -71,15 +71,15 @@ const Admin_SelectBook = () => {
                     <FadeIn>
                       {/** Main Container */}
                       <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
-                        {/** Cover_Image */}
+                        {/** image */}
                         <MyImage1
                           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
-                          source={{ uri: item_book.cover_image }}
+                          source={{ uri: item_book.image }}
                           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
                         {/** Book Title */}
                         <View className=" w-full  shrink-0">
                           <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">
-                            {item_book.book_name}
+                            {item_book.title}
                           </Text>
                           {/** Book Short Description */}
                           <Text className="  mb-4 mt-1 line-clamp-2 h-12 max-w-[345px] self-end pl-2 pr-[12px] text-right  font-Kufi text-sm font-semibold text-slate-500 ">
@@ -106,7 +106,7 @@ const Admin_SelectBook = () => {
                             {/**Publish Button */}
                             <AdminPublishButton
                               id={item_book.id}
-                              isPublished={item_book.is_published}
+                              isPublished={item_book.published}
                               table="books"></AdminPublishButton>
                           </View>
                         </View>

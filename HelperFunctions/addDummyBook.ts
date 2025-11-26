@@ -5,8 +5,8 @@ export const addDummyBook = async () => {
   const { data: bookData } = await supabaseClient
     .from('books')
     .insert({
-      book_name: 'أسم الكتاب_',
-      cover_image:
+      title: 'أسم الكتاب_',
+      image:
         'https://www.shutterstock.com/image-vector/blank-image-photo-placeholder-icon-600nw-2501054919.jpg',
       short_description: ' الوصف القصير_',
       price: 999,

@@ -13,7 +13,7 @@ const AdminPublishButton = ({ id, isPublished, table, refetch }: propTypes) => {
   // refactor problem
   const handlePublish = useCallback(async () => {
     const isPublishedObject =
-      table === 'books' ? { is_published: !isPublished } : { published: !isPublished };
+      table === 'books' ? { published: !isPublished } : { published: !isPublished };
     const { data: success } = await supabaseClient
       .from(table)
       .update({ id: id, ...isPublishedObject })
