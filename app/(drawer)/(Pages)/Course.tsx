@@ -93,12 +93,15 @@ const CoursePage = () => {
   });
 
   //Add to History
-  const seenBefore = courseData?.user_course_history.length !== 0;
-  const addToHistory = async () => {
-    !seenBefore &&
-      (await supabaseClient.from('user_course_history').insert({ course_id: courseData.id }));
-  };
-  addToHistory();
+  useEffect(() => {
+    const seenBefore = courseData?.user_course_history.length !== 0;
+    const addToHistory = async () => {
+      !seenBefore &&
+        (await supabaseClient.from('user_course_history').insert({ course_id: courseData.id }));
+    };
+    addToHistory();
+  }, [courseData?.id, courseData?.user_course_history.length]);
+
   return (
     <>
       <Background>

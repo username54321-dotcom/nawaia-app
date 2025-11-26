@@ -334,6 +334,35 @@ export type Database = {
           },
         ]
       }
+      user_book_history: {
+        Row: {
+          book_id: number
+          created_at: string
+          id: number
+          user_id: string
+        }
+        Insert: {
+          book_id: number
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Update: {
+          book_id?: number
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_book_history_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_course_history: {
         Row: {
           course_id: number

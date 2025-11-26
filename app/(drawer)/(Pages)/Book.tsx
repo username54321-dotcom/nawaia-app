@@ -6,7 +6,7 @@ import Background from '~/components/Background';
 import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage1 from '../../../components/Reusebales/MyImage';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
@@ -14,7 +14,7 @@ import tw from 'twrnc';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
-const CoursePage = () => {
+const BookPage = () => {
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
   const { id }: { id: string } = useLocalSearchParams();
@@ -49,6 +49,16 @@ const CoursePage = () => {
       supabaseClient.removeChannel(b);
     };
   });
+  // Add to History
+  useEffect(() => {
+    const seenBefore = bookData?.user_book_history.length !== 0;
+    const addToHistory = async () => {
+      if (bookData) {
+        await supabaseClient.from('user_book_history').insert({ book_id: bookData?.id });
+      }
+    };
+    !seenBefore && addToHistory();
+  }, [bookData]);
 
   return (
     <>
@@ -114,4 +124,4 @@ const CoursePage = () => {
   );
 };
 
-export default memo(CoursePage);
+export default memo(BookPage);

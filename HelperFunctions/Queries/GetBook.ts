@@ -7,7 +7,7 @@ export function useQueryGetBook(bookId: number) {
     queryFn: async () => {
       const { data } = await supabaseClient
         .from('books')
-        .select('*,book_links(*)')
+        .select('*,book_links(*),user_book_history(*)')
         .eq('id', bookId)
         .limit(1)
         .single();
