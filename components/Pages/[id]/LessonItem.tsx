@@ -3,13 +3,11 @@ import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useModalVisibleType, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
-import RotatingChevron from './../../Animations/RotatingChevron';
 import Lexical from './../../Reusebales/Lexical';
 import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
-import { Tables } from '~/utils/database.types';
 import VideoModal from './PIPVideo';
-import { Check, NotebookPen } from 'lucide-react-native';
+import { Check } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
 type props = {

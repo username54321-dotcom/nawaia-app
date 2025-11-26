@@ -59,7 +59,7 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
     return () => {
       clearInterval(interval);
     };
-  }, [isCompleted]);
+  }, [isCompleted, queryClient]);
 
   const handleOnFirstFrame = async () => {
     didLoad.current = true;

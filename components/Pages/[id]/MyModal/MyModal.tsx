@@ -3,16 +3,17 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
-import { ModalState, useModalVisible } from '~/store/store';
+import { useModalVisible, useModalVisibleType } from '~/store/store';
 
 import { useRouter } from 'expo-router';
 import { supabaseClient } from '~/utils/supabase';
 import FadeIn from './../../../Animations/FadeIn';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 
 const MyModal = () => {
-  const setModalVisible = useModalVisible((state: ModalState) => state.setModalVisible);
-  const ModalVisible = useModalVisible((state: ModalState) => state.ModalVisible);
-
+  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
+  const ModalVisible = useModalVisible((state: useModalVisibleType) => state.ModalVisible);
+  const QueryClient = useQueryClient();
   const router = useRouter();
   //States
   const [ShowPasswordIcon, setShowPasswordIcon] = useState(false);
@@ -39,14 +40,21 @@ const MyModal = () => {
       password: password,
     });
     error && setLoginError(true);
-    data.user && setSignInSuccess(true);
-    setTimeout(() => {
-      data.user && HandleCancelButton();
-    }, 1000);
+    // If Sign in Success
+    if (data.user) {
+      QueryClient.invalidateQueries();
+      setSignInSuccess(true);
+      setTimeout(() => {
+        data.user && HandleCancelButton();
+      }, 1000);
+    }
   };
   // Show Password
-  const HandleShowPassword = (v) => {
-    v.length > 0 ? setShowPasswordIcon(true) : setShowPasswordIcon(false);
+  const HandleShowPassword = (v: string) => {
+    if (v.length > 0) {
+      setShowPasswordIcon(true);
+      setShowPasswordIcon(false);
+    }
   };
   // Animations (required for modals * always visible !!)
   const animation = useAnimationState({
