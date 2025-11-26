@@ -19,10 +19,11 @@ const MyImage1 = ({ className, percentCompleted, ...imageProps }: MyImageProps) 
         style={{ width: '100%', height: '100%' }}
         cachePolicy={'memory-disk'}
         {...imageProps}></Image>
-
-      <View className="absolute bottom-0 w-full">
-        <ProgressBarInline percentCompleted={percentCompleted ?? 0}></ProgressBarInline>
-      </View>
+      {percentCompleted && (
+        <View className="absolute bottom-0 w-full">
+          <ProgressBarInline percentCompleted={percentCompleted ?? 0}></ProgressBarInline>
+        </View>
+      )}
     </MotiView>
   );
 };

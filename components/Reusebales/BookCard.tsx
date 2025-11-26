@@ -28,7 +28,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
       {/** Main Container */}
       <View
         className={
-          'm-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
+          'm-4 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
           className
         }>
         {/** Course Image */}
@@ -57,7 +57,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
         {/** Is Published Tag */}
         {!bookItem.is_published && (
           <View
-            className={`absolute  rounded-xl  px-4 py-2  ${bookItem.is_published ? 'bg-green-500' : 'bg-red-500'}`}>
+            className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${bookItem.is_published ? 'bg-green-500' : 'bg-red-500'}`}>
             <Text className="font-semibold text-white ">
               {bookItem.is_published ? 'Published' : 'UnPublished'}
             </Text>

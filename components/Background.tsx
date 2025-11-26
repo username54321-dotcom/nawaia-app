@@ -1,10 +1,6 @@
-import { ScrollView, Pressable, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native';
 import DynamicBanner from './Banner/DynamicBanner';
 import { memo } from 'react';
-import { usePathname, useRouter } from 'expo-router';
-import MyDrawer from './MyDrawer/MyDrawer';
-import { useRoute } from '@react-navigation/native';
 
 const Background = ({ children }: { children?: React.ReactNode }) => {
   return (
