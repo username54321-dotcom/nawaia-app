@@ -10,14 +10,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQueryGetCourseHistory } from '~/HelperFunctions/Queries/GetCourseHistory';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
 import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
 import BookCard from '~/components/Reusebales/BookCard';
+import { useRenderCount } from '@uidotdev/usehooks';
 
 const SignedInPage = () => {
+  console.log(useRenderCount());
   const router = useRouter();
   // Main Query
   const { data, refetch, isLoading } = useQueryCourseBookHistory();
@@ -35,11 +37,39 @@ const SignedInPage = () => {
     };
   }, [refetch]);
 
-  const scrollref = useRef<ScrollView>(null);
-  const cardWidth = useRef(0);
-  const scrollProgress = useRef(0);
-  const [scrollContentsWidth, setScrollContentsWidth] = useState(0);
+  const scrollref = useRef<ScrollView>(null); // Horizontal ScrollView REF
+  const [cardWidth, setCardWidth] = useState(0); // Single Card
+  const scrollProgress = useRef(0); // Where is the User
   const { width: screenWidth } = useWindowDimensions();
+  // Update Card Width Measurement
+  const handleSetCardWidth = useCallback(
+    (width: number) => {
+      if (width > 0) {
+        const newCardWidth = width / (data?.length ?? 0.001);
+        setCardWidth(newCardWidth);
+      }
+    },
+    [data?.length]
+  );
+  // Handle Go Backward
+  const goBackward = useCallback(() => {
+    scrollref.current?.scrollTo({
+      x: Math.floor((scrollProgress.current + cardWidth / 2) / cardWidth - 1) * cardWidth,
+    });
+  }, [cardWidth]);
+
+  // Handle Go Forward
+  const goForward = useCallback(() => {
+    scrollref.current?.scrollTo({
+      x: Math.floor((scrollProgress.current + cardWidth / 2) / cardWidth + 1) * cardWidth,
+    });
+  }, [cardWidth]);
+
+  // Handle SignOut
+  const handleSignOut = useCallback(async () => {
+    await supabaseClient.auth.signOut();
+    router.replace('/');
+  }, [router]);
   return (
     <Background>
       <LoadingAnimation show={isLoading}></LoadingAnimation>
@@ -55,8 +85,8 @@ const SignedInPage = () => {
           {/** Courses History List */}
           <View className="  justify-center">
             <ScrollView
-              onContentSizeChange={(w) => {
-                setScrollContentsWidth(w);
+              onContentSizeChange={(width) => {
+                handleSetCardWidth(width);
               }}
               onScroll={(e) => (scrollProgress.current = e.nativeEvent.contentOffset.x)}
               scrollEventThrottle={200}
@@ -66,12 +96,7 @@ const SignedInPage = () => {
               {data
                 ?.sort((a, b) => a.id - b.id)
                 .map((item, index) => (
-                  <View
-                    onLayout={(dimensions) =>
-                      cardWidth.current === 0 &&
-                      (cardWidth.current = dimensions.nativeEvent.layout.width)
-                    }
-                    key={item.id}>
+                  <View key={item.id}>
                     {'course_id' in item && item.course_id && (
                       <CourseCard
                         // is_favourite={item_course.courses.user_favourites[0]?.is_favourite}
@@ -85,32 +110,20 @@ const SignedInPage = () => {
                 ))}
             </ScrollView>
             {/** Crousal Controls */}
-            {screenWidth < scrollContentsWidth && (
+            {screenWidth < cardWidth * data.length && (
               // Main Container
               <View className=" flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105">
                 {/** Go Backward */}
                 <TouchableOpacity
                   className=" rounded-full transition-all duration-200 hover:scale-110"
-                  onPress={() => {
-                    scrollref.current?.scrollTo({
-                      x:
-                        Math.floor((scrollProgress.current + 200) / cardWidth.current - 1) *
-                        cardWidth.current,
-                    });
-                  }}>
+                  onPress={goBackward}>
                   <ArrowBigLeft color={'#be1e2d'} strokeWidth={2} size={30} />
                 </TouchableOpacity>
                 {/** Go Forward */}
 
                 <TouchableOpacity
                   className=" rounded-full transition-all duration-200 hover:scale-110 "
-                  onPress={() => {
-                    scrollref.current?.scrollTo({
-                      x:
-                        Math.floor((scrollProgress.current + 200) / cardWidth.current + 1) *
-                        cardWidth.current,
-                    });
-                  }}>
+                  onPress={goForward}>
                   <ArrowBigRight color={'#be1e2d'} strokeWidth={2} size={30} />
                 </TouchableOpacity>
               </View>
@@ -119,10 +132,7 @@ const SignedInPage = () => {
           {/** SignOut Button */}
           <View className="mb-4 mt-2 w-3/5 self-center border-t-2"></View>
           <Pressable
-            onPress={async () => {
-              await supabaseClient.auth.signOut();
-              router.replace('/');
-            }}
+            onPress={handleSignOut}
             className="size-fit items-center justify-center self-center rounded-md bg-red-500 px-6 py-4">
             <Text className="font-Kufi text-base font-semibold text-white">تسجيل الخروج</Text>
           </Pressable>
