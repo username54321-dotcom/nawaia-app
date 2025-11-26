@@ -1,7 +1,6 @@
 import { MotiView } from 'moti';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { style } from 'twrnc';
-import { useIsAuth, useIsAuthType } from '~/store/store';
 
 interface propTypes {
   percentCompleted: number;
@@ -9,25 +8,20 @@ interface propTypes {
 }
 
 const ProgressBarInline = ({ percentCompleted, className }: propTypes) => {
-  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   return (
     <>
-      {isAuth && (
-        <>
-          {/** Main Container */}
-          <View className={`mx-6 h-2 w-full flex-row self-center  bg-gray-400/75  `}>
-            {/** Animation Container */}
-            <MotiView
-              transition={{ type: 'spring', damping: 75 }}
-              style={style(' h-full')}
-              from={{ width: `0%` }}
-              animate={{ width: `${percentCompleted}%` }}>
-              {/**Progress Bar */}
-              <View className={` flex-1 items-center justify-center  bg-red-500/90 `}></View>
-            </MotiView>
-          </View>
-        </>
-      )}
+      {/** Main Container */}
+      <View className={`mx-6 h-2 w-full flex-row self-center  bg-gray-400/75  `}>
+        {/** Animation Container */}
+        <MotiView
+          transition={{ type: 'spring', damping: 75 }}
+          style={style(' h-full')}
+          from={{ width: `0%` }}
+          animate={{ width: `${percentCompleted}%` }}>
+          {/**Progress Bar */}
+          <View className={` flex-1 items-center justify-center  bg-red-500/90 `}></View>
+        </MotiView>
+      </View>
     </>
   );
 };

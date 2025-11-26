@@ -4,6 +4,7 @@ import { ComponentProps, memo } from 'react';
 import tw from 'twrnc';
 import { View } from 'react-native';
 import ProgressBarInline from './../Animations/Lottie/ProgressBarInline';
+import { useIsAuth, useIsAuthType } from '~/store/store';
 
 type MyImageProps = Omit<ImageProps, 'className'> & {
   className?: string; // For the container MotiView
@@ -19,9 +20,9 @@ const MyImage1 = ({ className, percentCompleted, ...imageProps }: MyImageProps) 
         style={{ width: '100%', height: '100%' }}
         cachePolicy={'memory-disk'}
         {...imageProps}></Image>
-      {percentCompleted && (
+      {!!percentCompleted && (
         <View className="absolute bottom-0 w-full">
-          <ProgressBarInline percentCompleted={percentCompleted ?? 0}></ProgressBarInline>
+          <ProgressBarInline percentCompleted={percentCompleted}></ProgressBarInline>
         </View>
       )}
     </MotiView>
