@@ -5,7 +5,7 @@ import CourseCard from '../Reusebales/CourseCard';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 
-interface itemCourseTypes {
+export interface itemCourseTypes {
   created_at: string;
   duration: string;
   genre: string;

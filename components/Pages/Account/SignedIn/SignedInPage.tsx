@@ -104,7 +104,7 @@ const SignedInPage = () => {
                         cardWidth.current,
                     });
                   }}>
-                  <ArrowBigRight opacity={0.95} color={'#be1e2d'} strokeWidth={2} size={30} />
+                  <ArrowBigRight color={'#be1e2d'} strokeWidth={2} size={30} />
                 </TouchableOpacity>
               </View>
             )}

@@ -13,11 +13,39 @@ import { Check, NotebookPen } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
 type props = {
-  LessonItemProp: Tables<'lessons'> & {
-    notes: Tables<'notes'>[];
-    links: Tables<'links'>;
-    video_progress: Tables<'video_progress'>;
-    lesson_completed: Tables<'lesson_completed'>[];
+  LessonItemProp: {
+    chapter_id: number | null;
+    created_at: string;
+    id: number;
+    name: string;
+    position: number | null;
+    links: {
+      created_at: string;
+      id: number;
+      lesson_id: number;
+      link: string;
+    } | null;
+    notes: {
+      content: string | null;
+      created_at: string;
+      id: number;
+      lesson_id: number | null;
+      user_id: string | null;
+    }[];
+    video_progress: {
+      created_at: string;
+      id: number;
+      lesson_id: number;
+      timestamp: number;
+      user_id: string;
+    }[];
+    lesson_completed: {
+      created_at: string;
+      id: number;
+      is_completed: boolean;
+      lesson_id: number;
+      user_id: string;
+    }[];
   };
   note: string | null;
   refetch: () => void;
@@ -36,11 +64,11 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
     <>
       {/** VideoPlayer Modal */}
       <MyAccordion expandProp={VideoPlayer}>
-        {VideoPlayer && (
+        {VideoPlayer && LessonItemProp && (
           <VideoModal
             isCompleted={LessonItemProp.lesson_completed[0]?.is_completed ?? false}
             lessonId={LessonItemProp.id}
-            link={LessonItemProp.links.link}></VideoModal>
+            link={LessonItemProp.links?.link ?? ''}></VideoModal>
         )}
       </MyAccordion>
       {/**Lesson Container */}

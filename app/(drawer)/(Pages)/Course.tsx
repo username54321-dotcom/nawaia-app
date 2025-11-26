@@ -1,17 +1,14 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
+import { Text, View } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
 import Background from '~/components/Background';
-import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage1 from '../../../components/Reusebales/MyImage';
 import IdContent from '../../../components/Pages/[id]/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
-import CompletionBar from './../../../components/Pages/[id]/CompletionBar';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { useQueryGetCourse } from '~/HelperFunctions/Queries/GetCourse';
 
@@ -20,6 +17,19 @@ const CoursePage = () => {
   const [completedLessonNumber, setCompletedLessonNumber] = useState(0);
   const [percentCompleted, setPercentCompleted] = useState(0);
   const { id }: { id: string } = useLocalSearchParams();
+  // Get Course Percent Completed
+  const getCompletedPercent = useCallback((item_Course: typeof courseData) => {
+    if (item_Course) {
+      const allLessons = item_Course.chapters.flatMap((chapter) => chapter.lessons);
+
+      const allLessonsNum = item_Course.chapters.flatMap((chapter) => chapter.lessons).length;
+      const completedLessonsNum = allLessons.filter(
+        (lesson) => lesson.lesson_completed[0] ?? false
+      ).length;
+      const percentComplete = (completedLessonsNum / allLessonsNum) * 100;
+      return percentComplete.toFixed(0);
+    }
+  }, []);
   // Course Query
   const { data: courseData, refetch, status, isLoading } = useQueryGetCourse(+id);
 
@@ -103,11 +113,8 @@ const CoursePage = () => {
                 <MyImage1
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: courseData.image }}
-                  style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
-                {/** Completion Bar */}
-                <View className="mb-4 w-[90%]">
-                  <CompletionBar percentCompleted={percentCompleted}></CompletionBar>
-                </View>
+                  style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}
+                  percentCompleted={+(getCompletedPercent(courseData) ?? 0)}></MyImage1>
               </View>
 
               <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">
@@ -139,7 +146,7 @@ const CoursePage = () => {
 
               <IdContent
                 refetch={refetch}
-                courseId={courseData.id}
+                // courseId={courseData.id}
                 chaptersData={courseData.chapters}></IdContent>
             </View>
           </FadeIn>

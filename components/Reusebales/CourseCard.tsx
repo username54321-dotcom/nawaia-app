@@ -4,7 +4,6 @@ import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
-import CompletionBar from './../Pages/[id]/CompletionBar';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 import FavouriteStar from './../Animations/Lottie/FavouriteStar';
 import ProgressCircle from './../Animations/Lottie/ProgressCircle';
@@ -38,24 +37,13 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
         <MyImage
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
           source={{ uri: courseItem.image }}
+          percentCompleted={percentCompleted}
           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
         {/** Favourite Animation */}
-        <View className="ml-4 w-full flex-row items-center justify-center">
-          {(percentCompleted ?? 0) > 10 && isAuth && (
-            <ProgressCircle PercentCompleted={percentCompleted ?? 0}></ProgressCircle>
-          )}
+        {/* <View className="ml-4 w-full flex-row items-center justify-center">
           <FavouriteStar courseID={courseItem.id} isFavourite={is_favourite}></FavouriteStar>
-        </View>
-        {/** Completion Bar */}
-        {/* {isAuth && (
-          <>
-            <View className="w-[80%]">
-              <CompletionBar
-                className="mx-4 mb-2 w-48 self-center "
-                percentCompleted={percentCompleted ?? 0}></CompletionBar>
-            </View>
-          </>
-        )} */}
+        </View> */}
+
         {/** Course Details Container */}
         <View className=" w-full  shrink-0">
           {/** Course Title */}

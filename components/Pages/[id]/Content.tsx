@@ -3,15 +3,47 @@ import { memo } from 'react';
 import LessonItem from './LessonItem';
 import { Tables } from '~/utils/database.types';
 
-type lessonsType = Tables<'lessons'> & {
-  notes: Tables<'notes'>[];
-  links: Tables<'links'>;
-  video_progress: Tables<'video_progress'>;
-};
-
-export type ChaptersArrayType = (Tables<'chapters'> & {
-  lessons: lessonsType[];
-})[];
+type ChaptersArrayType = {
+  course_id: number | null;
+  created_at: string;
+  id: number;
+  name: string;
+  position: number | null;
+  lessons: {
+    chapter_id: number | null;
+    created_at: string;
+    id: number;
+    name: string;
+    position: number | null;
+    links: {
+      created_at: string;
+      id: number;
+      lesson_id: number;
+      link: string;
+    } | null;
+    notes: {
+      content: string | null;
+      created_at: string;
+      id: number;
+      lesson_id: number | null;
+      user_id: string | null;
+    }[];
+    video_progress: {
+      created_at: string;
+      id: number;
+      lesson_id: number;
+      timestamp: number;
+      user_id: string;
+    }[];
+    lesson_completed: {
+      created_at: string;
+      id: number;
+      is_completed: boolean;
+      lesson_id: number;
+      user_id: string;
+    }[];
+  }[];
+}[];
 type refetchType = () => void;
 
 const IdContent = ({
