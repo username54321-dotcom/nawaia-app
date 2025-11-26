@@ -5,8 +5,6 @@ import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
 import { useIsAuth, useIsAuthType } from '~/store/store';
-import FavouriteStar from './../Animations/Lottie/FavouriteStar';
-import ProgressCircle from './../Animations/Lottie/ProgressCircle';
 
 interface propTypes {
   courseItem: Tables<'courses'>;
@@ -24,13 +22,12 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
     },
     [router]
   );
-  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   return (
     <FadeIn>
       {/** Main Container */}
       <View
         className={
-          'm-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
+          'm-4 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
           className
         }>
         {/** Course Image */}
@@ -64,7 +61,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
         {/** Is Published Tag */}
         {!courseItem.published && (
           <View
-            className={`absolute  rounded-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
+            className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
             <Text className="font-semibold text-white ">
               {courseItem.published ? 'Published' : 'UnPublished'}
             </Text>
