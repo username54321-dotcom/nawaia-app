@@ -17,9 +17,10 @@ import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
 import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
 import BookCard from '~/components/Reusebales/BookCard';
 import { useRenderCount } from '@uidotdev/usehooks';
+import { useQueryClient } from '@tanstack/react-query';
 
 const SignedInPage = () => {
-  console.log(useRenderCount());
+  const queryClient = useQueryClient();
   const router = useRouter();
   // Main Query
   const { data, refetch, isLoading } = useQueryCourseBookHistory();
@@ -69,7 +70,8 @@ const SignedInPage = () => {
   const handleSignOut = useCallback(async () => {
     await supabaseClient.auth.signOut();
     router.replace('/');
-  }, [router]);
+    queryClient.invalidateQueries();
+  }, [router, queryClient]);
   return (
     <Background>
       <LoadingAnimation show={isLoading}></LoadingAnimation>
