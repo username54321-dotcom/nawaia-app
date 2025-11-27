@@ -1,11 +1,12 @@
 import { memo, useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
+import { Database } from '~/utils/database.types';
 import { supabaseClient } from '~/utils/supabase';
 
 // PropTypes
 interface propTypes {
   liveValue: string | undefined | null;
-  table: 'courses' | 'lessons' | 'chapters' | 'links' | 'telegram_links' | 'books' | 'book_links';
+  table: keyof Database['public']['Tables'];
   id: number | undefined;
   fieldName: string;
   refetch?: () => void;

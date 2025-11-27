@@ -1,14 +1,22 @@
 import Background from '~/components/Background';
 import { useLocalSearchParams } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import AdminUpdateField from '~/components/Pages/AdminPage/AdminUpdateField';
 import FadeIn from '~/components/Animations/FadeIn';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { Database } from '~/utils/database.types';
 
+type TableName = keyof Database['public']['Tables'];
+type paramTypes = {
+  id: string;
+  table: TableName;
+  fieldName: keyof Database['public']['Tables']['public_assets']['Row'];
+  label: string;
+};
 const Admin_EditAssetsPage = () => {
-  const { id, table, fieldName, label } = useLocalSearchParams();
-  console.log();
+  const queryClient = useQueryClient();
+  const { id, table, fieldName, label }: paramTypes = useLocalSearchParams();
   const { data, refetch, isLoading } = useQuery({
     queryKey: ['edit assets', id, table, fieldName],
     queryFn: async () => {
@@ -20,7 +28,10 @@ const Admin_EditAssetsPage = () => {
       return data;
     },
   });
-  console.log(data);
+  const handleRefetch = () => {
+    refetch();
+    queryClient.invalidateQueries({ queryKey: ['public_assets'] });
+  };
   return (
     <>
       <Background>
@@ -34,7 +45,7 @@ const Admin_EditAssetsPage = () => {
                 label={label as string}
                 liveValue={data[0][fieldName]}
                 table={table}
-                refetch={refetch}></AdminUpdateField>
+                refetch={handleRefetch}></AdminUpdateField>
             </FadeIn>
           </>
         )}

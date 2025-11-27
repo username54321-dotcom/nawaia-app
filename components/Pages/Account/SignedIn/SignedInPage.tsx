@@ -93,18 +93,16 @@ const SignedInPage = () => {
               ref={scrollref}
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
-              {data
-                ?.sort((a, b) => a.id - b.id)
-                .map((item, index) => (
-                  <>
-                    {'course_id' in item && item.course_id && (
-                      <CourseCard courseItem={item.courses}></CourseCard>
-                    )}
-                    {'book_id' in item && item.book_id && (
-                      <BookCard bookItem={item.books} key={item.id}></BookCard>
-                    )}
-                  </>
-                ))}
+              {data?.map((item, index) => (
+                <>
+                  {'course_id' in item && item.course_id && (
+                    <CourseCard courseItem={item.courses}></CourseCard>
+                  )}
+                  {'book_id' in item && item.book_id && (
+                    <BookCard bookItem={item.books} key={item.id}></BookCard>
+                  )}
+                </>
+              ))}
             </ScrollView>
             {/** Crousal Controls */}
             {screenWidth < cardWidth * data.length && (

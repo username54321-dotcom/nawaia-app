@@ -13,11 +13,13 @@ import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
 import tw from 'twrnc';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { useQueryClient } from '@tanstack/react-query';
 
 const BookPage = () => {
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
   const { id }: { id: string } = useLocalSearchParams();
+  const queryClient = useQueryClient();
   //Navigation
   const router = useRouter();
   const simpleNav = useCallback(() => {
@@ -55,10 +57,11 @@ const BookPage = () => {
     const addToHistory = async () => {
       if (bookData) {
         await supabaseClient.from('user_book_history').insert({ book_id: bookData?.id });
+        queryClient.invalidateQueries({ queryKey: ['CourseBookHistory'] });
       }
     };
     !seenBefore && addToHistory();
-  }, [bookData]);
+  }, [bookData, queryClient]);
 
   return (
     <>

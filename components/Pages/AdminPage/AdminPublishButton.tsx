@@ -1,10 +1,13 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import { Text, Pressable } from 'react-native';
+import { Database } from '~/utils/database.types';
 import { supabaseClient } from '~/utils/supabase';
 
 interface propTypes {
   isPublished: boolean;
-  table: 'courses' | 'lessons' | 'chapters' | 'links' | 'books';
+  table: keyof Database['public']['Tables'];
+
   id: number;
   refetch?: () => void;
 }

@@ -3,7 +3,7 @@ import { supabaseClient } from '~/utils/supabase';
 
 export function useQueryCourseBookHistory() {
   return useQuery({
-    queryKey: ['course history'],
+    queryKey: ['CourseBookHistory'],
     queryFn: async () => {
       const { data: courseData } = await supabaseClient
         .from('user_course_history')
@@ -11,7 +11,12 @@ export function useQueryCourseBookHistory() {
       const { data: bookData } = await supabaseClient
         .from('user_book_history')
         .select('*,books(*,user_favourites(*)) ');
-      return [...(courseData || []), ...(bookData || [])];
+      const returnData = [...(courseData || []), ...(bookData || [])].toSorted((a, b) => {
+        let aDate = new Date(a.created_at).getTime();
+        let bDate = new Date(b.created_at).getTime();
+        return bDate - aDate;
+      });
+      return returnData;
     },
     staleTime: Infinity,
   });
