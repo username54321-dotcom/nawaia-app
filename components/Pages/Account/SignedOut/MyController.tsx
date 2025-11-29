@@ -1,6 +1,6 @@
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { Controller } from 'react-hook-form';
-import { Eye, Lock } from 'lucide-react-native';
+import { Eye } from 'lucide-react-native';
 import { memo, useCallback, useState } from 'react';
 
 const MyController = ({

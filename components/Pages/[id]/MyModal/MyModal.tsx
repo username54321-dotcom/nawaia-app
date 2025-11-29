@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Modal, TextInput } from 'react-native';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
@@ -21,8 +21,8 @@ const MyModal = () => {
   const [LoginError, setLoginError] = useState(false);
   const [SignInSuccess, setSignInSuccess] = useState(false);
   // Input Refs
-  const EmailInput = useRef(null);
-  const PasswordInput = useRef(null);
+  const EmailInput = useRef<string | null>(null);
+  const PasswordInput = useRef<string | null>(null);
   //Clear and Cancel
   const HandleCancelButton = () => {
     setLoginError(false);
@@ -33,8 +33,8 @@ const MyModal = () => {
   };
   //Try to Sign In
   const HandleSignIn = async () => {
-    const email = EmailInput.current?.value;
-    const password = PasswordInput?.current?.value;
+    const email = EmailInput.current?.value ?? '';
+    const password = PasswordInput?.current?.value ?? '';
     const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: email,
       password: password,
