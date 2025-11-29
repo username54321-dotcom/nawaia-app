@@ -9,7 +9,7 @@ import MyImage from '~/components/Reusebales/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
-import { ModalState, useModalVisible } from '~/store/store';
+import { useModalVisible, useModalVisibleType } from '~/store/store';
 import MyController from './MyController';
 import FadeIn from '~/components/Animations/FadeIn';
 
@@ -51,7 +51,7 @@ type FormTypes = z.infer<typeof schema>;
 
 // ***Functions
 const SignUp = () => {
-  const setModalVisible = useModalVisible((state: ModalState) => state.setModalVisible);
+  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
 
   const router = useRouter();
   const [SignUpError, setSignUpError] = useState<string | null>(null);
