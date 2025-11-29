@@ -84,6 +84,23 @@ const SignedInPage = () => {
           </View>
           {/** Courses History List */}
           <View className="  justify-center">
+            {screenWidth < cardWidth * data.length && (
+              <>
+                {/** Inline Go Forward */}
+                <TouchableOpacity
+                  className=" absolute right-0 z-10 mr-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden "
+                  onPress={goForward}>
+                  <ArrowBigRight color={'#be1e2d'} strokeWidth={2} size={30} />
+                </TouchableOpacity>
+                {/**Inline Go Backward */}
+                <TouchableOpacity
+                  className=" absolute left-0 z-10 ml-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
+                  onPress={goBackward}>
+                  <ArrowBigLeft color={'#be1e2d'} strokeWidth={2} size={30} />
+                </TouchableOpacity>
+              </>
+            )}
+
             <ScrollView
               snapToInterval={cardWidth}
               decelerationRate="fast"
@@ -112,7 +129,7 @@ const SignedInPage = () => {
             {/** Crousal Controls */}
             {screenWidth < cardWidth * data.length && (
               // Main Container
-              <View className=" flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105">
+              <View className=" flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105 portrait:hidden">
                 {/** Go Backward */}
                 <TouchableOpacity
                   className=" rounded-full transition-all duration-200 hover:scale-110"
