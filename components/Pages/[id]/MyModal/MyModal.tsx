@@ -53,6 +53,7 @@ const MyModal = () => {
   const HandleShowPassword = (v: string) => {
     if (v.length > 0) {
       setShowPasswordIcon(true);
+    } else {
       setShowPasswordIcon(false);
     }
   };
@@ -97,13 +98,13 @@ const MyModal = () => {
                 <TextInput
                   ref={PasswordInput}
                   secureTextEntry={!ShowPassword}
-                  onChangeText={HandleShowPassword}
+                  onChangeText={(value) => HandleShowPassword(value)}
                   onSubmitEditing={HandleSignIn}
                   placeholder="كلمة المرور"
                   className=" rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
                 <Pressable
-                  onPress={() => setShowPassword(!ShowPassword)}
-                  className={`absolute right-2 h-full justify-center ${ShowPasswordIcon ? '' : ' hidden'} `}>
+                  onPress={() => setShowPassword((prev) => !prev)}
+                  className={`absolute right-2 h-full justify-center ${!ShowPasswordIcon && ' hidden'} `}>
                   <Eye size={18} color={'#475569'} />
                 </Pressable>
               </View>

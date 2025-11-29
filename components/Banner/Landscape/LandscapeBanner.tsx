@@ -13,15 +13,15 @@ const LandscapeBanner = () => {
   return (
     <>
       {/** Main Container */}
-      <View className="h-[7vh] min-h-[60] w-full flex-row items-center justify-center border-b-[1px] border-neutral-400 bg-neutral-200 shadow-gray-400">
+      <View className="h-[7vh] min-h-[60] w-full flex-row  items-center justify-center  border-b-[1px] border-neutral-400 bg-neutral-200 shadow-gray-400">
         {/**Main Content Container */}
-        <View className=" h-full w-2/3 flex-row">
+        <View className=" h-full w-2/3 flex-row flex-wrap ">
           {/**Left Container */}
-          <View className="h-full flex-1 flex-row items-center ">
-            {/** Signed Out */}
+          <View className="flex-warp h-full flex-1 flex-row items-center ">
             {/** SignIn SignUp Buttons */}
             {!isAuth && (
               <>
+                {/** Signed Out */}
                 {/** Sign Up Button */}
                 <Pressable
                   onPress={() => router.push('/Account')}
@@ -53,7 +53,7 @@ const LandscapeBanner = () => {
             )}
           </View>
           {/**Right Container */}
-          <View className="h-full flex-1 flex-row-reverse items-center ">
+          <View className="h-full w-fit flex-1 flex-row-reverse items-center  ">
             <Pressable
               onPress={() => router.push('/')}
               className=" ml-4 flex-row items-center  justify-center  ">
