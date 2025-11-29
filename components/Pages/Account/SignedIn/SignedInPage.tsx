@@ -11,12 +11,10 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useQueryGetCourseHistory } from '~/HelperFunctions/Queries/GetCourseHistory';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
 import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
 import BookCard from '~/components/Reusebales/BookCard';
-import { useRenderCount } from '@uidotdev/usehooks';
 import { useQueryClient } from '@tanstack/react-query';
 
 const SignedInPage = () => {
@@ -87,6 +85,11 @@ const SignedInPage = () => {
           {/** Courses History List */}
           <View className="  justify-center">
             <ScrollView
+              snapToInterval={cardWidth}
+              decelerationRate="fast"
+              snapToAlignment="center"
+              disableIntervalMomentum={true}
+              className="snap-x snap-mandatory"
               onContentSizeChange={(width) => {
                 handleSetCardWidth(width);
               }}
@@ -96,14 +99,14 @@ const SignedInPage = () => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
               {data?.map((item, index) => (
-                <>
+                <View className="snap-center snap-always" key={index}>
                   {'course_id' in item && item.course_id && (
                     <CourseCard courseItem={item.courses}></CourseCard>
                   )}
                   {'book_id' in item && item.book_id && (
                     <BookCard bookItem={item.books} key={item.id}></BookCard>
                   )}
-                </>
+                </View>
               ))}
             </ScrollView>
             {/** Crousal Controls */}
