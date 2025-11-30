@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Modal, TextInput } from 'react-native';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 
 import { Eye, Lock, Mail, X } from 'lucide-react-native';
@@ -49,6 +49,12 @@ const MyModal = () => {
       }, 1000);
     }
   };
+  // Navigate to reset password page
+  const navResetPassword = useCallback(() => {
+    HandleCancelButton();
+    router.push('/(drawer)/(Pages)/(ResetPassword)/send_reset_password');
+  }, [router, HandleCancelButton]);
+
   // Show Password
   const HandleShowPassword = (v: string) => {
     if (v.length > 0) {
@@ -82,7 +88,8 @@ const MyModal = () => {
             </Pressable>
 
             {/**Please Login Message */}
-            <Text className="mb-6 font-Kufi font-bold">برجاء تسجيل الدخول لمشاهدة المحتوي !</Text>
+            <Text className="mb-5 font-Kufi font-bold">برجاء تسجيل الدخول لمشاهدة المحتوي !</Text>
+
             {/**Email Input */}
             <View className="  flex-row items-center justify-center rounded-md border-[1px]  bg-slate-100/40">
               <Mail className="mx-1" color={'#475569'} />
@@ -110,9 +117,15 @@ const MyModal = () => {
               </View>
             </View>
             {/** Login Error */}
-            <Text className={`mt-2 text-red-800 ${LoginError ? '' : 'hidden'}`}>
-              الرجاء التحقق من بياناتك !
-            </Text>
+            {LoginError && (
+              <>
+                <FadeIn>
+                  <Text className={` font-Kufi text-red-800 ${LoginError ? '' : 'hidden'}`}>
+                    الرجاء التحقق من بياناتك !
+                  </Text>
+                </FadeIn>
+              </>
+            )}
             {/**SignIn Button */}
             <Pressable
               onPress={HandleSignIn}
@@ -127,6 +140,15 @@ const MyModal = () => {
             )}
             {/**Separator */}
             <View className="mt-4 w-full border-[1px] border-slate-700 opacity-75"></View>
+            {LoginError && (
+              <FadeIn>
+                <Pressable onPress={navResetPassword} className=" size-fit">
+                  <Text className=" mt-2 font-Kufi text-xs font-semibold text-blue-700 underline">
+                    نسيت كلمة المرور ؟
+                  </Text>
+                </Pressable>
+              </FadeIn>
+            )}
             {/**Create Your Account */}
             <View className="mt-2 items-center justify-center">
               <Text className="font-Kufi text-xs">غير مشترك ؟ </Text>

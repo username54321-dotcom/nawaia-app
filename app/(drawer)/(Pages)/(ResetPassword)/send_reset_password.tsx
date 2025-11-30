@@ -34,7 +34,7 @@ const SendResetPassword = () => {
       if (respIsValid) {
         const { data: emailSent } = await supabaseClient.auth.resetPasswordForEmail(
           emailInput.current,
-          { redirectTo: 'http://localhost:8081/reset_password' }
+          { redirectTo: 'https://nawaia.net/reset_password' }
         );
         emailSent && setEmailSent(true);
       }

@@ -61,7 +61,7 @@ const SignUp = () => {
       password: data.password,
       options: { data: { display_name: data.username } },
     });
-    SignUpData && router.push({ pathname: '/(drawer)' });
+    SignUpData && router.push({ pathname: '/' });
     SignUpError && setSignUpError(SignUpError.message);
   };
   const {
