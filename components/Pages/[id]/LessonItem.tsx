@@ -85,7 +85,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
         {/** Watch Lesson Button */}
         <View>
           <View className="flex-row items-center">
-            {/** Conditional  Icon */}
+            {/** Conditional Completed Icon */}
             {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
               <>
                 <FadeIn>

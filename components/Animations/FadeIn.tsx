@@ -6,11 +6,12 @@ import tw from 'twrnc';
 type FadeInProps = {
   className?: string;
   children?: React.ReactNode;
+  delay?: number;
 };
 // Memo Objects
 const transition = { type: 'spring' } as const;
 // Component
-const FadeIn = ({ className, children }: FadeInProps) => {
+const FadeIn = ({ className, children, delay = 0 }: FadeInProps) => {
   const isMounted = useRef(false);
   const isFocus = useIsFocused();
   const animation = useAnimationState({
@@ -24,7 +25,10 @@ const FadeIn = ({ className, children }: FadeInProps) => {
   }, [isFocus, animation]);
 
   return (
-    <MotiView state={animation} transition={transition} style={tw`${className ?? ''}`}>
+    <MotiView
+      state={animation}
+      transition={{ ...transition, delay: delay }}
+      style={tw`${className ?? ''}`}>
       {children}
     </MotiView>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import FadeIn from '~/components/Animations/FadeIn';
 
 const ResetPassword = () => {
   const params = useLocalSearchParams()['#'];
@@ -31,15 +32,10 @@ const ResetPassword = () => {
   }, [params, router]);
   return (
     <Background>
-      <TextInput
-        className="w-30 h-12 border-2"
-        onChangeText={(v) => (passwordInput.current = v)}></TextInput>
-      <Pressable
-        className="size-12 bg-blue-500"
-        onPress={async () => {
-          const data = await supabaseClient.auth.updateUser({ password: passwordInput.current });
-          console.log(data);
-        }}></Pressable>
+      <FadeIn>
+        {/** Parent Container */}
+        <View className="items-center justify-center"></View>
+      </FadeIn>
     </Background>
   );
 };
