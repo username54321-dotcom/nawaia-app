@@ -471,7 +471,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      email_exists: { Args: { email_check: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
