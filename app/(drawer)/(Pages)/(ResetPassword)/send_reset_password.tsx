@@ -27,7 +27,7 @@ const SendResetPassword = () => {
     if (emailInput.current?.length > 0) {
       // Invoke RPC Function
       const { data: respIsValid } = await supabaseClient.rpc('email_exists', {
-        email_check: emailInput.current,
+        email_check: emailInput.current.toLocaleLowerCase(),
       });
       setinvalidEmail(!respIsValid);
       // If The Email is Valid
