@@ -24,13 +24,14 @@ const MyModal = () => {
   const EmailInput = useRef<string | null>(null);
   const PasswordInput = useRef<string | null>(null);
   //Clear and Cancel
-  const HandleCancelButton = () => {
+
+  const HandleCancelButton = useCallback(() => {
     setLoginError(false);
     setModalVisible(false);
     setShowPassword(false);
     setShowPasswordIcon(false);
     setSignInSuccess(false);
-  };
+  }, [setModalVisible]);
   //Try to Sign In
   const HandleSignIn = async () => {
     const email = EmailInput.current?.value ?? '';

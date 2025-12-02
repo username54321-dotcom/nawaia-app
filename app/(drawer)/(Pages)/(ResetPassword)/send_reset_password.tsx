@@ -19,7 +19,7 @@ const SendResetPassword = () => {
 
   //Check if Email is Valid
   const verifyEmail = useCallback(async () => {
-    // Reset Error State (test)
+    // Reset Error State (test)1
     setinvalidEmail(false);
     // Not Email Provided
     emailInput.current.length === 0 && setinvalidEmail(true);
