@@ -11,7 +11,7 @@ export function useQueryCourseBookHistory() {
       const { data: bookData } = await supabaseClient
         .from('user_book_history')
         .select('*,books(*,user_favourites(*)) ');
-      const returnData = [...(courseData || []), ...(bookData || [])].toSorted((a, b) => {
+      const returnData = [...(courseData || []), ...(bookData || [])].sort((a, b) => {
         let aDate = new Date(a.created_at).getTime();
         let bDate = new Date(b.created_at).getTime();
         return bDate - aDate;

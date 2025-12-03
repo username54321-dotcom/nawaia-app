@@ -50,7 +50,7 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
       {/**Covering Button to Hide Drawer */}
       <Pressable onPress={handleDisableDrawer} className="flex-1 bg-black/40 ">
         {/** Main Container *(is Pressable to Negate Parent Action) */}
-        <Pressable className="h-full w-1/3 min-w-fit self-end">
+        <Pressable className="native:w-1/2 h-full   min-w-fit self-end">
           {/** Animation Container */}
           <MotiView
             transition={{ type: 'timing', duration: 200 }}

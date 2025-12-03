@@ -22,82 +22,80 @@ const Admin_EditBook = () => {
       <LoadingAnimation show={isLoading}></LoadingAnimation>
       {book && (
         <FadeIn>
-          <MyAccordion expandProp={true}>
-            <View className="flex-1 flex-col items-center">
-              {/** Publish Button */}
-              <AdminPublishButton
-                refetch={refetch}
+          <View className="flex-1 flex-col items-center">
+            {/** Publish Button */}
+            <AdminPublishButton
+              refetch={refetch}
+              id={book.id}
+              isPublished={book.published}
+              table="books"></AdminPublishButton>
+            {/**Main Container */}
+            <View className=" w-[95%] flex-col items-center  rounded-lg bg-slate-300 p-4">
+              <Text className="mb-4 rounded-xl bg-slate-500 p-4 font-Kufi text-2xl font-extrabold text-slate-100 underline underline-offset-4">
+                {book.title}
+              </Text>
+              {/** Book Title ( non- Editable ) */}
+              <Text className="m-2 mr-4 place-self-end font-Kufi text-2xl font-semibold">
+                البيانات الرئيسية
+              </Text>
+              <AdminUpdateField
+                label="عنوان الكتاب"
+                fieldName="title"
                 id={book.id}
-                isPublished={book.published}
-                table="books"></AdminPublishButton>
-              {/**Main Container */}
-              <View className=" w-[95%] flex-col items-center  rounded-lg bg-slate-300 p-4">
-                <Text className="mb-4 rounded-xl bg-slate-500 p-4 font-Kufi text-2xl font-extrabold text-slate-100 underline underline-offset-4">
-                  {book.title}
-                </Text>
-                {/** Book Title ( non- Editable ) */}
-                <Text className="m-2 mr-4 place-self-end font-Kufi text-2xl font-semibold">
-                  البيانات الرئيسية
-                </Text>
-                <AdminUpdateField
-                  label="عنوان الكتاب"
-                  fieldName="title"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.title}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="رابط التليجرام"
-                  fieldName="telegram_link"
-                  id={book.book_links[0].id}
-                  table="book_links"
-                  liveValue={book.book_links[0].telegram_link}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="رابط صورة الكتاب"
-                  fieldName="image"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.image}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="الوصف القصير"
-                  fieldName="short_description"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.short_description}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="الوصف الطويل"
-                  fieldName="long_description"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.long_description}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="سعر الكتاب (0 = مجاني)"
-                  fieldName="price"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.price?.toString()}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="مدة الكتاب"
-                  fieldName="duration"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.duration}
-                  refetch={refetch}></AdminUpdateField>
-                <AdminUpdateField
-                  label="تصنيف الكتاب"
-                  fieldName="genre"
-                  id={book.id}
-                  table="books"
-                  liveValue={book.genre}
-                  refetch={refetch}></AdminUpdateField>
-              </View>
+                table="books"
+                liveValue={book.title}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="رابط التليجرام"
+                fieldName="telegram_link"
+                id={book.book_links[0].id}
+                table="book_links"
+                liveValue={book.book_links[0].telegram_link}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="رابط صورة الكتاب"
+                fieldName="image"
+                id={book.id}
+                table="books"
+                liveValue={book.image}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="الوصف القصير"
+                fieldName="short_description"
+                id={book.id}
+                table="books"
+                liveValue={book.short_description}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="الوصف الطويل"
+                fieldName="long_description"
+                id={book.id}
+                table="books"
+                liveValue={book.long_description}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="سعر الكتاب (0 = مجاني)"
+                fieldName="price"
+                id={book.id}
+                table="books"
+                liveValue={book.price?.toString()}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="مدة الكتاب"
+                fieldName="duration"
+                id={book.id}
+                table="books"
+                liveValue={book.duration}
+                refetch={refetch}></AdminUpdateField>
+              <AdminUpdateField
+                label="تصنيف الكتاب"
+                fieldName="genre"
+                id={book.id}
+                table="books"
+                liveValue={book.genre}
+                refetch={refetch}></AdminUpdateField>
             </View>
-          </MyAccordion>
+          </View>
         </FadeIn>
       )}
     </Background>

@@ -1,19 +1,32 @@
-import { ScrollView } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import DynamicBanner from './Banner/DynamicBanner';
-import { memo } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Background = ({ children }: { children?: React.ReactNode }) => {
+  const cPlatform = Platform.OS;
   return (
-    // <SafeAreaView className="h-screen w-screen">
     <>
-      <DynamicBanner></DynamicBanner>
+      {/** Web */}
+      {cPlatform === 'web' && (
+        <>
+          <DynamicBanner></DynamicBanner>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+            {children}
+          </ScrollView>
+        </>
+      )}
+      {/** For Android */}
+      {cPlatform !== 'web' && (
+        <SafeAreaView className="h-screen w-screen">
+          <DynamicBanner></DynamicBanner>
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
-        {children}
-      </ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+            {children}
+          </ScrollView>
+        </SafeAreaView>
+      )}
     </>
-    // {/* </SafeAreaView> */}
   );
 };
 
-export default memo(Background);
+export default Background;

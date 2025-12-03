@@ -29,10 +29,14 @@ const MyAccordion = ({ children, className, expandProp }: propTypes) => {
   return (
     <View className={` ${className}`}>
       <MotiView state={animationState} style={tw.style([`overflow-hidden `])}>
-        <View onLayout={(e) => setExpandedHeight(e.nativeEvent.layout.height)}>{children}</View>
+        <View
+          className="absolute w-full"
+          onLayout={(e) => setExpandedHeight(e.nativeEvent.layout.height)}>
+          {children}
+        </View>
       </MotiView>
     </View>
   );
 };
 
-export default memo(MyAccordion);
+export default MyAccordion;

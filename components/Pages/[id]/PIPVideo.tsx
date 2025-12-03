@@ -4,6 +4,7 @@ import { VideoView, useVideoPlayer } from 'expo-video';
 import { supabaseClient } from '~/utils/supabase';
 import { useQueryClient } from '@tanstack/react-query';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
+import tw from 'twrnc';
 
 type propTypes = {
   link: string;
@@ -60,7 +61,7 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
     return () => {
       clearInterval(interval);
     };
-  }, [isCompleted, queryClient]);
+  }, [isCompleted, queryClient, lessonId]);
 
   const handleOnFirstFrame = async () => {
     didLoad.current = true;
@@ -95,12 +96,13 @@ const VideoModal = ({ link, lessonId, isCompleted }: propTypes) => {
 
   return (
     <View
-      className={` } aspect-video self-center 
+      className={` aspect-video w-full self-center 
     border-2
     `}>
       <VideoView
+        style={tw`flex-1`}
         ref={playerRef}
-        allowsFullscreen={true}
+        fullscreenOptions={{ enable: true }}
         allowsPictureInPicture={true}
         startsPictureInPictureAutomatically={false}
         onFirstFrameRender={handleOnFirstFrame}

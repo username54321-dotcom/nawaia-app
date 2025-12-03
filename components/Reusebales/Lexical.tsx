@@ -1,3 +1,5 @@
+'use dom';
+
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
@@ -10,7 +12,7 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { memo, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { $getRoot, $insertNodes } from 'lexical';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 
@@ -118,4 +120,4 @@ function Lexical({ onChange, onStateChange, initialHtml }: LexicalPropTypes) {
     </LexicalComposer>
   );
 }
-export default memo(Lexical);
+export default Lexical;

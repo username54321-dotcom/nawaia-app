@@ -34,13 +34,14 @@ const MyModal = () => {
   }, [setModalVisible]);
   //Try to Sign In
   const HandleSignIn = async () => {
-    const email = EmailInput.current?.value ?? '';
-    const password = PasswordInput?.current?.value ?? '';
+    const email = EmailInput.current ?? '';
+    const password = PasswordInput?.current ?? '';
     const { data, error } = await supabaseClient.auth.signInWithPassword({
       email: email,
       password: password,
     });
-    error && setLoginError(true);
+    console.log(data, error);
+    error && setLoginError(true) && console.log(error);
     // If Sign in Success
     if (data.user) {
       QueryClient.invalidateQueries();
@@ -58,6 +59,7 @@ const MyModal = () => {
 
   // Show Password
   const HandleShowPassword = (v: string) => {
+    PasswordInput.current = v;
     if (v.length > 0) {
       setShowPasswordIcon(true);
     } else {
@@ -77,10 +79,10 @@ const MyModal = () => {
       visible={ModalVisible}
       animationType="fade"
       className="size-48 items-center justify-center bg-transparent">
-      <View className="flex-1 items-center justify-center bg-slate-900/30">
+      <View className="flex-1 items-center justify-center  bg-slate-900/30">
         <MotiView transition={{ type: 'spring', damping: 75 }} state={animation}>
           {/*Main Container */}
-          <View className="flex-col items-center justify-center rounded-xl border-4 border-slate-600 bg-slate-300 px-10 pt-10   ">
+          <View className="max-w-[80vw] flex-col items-center justify-center rounded-xl border-4 border-slate-600 bg-slate-300 px-10 pt-10   ">
             {/* Cancel Button */}
             <Pressable
               onPress={HandleCancelButton}
@@ -95,21 +97,20 @@ const MyModal = () => {
             <View className="  flex-row items-center justify-center rounded-md border-[1px]  bg-slate-100/40">
               <Mail className="mx-1" color={'#475569'} />
               <TextInput
-                ref={EmailInput}
+                onChangeText={(v) => (EmailInput.current = v)}
                 placeholder="البريد الالكتروني"
-                className=" rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
+                className="flex-grow rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
             </View>
             {/**Password Input */}
-            <View className=" mt-2 flex-row items-center justify-center rounded-md border-[1px]  bg-slate-100/40 ">
+            <View className=" mt-2  flex-row items-center justify-center rounded-md border-[1px]  bg-slate-100/40 ">
               <Lock className={`mx-1  `} color={'#475569'} />
-              <View>
+              <View className="flex-grow">
                 <TextInput
-                  ref={PasswordInput}
                   secureTextEntry={!ShowPassword}
                   onChangeText={(value) => HandleShowPassword(value)}
                   onSubmitEditing={HandleSignIn}
                   placeholder="كلمة المرور"
-                  className=" rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
+                  className="flex-grow  rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
                 <Pressable
                   onPress={() => setShowPassword((prev) => !prev)}
                   className={`absolute right-2 h-full justify-center ${!ShowPasswordIcon && ' hidden'} `}>
