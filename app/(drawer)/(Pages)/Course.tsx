@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
 import Background from '~/components/Background';
-import MyImage1 from '../../../components/Reusebales/MyImage';
+import MyImage from '../../../components/Reusebales/MyImage';
 import IdContent from '../../../components/Pages/[id]/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -113,11 +113,11 @@ const CoursePage = () => {
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{courseData.title}</Text>
               {/**Image and Completion Container */}
               <View className="flex-col  items-center justify-center">
-                <MyImage1
+                <MyImage
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: courseData.image }}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}
-                  percentCompleted={+(getCompletedPercent(courseData) ?? 0)}></MyImage1>
+                  percentCompleted={+(getCompletedPercent(courseData) ?? 0)}></MyImage>
               </View>
 
               <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">

@@ -4,7 +4,7 @@ import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign, SquareArrowOutUpRight } from 'lucide-react-native';
 import Background from '~/components/Background';
 import { GenreIcons } from '../../../components/GenresIcons';
-import MyImage1 from '../../../components/Reusebales/MyImage';
+import MyImage from '../../../components/Reusebales/MyImage';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { memo, useCallback, useEffect } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
@@ -73,10 +73,10 @@ const BookPage = () => {
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{bookData.title}</Text>
               {/**Image and Completion Container */}
               <View className="flex-col  items-center justify-center">
-                <MyImage1
+                <MyImage
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: bookData.image }}
-                  style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage1>
+                  style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage>
               </View>
 
               <View className="m-2 flex  flex-row-reverse items-center justify-center transition-all duration-200">

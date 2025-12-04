@@ -10,6 +10,7 @@ import { useIsAuth, useIsAuthType } from '~/store/store';
 import { StrictMode, useEffect } from 'react';
 
 import { supabaseClient } from '~/utils/supabase';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
@@ -55,7 +56,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={tanstackQueryClient}>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          <SafeAreaView>
+            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          </SafeAreaView>
         </Stack>
         <MyModal></MyModal>
       </QueryClientProvider>

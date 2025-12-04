@@ -16,6 +16,7 @@ import {
 } from 'lucide-react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 interface propTypes {
   drawerVisible: boolean;
   setDrawerVisible: (value: boolean) => void;

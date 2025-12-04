@@ -34,15 +34,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "deploymentTarget": "15.4"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo-1.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.marwank11.nawaia"
     }
   }
 }

@@ -8,7 +8,7 @@ import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPubl
 import { Plus, Trash2 } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
 import { useFocusEffect, useRouter } from 'expo-router';
-import MyImage1 from '~/components/Reusebales/MyImage';
+import MyImage from '~/components/Reusebales/MyImage';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
@@ -71,10 +71,10 @@ const Admin_SelectCourse = () => {
                   <View key={index}>
                     <FadeIn>
                       <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
-                        <MyImage1
+                        <MyImage
                           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
                           source={{ uri: itemCourse.image }}
-                          style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage1>
+                          style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
 
                         <View className=" w-full  shrink-0">
                           <Text className="m-2 mr-4 self-end font-Kufi  text-2xl font-bold text-slate-700">

@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@10play/react-native-web-webview": "^0.0.3",
-    "@10play/tentap-editor": "^0.7.4",
     "@expo/vector-icons": "^15.0.2",
     "@futurejj/react-native-visibility-sensor": "^1.4.4",
     "@hookform/resolvers": "^5.2.2",
@@ -35,7 +34,7 @@
     "expo": "^54.0.13",
     "expo-constants": "~18.0.9",
     "expo-crypto": "~15.0.7",
-    "expo-dev-client": "~6.0.15",
+    "expo-dev-client": "~6.0.18",
     "expo-font": "~14.0.9",
     "expo-image": "^3.0.9",
     "expo-linear-gradient": "~15.0.7",
