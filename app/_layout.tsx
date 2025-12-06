@@ -19,6 +19,7 @@ export default function RootLayout() {
   // Track Auth Changes
   const setIsAdmin = useIsAuth((state: useIsAuthType) => state.setIsAdmin);
   const setIsAuth = useIsAuth((state: useIsAuthType) => state.setIsAuth);
+  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
 
   // Track Auth Changes
   useEffect(() => {
@@ -26,19 +27,31 @@ export default function RootLayout() {
       // Listen for Auth Changes
       supabaseClient.auth.onAuthStateChange(async (_, session) => {
         setIsAuth(!!session); // Set Auth State
-
-        // Handle Admin Status
-        const uuid = (await supabaseClient.auth.getSession()).data.session?.user.id;
-        if (uuid) {
-          const { data: isAdmin } = await supabaseClient.functions.invoke('verifyIsAdmin', {
-            body: { uuid: uuid },
-          });
-          setIsAdmin(isAdmin);
-        }
       });
     };
     apply();
   }, [setIsAuth, setIsAdmin]);
+
+  // Handle isAdmin
+  useEffect(() => {
+    async function effect() {
+      if (!isAuth) {
+        setIsAdmin(false);
+        return;
+      }
+
+      if (isAuth) {
+        const uuid = (await supabaseClient.auth.getSession()).data.session?.user.id;
+        console.log('UUID', uuid);
+        const { isAdmin: resUUID } = (
+          await supabaseClient.functions.invoke('verifyIsAdmin', { body: { uuid: uuid } })
+        ).data;
+        console.log('response', resUUID);
+        setIsAdmin(resUUID);
+      }
+    }
+    effect();
+  }, [setIsAdmin, isAuth]);
 
   // Loading Fonts
   const [Fontloaded] = useFonts({

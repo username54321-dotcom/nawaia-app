@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import "@supabase/functions-js";
 import { corsHeaders, handleCors } from "../../../utils/handleCors.ts";
-import { funcParamIsAdmin } from "../../../utils/FunctionTypes/verifyIsAdminTypes.ts";
+import { createClient } from "@supabase/supabase-js";
 
 const adminUuids = [
   "50e44d88-7255-41a4-888f-54906447f692",
@@ -13,10 +13,21 @@ Deno.serve(async (req: Request) => {
   if (didHandle) {
     return didHandle;
   }
-  const { uuid }: funcParamIsAdmin = await req.json();
-  const data = { isAdmin: adminUuids.includes(uuid) };
-  return new Response(
-    JSON.stringify({ ...data }),
-    { headers: { ...corsHeaders, "Content-Type": "application/json" } },
-  );
+  let isAdmin = false;
+
+  const authHeader = req.headers.get("Authorization") ?? false;
+
+  if (authHeader) {
+    const client = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      { global: { headers: { Authorization: authHeader } } },
+    );
+    const userUUID = (await client.auth.getUser()).data.user?.id;
+    isAdmin = adminUuids.includes(userUUID ?? "");
+  }
+  const resData = { isAdmin: isAdmin };
+  return new Response(JSON.stringify(resData), {
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
 });

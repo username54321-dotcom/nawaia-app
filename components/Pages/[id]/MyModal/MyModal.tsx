@@ -40,8 +40,7 @@ const MyModal = () => {
       email: email,
       password: password,
     });
-    console.log(data, error);
-    error && setLoginError(true) && console.log(error);
+    error && setLoginError(true);
     // If Sign in Success
     if (data.user) {
       QueryClient.invalidateQueries();

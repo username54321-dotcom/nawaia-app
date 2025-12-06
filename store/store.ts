@@ -1,6 +1,6 @@
-import type { StateCreator } from 'zustand';
+import type { StateCreator } from "zustand";
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { create } = require('zustand');
+const { create } = require("zustand");
 
 export interface useIsAuthType {
   isAuth: boolean;
@@ -15,7 +15,7 @@ const authStoreCreator: StateCreator<useIsAuthType> = (set) => ({
     set({ isAuth: value });
   },
   isAdmin: false,
-  setIsAdmin: (value) => {
+  setIsAdmin: (value: boolean) => {
     set({ isAdmin: value });
   },
 });
