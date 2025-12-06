@@ -15,12 +15,16 @@ const Test = () => {
   };
   return (
     <Background>
-      <View className="flex-1 items-center justify-center">
-        <TextInput
-          onChangeText={(v) => (emailInput.current = v)}
-          className="h-12 w-20 border-2"></TextInput>
-        <Pressable onPress={handleReset} className="size-12 border-2 bg-red-500"></Pressable>
-      </View>
+      <Pressable
+        className="size-12 bg-red-500"
+        onPress={async () => {
+          console.time();
+          const data = await await supabaseClient.functions.invoke('verifyIsAdmin', {
+            body: { uuid: 'sasa' },
+          });
+          console.timeEnd();
+          console.log(data);
+        }}></Pressable>
     </Background>
   );
 };

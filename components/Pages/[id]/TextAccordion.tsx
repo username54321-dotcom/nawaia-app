@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import tw from 'twrnc';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,21 +11,29 @@ interface propTypes {
 
 const TextAccordion = ({ shortDescription, longDescription }: propTypes) => {
   const [TextExpand, setTextExpand] = useState(false);
-  const [TextHeight, setTextHeight] = useState(300);
-  const animation = useAnimationState({ from: { height: 300 }, to: { height: TextHeight } });
+  const [contentHeight, setContentHeight] = useState(200);
+
+  const animation = useAnimationState({
+    from: { height: 300 },
+    to: { height: contentHeight + 50 },
+  });
+
   useEffect(
     () => (TextExpand ? animation.transitionTo('to') : animation.transitionTo('from')),
-    [TextExpand, animation]
+    [TextExpand, animation, contentHeight]
   );
-  console.log(longDescription);
+
   return (
     <>
       {/** Parent View */}
       <MotiView
         state={animation}
-        style={tw`h-[300px]  overflow-hidden w-4/5 max-w-[600px] mx-4 my-6 flex size-fit rounded-md border-2 border-slate-600 bg-slate-200 pt-1 `}>
+        style={tw`overflow-hidden w-4/5 max-w-[600px] mx-4 my-6 flex size-fit rounded-md border-2 border-slate-600 bg-slate-200 pt-1 `}>
         {/** Text View */}
-        <View className=" " onLayout={(e) => setTextHeight(e.nativeEvent.layout.height + 50)}>
+        <View
+          onLayout={(e) => {
+            setContentHeight(e.nativeEvent.layout.height);
+          }}>
           <Text className=" m-2  text-center font-Kufi   text-lg font-semibold  text-neutral-700">
             {shortDescription}
           </Text>

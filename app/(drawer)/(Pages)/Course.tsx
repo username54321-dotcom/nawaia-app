@@ -145,7 +145,7 @@ const CoursePage = () => {
                 telegramLink={courseData.telegram_links?.telegram_link}></TelegramButton>
               <TextAccordion
                 shortDescription={courseData.short_description}
-                LongDescription={courseData.long_description}></TextAccordion>
+                longDescription={courseData.long_description}></TextAccordion>
 
               <IdContent
                 refetch={refetch}

@@ -5,7 +5,7 @@ const DrawerLayout = () => {
   return (
     <>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(Pages)/Account" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="(Pages)/Account" options={{ headerShown: false }} />
         <Stack.Screen
           name="(Pages)/(Admin)/Admin_EditCourse.tsx"
           options={{ headerShown: false }}
@@ -14,7 +14,7 @@ const DrawerLayout = () => {
         <Stack.Screen name="(Pages)/Books" options={{ headerShown: false }} />
         <Stack.Screen name="(Pages)/Courses" options={{ headerShown: false }} />
         <Stack.Screen name="(Pages)/Course" options={{ headerShown: false }} />
-        <Stack.Screen name="(Pages)/Test" options={{ headerShown: false }} />
+        <Stack.Screen name="(Pages)/Test" options={{ headerShown: false }} /> */}
       </Stack>
     </>
   );
