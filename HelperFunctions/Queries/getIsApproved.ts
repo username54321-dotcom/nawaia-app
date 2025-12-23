@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useIsAuth, useIsAuthType } from "~/store/store";
 import { supabaseClient } from "~/utils/supabase";
 
@@ -9,20 +8,15 @@ export function GetIsApproved(isAuth: boolean) {
     return useQuery({
         queryKey: ["isApproved"],
         queryFn: async () => {
-            const uuid = await supabaseClient.auth.getSession().then((x) =>
-                x.data.session?.user.id
-            );
-            console.log(uuid);
             if (isApprovedStore) return;
-            // console.log(isApprovedStore);
-            const isApproved = await axios.post(
-                "https://hdxnyotrpjmrigmpdpkn.supabase.co/functions/v1/is_approved",
-                { uuid: uuid },
-            ).then((x) => x.data.approved);
+            if (!isAuth) return;
+            const isApproved =
+                (await supabaseClient.from("profiles").select("approved")
+                    .single()).data?.approved;
+            if (isApprovedStore === isApproved) return;
             setIsApprovedStore(isApproved);
-            return isApproved;
         },
-        enabled: isAuth,
+        enabled: isAuth && !isApprovedStore,
         refetchInterval: 60 * 1000,
     });
 }

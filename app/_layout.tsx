@@ -21,6 +21,7 @@ export default function RootLayout() {
   const setIsAdmin = useIsAuth((state: useIsAuthType) => state.setIsAdmin);
   const setIsAuth = useIsAuth((state: useIsAuthType) => state.setIsAuth);
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
+  const setIsApproved = useIsAuth((x: useIsAuthType) => x.setIsApproved);
 
   // Track Auth Changes
   useEffect(() => {
@@ -28,10 +29,11 @@ export default function RootLayout() {
       // Listen for Auth Changes
       supabaseClient.auth.onAuthStateChange(async (_, session) => {
         setIsAuth(!!session); // Set Auth State
+        if (!session) setIsApproved(!!session);
       });
     };
     apply();
-  }, [setIsAuth, setIsAdmin]);
+  }, [setIsAuth, setIsAdmin, setIsApproved]);
 
   // Handle isAdmin
   useEffect(() => {
