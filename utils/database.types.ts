@@ -281,6 +281,27 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          approved: boolean | null
+          created_at: string
+          id: number
+          user_id: string | null
+        }
+        Insert: {
+          approved?: boolean | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Update: {
+          approved?: boolean | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       public_assets: {
         Row: {
           about_us_page_content: string | null
@@ -333,6 +354,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      test: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
       }
       user_book_history: {
         Row: {

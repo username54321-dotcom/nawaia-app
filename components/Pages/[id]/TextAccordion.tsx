@@ -40,7 +40,7 @@ const TextAccordion = ({ shortDescription, longDescription }: propTypes) => {
           {/** Separator */}
           <View className="m-4 h-1 w-4/5 self-center border-t-2 opacity-75"></View>
           <Text
-            className={` m-2 mx-auto  mb-0  w-[90%] border-4  px-4 text-right font-Kufi text-base  text-neutral-700 `}>
+            className={` m-2 mx-auto  mb-0  w-[90%]  px-4 text-right font-Kufi text-base  text-neutral-700 `}>
             {longDescription}
           </Text>
           {/** Separator */}

@@ -7,6 +7,8 @@ export interface useIsAuthType {
   setIsAuth: (value: boolean) => void;
   isAdmin: boolean;
   setIsAdmin: (value: boolean) => void;
+  isApproved: boolean;
+  setIsApproved: (value: boolean) => void;
 }
 
 const authStoreCreator: StateCreator<useIsAuthType> = (set) => ({
@@ -18,6 +20,8 @@ const authStoreCreator: StateCreator<useIsAuthType> = (set) => ({
   setIsAdmin: (value: boolean) => {
     set({ isAdmin: value });
   },
+  isApproved: false,
+  setIsApproved: (value) => set({ isApproved: value }),
 });
 
 export const useIsAuth = create(authStoreCreator);

@@ -11,6 +11,7 @@ import { StrictMode, useEffect } from 'react';
 
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GetIsApproved } from '~/HelperFunctions/Queries/getIsApproved';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
@@ -42,12 +43,10 @@ export default function RootLayout() {
 
       if (isAuth) {
         const uuid = (await supabaseClient.auth.getSession()).data.session?.user.id;
-        console.log('UUID', uuid);
         const { isAdmin: resUUID } = (
           await supabaseClient.functions.invoke('verifyIsAdmin', { body: { uuid: uuid } })
         ).data;
-        console.log('response', resUUID);
-        setIsAdmin(resUUID);
+        setIsAdmin(!!resUUID);
       }
     }
     effect();

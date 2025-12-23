@@ -12,7 +12,6 @@ import { useRouter } from 'expo-router';
 import { useModalVisible, useModalVisibleType } from '~/store/store';
 import MyController from './MyController';
 import FadeIn from '~/components/Animations/FadeIn';
-import PhoneInput from 'react-native-phone-number-input';
 
 // *Schema
 const schema = z
@@ -73,7 +72,6 @@ const SignUp = () => {
       phone: data.phone.toString(),
       options: { data: { display_name: data.username } },
     });
-    SignUpData && router.push({ pathname: '/' });
     SignUpError && setSignUpError(SignUpError.message);
   };
   const {
@@ -151,9 +149,15 @@ const SignUp = () => {
             className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
             <Text className="font-Kufi   text-gray-50">أشتراك</Text>
           </Pressable>
+          {/** Approval Notice */}
+          <View className="mx-auto mt-2 w-full  py-2 ">
+            <Text className="m-auto mr-2 font-Kufi text-xs font-semibold italic text-neutral-700 ">
+              ** قد تستغرق مرحلة الأعتماد حتي 24 ساعة.
+            </Text>
+          </View>
           <Text>{SignUpError}</Text>
           {/**Separator */}
-          <View className=" mb-4 mt-6 w-4/5 self-center border-t-[1px] border-gray-500"></View>
+          <View className=" mb-4 mt-2 w-4/5 self-center border-t-[1px] border-gray-500"></View>
           <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
             <Text className="font-Kufi text-xs">مشترك ؟</Text>
             <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">

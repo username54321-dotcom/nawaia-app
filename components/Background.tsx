@@ -1,4 +1,4 @@
-import { Platform, ScrollView } from 'react-native';
+import { Platform, ScrollView, Text } from 'react-native';
 import DynamicBanner from './Banner/DynamicBanner';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
