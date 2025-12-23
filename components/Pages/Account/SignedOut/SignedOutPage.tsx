@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TvIcon } from 'lucide-react-native';
+import { Phone, TvIcon } from 'lucide-react-native';
 import Background from '~/components/Background';
 import { Pressable, Text, View } from 'react-native';
 import MyImage from '~/components/Reusebales/MyImage';
@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { useModalVisible, useModalVisibleType } from '~/store/store';
 import MyController from './MyController';
 import FadeIn from '~/components/Animations/FadeIn';
+import PhoneInput from 'react-native-phone-number-input';
 
 // *Schema
 const schema = z
@@ -37,9 +38,19 @@ const schema = z
         message: 'الرجاء استخدام الحروف الإنجليزية والأرقام والرموز فقط لكلمة المرور.',
       }),
     confirmPassword: z.string(),
-    // termsAccepted: z
-    //   .boolean()
-    //   .refine((val) => val === true, { message: 'يجب عليك الموافقة على الشروط والأحكام.' }),
+    phone: z.coerce
+      .number({
+        message: 'رجاءً أدخل رقم هاتف صحيح.',
+      })
+      .refine(
+        (x) => {
+          const valid = x.toString().length >= 10 && x.toString().length <= 20;
+          return valid;
+        },
+        {
+          message: 'رجاءً أدخل رقم هاتف صحيح.',
+        }
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'كلمتا المرور غير متطابقتين.',
@@ -59,6 +70,7 @@ const SignUp = () => {
     const { data: SignUpData, error: SignUpError } = await supabaseClient.auth.signUp({
       email: data.email,
       password: data.password,
+      phone: data.phone.toString(),
       options: { data: { display_name: data.username } },
     });
     SignUpData && router.push({ pathname: '/' });
@@ -120,6 +132,16 @@ const SignUp = () => {
               name="confirmPassword"
               placeholder="تأكيد كلمة السر"
               title="تأكيد كلمة السر"
+            />
+            {/**Phone Number*/}
+
+            <MyController
+              control={control}
+              error={errors.phone}
+              icon={Phone}
+              name="phone"
+              placeholder="رقم الهاتف"
+              title="رقم الهاتف"
             />
           </View>
           {/**Sign Up Button */}
