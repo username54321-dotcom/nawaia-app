@@ -69,8 +69,7 @@ const SignUp = () => {
     const { data: SignUpData, error: SignUpError } = await supabaseClient.auth.signUp({
       email: data.email,
       password: data.password,
-      phone: data.phone.toString(),
-      options: { data: { display_name: data.username } },
+      options: { data: { display_name: data.username, phone: data.phone } },
     });
     SignUpError && setSignUpError(SignUpError.message);
   };
@@ -136,7 +135,6 @@ const SignUp = () => {
             <MyController
               control={control}
               error={errors.phone}
-              icon={Phone}
               name="phone"
               placeholder="رقم الهاتف"
               title="رقم الهاتف"

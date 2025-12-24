@@ -1,0 +1,9 @@
+{
+  "tasks": { "dev": "deno run --allow-all --watch --env  index.ts" },
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.11.1",
+    "@supabase/functions-js": "jsr:@supabase/functions-js@^2.89.0",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.89.0",
+    "grammy": "npm:grammy@^1.38.4"
+  }
+}
