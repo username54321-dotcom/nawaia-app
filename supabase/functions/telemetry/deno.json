@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.11.2",
+    "@hono/zod-validator": "jsr:@hono/zod-validator@^0.7.6",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.89.0",
+    "axios": "npm:axios@^1.13.2"
+  }
+}

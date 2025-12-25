@@ -11,7 +11,6 @@ import { StrictMode, useEffect } from 'react';
 
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GetIsApproved } from '~/HelperFunctions/Queries/getIsApproved';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();

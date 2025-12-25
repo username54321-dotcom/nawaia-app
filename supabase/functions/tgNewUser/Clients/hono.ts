@@ -1,3 +1,3 @@
-import { Hono } from '@hono/hono';
+import { Hono } from "@hono/hono";
 
-export const app = new Hono();
+export const app = new Hono().basePath("/tgNewUser");

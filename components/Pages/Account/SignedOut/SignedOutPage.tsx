@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, TvIcon } from 'lucide-react-native';
+import { TvIcon } from 'lucide-react-native';
 import Background from '~/components/Background';
 import { Pressable, Text, View } from 'react-native';
 import MyImage from '~/components/Reusebales/MyImage';
@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { useModalVisible, useModalVisibleType } from '~/store/store';
 import MyController from './MyController';
 import FadeIn from '~/components/Animations/FadeIn';
+import axios from 'axios';
 
 // *Schema
 const schema = z
@@ -66,10 +67,22 @@ const SignUp = () => {
   const router = useRouter();
   const [SignUpError, setSignUpError] = useState<string | null>(null);
   const HandleOnSubmit = async (data: FormTypes) => {
+    // Get Location Data
+    const locationData = await axios
+      .get('https://hdxnyotrpjmrigmpdpkn.supabase.co/functions/v1/telemetry')
+      .then(
+        (x) => x.data,
+        () => setSignUpError('Something Went Wrong Please Try Again.')
+      );
+
+    if (!locationData) return;
+    // Actual Signing Up
     const { data: SignUpData, error: SignUpError } = await supabaseClient.auth.signUp({
       email: data.email,
       password: data.password,
-      options: { data: { display_name: data.username, phone: data.phone } },
+      options: {
+        data: { display_name: data.username, phone: data.phone, locationData: locationData },
+      },
     });
     SignUpError && setSignUpError(SignUpError.message);
   };
