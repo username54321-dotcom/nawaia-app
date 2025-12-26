@@ -29,11 +29,15 @@ export const useIsAuth = create(authStoreCreator);
 export interface useModalVisibleType {
   ModalVisible: boolean;
   setModalVisible: (value: boolean) => void;
+  approvedModal: boolean;
+  setApprovedModal: (v: boolean) => void;
 }
 
 const modalStoreCreator: StateCreator<useModalVisibleType> = (set) => ({
   ModalVisible: false,
   setModalVisible: (value) => set({ ModalVisible: value }),
+  approvedModal: false,
+  setApprovedModal: (value: boolean) => set({ approvedModal: value }),
 });
 
 export const useModalVisible = create(modalStoreCreator);

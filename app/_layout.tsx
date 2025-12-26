@@ -6,11 +6,12 @@ import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
-import { useIsAuth, useIsAuthType } from '~/store/store';
+import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import { useEffect } from 'react';
 
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ApprovedModal from './../components/ApprovedModal';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
@@ -52,6 +53,9 @@ export default function RootLayout() {
     'Playwrite DE Grund Thin': require('~/assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf'),
   });
 
+  const registerModal = useModalVisible((x: useModalVisibleType) => x.ModalVisible);
+  const approvedModal = useModalVisible((x: useModalVisibleType) => x.approvedModal);
+
   if (!Fontloaded) {
     return null;
   }
@@ -64,7 +68,8 @@ export default function RootLayout() {
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           </SafeAreaView>
         </Stack>
-        <MyModal></MyModal>
+        {registerModal && <MyModal></MyModal>}
+        {true && <ApprovedModal></ApprovedModal>}
       </QueryClientProvider>
     </GestureHandlerRootView>
     // </StrictMode>

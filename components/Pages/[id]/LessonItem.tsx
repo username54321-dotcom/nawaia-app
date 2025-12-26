@@ -10,6 +10,8 @@ import VideoModal from './PIPVideo';
 import { Check } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
+import { sleep } from '~/HelperFunctions/sleep';
+
 type props = {
   LessonItemProp: {
     chapter_id: number | null;
@@ -53,10 +55,35 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Modal Visibility
   const [expand, setExpand] = useState<boolean>(false); // Expand Accordion State
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
+  const isApproved = useIsAuth((x: useIsAuthType) => x.isApproved);
+  const setApprovedModal = useModalVisible((x: useModalVisibleType) => x.setApprovedModal);
   // Auth State
   const Note = useRef<string | null | undefined>(null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);
   const [VideoPlayer, setVideoPlayer] = useState(false);
+  const lessonOnPress = async () => {
+    // Not Signed In
+    if (!isAuth) setModalVisible(true);
+
+    // Signed in but not Approved
+    if (isAuth && !isApproved) {
+      await supabaseClient.auth.refreshSession(); // Refresh JWT Token
+
+      if (
+        (await supabaseClient.auth.getSession()).data.session?.user.app_metadata.isApproved === true
+      ) {
+        refetch();
+      } else {
+        setApprovedModal(true);
+      }
+      return;
+    }
+
+    // Signed in and Approved
+    if (isAuth && isApproved) {
+      setVideoPlayer(!VideoPlayer);
+    }
+  };
 
   return (
     <>
@@ -71,7 +98,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
       </MyAccordion>
       {/**Lesson Container */}
       <Pressable
-        onPress={() => (isAuth ? setVideoPlayer(!VideoPlayer) : setModalVisible(true))}
+        onPress={lessonOnPress}
         className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
         {/**Lesson Name and Icon */}
         <View className="flex-row-reverse items-center justify-end px-4">
