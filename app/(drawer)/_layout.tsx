@@ -1,13 +1,7 @@
 import { Stack } from 'expo-router';
 import { memo } from 'react';
-import { GetIsApproved } from '~/HelperFunctions/Queries/getIsApproved';
-import { useIsAuth, useIsAuthType } from '~/store/store';
 
 const DrawerLayout = () => {
-  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
-
-  GetIsApproved(isAuth);
-
   return (
     <>
       <Stack screenOptions={{ headerShown: false }}>

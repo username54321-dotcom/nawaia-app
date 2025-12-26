@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth, useIsAuthType } from '~/store/store';
-import { StrictMode, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,7 +19,6 @@ export default function RootLayout() {
   // Track Auth Changes
   const setIsAdmin = useIsAuth((state: useIsAuthType) => state.setIsAdmin);
   const setIsAuth = useIsAuth((state: useIsAuthType) => state.setIsAuth);
-  const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const setIsApproved = useIsAuth((x: useIsAuthType) => x.setIsApproved);
 
   // Track Auth Changes
@@ -27,31 +26,25 @@ export default function RootLayout() {
     const apply = async () => {
       // Listen for Auth Changes
       supabaseClient.auth.onAuthStateChange(async (_, session) => {
-        setIsAuth(!!session); // Set Auth State
-        if (!session) setIsApproved(!!session);
+        // Signed Out
+        if (!session) {
+          setIsAuth(false);
+          setIsAdmin(false);
+          setIsApproved(false);
+          return;
+        }
+        // Signed In
+        if (!!session) {
+          const isAdmin = session.user.app_metadata.isAdmin ?? false;
+          const isApproved = session.user.app_metadata.isApproved ?? false;
+          setIsAuth(true);
+          setIsAdmin(isAdmin);
+          setIsApproved(isApproved);
+        }
       });
     };
     apply();
   }, [setIsAuth, setIsAdmin, setIsApproved]);
-
-  // Handle isAdmin
-  useEffect(() => {
-    async function effect() {
-      if (!isAuth) {
-        setIsAdmin(false);
-        return;
-      }
-
-      if (isAuth) {
-        const uuid = (await supabaseClient.auth.getSession()).data.session?.user.id;
-        const { isAdmin: resUUID } = (
-          await supabaseClient.functions.invoke('verifyIsAdmin', { body: { uuid: uuid } })
-        ).data;
-        setIsAdmin(!!resUUID);
-      }
-    }
-    effect();
-  }, [setIsAdmin, isAuth]);
 
   // Loading Fonts
   const [Fontloaded] = useFonts({

@@ -6,10 +6,11 @@ import { InlineKeyboard, webhookCallback } from "grammy";
 
 // New User Webhook
 app.post("/", async (ctx) => {
+  debugger;
   const body = await ctx.req.json();
-  const uuid = body.record.user_id;
+  const uuid = body.record.id;
   const userData = (await supabase.auth.admin.getUserById(uuid)).data.user;
-  const locationData = userData?.user_metadata.locationData;
+  const locationData = userData?.user_metadata.locationData ?? null;
 
   const tgMessageText = ` 
           ( New User ) 
@@ -21,11 +22,11 @@ app.post("/", async (ctx) => {
 
   PhoneNumber: ${userData?.user_metadata.phone ?? null}
 
-  Country : ${locationData.countryName ?? null}
+  Country : ${locationData?.countryName ?? null}
 
-  Region : ${locationData.regionName ?? null}
+  Region : ${locationData?.regionName ?? null}
 
-  City : ${locationData.cityName ?? null}
+  City : ${locationData?.cityName ?? null}
 
   Created At : ${userData?.created_at}`;
 
@@ -57,37 +58,54 @@ bot.on("callback_query", async (ctx) => {
 
   // Approve
   if (actionType === "app") {
-    const { data: success, error } = await supabase
-      .from("profiles")
-      .update({ approved: true })
-      .eq("user_id", targetUuid)
-      .select();
+    // Set isApproved to TRUE
+    const { data: success, error } = await supabase.auth.admin.updateUserById(
+      targetUuid,
+      { app_metadata: { isApproved: true } },
+    );
+
+    // Setting Successful
     if (success) {
+      // Formulate new inline keyboard
       newMessageKeyboard[0][0] = {
         text: "Status : Approved",
         callback_data: "status",
       };
+
+      // Update inline keyboard
       ctx.editMessageReplyMarkup({
         reply_markup: { inline_keyboard: newMessageKeyboard },
       });
+
+      // Sign Out The User
+      await supabase.auth.admin.signOut(targetUuid);
     }
+    return;
   }
 
   // Rejected
   if (actionType === "rej") {
-    const { data: success, error } = await supabase
-      .from("profiles")
-      .update({ approved: false })
-      .eq("user_id", targetUuid)
-      .select();
+    // Set isApproved to FALSE
+    const { data: success, error } = await supabase.auth.admin.updateUserById(
+      targetUuid,
+      { app_metadata: { isApproved: false } },
+    );
+
+    //Setting Successfull
     if (success) {
+      // Formulate new inline keyboard
       newMessageKeyboard[0][0] = {
         text: "Status : Rejected",
         callback_data: "status",
       };
+
+      // Update inline keyboard
       ctx.editMessageReplyMarkup({
         reply_markup: { inline_keyboard: newMessageKeyboard },
       });
+
+      // Sign Out The User
+      await supabase.auth.admin.signOut(targetUuid);
     }
   }
 });
