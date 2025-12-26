@@ -6,7 +6,6 @@ import { InlineKeyboard, webhookCallback } from "grammy";
 
 // New User Webhook
 app.post("/", async (ctx) => {
-  debugger;
   const body = await ctx.req.json();
   const uuid = body.record.id;
   const userData = (await supabase.auth.admin.getUserById(uuid)).data.user;
@@ -58,14 +57,24 @@ bot.on("callback_query", async (ctx) => {
 
   // Approve
   if (actionType === "app") {
-    // Set isApproved to TRUE
-    const { data: success, error } = await supabase.auth.admin.updateUserById(
+    // Set app_metadata isApproved to TRUE
+    const { data: mdSuccess, error: mdError } = await supabase.auth.admin
+      .updateUserById(
+        targetUuid,
+        { app_metadata: { isApproved: true } },
+      );
+
+    // Set is_approved in profiles table to TRUE
+
+    const { data: profileSuccess, error: profileError } = await supabase.from(
+      "profiles",
+    ).update({ is_approved: true }).eq(
+      "user_id",
       targetUuid,
-      { app_metadata: { isApproved: true } },
     );
 
-    // Setting Successful
-    if (success) {
+    // Telegram Visual FeedBack " Status : Approved "
+    if (!mdError && !profileError) {
       // Formulate new inline keyboard
       newMessageKeyboard[0][0] = {
         text: "Status : Approved",
@@ -86,13 +95,25 @@ bot.on("callback_query", async (ctx) => {
   // Rejected
   if (actionType === "rej") {
     // Set isApproved to FALSE
-    const { data: success, error } = await supabase.auth.admin.updateUserById(
+
+    // Set app_metadata isApproved to TRUE
+    const { data: mdSuccess, error: mdError } = await supabase.auth.admin
+      .updateUserById(
+        targetUuid,
+        { app_metadata: { isApproved: false } },
+      );
+
+    // Set is_approved in profiles table to TRUE
+
+    const { data: profileSuccess, error: profileError } = await supabase.from(
+      "profiles",
+    ).update({ is_approved: false }).eq(
+      "user_id",
       targetUuid,
-      { app_metadata: { isApproved: false } },
-    );
+    ).select();
 
     //Setting Successfull
-    if (success) {
+    if (!mdError && !profileError) {
       // Formulate new inline keyboard
       newMessageKeyboard[0][0] = {
         text: "Status : Rejected",
@@ -111,4 +132,4 @@ bot.on("callback_query", async (ctx) => {
 });
 app.post("/action", webhookCallback(bot, "hono"));
 
-Deno.serve({ port: 1212 }, app.fetch);
+Deno.serve(app.fetch);

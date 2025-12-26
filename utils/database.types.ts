@@ -283,21 +283,24 @@ export type Database = {
       }
       profiles: {
         Row: {
-          approved: boolean | null
           created_at: string
           id: number
+          is_admin: boolean | null
+          is_approved: boolean | null
           user_id: string | null
         }
         Insert: {
-          approved?: boolean | null
           created_at?: string
           id?: number
+          is_admin?: boolean | null
+          is_approved?: boolean | null
           user_id?: string | null
         }
         Update: {
-          approved?: boolean | null
           created_at?: string
           id?: number
+          is_admin?: boolean | null
+          is_approved?: boolean | null
           user_id?: string | null
         }
         Relationships: []
@@ -508,6 +511,8 @@ export type Database = {
     }
     Functions: {
       email_exists: { Args: { email_check: string }; Returns: boolean }
+      fn_is_admin: { Args: { user_uuid: string }; Returns: boolean }
+      fn_is_approved: { Args: { user_uuid: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

@@ -18,15 +18,17 @@ import axios from 'axios';
 const schema = z
   .object({
     username: z
-      .string()
+      .string({ message: 'مطلوب' })
       .min(3, { message: 'اسم المستخدم يجب أن يتكون من 3 أحرف على الأقل.' })
       .max(30, { message: 'اسم المستخدم يجب ألا يزيد عن 30 حرفًا.' })
       .regex(/^[a-zA-Z0-9_]+$/, {
         message: 'اسم المستخدم يجب أن يتكون من أحرف وأرقام أنجليزية',
       }),
-    email: z.string().email({ message: 'الرجاء إدخال عنوان بريد إلكتروني صالح.' }),
+    email: z
+      .string({ message: 'مطلوب' })
+      .email({ message: 'الرجاء إدخال عنوان بريد إلكتروني صالح.' }),
     password: z
-      .string()
+      .string({ message: 'مطلوب' })
       .min(8, { message: 'كلمة المرور يجب أن تتكون من 8 أحرف على الأقل.' })
       .regex(/[a-z]/, { message: 'كلمة المرور يجب أن تحتوي على حرف صغير واحد على الأقل.' })
       .regex(/[A-Z]/, { message: 'كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل.' })
@@ -37,7 +39,7 @@ const schema = z
       .regex(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/, {
         message: 'الرجاء استخدام الحروف الإنجليزية والأرقام والرموز فقط لكلمة المرور.',
       }),
-    confirmPassword: z.string(),
+    confirmPassword: z.string({ message: 'مطلوب' }),
     phone: z.coerce
       .number({
         message: 'رجاءً أدخل رقم هاتف صحيح.',
@@ -48,7 +50,7 @@ const schema = z
           return valid;
         },
         {
-          message: 'رجاءً أدخل رقم هاتف صحيح.',
+          message: ' أدخل رقم هاتف صحيح.',
         }
       ),
   })
