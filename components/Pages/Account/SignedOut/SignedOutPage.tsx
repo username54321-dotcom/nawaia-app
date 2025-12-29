@@ -66,7 +66,6 @@ type FormTypes = z.infer<typeof schema>;
 const SignUp = () => {
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
 
-  const router = useRouter();
   const [SignUpError, setSignUpError] = useState<string | null>(null);
   const HandleOnSubmit = async (data: FormTypes) => {
     // Get Location Data

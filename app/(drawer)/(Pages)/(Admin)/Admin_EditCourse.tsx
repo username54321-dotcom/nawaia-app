@@ -40,11 +40,12 @@ const Admin_EditCourse = () => {
       await supabaseClient.from('links').insert({
         lesson_id: lesson?.id ?? 999,
         link: 'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
+        course_id: +id,
       });
 
       refetch();
     },
-    [refetch]
+    [refetch, id]
   );
 
   // Delete Chapter

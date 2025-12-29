@@ -119,6 +119,7 @@ export type Database = {
       }
       courses: {
         Row: {
+          course_tier: Database["public"]["Enums"]["enum_memberships_tiers"]
           created_at: string
           duration: string
           genre: string
@@ -131,6 +132,7 @@ export type Database = {
           title: string
         }
         Insert: {
+          course_tier?: Database["public"]["Enums"]["enum_memberships_tiers"]
           created_at?: string
           duration: string
           genre: string
@@ -143,6 +145,7 @@ export type Database = {
           title: string
         }
         Update: {
+          course_tier?: Database["public"]["Enums"]["enum_memberships_tiers"]
           created_at?: string
           duration?: string
           genre?: string
@@ -155,6 +158,35 @@ export type Database = {
           title?: string
         }
         Relationships: []
+      }
+      courses_purchase: {
+        Row: {
+          course_id: number | null
+          created_at: string
+          id: number
+          user_id: string | null
+        }
+        Insert: {
+          course_id?: number | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Update: {
+          course_id?: number | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_purchase_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lesson_completed: {
         Row: {
@@ -222,24 +254,34 @@ export type Database = {
       }
       links: {
         Row: {
+          course_id: number
           created_at: string
           id: number
           lesson_id: number
           link: string
         }
         Insert: {
+          course_id: number
           created_at?: string
           id?: number
           lesson_id: number
           link: string
         }
         Update: {
+          course_id?: number
           created_at?: string
           id?: number
           lesson_id?: number
           link?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "links_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "links_lesson_id_fkey"
             columns: ["lesson_id"]
@@ -284,24 +326,36 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          email: string | null
           id: number
           is_admin: boolean | null
           is_approved: boolean | null
+          memebership: Database["public"]["Enums"]["enum_memberships_tiers"]
+          phone_number: string | null
           user_id: string | null
+          user_name: string | null
         }
         Insert: {
           created_at?: string
+          email?: string | null
           id?: number
           is_admin?: boolean | null
           is_approved?: boolean | null
+          memebership?: Database["public"]["Enums"]["enum_memberships_tiers"]
+          phone_number?: string | null
           user_id?: string | null
+          user_name?: string | null
         }
         Update: {
           created_at?: string
+          email?: string | null
           id?: number
           is_admin?: boolean | null
           is_approved?: boolean | null
+          memebership?: Database["public"]["Enums"]["enum_memberships_tiers"]
+          phone_number?: string | null
           user_id?: string | null
+          user_name?: string | null
         }
         Relationships: []
       }
@@ -357,21 +411,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      test: {
-        Row: {
-          created_at: string
-          id: number
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-        }
-        Update: {
-          created_at?: string
-          id?: number
-        }
-        Relationships: []
       }
       user_book_history: {
         Row: {
@@ -511,11 +550,15 @@ export type Database = {
     }
     Functions: {
       email_exists: { Args: { email_check: string }; Returns: boolean }
+      fn_course_is_purchase: {
+        Args: { p_course_id: number; p_user_id: string }
+        Returns: boolean
+      }
       fn_is_admin: { Args: { user_uuid: string }; Returns: boolean }
       fn_is_approved: { Args: { user_uuid: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      enum_memberships_tiers: "basic" | "silver" | "gold"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -642,6 +685,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      enum_memberships_tiers: ["basic", "silver", "gold"],
+    },
   },
 } as const

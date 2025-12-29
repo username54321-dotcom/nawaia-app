@@ -72,6 +72,11 @@ const Admin_EditAssestsComponent = () => {
         className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الدورات</Text>
       </Pressable>
+      <Pressable
+        onPress={() => simpleNav('/Admin_GiveAccess')}
+        className="m-2 rounded-md bg-red-500 p-4">
+        <Text className="font-Kufi font-semibold text-blue-50">منح الأذونات</Text>
+      </Pressable>
     </View>
   );
 };
