@@ -11,7 +11,6 @@ const Admin_EditUser = () => {
   const userId = useLocalSearchParams()?.userId as string;
   const { data, refetch } = ListPurchaseCourses(userId as string);
   const purCourseIds = data?.map((i) => i.course_id?.id);
-  console.log(purCourseIds);
   const { data: courseList } = useQueryGetCourseList();
   const isPortrait = useIsPortrait();
   const handleAddCourse = async (courseId: number) => {

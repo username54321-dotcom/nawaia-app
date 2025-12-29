@@ -1,11 +1,12 @@
-import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
-import { app } from './clients/hono.ts';
-import axios from 'axios';
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { app } from "./clients/hono.ts";
+import axios from "axios";
 
-app.get('/', async (ctx) => {
-  console.log('received');
+app.get("/", async (ctx) => {
+  console.log("received");
   const headers = ctx.req.header();
-  const ip = ctx.req.header('cf-connecting-ip') ?? ctx.req.header('x-forwararded-to') ?? null;
+  const ip = ctx.req.header("cf-connecting-ip") ??
+    ctx.req.header("x-forwararded-to") ?? null;
 
   const request = await axios.get(`https://free.freeipapi.com/api/json/${ip}`);
 

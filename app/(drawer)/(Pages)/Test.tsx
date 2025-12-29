@@ -11,7 +11,6 @@ const Test = () => {
         className="size-12 bg-red-500"
         onPress={async () => {
           const data = await supabaseClient.auth.getUser();
-          console.log('aaa', data);
         }}></Pressable>
     </Background>
   );

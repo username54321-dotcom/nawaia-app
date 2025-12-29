@@ -6,7 +6,6 @@ export function ListUsers() {
         queryKey: ["listUsers"],
         queryFn: async () => {
             const { data } = await supabaseClient.from("profiles").select("*");
-            console.log(data);
             return data;
         },
     });
