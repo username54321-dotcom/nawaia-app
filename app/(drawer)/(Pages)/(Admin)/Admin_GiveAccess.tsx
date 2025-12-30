@@ -25,7 +25,7 @@ const Admin_GiveAccess = () => {
         <FlashList
           data={data?.filter((i) => !i.is_admin)}
           keyExtractor={(item) => item.id.toString()}
-          numColumns={isPortrait ? 2 : 3}
+          numColumns={isPortrait ? 1 : 3}
           renderItem={({ item: user }) => (
             <>
               <Pressable
