@@ -8,7 +8,7 @@ const Test = () => {
   return (
     <Background>
       <Pressable
-        className="size-12 bg-red-500"
+        className=" size-12 "
         onPress={async () => {
           const data = await supabaseClient.auth.getUser();
         }}></Pressable>

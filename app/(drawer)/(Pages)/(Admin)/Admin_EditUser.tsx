@@ -6,6 +6,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import { useIsPortrait } from '~/utils/Hooks';
 import { supabaseClient } from '~/utils/supabase';
+import FadeIn from '~/components/Animations/FadeIn';
 
 const Admin_EditUser = () => {
   const userId = useLocalSearchParams()?.userId as string;
@@ -34,35 +35,78 @@ const Admin_EditUser = () => {
 
   return (
     <Background>
-      <Text>{userId}</Text>
-      <View className="mx-auto mt-6  w-full rounded-md border-[1px] lg:w-2/3 xl:w-1/2">
+      <Text className=" mx-auto mt-10 font-Kufi text-3xl font-bold text-neutral-800">
+        الأذونات الممنوحة
+      </Text>
+      {/** Already Have Access to */}
+      <View className=" w-perc90 mx-auto py-6 lg:w-2/3 xl:w-1/2">
         <FlashList
           data={data}
+          numColumns={isPortrait ? 2 : 3}
+          // Empty Courses To Access
+          ListEmptyComponent={
+            <>
+              <FadeIn>
+                <View className="border-thin border-colorThin bg-highlighted mx-auto size-fit rounded-lg p-6">
+                  <Text className="text-colorMain font-Kufi text-lg font-semibold">
+                    هذا الحساب لا يملك اي أذونات
+                  </Text>
+                </View>
+              </FadeIn>
+            </>
+          }
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <>
-              <View className="bg-green-300 p-4">
-                <Text className="font-Kufi">أسم الدورة : "{item.course_id?.title}"</Text>
-                <Text className="font-Kufi">سعر الدورة : {item.course_id?.price}</Text>
-                <Text className="font-Kufi">تاريخ الأذن : {item.created_at}</Text>
-                <Text className="font-Kufi"> نوع الأشتراك : {item.course_id?.course_tier}</Text>
-              </View>
+              <FadeIn>
+                <Pressable
+                  onPress={() => handleAddCourse(Number(item.course_id?.id))}
+                  className="bg-card-bg border-thin border-colorThin mx-2 my-4 rounded-xl px-4 py-6  transition-all duration-300 hover:scale-105">
+                  <Text className="text-colorMain mx-auto mb-4 font-Kufi text-2xl font-bold underline underline-offset-4">
+                    {item.course_id?.id}
+                  </Text>
+                  <Text className="text-colorMain font-Kufi">
+                    أسم الدورة : "{item.course_id?.title}"
+                  </Text>
+                  <Text className="text-colorMain font-Kufi">
+                    سعر الدورة : {item.course_id?.price}
+                  </Text>
+                  <Text className="text-colorMain font-Kufi">تاريخ الأذن : {item.created_at}</Text>
+                  <Text className="text-colorMain font-Kufi">
+                    {' '}
+                    نوع الأشتراك : {item.course_id?.course_tier}
+                  </Text>
+                </Pressable>
+              </FadeIn>
             </>
           )}></FlashList>
       </View>
+
+      {/** Separator */}
+      <View className="border-thin mx-auto  w-[90%]"></View>
+
+      <Text className="mx-auto my-10 font-Kufi text-3xl font-bold text-neutral-800">
+        الأذونات المتاحة
+      </Text>
       {/** All Courses */}
       <FlashList
-        data={courseList}
+        data={courseList?.sort((x, y) => y.id - x.id)}
         numColumns={isPortrait ? 2 : 3}
         renderItem={({ item }) => (
           <>
             <Pressable
               onPress={() => handleAddCourse(item.id)}
-              className={`mx-auto mt-6 w-[90%]   rounded-md border-[1px] p-4 ${purCourseIds?.includes(item.id) ? 'bg-green-500' : null} `}>
-              <Text className="  text-right font-Kufi">{item.title}</Text>
-              <Text className="  text-right font-Kufi">{item.price}</Text>
-              <Text className="  text-right font-Kufi">{item.published}</Text>
-              <Text className="  text-right font-Kufi">{item.course_tier}</Text>
+              className={`border-thin border-colorThin mx-auto mt-6 w-[90%]   rounded-md p-4 transition-all duration-300 hover:scale-105 ${purCourseIds?.includes(item.id) ? 'bg-green-300' : null} `}>
+              <Text className="mx-auto text-xl font-bold text-neutral-800 underline underline-offset-4">
+                {item.id}
+              </Text>
+              <Text className="  text-right font-Kufi">أسم الدورة : {item.title}</Text>
+              <Text className="  text-right font-Kufi">سعر الدورة : {item.price}</Text>
+              <Text className="  text-right font-Kufi">
+                {' '}
+                حالة النشر : {item.published.toString()}
+              </Text>
+              <Text className="  text-right font-Kufi">نوع الأشتراك : {item.course_tier}</Text>
             </Pressable>
           </>
         )}></FlashList>

@@ -5,9 +5,20 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      colors: {
+        card: { bg: '#e5e5e5' },
+        highlighted: '#cbd5e1',
+        alert: '',
+      },
+      textColor: { colorMain: '#3e4b5e' },
+      borderWidth: { thin: '1px' },
+      borderColor: { colorThin: '#a3a3a3', colorAlert: '#be1e2d' },
+      width: { perc90: '90vw' },
+
       animation: {
         'ping-slow-interval': 'ping-with-pause 2s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
+      gap: {},
       keyframes: {
         'ping-with-pause': {
           '0%': {
