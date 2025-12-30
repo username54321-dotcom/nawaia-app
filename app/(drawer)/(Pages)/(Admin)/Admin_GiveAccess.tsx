@@ -6,9 +6,11 @@ import { ListUsers } from '~/HelperFunctions/Queries/ListUsers';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import tw from 'twrnc';
+import { useIsPortrait } from '~/utils/Hooks';
 
 const Admin_GiveAccess = () => {
   useAdminOnly();
+  const isPortrait = useIsPortrait();
   const { data, refetch } = ListUsers();
   const router = useRouter();
   const handleNav = useCallback(
@@ -23,12 +25,12 @@ const Admin_GiveAccess = () => {
         <FlashList
           data={data?.filter((i) => !i.is_admin)}
           keyExtractor={(item) => item.id.toString()}
-          numColumns={3}
+          numColumns={isPortrait ? 2 : 3}
           renderItem={({ item: user }) => (
             <>
               <Pressable
                 onPress={() => handleNav(user.user_id ?? '')}
-                className="border-thin border-colorThin bg-card-bg hover:bg-highlighted w-fit gap-2 self-center rounded-lg py-6 transition-all duration-300 ">
+                className="border-thin border-colorThin bg-card-bg hover:bg-highlighted mx-2 w-fit gap-2 rounded-lg py-6 transition-all duration-300 ">
                 <Text className="text-main  px-6 font-Kufi">أسم المستخدم : {user.user_name}</Text>
                 <Text className="text-main  px-6 font-Kufi">البريد الالكتروني : {user.email}</Text>
                 <Text className="text-main  px-6 font-Kufi">رقم الهاتف : {user.phone_number}</Text>
