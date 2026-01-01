@@ -81,7 +81,7 @@ const CourseList = () => {
               renderItem={({ item, index }) => (
                 <CourseCard
                   key={index}
-                  is_favourite={item.courses_user_favourites[0].is_favourite ?? false}
+                  is_favourite={item.courses_user_favourites[0]?.is_favourite ?? false}
                   percentCompleted={+getCompletedPercent(item)}
                   courseItem={item}></CourseCard>
               )}></FlashList>
