@@ -20,11 +20,13 @@ const CoursePage = () => {
   // Get Course Percent Completed
   const getCompletedPercent = useCallback((item_Course: typeof courseData) => {
     if (item_Course) {
-      const allLessons = item_Course.chapters.flatMap((chapter) => chapter.lessons);
+      const allLessons = item_Course.courses_chapters.flatMap((chapter) => chapter.courses_lessons);
 
-      const allLessonsNum = item_Course.chapters.flatMap((chapter) => chapter.lessons).length;
+      const allLessonsNum = item_Course.courses_chapters.flatMap(
+        (chapter) => chapter.courses_lessons
+      ).length;
       const completedLessonsNum = allLessons.filter(
-        (lesson) => lesson.lesson_completed[0] ?? false
+        (lesson) => lesson.courses_lessons_completed[0] ?? false
       ).length;
       const percentComplete = (completedLessonsNum / allLessonsNum) * 100;
       return percentComplete.toFixed(0);
@@ -37,9 +39,9 @@ const CoursePage = () => {
   useEffect(() => {
     if (courseData) {
       const allLessons = [
-        ...courseData.chapters.map((chapters) => [
-          ...chapters.lessons.map((lessons) => [
-            ...lessons.lesson_completed.map((completed) => completed.is_completed),
+        ...courseData.courses_chapters.map((chapters) => [
+          ...chapters.courses_lessons.map((lessons) => [
+            ...lessons.courses_lessons_completed.map((completed) => completed.is_completed),
           ]),
         ]),
       ].flat();
@@ -94,13 +96,13 @@ const CoursePage = () => {
 
   //Add to History
   useEffect(() => {
-    const seenBefore = courseData?.user_course_history.length !== 0;
+    const seenBefore = courseData?.courses_user_history.length !== 0;
     const addToHistory = async () => {
       !seenBefore &&
-        (await supabaseClient.from('user_course_history').insert({ course_id: courseData.id }));
+        (await supabaseClient.from('courses_user_history').insert({ course_id: courseData.id }));
     };
     addToHistory();
-  }, [courseData?.id, courseData?.user_course_history.length]);
+  }, [courseData?.id, courseData?.courses_user_history.length]);
 
   return (
     <>
@@ -115,7 +117,7 @@ const CoursePage = () => {
               <View className="flex-col  items-center justify-center">
                 <MyImage
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
-                  source={{ uri: courseData.image }}
+                  source={{ uri: courseData.cover_image }}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}
                   percentCompleted={+(getCompletedPercent(courseData) ?? 0)}></MyImage>
               </View>
@@ -142,7 +144,7 @@ const CoursePage = () => {
                 </View>
               </View>
               <TelegramButton
-                telegramLink={courseData.telegram_links?.telegram_link}></TelegramButton>
+                telegramLink={courseData.courses_telegram_links?.telegram_link}></TelegramButton>
               <TextAccordion
                 shortDescription={courseData.short_description}
                 longDescription={courseData.long_description}></TextAccordion>
@@ -150,7 +152,7 @@ const CoursePage = () => {
               <IdContent
                 refetch={refetch}
                 // courseId={courseData.id}
-                chaptersData={courseData.chapters}></IdContent>
+                chaptersData={courseData.courses_chapters}></IdContent>
             </View>
           </FadeIn>
         )}

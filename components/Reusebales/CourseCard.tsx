@@ -4,10 +4,10 @@ import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
-import { useIsAuth, useIsAuthType } from '~/store/store';
+import { Course } from '../Courses/CourseList';
 
 interface propTypes {
-  courseItem: Tables<'courses'>;
+  courseItem: Course;
   className?: string;
   percentCompleted?: number;
   is_favourite?: boolean;
@@ -27,13 +27,13 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
       {/** Main Container */}
       <View
         className={
-          'm-4 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
+          'mx-auto my-2 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
           className
         }>
         {/** Course Image */}
         <MyImage
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
-          source={{ uri: courseItem.image }}
+          source={{ uri: courseItem.cover_image }}
           percentCompleted={percentCompleted}
           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
         {/** Favourite Animation */}
@@ -59,11 +59,11 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
           </Pressable>
         </View>
         {/** Is Published Tag */}
-        {!courseItem.published && (
+        {!courseItem.is_published && (
           <View
-            className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${courseItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
+            className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${courseItem.is_published ? 'bg-green-500' : 'bg-red-500'}`}>
             <Text className="font-semibold text-white ">
-              {courseItem.published ? 'Published' : 'UnPublished'}
+              {courseItem.is_published ? 'Published' : 'UnPublished'}
             </Text>
           </View>
         )}

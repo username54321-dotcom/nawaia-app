@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .rootContainer {
+    @apply mx-auto w-[95%] py-6 lg:w-2/3 xl:w-1/2;
+  }
+
+  .childContainer {
+    @apply m-4 gap-2 py-4;
+  }
+
+  .defaultBorder {
+    @apply rounded-lg border-[1px] border-neutral-300;
+  }
+
+  /* Text */
+  .defaultText {
+    @apply px-6 font-Kufi text-neutral-800;
+  }
+  .headerText {
+    @apply defaultText  text-3xl font-semibold;
+  }
+  .titleText {
+    @apply defaultText  text-lg font-semibold;
+  }
+  /* Separator */
+  .defaultSeparator {
+    @apply mx-auto my-6 w-[90%] rounded-full border-[1px] border-neutral-600;
+  }
+  /* Pressable */
+  .defaultPressable {
+    @apply defaultBorder bg-[#e5e5e5] px-6 py-4 transition-all duration-300 hover:scale-x-[104%] hover:scale-y-[102%] hover:bg-slate-300;
+  }
+}

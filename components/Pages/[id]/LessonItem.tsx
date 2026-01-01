@@ -10,55 +10,27 @@ import VideoModal from './PIPVideo';
 import { Check } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
-import { sleep } from '~/HelperFunctions/sleep';
+import { Tables } from '~/utils/database.types';
 
 type props = {
-  LessonItemProp: {
-    chapter_id: number | null;
-    created_at: string;
-    id: number;
-    name: string;
-    position: number | null;
-    links: {
-      created_at: string;
-      id: number;
-      lesson_id: number;
-      link: string;
-    } | null;
-    notes: {
-      content: string | null;
-      created_at: string;
-      id: number;
-      lesson_id: number | null;
-      user_id: string | null;
-    }[];
-    video_progress: {
-      created_at: string;
-      id: number;
-      lesson_id: number;
-      timestamp: number;
-      user_id: string;
-    }[];
-    lesson_completed: {
-      created_at: string;
-      id: number;
-      is_completed: boolean;
-      lesson_id: number;
-      user_id: string;
-    }[];
+  lessonItem: Tables<'courses_lessons'> & {
+    courses_lessons_completed: Tables<'courses_lessons_completed'>[];
+    courses_notes: Tables<'courses_notes'>[];
+    courses_links: Tables<'courses_links'>;
+    courses_user_video_progress: Tables<'courses_user_video_progress'>[];
   };
   note: string | null;
   refetch: () => void;
 };
-
-const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
+const LessonItem = ({ lessonItem, note, refetch }: props) => {
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Modal Visibility
   const [expand, setExpand] = useState<boolean>(false); // Expand Accordion State
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const isApproved = useIsAuth((x: useIsAuthType) => x.isApproved);
   const setApprovedModal = useModalVisible((x: useModalVisibleType) => x.setApprovedModal);
   // Auth State
-  const Note = useRef<string | null | undefined>(null); // State for note user input
+  const Note = useRef<string | null>(null); // State for note user input
+  console.log(Note);
   const [ViewEditor, setViewEditor] = useState(false);
   const [VideoPlayer, setVideoPlayer] = useState(false);
   const lessonOnPress = async () => {
@@ -89,11 +61,12 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
     <>
       {/** VideoPlayer Modal */}
       <MyAccordion expandProp={VideoPlayer}>
-        {VideoPlayer && LessonItemProp && (
+        {VideoPlayer && lessonItem && (
           <VideoModal
-            isCompleted={LessonItemProp.lesson_completed[0]?.is_completed ?? false}
-            lessonId={LessonItemProp.id}
-            link={LessonItemProp.links?.link ?? ''}></VideoModal>
+            isCompleted={lessonItem.courses_lessons_completed[0]?.is_completed ?? false}
+            lessonId={lessonItem.id}
+            courseId={lessonItem.course_id}
+            link={lessonItem.courses_links?.lesson_link ?? ''}></VideoModal>
         )}
       </MyAccordion>
       {/**Lesson Container */}
@@ -105,7 +78,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
           {isAuth && <DraftIcon setExpand={setExpand}></DraftIcon>}
 
           <Text className="font-Kufi font-semibold group-hover:text-red-700">
-            {LessonItemProp.name}
+            {lessonItem.lesson_name}
           </Text>
         </View>
 
@@ -113,7 +86,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
         <View>
           <View className="flex-row items-center">
             {/** Conditional Completed Icon */}
-            {(LessonItemProp.lesson_completed[0]?.is_completed ?? false) && (
+            {(lessonItem.courses_lessons_completed[0]?.is_completed ?? false) && (
               <>
                 <FadeIn>
                   <View className="ml-2 rounded-full bg-emerald-500 p-1">
@@ -141,11 +114,12 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
               <Pressable
                 onPress={async () => {
                   await supabaseClient
-                    .from('notes')
+                    .from('courses_notes')
                     .upsert(
                       {
-                        lesson_id: LessonItemProp.id,
-                        content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
+                        lesson_id: lessonItem.id,
+                        note_content: Note.current?.replace('<p class="mb-1"><br></p>', ''),
+                        course_id: lessonItem.course_id,
                       },
                       { onConflict: 'user_id, lesson_id' }
                     )
@@ -166,7 +140,7 @@ const LessonItem = ({ LessonItemProp, note, refetch }: props) => {
                 <RenderHTML
                   contentWidth={2000}
                   baseStyle={tw`bg-slate-200 px-4 py-2 `}
-                  source={{ html: note || 'لا توجد مذكرات' }}
+                  source={{ html: Note.current || 'لا توجد مذكرات' }}
                 />
               </ScrollView>
               {/**Edit Notes Button */}

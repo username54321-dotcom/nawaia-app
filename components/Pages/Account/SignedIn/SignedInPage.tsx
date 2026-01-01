@@ -27,7 +27,7 @@ const SignedInPage = () => {
   useEffect(() => {
     const channel = supabaseClient.channel('course_history');
     channel
-      .on('postgres_changes', { event: '*', table: 'user_course_history', schema: 'public' }, () =>
+      .on('postgres_changes', { event: '*', table: 'courses_user_history', schema: 'public' }, () =>
         refetch()
       )
       .subscribe();

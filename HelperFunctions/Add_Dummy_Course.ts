@@ -21,7 +21,7 @@ export const addDummyCourse = async () => {
     .from("courses")
     .insert({
       title: "أسم الكورس_",
-      image:
+      cover_image:
         "https://www.shutterstock.com/image-vector/blank-image-photo-placeholder-icon-600nw-2501054919.jpg",
       short_description: " الوصف القصير_",
       price: 999,
@@ -35,7 +35,7 @@ export const addDummyCourse = async () => {
   //insert Telegram Link
   if (courseData) {
     const {} = await supabaseClient
-      .from("telegram_links")
+      .from("courses_telegram_links")
       .insert({
         course_id: courseData?.id,
         telegram_link: "https://web.telegram.org",
@@ -47,10 +47,10 @@ export const addDummyCourse = async () => {
 
   for await (const item_inputChapter of inputChapters) {
     const { data: chapterData } = await supabaseClient
-      .from("chapters")
+      .from("courses_chapters")
       .insert({
         course_id: courseId,
-        name: item_inputChapter.name,
+        chapter_name: item_inputChapter.name,
         position: item_inputChapter.position,
       })
       .select()
@@ -61,10 +61,11 @@ export const addDummyCourse = async () => {
     for await (const item_inputLesson of item_inputChapter.lessons) {
       //Insert Single Lesson
       const { data: lessonData } = await supabaseClient
-        .from("lessons")
+        .from("courses_lessons")
         .insert({
           chapter_id: chapterId,
-          name: item_inputLesson.name,
+          course_id: courseId,
+          lesson_name: item_inputLesson.name,
           position: item_inputLesson.position,
         })
         .select()
@@ -73,11 +74,12 @@ export const addDummyCourse = async () => {
       //Insert Lesson Link
       if (lessonId && courseData) {
         const { data: linkData } = await supabaseClient
-          .from("links")
+          .from("courses_links")
           .insert({
             lesson_id: lessonId,
-            link: item_inputLesson.link,
+            lesson_link: item_inputLesson.link,
             course_id: courseData?.id,
+            chapter_id: chapterId,
           })
           .select()
           .single();

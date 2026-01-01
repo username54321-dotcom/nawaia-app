@@ -22,7 +22,7 @@ const FavouriteStar = ({ isFavourite, courseID }: propTypes) => {
       iconRef.current?.setFrame(1);
       visibleState.current = false;
       await supabaseClient
-        .from('user_favourites')
+        .from('courses_user_favourites')
         .upsert({ course_id: courseID, is_favourite: false }, { onConflict: 'user_id, course_id' });
       return;
     }
@@ -31,7 +31,7 @@ const FavouriteStar = ({ isFavourite, courseID }: propTypes) => {
       iconRef.current?.play();
       visibleState.current = true;
       await supabaseClient
-        .from('user_favourites')
+        .from('courses_user_favourites')
         .upsert({ course_id: courseID, is_favourite: true }, { onConflict: 'user_id, course_id' });
       return;
     }

@@ -5,7 +5,6 @@ import Background from '~/components/Background';
 import { ListUsers } from '~/HelperFunctions/Queries/ListUsers';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
-import tw from 'twrnc';
 import { useIsPortrait } from '~/utils/Hooks';
 
 const Admin_GiveAccess = () => {
@@ -21,7 +20,7 @@ const Admin_GiveAccess = () => {
   );
   return (
     <Background>
-      <View className=" w-perc90 h- self-center p-6 lg:w-2/3 xl:w-1/2">
+      <View className="rootContainer">
         <FlashList
           data={data?.filter((i) => !i.is_admin)}
           keyExtractor={(item) => item.id.toString()}
@@ -30,16 +29,12 @@ const Admin_GiveAccess = () => {
             <>
               <Pressable
                 onPress={() => handleNav(user.user_id ?? '')}
-                className="border-thin border-colorThin bg-card-bg hover:bg-highlighted mx-2 w-fit gap-2 rounded-lg py-6 transition-all duration-300 ">
-                <Text className="text-main  px-6 font-Kufi">أسم المستخدم : {user.user_name}</Text>
-                <Text className="text-main  px-6 font-Kufi">البريد الالكتروني : {user.email}</Text>
-                <Text className="text-main  px-6 font-Kufi">رقم الهاتف : {user.phone_number}</Text>
-                <Text className="text-main  px-6 font-Kufi">
-                  معتمد : {user.is_approved?.toString()}
-                </Text>
-                <Text className=" text-main  px-6 font-Kufi">
-                  نوعية الأشتراك : {user.memebership}
-                </Text>
+                className="mx-2 w-fit gap-2 rounded-lg border-thin border-colorThin bg-card-bg py-6 transition-all duration-300 hover:bg-highlighted ">
+                <Text className="defaultText">أسم المستخدم : {user.user_name}</Text>
+                <Text className="defaultText">البريد الالكتروني : {user.email}</Text>
+                <Text className="defaultText">رقم الهاتف : {user.phone_number}</Text>
+                <Text className="defaultText">معتمد : {user.is_approved?.toString()}</Text>
+                <Text className="defaultText">نوعية الأشتراك : {user.memebership}</Text>
               </Pressable>
             </>
           )}></FlashList>

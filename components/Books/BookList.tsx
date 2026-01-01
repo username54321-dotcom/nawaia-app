@@ -1,11 +1,12 @@
 import { ScrollView, View } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { useQueryGetBookList } from '~/HelperFunctions/Queries/GetBookList';
 import BookCard from '../Reusebales/BookCard';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { FlashList } from '@shopify/flash-list';
 
 const BookList = () => {
   //Main Query
@@ -24,20 +25,27 @@ const BookList = () => {
       supabaseClient.removeChannel(channel);
     };
   });
+  const [contWidth, setContWidth] = useState(0);
+  const colNum = Math.floor(contWidth / 375) > 3 ? 3 : Math.floor(contWidth / 375);
+
   return (
     <>
       {/** Loading Indicator */}
       <LoadingAnimation show={isLoading}></LoadingAnimation>
+
       {bookList && (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="flex-row flex-wrap justify-center">
-            {bookList
-              .sort((a, b) => b.id - a.id)
-              ?.map((itemBook, index) => (
-                <BookCard key={index} bookItem={itemBook}></BookCard>
-              ))}
+        <>
+          <View
+            onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
+            className="mx-auto w-[90%] md:w-2/3 ">
+            <FlashList
+              numColumns={colNum}
+              data={bookList.sort((a, b) => b.id - a.id)}
+              renderItem={({ item, index }) => (
+                <BookCard key={index} bookItem={item}></BookCard>
+              )}></FlashList>
           </View>
-        </ScrollView>
+        </>
       )}
     </>
   );
