@@ -105,7 +105,7 @@ const BookPage = () => {
                 telegramLink={bookData.book_links[0]?.telegram_link ?? null}></TelegramButton>
               <TextAccordion
                 shortDescription={bookData.short_description ?? ''}
-                LongDescription={bookData.long_description ?? ''}></TextAccordion>
+                longDescription={bookData.long_description ?? ''}></TextAccordion>
               <View className="h-fit w-full items-center justify-center bg-slate-300 py-4">
                 <Pressable
                   onPress={handleOpenBookLink}
