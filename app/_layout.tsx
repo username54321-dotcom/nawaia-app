@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ApprovedModal from './../components/ApprovedModal';
+import NotPurchasedModal from '~/components/NotPurchasedModal';
 
 //Tanstack Query Init
 const tanstackQueryClient = new QueryClient();
@@ -55,6 +56,7 @@ export default function RootLayout() {
 
   const registerModal = useModalVisible((x: useModalVisibleType) => x.ModalVisible);
   const approvedModal = useModalVisible((x: useModalVisibleType) => x.approvedModal);
+  const notPurchasedModal = useModalVisible((x: useModalVisibleType) => x.notPurchasedModal);
 
   if (!Fontloaded) {
     return null;
@@ -69,7 +71,8 @@ export default function RootLayout() {
           </SafeAreaView>
         </Stack>
         {registerModal && <MyModal></MyModal>}
-        {true && <ApprovedModal></ApprovedModal>}
+        {approvedModal && <ApprovedModal></ApprovedModal>}
+        {notPurchasedModal && <NotPurchasedModal></NotPurchasedModal>}
       </QueryClientProvider>
     </GestureHandlerRootView>
     // </StrictMode>

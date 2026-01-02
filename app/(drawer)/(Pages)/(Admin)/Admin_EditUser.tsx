@@ -7,8 +7,10 @@ import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import { useIsPortrait } from '~/utils/Hooks';
 import { supabaseClient } from '~/utils/supabase';
 import FadeIn from '~/components/Animations/FadeIn';
+import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 
 const Admin_EditUser = () => {
+  useAdminOnly();
   const userId = useLocalSearchParams()?.userId as string;
   const { data, refetch } = ListPurchaseCourses(userId as string);
   const purCourseIds = data?.map((i) => i.course_id?.id);
@@ -72,7 +74,6 @@ const Admin_EditUser = () => {
                       تاريخ الأذن : {item.created_at}
                     </Text>
                     <Text className="font-Kufi text-colorMain">
-                      {' '}
                       نوع الأشتراك : {item.course_id?.tier}
                     </Text>
                   </Pressable>

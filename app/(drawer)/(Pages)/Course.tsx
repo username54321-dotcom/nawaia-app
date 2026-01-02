@@ -63,25 +63,37 @@ const CoursePage = () => {
       .subscribe();
     const b = supabaseClient
       .channel('chapters')
-      .on('postgres_changes', { table: 'chapters', schema: 'public', event: '*' }, () => refetch())
+      .on('postgres_changes', { table: 'courses_chapters', schema: 'public', event: '*' }, () =>
+        refetch()
+      )
       .subscribe();
     const c = supabaseClient
       .channel('lessons')
-      .on('postgres_changes', { table: 'lessons', schema: 'public', event: '*' }, () => refetch())
+      .on('postgres_changes', { table: 'courses_lessons', schema: 'public', event: '*' }, () =>
+        refetch()
+      )
       .subscribe();
     const d = supabaseClient
       .channel('links')
-      .on('postgres_changes', { table: 'links', schema: 'public', event: '*' }, () => refetch())
+      .on('postgres_changes', { table: 'courses_links', schema: 'public', event: '*' }, () =>
+        refetch()
+      )
       .subscribe();
     const e = supabaseClient
       .channel('notes')
-      .on('postgres_changes', { table: 'notes', schema: 'public', event: '*' }, () => refetch())
+      .on('postgres_changes', { table: 'courses_notes', schema: 'public', event: '*' }, () =>
+        refetch()
+      )
       .subscribe();
     const f = supabaseClient
       .channel('lesson_completed')
-      .on('postgres_changes', { table: 'lesson_completed', schema: 'public', event: '*' }, () => {
-        refetch();
-      })
+      .on(
+        'postgres_changes',
+        { table: 'courses_lessons_completed', schema: 'public', event: '*' },
+        () => {
+          refetch();
+        }
+      )
       .subscribe();
 
     return () => {

@@ -31,6 +31,8 @@ export interface useModalVisibleType {
   setModalVisible: (value: boolean) => void;
   approvedModal: boolean;
   setApprovedModal: (v: boolean) => void;
+  notPurchasedModal: boolean;
+  setNotPurchasedModal: (v: boolean) => void;
 }
 
 const modalStoreCreator: StateCreator<useModalVisibleType> = (set) => ({
@@ -38,6 +40,10 @@ const modalStoreCreator: StateCreator<useModalVisibleType> = (set) => ({
   setModalVisible: (value) => set({ ModalVisible: value }),
   approvedModal: false,
   setApprovedModal: (value: boolean) => set({ approvedModal: value }),
+  notPurchasedModal: false,
+  setNotPurchasedModal(v) {
+    set({ notPurchasedModal: v });
+  },
 });
 
 export const useModalVisible = create(modalStoreCreator);

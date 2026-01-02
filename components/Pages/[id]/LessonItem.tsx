@@ -11,6 +11,7 @@ import { Check } from 'lucide-react-native';
 import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
 import { Tables } from '~/utils/database.types';
+import { sleep } from '~/HelperFunctions/sleep';
 
 type props = {
   lessonItem: Tables<'courses_lessons'> & {
@@ -23,7 +24,8 @@ type props = {
   refetch: () => void;
 };
 const LessonItem = ({ lessonItem, note, refetch }: props) => {
-  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Modal Visibility
+  const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Not Signed in Modal Visibility
+  const setPurchasedModal = useModalVisible((x: useModalVisibleType) => x.setNotPurchasedModal);
   const [expand, setExpand] = useState<boolean>(false); // Expand Accordion State
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const isApproved = useIsAuth((x: useIsAuthType) => x.isApproved);
@@ -41,18 +43,29 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
     if (isAuth && !isApproved) {
       await supabaseClient.auth.refreshSession(); // Refresh JWT Token
 
+      // Just Got Approved
       if (
         (await supabaseClient.auth.getSession()).data.session?.user.app_metadata.isApproved === true
       ) {
         refetch();
+        sleep(300);
+        setVideoPlayer(!VideoPlayer);
+        return;
       } else {
+        // Did not get Approved
         setApprovedModal(true);
+        return;
       }
-      return;
     }
 
     // Signed in and Approved
     if (isAuth && isApproved) {
+      // No Links " Insuffecient Tier or not Purchased "
+      if (!lessonItem.courses_links) {
+        setPurchasedModal(true);
+        return;
+      }
+
       setVideoPlayer(!VideoPlayer);
     }
   };

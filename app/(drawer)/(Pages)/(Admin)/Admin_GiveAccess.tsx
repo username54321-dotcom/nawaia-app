@@ -34,7 +34,7 @@ const Admin_GiveAccess = () => {
                 <Text className="defaultText">البريد الالكتروني : {user.email}</Text>
                 <Text className="defaultText">رقم الهاتف : {user.phone_number}</Text>
                 <Text className="defaultText">معتمد : {user.is_approved?.toString()}</Text>
-                <Text className="defaultText">نوعية الأشتراك : {user.memebership}</Text>
+                <Text className="defaultText">نوعية الأشتراك : {user.tier}</Text>
               </Pressable>
             </>
           )}></FlashList>
