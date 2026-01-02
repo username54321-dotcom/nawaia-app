@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import { useEffect } from 'react';
+import { PortalHost } from '@rn-primitives/portal';
 
 import { supabaseClient } from '~/utils/supabase';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -70,6 +71,7 @@ export default function RootLayout() {
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           </SafeAreaView>
         </Stack>
+        <PortalHost />
         {registerModal && <MyModal></MyModal>}
         {approvedModal && <ApprovedModal></ApprovedModal>}
         {notPurchasedModal && <NotPurchasedModal></NotPurchasedModal>}

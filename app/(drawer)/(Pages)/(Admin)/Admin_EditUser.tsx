@@ -8,8 +8,8 @@ import { useIsPortrait } from '~/utils/Hooks';
 import { supabaseClient } from '~/utils/supabase';
 import FadeIn from '~/components/Animations/FadeIn';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
-import { Dropdown } from 'react-native-element-dropdown';
 import tw from 'twrnc';
+import DropDown from './../../../../components/Reusebales/DropDown';
 
 const Admin_EditUser = () => {
   useAdminOnly();
@@ -45,7 +45,9 @@ const Admin_EditUser = () => {
   return (
     <Background>
       <View className="rootContainer">
-        <View className="items-center"></View>
+        <View className="items-center">
+          <DropDown></DropDown>
+        </View>
         <Text className="headerText mx-auto ">الأذونات الممنوحة</Text>
         {/** Already Have Access to */}
         <View>
