@@ -10,6 +10,12 @@ import FadeIn from '~/components/Animations/FadeIn';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import tw from 'twrnc';
 import DropDown from './../../../../components/Reusebales/DropDown';
+import { useCallback, useRef, useState } from 'react';
+import { tierList } from '~/data/tierList';
+import { GetUserRow } from '~/HelperFunctions/Queries/GetUser';
+import { Tables } from '~/utils/database.types';
+import { Check } from 'lucide-react-native';
+import { useMutation } from '@tanstack/react-query';
 
 const Admin_EditUser = () => {
   useAdminOnly();
@@ -18,6 +24,7 @@ const Admin_EditUser = () => {
   const purCourseIds = data?.map((i) => i.course_id?.id);
   const { data: courseList } = useQueryGetCourseList();
   const isPortrait = useIsPortrait();
+  const [selectedTier, setSelectedTier] = useState<null | Tables<'profiles'>['tier']>(null);
   const handleAddCourse = async (courseId: number) => {
     if (purCourseIds?.includes(courseId)) {
       const { error } = await supabaseClient
@@ -36,17 +43,50 @@ const Admin_EditUser = () => {
       );
     if (!error) refetch();
   };
-  const data1 = [
-    {
-      label: 'first',
-      value: 10,
+  const { data: userRow, refetch: refetchUserRow } = GetUserRow(userId);
+  const { data: tierUpdated, mutate: updateTier } = useMutation({
+    mutationKey: ['updateTier'],
+    mutationFn: async () => {
+      const { data } = await supabaseClient
+        .from('profiles')
+        .update({ tier: selectedTier })
+        .eq('user_id', userId)
+        .select()
+        .single();
+      data && setSelectedTier(null);
+      return data;
     },
-  ];
+  });
+
   return (
     <Background>
       <View className="rootContainer">
         <View className="items-center">
-          <DropDown></DropDown>
+          <DropDown
+            inintialValue={userRow?.tier}
+            setState={setSelectedTier}
+            data={tierList}></DropDown>
+          {selectedTier !== null && (
+            <>
+              <FadeIn>
+                <Pressable
+                  onPress={() => updateTier()}
+                  className="defaultPressable mb-4 border-red-500 px-4 py-2 ">
+                  <Text className="defaultText">تحديث مستوي الأشتراك</Text>
+                </Pressable>
+              </FadeIn>
+            </>
+          )}
+          {tierUpdated && selectedTier === null && (
+            <FadeIn>
+              <View className=" mx-auto size-fit rounded-full bg-emerald-500 p-1">
+                <Check size={25} color={'white'} />
+              </View>
+              <Text className="font-لاشسث mb-8 mt-4 self-center text-center font-Kufi text-base text-neutral-800">
+                تم تغيير مستوي الأشتراك بنجاح !
+              </Text>
+            </FadeIn>
+          )}
         </View>
         <Text className="headerText mx-auto ">الأذونات الممنوحة</Text>
         {/** Already Have Access to */}

@@ -73,7 +73,7 @@ const Admin_SelectCourse = () => {
                       <View className="   m-4 size-fit max-w-fit flex-col items-center   justify-start rounded-2xl bg-neutral-200 shadow-md shadow-slate-400">
                         <MyImage
                           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
-                          source={{ uri: itemCourse.image }}
+                          source={{ uri: itemCourse.cover_image }}
                           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
 
                         <View className=" w-full  shrink-0">
@@ -90,7 +90,7 @@ const Admin_SelectCourse = () => {
                             <Pressable
                               onLongPress={() => handleDelete(itemCourse.id)}
                               delayLongPress={7000}
-                              className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
+                              className="m-2 size-fit rounded-md bg-red-500 p-2 transition-all duration-1000  active:scale-150 ">
                               <Trash2 color={'white'} />
                             </Pressable>
                             {/**Edit Course */}
@@ -104,7 +104,7 @@ const Admin_SelectCourse = () => {
                             {/**Publish Button */}
                             <AdminPublishButton
                               id={itemCourse.id}
-                              isPublished={itemCourse.published}
+                              isPublished={itemCourse.is_published}
                               table="courses"></AdminPublishButton>
                           </View>
                         </View>
