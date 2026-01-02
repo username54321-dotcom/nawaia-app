@@ -24,7 +24,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
       {/** Main Container */}
       <View
         className={
-          'm-4 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
+          'mx-auto my-2 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
           className
         }>
         {/** Course Image */}

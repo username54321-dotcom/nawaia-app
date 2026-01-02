@@ -485,8 +485,8 @@ export type Database = {
           id: number
           is_admin: boolean | null
           is_approved: boolean | null
-          memebership: Database["public"]["Enums"]["enum_memberships_tiers"]
           phone_number: string | null
+          tier: Database["public"]["Enums"]["enum_memberships_tiers"] | null
           user_id: string | null
           user_name: string | null
         }
@@ -496,8 +496,8 @@ export type Database = {
           id?: number
           is_admin?: boolean | null
           is_approved?: boolean | null
-          memebership?: Database["public"]["Enums"]["enum_memberships_tiers"]
           phone_number?: string | null
+          tier?: Database["public"]["Enums"]["enum_memberships_tiers"] | null
           user_id?: string | null
           user_name?: string | null
         }
@@ -507,8 +507,8 @@ export type Database = {
           id?: number
           is_admin?: boolean | null
           is_approved?: boolean | null
-          memebership?: Database["public"]["Enums"]["enum_memberships_tiers"]
           phone_number?: string | null
+          tier?: Database["public"]["Enums"]["enum_memberships_tiers"] | null
           user_id?: string | null
           user_name?: string | null
         }
@@ -581,7 +581,18 @@ export type Database = {
       fn_is_approved: { Args: { user_uuid: string }; Returns: boolean }
     }
     Enums: {
-      enum_memberships_tiers: "basic" | "silver" | "gold"
+      enum_memberships_tiers:
+        | "0"
+        | "10"
+        | "20"
+        | "30"
+        | "40"
+        | "50"
+        | "60"
+        | "70"
+        | "80"
+        | "90"
+        | "100"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -709,7 +720,19 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      enum_memberships_tiers: ["basic", "silver", "gold"],
+      enum_memberships_tiers: [
+        "0",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50",
+        "60",
+        "70",
+        "80",
+        "90",
+        "100",
+      ],
     },
   },
 } as const

@@ -61,14 +61,14 @@ bot.on("callback_query", async (ctx) => {
     const { data: mdSuccess, error: mdError } = await supabase.auth.admin
       .updateUserById(
         targetUuid,
-        { app_metadata: { isApproved: true } },
+        { app_metadata: { isApproved: true, tier: 10 } },
       );
 
     // Set is_approved in profiles table to TRUE
 
     const { data: profileSuccess, error: profileError } = await supabase.from(
       "profiles",
-    ).update({ is_approved: true }).eq(
+    ).update({ is_approved: true, tier: 10 }).eq(
       "user_id",
       targetUuid,
     );
@@ -100,14 +100,14 @@ bot.on("callback_query", async (ctx) => {
     const { data: mdSuccess, error: mdError } = await supabase.auth.admin
       .updateUserById(
         targetUuid,
-        { app_metadata: { isApproved: false } },
+        { app_metadata: { isApproved: false, tier: 0 } },
       );
 
     // Set is_approved in profiles table to TRUE
 
     const { data: profileSuccess, error: profileError } = await supabase.from(
       "profiles",
-    ).update({ is_approved: false }).eq(
+    ).update({ is_approved: false, tier: 0 }).eq(
       "user_id",
       targetUuid,
     ).select();

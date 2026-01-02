@@ -78,9 +78,9 @@ const CourseList = () => {
             <FlashList
               numColumns={colNum}
               data={courseList.sort((a, b) => b.id - a.id)}
-              renderItem={({ item, index }) => (
+              keyExtractor={(i) => i.id.toString()}
+              renderItem={({ item }) => (
                 <CourseCard
-                  key={index}
                   is_favourite={item.courses_user_favourites[0]?.is_favourite ?? false}
                   percentCompleted={+getCompletedPercent(item)}
                   courseItem={item}></CourseCard>
