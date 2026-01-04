@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         highlighted: '#cbd5e1',
         alert: '',
+        nawaiaRed: '#be1e2d',
         /** ShadCN */
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

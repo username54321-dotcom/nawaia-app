@@ -106,7 +106,7 @@ const SignedInPage = () => {
               decelerationRate="fast"
               snapToAlignment="center"
               disableIntervalMomentum={true}
-              className="snap-x snap-mandatory"
+              className=" snap-x snap-mandatory"
               onContentSizeChange={(width) => {
                 handleSetCardWidth(width);
               }}
@@ -116,7 +116,7 @@ const SignedInPage = () => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
               {data?.map((item, index) => (
-                <View className="snap-center snap-always" key={index}>
+                <View className="m-2 snap-center snap-always" key={index}>
                   {'course_id' in item && item.course_id && (
                     <CourseCard courseItem={item.courses}></CourseCard>
                   )}
@@ -150,7 +150,7 @@ const SignedInPage = () => {
           <View className="mb-4 mt-2 w-3/5 self-center border-t-2"></View>
           <Pressable
             onPress={handleSignOut}
-            className="size-fit items-center justify-center self-center rounded-md bg-red-500 px-6 py-4">
+            className="bg-nawaiaRed size-fit items-center justify-center self-center rounded-md px-6 py-4">
             <Text className="font-Kufi text-base font-semibold text-white">تسجيل الخروج</Text>
           </Pressable>
         </>
