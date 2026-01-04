@@ -1,4 +1,11 @@
-export const tierList = [{
+import { Database } from "~/utils/database.types";
+
+export type TierList = {
+    label: Database["public"]["Enums"]["enum_memberships_tiers"];
+    value: any;
+}[];
+
+export const tierList: TierList = [{
     label: "0",
     value: 0,
 }, {

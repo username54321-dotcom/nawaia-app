@@ -1,14 +1,12 @@
 import { MotiView } from 'moti';
 import { ComponentProps, memo } from 'react';
 import tw from 'twrnc';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import ProgressBarInline from './../Animations/Lottie/ProgressBarInline';
-import { Image } from 'react-native';
 
 type MyImageProps = Omit<typeof Image, 'className'> & {
   className?: string; // For the container MotiView
   imageClassName?: string; // For the Image itself
-  motiProps?: ComponentProps<typeof MotiView>;
   percentCompleted?: number;
 };
 

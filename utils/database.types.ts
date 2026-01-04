@@ -96,7 +96,7 @@ export type Database = {
           long_description: string
           price: number
           short_description: string
-          tier: number
+          tier: Database["public"]["Enums"]["enum_memberships_tiers"]
           title: string
         }
         Insert: {
@@ -109,7 +109,7 @@ export type Database = {
           long_description: string
           price: number
           short_description: string
-          tier?: number
+          tier?: Database["public"]["Enums"]["enum_memberships_tiers"]
           title: string
         }
         Update: {
@@ -122,7 +122,7 @@ export type Database = {
           long_description?: string
           price?: number
           short_description?: string
-          tier?: number
+          tier?: Database["public"]["Enums"]["enum_memberships_tiers"]
           title?: string
         }
         Relationships: []
@@ -575,6 +575,14 @@ export type Database = {
       email_exists: { Args: { email_check: string }; Returns: boolean }
       fn_course_is_purchase: {
         Args: { p_course_id: number; p_user_id: string }
+        Returns: boolean
+      }
+      fn_courses_check_tier: {
+        Args: { c_id: number; u_uuid: string }
+        Returns: boolean
+      }
+      fn_courses_is_purchased: {
+        Args: { c_id: number; p_u_uuid: string }
         Returns: boolean
       }
       fn_is_admin: { Args: { user_uuid: string }; Returns: boolean }

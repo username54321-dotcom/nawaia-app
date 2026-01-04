@@ -8,20 +8,21 @@ import {
 } from '~/components/ui/dropdown-menu';
 import { Text } from '~/components/ui/text';
 import React, { useCallback, useState } from 'react';
-import { Database, Tables } from '~/utils/database.types';
 
 type menuItem<I> = {
   label: I;
   value: any;
 };
-const DropDown = <T, I, S>({
+const DropDown = <I, S>({
   data,
   inintialValue,
   setState,
+  className,
 }: {
   data: menuItem<I>[];
   setState: React.Dispatch<React.SetStateAction<S>>;
   inintialValue?: I;
+  className?: string;
 }) => {
   const [visibleValue, setVisibleValue] = useState<I | null>(null);
   const handleItemPress = useCallback(
@@ -34,7 +35,8 @@ const DropDown = <T, I, S>({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="defaultPressable childContainer defaultBorder bg-neutral-300">
+      <DropdownMenuTrigger
+        className={`defaultPressable childContainer defaultBorder bg-neutral-300 ${className ?? ''}`}>
         <Text className="defaultText">
           {'مستوي الأشتراك ->  ' + (visibleValue ?? inintialValue)}
         </Text>

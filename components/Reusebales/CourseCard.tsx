@@ -1,6 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
 import { memo, useCallback } from 'react';
-import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { useRouter } from 'expo-router';
