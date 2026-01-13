@@ -20,6 +20,8 @@ const DrawerItem = ({ targetPage, label, setDrawerVisible, Icon }: propTypes) =>
     <>
       <Link asChild href={targetPage}>
         <Pressable
+          role="link"
+          accessibilityLabel={label}
           onPress={handleNavigation}
           className={`my-2 w-full flex-row items-center justify-between rounded-xl py-1 ${samePath && ' bg-neutral-600'}`}>
           <Text

@@ -7,7 +7,7 @@ interface propTypes {
 }
 const DraftIcon = ({ setExpand }: propTypes) => {
   return (
-    <Pressable onPress={() => setExpand((v) => !v)}>
+    <Pressable role="button" accessibilityLabel="Toggle Draft" onPress={() => setExpand((v) => !v)}>
       <NotebookPen color={tw.color('red-700')} className="ml-4 rounded-md "></NotebookPen>
     </Pressable>
   );

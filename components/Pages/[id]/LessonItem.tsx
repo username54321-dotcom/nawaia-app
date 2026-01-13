@@ -84,6 +84,8 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
       </MyAccordion>
       {/**Lesson Container */}
       <Pressable
+        role="button"
+        accessibilityLabel={`Play lesson: ${lessonItem.lesson_name}`}
         onPress={lessonOnPress}
         className="group h-12 w-full flex-row-reverse items-center justify-between hover:bg-slate-300">
         {/**Lesson Name and Icon */}
@@ -140,6 +142,8 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
 
                   setViewEditor(false);
                 }}
+                role="button"
+                accessibilityLabel="Save Note"
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2">
                 <Text className="font font-Kufi font-semibold text-neutral-50">حفظ</Text>
               </Pressable>
@@ -158,6 +162,8 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
               </ScrollView>
               {/**Edit Notes Button */}
               <Pressable
+                role="button"
+                accessibilityLabel={note ? 'Edit Note' : 'Add Note'}
                 onPress={() => setViewEditor(true)}
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
                 <Text className="font font-Kufi font-semibold text-neutral-50">

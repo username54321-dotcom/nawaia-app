@@ -8,7 +8,7 @@ const BannerLogo = () => {
   return (
     <>
       <Link asChild href={'/'}>
-        <Pressable className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
+        <Pressable role="link" accessibilityLabel="Nawaia Home" className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
           <Image
             className="translate-x-[-4px]"
             transition={null}

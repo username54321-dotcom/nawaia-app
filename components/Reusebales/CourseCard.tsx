@@ -17,6 +17,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
     <FadeIn>
       {/** Main Container */}
       <View
+        role="article"
         className={
           'mx-auto my-2 size-fit max-w-fit flex-col items-center justify-start  overflow-hidden rounded-2xl bg-neutral-200 shadow-md shadow-slate-400 ' +
           className
@@ -44,7 +45,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
           </Text>
           {/** Navigate to Course Button */}
           <Link asChild href={{ pathname: '/Course', params: { id: courseItem.id } }}>
-            <Pressable className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+            <Pressable role="link" accessibilityLabel={`View details for ${courseItem.title}`} className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
               <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
             </Pressable>
           </Link>

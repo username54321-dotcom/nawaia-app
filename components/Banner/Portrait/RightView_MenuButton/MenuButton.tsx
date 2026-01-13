@@ -10,7 +10,7 @@ const MenuButton = () => {
   }, []);
 
   return (
-    <Pressable onPress={handleSetDrawerVisible} className={`m-4 size-fit rounded-md`}>
+    <Pressable role="button" accessibilityLabel="Toggle Menu" onPress={handleSetDrawerVisible} className={`m-4 size-fit rounded-md`}>
       <Menu size={28} color="#BE1E2D" strokeWidth={2} />
       <MyDrawer drawerVisible={drawerVisible} setDrawerVisible={setDrawerVisible}></MyDrawer>
     </Pressable>

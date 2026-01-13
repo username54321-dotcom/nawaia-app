@@ -16,6 +16,8 @@ const TelegramButton = ({ telegramLink }: { telegramLink: string | null | undefi
 
   return (
     <Pressable
+      role="link"
+      accessibilityLabel="Join Telegram Channel"
       onPress={handleOnPress}
       className=" size-fit flex-row-reverse items-center justify-center rounded-xl border-[1px] border-slate-400 bg-sky-500 px-4 py-2 transition-all duration-200 hover:scale-105 hover:bg-sky-300">
       <View className="rounded-full bg-white p-[2px]">

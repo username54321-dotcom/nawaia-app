@@ -28,6 +28,8 @@ const AdminPublishButton = ({ id, isPublished, table, refetch }: propTypes) => {
   }, [isPublished, id, table, refetch]);
   return (
     <Pressable
+      role="button"
+      accessibilityLabel={isPublished ? 'Unpublish' : 'Publish'}
       onPress={handlePublish}
       className={`m-2 size-fit rounded-md p-2 ${isPublished ? 'bg-green-600' : 'bg-red-600'} `}>
       <Text className=" font-bold text-white">{isPublished ? 'Published' : 'UnPublished'}</Text>

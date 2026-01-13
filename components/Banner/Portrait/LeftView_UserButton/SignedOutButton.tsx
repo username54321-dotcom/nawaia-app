@@ -9,7 +9,7 @@ const SignedOutButton = () => {
 
   return (
     <Link asChild href={'/Account'}>
-      <Pressable>
+      <Pressable role="link" accessibilityLabel="Account Page">
         <View className="size-fit rounded-md p-1">
           <User size={28} strokeWidth={2} strokeOpacity={1} color={'#BE1E2D'}></User>
         </View>

@@ -12,6 +12,8 @@ const ContactWhatsApp = ({ message }: Props) => {
   return (
     <View className=" ">
       <Pressable
+        role="link"
+        accessibilityLabel="Contact via WhatsApp"
         onLayout={() => setShowAnim(true)}
         onPress={() => Linking.openURL('https://wa.me/971589235048')}
         className="group my-6 h-12 flex-row items-center justify-center rounded-full border-[1px] border-neutral-700 bg-neutral-200 pr-6 transition-all duration-200  hover:bg-neutral-600">

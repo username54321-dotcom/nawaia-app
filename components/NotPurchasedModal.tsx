@@ -23,6 +23,8 @@ const NotPurchasedModal = () => {
       animationType="fade"
       className="size-48 items-center justify-center bg-transparent">
       <Pressable
+        role="button"
+        accessibilityLabel="Close Modal"
         className="flex-1 items-center justify-center  bg-slate-900/30"
         onPress={() => setModalVisible(!modalVisible)}>
         <MotiView transition={{ type: 'spring', damping: 75 }} state={animation}>
@@ -30,6 +32,8 @@ const NotPurchasedModal = () => {
           <View className="border-6  max-w-[80vw] flex-col items-center justify-center rounded-xl border-4 border-slate-600 bg-slate-300 px-10 pt-10   ">
             {/* Cancel Button */}
             <Pressable
+              role="button"
+              accessibilityLabel="Close"
               onPress={() => setModalVisible(false)}
               className="absolute right-1 top-1 flex size-fit items-center justify-center rounded-xl p-1 ">
               <X color={'#334155'} strokeWidth={2} />
