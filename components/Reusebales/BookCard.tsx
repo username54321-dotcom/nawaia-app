@@ -1,9 +1,9 @@
 import { View, Text, Pressable } from 'react-native';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 
 interface propTypes {
   bookItem: Tables<'books'>;
@@ -11,14 +11,6 @@ interface propTypes {
 }
 
 const CourseCard = ({ bookItem, className }: propTypes) => {
-  const router = useRouter();
-  // Navigate to Course
-  const HandleOnPress = useCallback(
-    (BookId: number) => {
-      router.push({ pathname: `/Book`, params: { id: BookId } });
-    },
-    [router]
-  );
   return (
     <FadeIn>
       {/** Main Container */}
@@ -44,11 +36,11 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
             {bookItem.short_description}
           </Text>
           {/** Navigate to Course Button */}
-          <Pressable
-            onPress={() => HandleOnPress(bookItem.id)}
-            className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
-            <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
-          </Pressable>
+          <Link asChild href={{ pathname: '/Book', params: { id: bookItem.id } }}>
+            <Pressable className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
+            </Pressable>
+          </Link>
         </View>
         {/** Is Published Tag */}
         {!bookItem.published && (

@@ -1,4 +1,4 @@
-import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, Link } from 'expo-router';
 import { Text, View, Pressable, Linking, ActivityIndicator } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign, SquareArrowOutUpRight } from 'lucide-react-native';
@@ -21,10 +21,7 @@ const BookPage = () => {
   const { id }: { id: string } = useLocalSearchParams();
   const queryClient = useQueryClient();
   //Navigation
-  const router = useRouter();
-  const simpleNav = useCallback(() => {
-    router.push('/Books');
-  }, [router]);
+
   // Main Query
   const { data: bookData, refetch, status, isLoading } = useQueryGetBook(+id);
   // Open Book Link
@@ -112,12 +109,14 @@ const BookPage = () => {
                   className=" size-fit self-center rounded-xl bg-[#BE1E2D] px-10 py-2">
                   <Text className="font-Kufi text-xl font-bold text-neutral-50">رابط التحميل</Text>
                 </Pressable>
-                <Pressable onPress={simpleNav} className="my-4 flex-row items-center gap-2">
-                  <Text className="font-Kufi font-semibold text-neutral-700">
-                    تصفح المزيد من الكتب
-                  </Text>
-                  <SquareArrowOutUpRight size={18} color={tw.color('blue-600')} strokeWidth={3} />
-                </Pressable>
+                <Link asChild href={'/Books'}>
+                  <Pressable className="my-4 flex-row items-center gap-2">
+                    <Text className="font-Kufi font-semibold text-neutral-700">
+                      تصفح المزيد من الكتب
+                    </Text>
+                    <SquareArrowOutUpRight size={18} color={tw.color('blue-600')} strokeWidth={3} />
+                  </Pressable>
+                </Link>
               </View>
             </View>
           </FadeIn>

@@ -8,7 +8,7 @@ import { Pressable, Text, View } from 'react-native';
 import MyImage from '~/components/Reusebales/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import { supabaseClient } from '~/utils/supabase';
-import { useRouter } from 'expo-router';
+
 import { useModalVisible, useModalVisibleType } from '~/store/store';
 import MyController from './MyController';
 import FadeIn from '~/components/Animations/FadeIn';

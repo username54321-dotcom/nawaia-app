@@ -1,5 +1,5 @@
-import { View, Text, TextInput, Pressable } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
+import { useEffect, useState } from 'react';
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { useLocalSearchParams, useRouter } from 'expo-router';

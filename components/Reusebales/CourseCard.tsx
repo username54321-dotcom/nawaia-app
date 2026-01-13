@@ -1,8 +1,8 @@
 import { View, Text, Pressable } from 'react-native';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { Course } from '../Courses/CourseList';
 
 interface propTypes {
@@ -13,14 +13,6 @@ interface propTypes {
 }
 
 const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: propTypes) => {
-  const router = useRouter();
-  // Navigate to Course
-  const HandleOnPress = useCallback(
-    (CourseId: number) => {
-      router.push({ pathname: `/Course`, params: { id: CourseId } });
-    },
-    [router]
-  );
   return (
     <FadeIn>
       {/** Main Container */}
@@ -51,11 +43,11 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
             {courseItem.short_description}
           </Text>
           {/** Navigate to Course Button */}
-          <Pressable
-            onPress={() => HandleOnPress(courseItem.id)}
-            className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
-            <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
-          </Pressable>
+          <Link asChild href={{ pathname: '/Course', params: { id: courseItem.id } }}>
+            <Pressable className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
+            </Pressable>
+          </Link>
         </View>
         {/** Is Published Tag */}
         {!courseItem.is_published && (

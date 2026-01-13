@@ -29,12 +29,12 @@ const Admin_GiveAccess = () => {
             <>
               <Pressable
                 onPress={() => handleNav(user.user_id ?? '')}
-                className="mx-2 w-fit gap-2 rounded-lg border-thin border-colorThin bg-card-bg py-6 transition-all duration-300 hover:bg-highlighted ">
+                className="bg-card-bg m-2 w-fit gap-2 rounded-lg border-thin border-colorThin py-6 transition-all duration-300 hover:bg-highlighted ">
                 <Text className="defaultText">أسم المستخدم : {user.user_name}</Text>
                 <Text className="defaultText">البريد الالكتروني : {user.email}</Text>
                 <Text className="defaultText">رقم الهاتف : {user.phone_number}</Text>
                 <Text className="defaultText">معتمد : {user.is_approved?.toString()}</Text>
-                <Text className="defaultText">نوعية الأشتراك : {user.tier}</Text>
+                <Text className="defaultText">شريحة الأشتراك : {user.tier}</Text>
               </Pressable>
             </>
           )}></FlashList>
