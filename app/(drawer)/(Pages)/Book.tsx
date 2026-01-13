@@ -14,6 +14,7 @@ import tw from 'twrnc';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { useQueryClient } from '@tanstack/react-query';
+import Head from 'expo-router/head';
 
 const BookPage = () => {
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
@@ -66,6 +67,13 @@ const BookPage = () => {
         <LoadingAnimation show={isLoading}></LoadingAnimation>
         {bookData && id && status === 'success' && (
           <FadeIn>
+            <Head>
+              <title>{bookData.title} | Nawaia</title>
+              <meta name="description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
+              <meta property="og:title" content={`${bookData.title} | Nawaia`} />
+              <meta property="og:description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
+              <meta property="og:image" content={bookData.image} />
+            </Head>
             <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{bookData.title}</Text>
               {/**Image and Completion Container */}

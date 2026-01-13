@@ -1,4 +1,5 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
+import Head from 'expo-router/head';
 import { Text, View } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
@@ -119,6 +120,15 @@ const CoursePage = () => {
   return (
     <>
       <Background>
+        {courseData?.title && (
+          <Head>
+            <title>{courseData.title} | Nawaia</title>
+            <meta name="description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
+            <meta property="og:title" content={`${courseData.title} | Nawaia`} />
+            <meta property="og:description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
+            <meta property="og:image" content={courseData.cover_image} />
+          </Head>
+        )}
         {/** Loading Indicator */}
         <LoadingAnimation show={isLoading}></LoadingAnimation>
         {courseData && id && status === 'success' && (

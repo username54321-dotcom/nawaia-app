@@ -4,11 +4,18 @@ import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import FadeIn from '~/components/Animations/FadeIn';
 import RenderHTML from 'react-native-render-html';
 import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAssests';
+import Head from 'expo-router/head';
 
 const BoutUs = () => {
   const { data, isLoading } = useQueryGetPublicAssets();
   return (
     <Background>
+      <Head>
+        <title>About Us | Nawaia</title>
+        <meta name="description" content="Learn more about Nawaia and our mission." />
+        <meta property="og:title" content="About Us | Nawaia" />
+        <meta property="og:description" content="Learn more about Nawaia and our mission." />
+      </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}
         <LoadingAnimation show={isLoading}></LoadingAnimation>

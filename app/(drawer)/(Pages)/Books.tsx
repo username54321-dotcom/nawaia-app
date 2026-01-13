@@ -1,10 +1,17 @@
 import Background from '~/components/Background';
+import Head from 'expo-router/head';
 import { memo } from 'react';
 import BookList from '~/components/Books/BookList';
 
 const Books = () => {
   return (
     <Background>
+      <Head>
+        <title>Books | Nawaia</title>
+        <meta name="description" content="Explore our collection of books." />
+        <meta property="og:title" content="Books | Nawaia" />
+        <meta property="og:description" content="Explore our collection of books." />
+      </Head>
       <BookList></BookList>
     </Background>
   );

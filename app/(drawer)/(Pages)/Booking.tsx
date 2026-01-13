@@ -7,11 +7,18 @@ import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAsse
 import FadeIn from '~/components/Animations/FadeIn';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import ContactWhatsApp from './../../../components/ContactWhatsApp';
+import Head from 'expo-router/head';
 
 const Booking = () => {
   const { data, isLoading } = useQueryGetPublicAssets();
   return (
     <Background>
+      <Head>
+        <title>Booking | Nawaia</title>
+        <meta name="description" content="Book your consultation now." />
+        <meta property="og:title" content="Booking | Nawaia" />
+        <meta property="og:description" content="Book your consultation now." />
+      </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}
         <LoadingAnimation show={isLoading}></LoadingAnimation>

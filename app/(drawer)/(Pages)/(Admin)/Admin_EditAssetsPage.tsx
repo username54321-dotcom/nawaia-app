@@ -1,5 +1,5 @@
 import Background from '~/components/Background';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, Head } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import AdminUpdateField from '~/components/Pages/AdminPage/AdminUpdateField';

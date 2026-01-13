@@ -1,4 +1,5 @@
 import Background from './../../components/Background';
+import Head from 'expo-router/head';
 import { Dimensions, View } from 'react-native';
 import FadeIn from './../../components/Animations/FadeIn';
 import { memo } from 'react';
@@ -13,6 +14,12 @@ const Home = () => {
 
   return (
     <Background>
+      <Head>
+        <title>Nawaia | Home</title>
+        <meta name="description" content="Welcome to Nawaia application" />
+        <meta property="og:title" content="Nawaia | Home" />
+        <meta property="og:description" content="Welcome to Nawaia application" />
+      </Head>
       {/* * Loading Indicator */}
       <LoadingAnimation show={isLoading}></LoadingAnimation>
       <View className="flex-1 flex-col items-center justify-start">
