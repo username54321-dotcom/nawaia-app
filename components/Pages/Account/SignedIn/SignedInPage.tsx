@@ -1,6 +1,4 @@
-import Background from '~/components/Background';
-import CourseCard from '~/components/Reusebales/CourseCard';
-import { supabaseClient } from '~/utils/supabase';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Text,
   View,
@@ -10,144 +8,184 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
-import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
-import BookCard from '~/components/Reusebales/BookCard';
 import { useQueryClient } from '@tanstack/react-query';
+import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
+import Background from '~/components/Background';
+import CourseCard from '~/components/Reusebales/CourseCard';
+import BookCard from '~/components/Reusebales/BookCard';
+import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { useQueryCourseBookHistory } from '~/HelperFunctions/Queries/GetCourseAndBookHistory';
+import { supabaseClient } from '~/utils/supabase';
+
+// Constants
+const ARROW_COLOR = '#be1e2d';
+const ARROW_SIZE = 30;
+const ARROW_STROKE_WIDTH = 2;
+const SCROLL_EVENT_THROTTLE = 200;
+const MIN_DIVISOR = 0.001; // Prevent division by zero
 
 const SignedInPage = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  // Main Query
   const { data, refetch, isLoading } = useQueryCourseBookHistory();
 
-  // Realtime
+  // Scroll state management
+  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollPosition = useRef(0);
+  const [cardWidth, setCardWidth] = useState(0);
+  const { width: screenWidth } = useWindowDimensions();
+
+  // Subscribe to realtime updates for course history
   useEffect(() => {
     const channel = supabaseClient.channel('course_history');
+    
     channel
-      .on('postgres_changes', { event: '*', table: 'courses_user_history', schema: 'public' }, () =>
-        refetch()
-      )
+      .on('postgres_changes', { 
+        event: '*', 
+        table: 'courses_user_history', 
+        schema: 'public' 
+      }, () => refetch())
       .subscribe();
+
     return () => {
       supabaseClient.removeChannel(channel);
     };
   }, [refetch]);
 
-  const scrollref = useRef<ScrollView>(null); // Horizontal ScrollView REF
-  const [cardWidth, setCardWidth] = useState(0); // Single Card
-  const scrollProgress = useRef(0); // Where is the User
-  const { width: screenWidth } = useWindowDimensions();
-  // Update Card Width Measurement
+  // Calculate individual card width based on total content width
   const handleSetCardWidth = useCallback(
-    (width: number) => {
-      if (width > 0) {
-        const newCardWidth = width / (data?.length ?? 0.001);
-        setCardWidth(newCardWidth);
+    (totalWidth: number) => {
+      if (totalWidth > 0) {
+        const itemCount = data?.length ?? MIN_DIVISOR;
+        setCardWidth(totalWidth / itemCount);
       }
     },
     [data?.length]
   );
-  // Handle Go Backward
+
+  // Navigate to previous card
   const goBackward = useCallback(() => {
-    scrollref.current?.scrollTo({
-      x: Math.floor((scrollProgress.current + cardWidth / 2) / cardWidth - 1) * cardWidth,
-    });
+    const currentIndex = Math.floor((scrollPosition.current + cardWidth / 2) / cardWidth);
+    const targetPosition = (currentIndex - 1) * cardWidth;
+    scrollViewRef.current?.scrollTo({ x: targetPosition });
   }, [cardWidth]);
 
-  // Handle Go Forward
+  // Navigate to next card
   const goForward = useCallback(() => {
-    scrollref.current?.scrollTo({
-      x: Math.floor((scrollProgress.current + cardWidth / 2) / cardWidth + 1) * cardWidth,
-    });
+    const currentIndex = Math.floor((scrollPosition.current + cardWidth / 2) / cardWidth);
+    const targetPosition = (currentIndex + 1) * cardWidth;
+    scrollViewRef.current?.scrollTo({ x: targetPosition });
   }, [cardWidth]);
 
-  // Handle SignOut
+  // Handle user sign out
   const handleSignOut = useCallback(async () => {
     await supabaseClient.auth.signOut();
-    router.replace('/');
     queryClient.invalidateQueries();
+    router.replace('/');
   }, [router, queryClient]);
+
+  // Check if carousel navigation should be shown
+  const totalContentWidth = cardWidth * (data?.length ?? 0);
+  const shouldShowNavigation = screenWidth < totalContentWidth;
+
   return (
     <Background>
-      <LoadingAnimation show={isLoading}></LoadingAnimation>
+      <LoadingAnimation show={isLoading} />
+
       {data && (
         <>
-          {/**My Courses Title */}
+          {/* Page Title */}
           <View className="flex-col">
             <Text className="test-neutral-700 mx-6 mb-0 mt-8 self-end font-Kufi text-3xl font-semibold">
               زرت سابقا
-              <View className="w-full self-center border-t-2"></View>
+              <View className="w-full self-center border-t-2" />
             </Text>
           </View>
-          {/** Courses History List */}
-          <View className="  justify-center">
-            {screenWidth < cardWidth * data.length && (
+
+          {/* Course/Book History Carousel */}
+          <View className="justify-center">
+            {/* Inline Navigation - Visible on Portrait */}
+            {shouldShowNavigation && (
               <>
-                {/** Inline Go Forward */}
+                {/* Forward Button (Right) */}
                 <TouchableOpacity
-                  className=" absolute right-0 z-10 mr-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden "
+                  className="absolute right-0 z-10 mr-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
                   onPress={goForward}>
-                  <ArrowBigRight color={'#be1e2d'} strokeWidth={2} size={30} />
+                  <ArrowBigRight 
+                    color={ARROW_COLOR} 
+                    strokeWidth={ARROW_STROKE_WIDTH} 
+                    size={ARROW_SIZE} 
+                  />
                 </TouchableOpacity>
-                {/**Inline Go Backward */}
+
+                {/* Backward Button (Left) */}
                 <TouchableOpacity
-                  className=" absolute left-0 z-10 ml-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
+                  className="absolute left-0 z-10 ml-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
                   onPress={goBackward}>
-                  <ArrowBigLeft color={'#be1e2d'} strokeWidth={2} size={30} />
+                  <ArrowBigLeft 
+                    color={ARROW_COLOR} 
+                    strokeWidth={ARROW_STROKE_WIDTH} 
+                    size={ARROW_SIZE} 
+                  />
                 </TouchableOpacity>
               </>
             )}
 
+            {/* Horizontal Scroll View */}
             <ScrollView
+              ref={scrollViewRef}
+              horizontal
               snapToInterval={cardWidth}
-              decelerationRate="fast"
               snapToAlignment="center"
-              disableIntervalMomentum={true}
-              className=" snap-x snap-mandatory"
-              onContentSizeChange={(width) => {
-                handleSetCardWidth(width);
-              }}
-              onScroll={(e) => (scrollProgress.current = e.nativeEvent.contentOffset.x)}
-              scrollEventThrottle={200}
-              ref={scrollref}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}>
-              {data?.map((item, index) => (
+              decelerationRate="fast"
+              disableIntervalMomentum
+              showsHorizontalScrollIndicator={false}
+              className="snap-x snap-mandatory"
+              onContentSizeChange={handleSetCardWidth}
+              onScroll={(e) => (scrollPosition.current = e.nativeEvent.contentOffset.x)}
+              scrollEventThrottle={SCROLL_EVENT_THROTTLE}>
+              {data.map((item, index) => (
                 <View className="m-2 snap-center snap-always" key={index}>
                   {'course_id' in item && item.course_id && (
-                    <CourseCard courseItem={item.courses}></CourseCard>
+                    <CourseCard courseItem={item.courses} />
                   )}
                   {'book_id' in item && item.book_id && (
-                    <BookCard bookItem={item.books} key={item.id}></BookCard>
+                    <BookCard bookItem={item.books} key={item.id} />
                   )}
                 </View>
               ))}
             </ScrollView>
-            {/** Crousal Controls */}
-            {screenWidth < cardWidth * data.length && (
-              // Main Container
-              <View className=" flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105 portrait:hidden">
-                {/** Go Backward */}
-                <TouchableOpacity
-                  className=" rounded-full transition-all duration-200 hover:scale-110"
-                  onPress={goBackward}>
-                  <ArrowBigLeft color={'#be1e2d'} strokeWidth={2} size={30} />
-                </TouchableOpacity>
-                {/** Go Forward */}
 
+            {/* Carousel Controls - Visible on Landscape */}
+            {shouldShowNavigation && (
+              <View className="flex-row gap-4 self-center rounded-full bg-slate-300 p-2 transition-all duration-200 hover:scale-105 portrait:hidden">
+                {/* Backward Button */}
                 <TouchableOpacity
-                  className=" rounded-full transition-all duration-200 hover:scale-110 "
+                  className="rounded-full transition-all duration-200 hover:scale-110"
+                  onPress={goBackward}>
+                  <ArrowBigLeft 
+                    color={ARROW_COLOR} 
+                    strokeWidth={ARROW_STROKE_WIDTH} 
+                    size={ARROW_SIZE} 
+                  />
+                </TouchableOpacity>
+
+                {/* Forward Button */}
+                <TouchableOpacity
+                  className="rounded-full transition-all duration-200 hover:scale-110"
                   onPress={goForward}>
-                  <ArrowBigRight color={'#be1e2d'} strokeWidth={2} size={30} />
+                  <ArrowBigRight 
+                    color={ARROW_COLOR} 
+                    strokeWidth={ARROW_STROKE_WIDTH} 
+                    size={ARROW_SIZE} 
+                  />
                 </TouchableOpacity>
               </View>
             )}
           </View>
-          {/** SignOut Button */}
-          <View className="mb-4 mt-2 w-3/5 self-center border-t-2"></View>
+
+          {/* Sign Out Section */}
+          <View className="mb-4 mt-2 w-3/5 self-center border-t-2" />
           <Pressable
             onPress={handleSignOut}
             className="bg-nawaiaRed size-fit items-center justify-center self-center rounded-md px-6 py-4">
