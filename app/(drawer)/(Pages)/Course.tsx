@@ -124,9 +124,32 @@ const CoursePage = () => {
           <Head>
             <title>{courseData.title} | Nawaia</title>
             <meta name="description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
+            <link rel="canonical" href={`https://nawaia.net/Course?id=${id}`} />
             <meta property="og:title" content={`${courseData.title} | Nawaia`} />
             <meta property="og:description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
             <meta property="og:image" content={courseData.cover_image} />
+            <meta property="og:type" content="video.course" />
+            <meta property="og:url" content={`https://nawaia.net/Course?id=${id}`} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Course",
+                "name": courseData.title,
+                "description": courseData.short_description,
+                "provider": {
+                  "@type": "Organization",
+                  "name": "Nawaia",
+                  "sameAs": "https://nawaia.net"
+                },
+                "image": courseData.cover_image,
+                "offers": {
+                  "@type": "Offer",
+                  "price": courseData.price,
+                  "priceCurrency": "SAR"
+                }
+              })}
+            </script>
           </Head>
         )}
         {/** Loading Indicator */}
@@ -140,6 +163,7 @@ const CoursePage = () => {
                 <MyImage
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: courseData.cover_image }}
+                  accessibilityLabel={courseData.title}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}
                   percentCompleted={+(getCompletedPercent(courseData) ?? 0)}></MyImage>
               </View>

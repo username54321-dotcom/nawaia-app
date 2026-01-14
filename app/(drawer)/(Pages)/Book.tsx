@@ -70,9 +70,31 @@ const BookPage = () => {
             <Head>
               <title>{bookData.title} | Nawaia</title>
               <meta name="description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
+              <link rel="canonical" href={`https://nawaia.net/Book?id=${id}`} />
               <meta property="og:title" content={`${bookData.title} | Nawaia`} />
               <meta property="og:description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
               <meta property="og:image" content={bookData.image} />
+              <meta property="og:type" content="book" />
+              <meta property="og:url" content={`https://nawaia.net/Book?id=${id}`} />
+              <meta name="twitter:card" content="summary_large_image" />
+              <script type="application/ld+json">
+                {JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Book",
+                  "name": bookData.title,
+                  "description": bookData.short_description,
+                  "author": {
+                    "@type": "Organization",
+                    "name": "Nawaia"
+                  },
+                  "image": bookData.image,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": bookData.price,
+                    "priceCurrency": "SAR"
+                  }
+                })}
+              </script>
             </Head>
             <View className="mx-auto w-full max-w-[1000px] flex-1 flex-col items-center justify-start ">
               <Text className="mt-4 font-Kufi text-2xl font-semibold">{bookData.title}</Text>
@@ -81,6 +103,7 @@ const BookPage = () => {
                 <MyImage
                   className="m-2 mt-4 self-center overflow-hidden rounded-md shadow-md shadow-neutral-300"
                   source={{ uri: bookData.image }}
+                  accessibilityLabel={bookData.title}
                   style={{ aspectRatio: 1, width: 350, maxWidth: 600 }}></MyImage>
               </View>
 

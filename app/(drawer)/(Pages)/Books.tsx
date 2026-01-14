@@ -9,6 +9,7 @@ const Books = () => {
       <Head>
         <title>Books | Nawaia</title>
         <meta name="description" content="Explore our collection of books." />
+        <link rel="canonical" href="https://nawaia.net/Books" />
         <meta property="og:title" content="Books | Nawaia" />
         <meta property="og:description" content="Explore our collection of books." />
       </Head>
