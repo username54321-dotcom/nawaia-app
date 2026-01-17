@@ -7,7 +7,7 @@ type test = (Tables<'courses_chapters'> & {
   courses_lessons: (Tables<'courses_lessons'> & {
     courses_lessons_completed: Tables<'courses_lessons_completed'>[];
     courses_notes: Tables<'courses_notes'>[];
-    courses_links: Tables<'courses_links'>;
+    courses_links: Tables<'courses_links'> | null;
     courses_user_video_progress: Tables<'courses_user_video_progress'>[];
   })[];
 })[];

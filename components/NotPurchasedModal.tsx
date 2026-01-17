@@ -5,7 +5,10 @@ import { MotiView, useAnimationState } from 'moti';
 import { X } from 'lucide-react-native';
 import ContactWhatsApp from './ContactWhatsApp';
 
+import { useTranslation } from 'react-i18next';
+
 const NotPurchasedModal = () => {
+  const { t } = useTranslation();
   const modalVisible = useModalVisible((x: useModalVisibleType) => x.notPurchasedModal);
   const setModalVisible = useModalVisible((x: useModalVisibleType) => x.setNotPurchasedModal);
 
@@ -41,15 +44,14 @@ const NotPurchasedModal = () => {
 
             {/** Not Purchased Message */}
             <Text className="defaultText mb-5 text-center text-xl font-extrabold ">
-              عذراً، هذا الكورس غير متاح لك حالياً
+              {t('course_not_available')}
             </Text>
             {/** Contact Us Prompt */}
             <Text className="defaultText mb-5 text-center  text-sm font-bold ">
-              للاشتراك في هذا الكورس والحصول على صلاحية الدخول، يرجى التواصل مع فريق العمل عبر
-              واتساب.
+              {t('contact_for_access')}
             </Text>
             {/** Whatsapp Animation */}
-            <ContactWhatsApp message="تواصل معنا"></ContactWhatsApp>
+            <ContactWhatsApp message={t('contact_us')}></ContactWhatsApp>
           </View>
         </MotiView>
       </Pressable>

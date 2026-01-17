@@ -3,16 +3,18 @@ import { memo } from 'react';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { Link } from 'expo-router';
-import { Course } from '../Courses/CourseList';
+import { Tables } from '~/utils/database.types';
+import { useTranslation } from 'react-i18next';
 
 interface propTypes {
-  courseItem: Course;
+  courseItem: Tables<'courses'>;
   className?: string;
   percentCompleted?: number;
   is_favourite?: boolean;
 }
 
 const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: propTypes) => {
+  const { t } = useTranslation();
   return (
     <FadeIn>
       {/** Main Container */}
@@ -45,8 +47,13 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
           </Text>
           {/** Navigate to Course Button */}
           <Link asChild href={{ pathname: '/Course', params: { id: courseItem.id } }}>
-            <Pressable role="link" accessibilityLabel={`View details for ${courseItem.title}`} className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
-              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
+            <Pressable
+              role="link"
+              accessibilityLabel={`View details for ${courseItem.title}`}
+              className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">
+                {t('view_btn')}
+              </Text>
             </Pressable>
           </Link>
         </View>
@@ -55,7 +62,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
           <View
             className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${courseItem.is_published ? 'bg-green-500' : 'bg-red-500'}`}>
             <Text className="font-semibold text-white ">
-              {courseItem.is_published ? 'Published' : 'UnPublished'}
+              {courseItem.is_published ? t('published') : t('unpublished')}
             </Text>
           </View>
         )}

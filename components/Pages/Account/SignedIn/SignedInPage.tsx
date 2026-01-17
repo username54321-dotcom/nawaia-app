@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react-native';
 import Background from '~/components/Background';
@@ -25,6 +26,7 @@ const SCROLL_EVENT_THROTTLE = 200;
 const MIN_DIVISOR = 0.001; // Prevent division by zero
 
 const SignedInPage = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data, refetch, isLoading } = useQueryCourseBookHistory();
@@ -38,13 +40,17 @@ const SignedInPage = () => {
   // Subscribe to realtime updates for course history
   useEffect(() => {
     const channel = supabaseClient.channel('course_history');
-    
+
     channel
-      .on('postgres_changes', { 
-        event: '*', 
-        table: 'courses_user_history', 
-        schema: 'public' 
-      }, () => refetch())
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          table: 'courses_user_history',
+          schema: 'public',
+        },
+        () => refetch()
+      )
       .subscribe();
 
     return () => {
@@ -97,7 +103,7 @@ const SignedInPage = () => {
           {/* Page Title */}
           <View className="flex-col">
             <Text className="test-neutral-700 mx-6 mb-0 mt-8 self-end font-Kufi text-3xl font-semibold">
-              زرت سابقا
+              {t('history_title')}
               <View className="w-full self-center border-t-2" />
             </Text>
           </View>
@@ -111,10 +117,10 @@ const SignedInPage = () => {
                 <TouchableOpacity
                   className="absolute right-0 z-10 mr-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
                   onPress={goForward}>
-                  <ArrowBigRight 
-                    color={ARROW_COLOR} 
-                    strokeWidth={ARROW_STROKE_WIDTH} 
-                    size={ARROW_SIZE} 
+                  <ArrowBigRight
+                    color={ARROW_COLOR}
+                    strokeWidth={ARROW_STROKE_WIDTH}
+                    size={ARROW_SIZE}
                   />
                 </TouchableOpacity>
 
@@ -122,10 +128,10 @@ const SignedInPage = () => {
                 <TouchableOpacity
                   className="absolute left-0 z-10 ml-2 rounded-full border-[1px] bg-slate-300 p-2 transition-all duration-200 hover:scale-110 landscape:hidden"
                   onPress={goBackward}>
-                  <ArrowBigLeft 
-                    color={ARROW_COLOR} 
-                    strokeWidth={ARROW_STROKE_WIDTH} 
-                    size={ARROW_SIZE} 
+                  <ArrowBigLeft
+                    color={ARROW_COLOR}
+                    strokeWidth={ARROW_STROKE_WIDTH}
+                    size={ARROW_SIZE}
                   />
                 </TouchableOpacity>
               </>
@@ -163,10 +169,10 @@ const SignedInPage = () => {
                 <TouchableOpacity
                   className="rounded-full transition-all duration-200 hover:scale-110"
                   onPress={goBackward}>
-                  <ArrowBigLeft 
-                    color={ARROW_COLOR} 
-                    strokeWidth={ARROW_STROKE_WIDTH} 
-                    size={ARROW_SIZE} 
+                  <ArrowBigLeft
+                    color={ARROW_COLOR}
+                    strokeWidth={ARROW_STROKE_WIDTH}
+                    size={ARROW_SIZE}
                   />
                 </TouchableOpacity>
 
@@ -174,10 +180,10 @@ const SignedInPage = () => {
                 <TouchableOpacity
                   className="rounded-full transition-all duration-200 hover:scale-110"
                   onPress={goForward}>
-                  <ArrowBigRight 
-                    color={ARROW_COLOR} 
-                    strokeWidth={ARROW_STROKE_WIDTH} 
-                    size={ARROW_SIZE} 
+                  <ArrowBigRight
+                    color={ARROW_COLOR}
+                    strokeWidth={ARROW_STROKE_WIDTH}
+                    size={ARROW_SIZE}
                   />
                 </TouchableOpacity>
               </View>
@@ -188,8 +194,8 @@ const SignedInPage = () => {
           <View className="mb-4 mt-2 w-3/5 self-center border-t-2" />
           <Pressable
             onPress={handleSignOut}
-            className="bg-nawaiaRed size-fit items-center justify-center self-center rounded-md px-6 py-4">
-            <Text className="font-Kufi text-base font-semibold text-white">تسجيل الخروج</Text>
+            className="size-fit items-center justify-center self-center rounded-md bg-nawaiaRed px-6 py-4">
+            <Text className="font-Kufi text-base font-semibold text-white">{t('sign_out')}</Text>
           </Pressable>
         </>
       )}

@@ -9,7 +9,7 @@ export function useQueryGetCourseList() {
       const { data } = await supabaseClient
         .from("courses")
         .select(
-          "*,courses_user_favourites(is_favourite),courses_chapters(courses_lessons(courses_lessons_completed(is_completed)))",
+          "*,courses_user_favourites(is_favourite),courses_chapters(*,courses_lessons(*,courses_lessons_completed(*)))",
         );
       return data;
     },

@@ -1,4 +1,5 @@
 import type { StateCreator } from "zustand";
+import i18n from "~/lib/i18n";
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { create } = require("zustand");
 
@@ -47,3 +48,18 @@ const modalStoreCreator: StateCreator<useModalVisibleType> = (set) => ({
 });
 
 export const useModalVisible = create(modalStoreCreator);
+
+export interface useLanguageStoreType {
+  language: string;
+  setLanguage: (lang: string) => void;
+}
+
+const languageStoreCreator: StateCreator<useLanguageStoreType> = (set) => ({
+  language: i18n.language,
+  setLanguage: (lang) => {
+    i18n.changeLanguage(lang);
+    set({ language: lang });
+  },
+});
+
+export const useLanguageStore = create(languageStoreCreator);

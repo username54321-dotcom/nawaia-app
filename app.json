@@ -20,7 +20,8 @@
           "supportsPictureInPicture": true
         }
       ],
-      "@lottiefiles/dotlottie-react-native/plugin"
+      "@lottiefiles/dotlottie-react-native/plugin",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,

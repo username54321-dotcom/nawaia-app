@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import tw from 'twrnc';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
+
+interface propTypes {
+  shortDescription: string;
+  longDescription: string;
+}
 
 interface propTypes {
   shortDescription: string;
@@ -10,6 +16,7 @@ interface propTypes {
 }
 
 const TextAccordion = ({ shortDescription, longDescription }: propTypes) => {
+  const { t } = useTranslation();
   const [TextExpand, setTextExpand] = useState(false);
   const [contentHeight, setContentHeight] = useState(200);
 
@@ -57,7 +64,7 @@ const TextAccordion = ({ shortDescription, longDescription }: propTypes) => {
             onPress={() => setTextExpand((state) => !state)}>
             <View className="mb-2  rounded-lg border-[1px] bg-red-700/90">
               <Text className="m-2 font-Kufi font-semibold leading-3     text-slate-100 ">
-                {TextExpand ? 'أخفاء' : 'عرض المزيد'}
+                {TextExpand ? t('hide') : t('show_more')}
               </Text>
             </View>
           </Pressable>

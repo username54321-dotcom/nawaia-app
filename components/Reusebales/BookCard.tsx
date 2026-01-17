@@ -4,6 +4,7 @@ import { Tables } from '~/utils/database.types';
 import FadeIn from '../Animations/FadeIn';
 import MyImage from './MyImage';
 import { Link } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 interface propTypes {
   bookItem: Tables<'books'>;
@@ -11,6 +12,7 @@ interface propTypes {
 }
 
 const CourseCard = ({ bookItem, className }: propTypes) => {
+  const { t } = useTranslation();
   return (
     <FadeIn>
       {/** Main Container */}
@@ -38,8 +40,13 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
           </Text>
           {/** Navigate to Course Button */}
           <Link asChild href={{ pathname: '/Book', params: { id: bookItem.id } }}>
-            <Pressable role="link" accessibilityLabel={`View details for ${bookItem.title}`} className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
-              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">عرض</Text>
+            <Pressable
+              role="link"
+              accessibilityLabel={`View details for ${bookItem.title}`}
+              className="m-6 mt-auto flex-col  items-center justify-center rounded-md bg-[#BE1E2D]  px-12 py-2 shadow-md shadow-neutral-500 transition-all duration-200 hover:scale-105 ">
+              <Text className="  font-Kufi text-base font-semibold text-slate-100  ">
+                {t('view_btn')}
+              </Text>
             </Pressable>
           </Link>
         </View>
@@ -48,7 +55,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
           <View
             className={`absolute  left-0 rounded-sm rounded-br-xl  px-4 py-2  ${bookItem.published ? 'bg-green-500' : 'bg-red-500'}`}>
             <Text className="font-semibold text-white ">
-              {bookItem.published ? 'Published' : 'UnPublished'}
+              {bookItem.published ? t('published') : t('unpublished')}
             </Text>
           </View>
         )}

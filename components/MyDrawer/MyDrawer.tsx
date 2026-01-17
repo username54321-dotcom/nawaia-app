@@ -22,7 +22,10 @@ interface propTypes {
   setDrawerVisible: (value: boolean) => void;
 }
 
+import { useTranslation } from 'react-i18next';
+
 const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
+  const { t } = useTranslation();
   const isAdmin = useIsAuth((state: useIsAuthType) => state.isAdmin);
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
   const router = useRouter();
@@ -63,38 +66,38 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
               <DrawerItem
                 Icon={House}
                 setDrawerVisible={setDrawerVisible}
-                label="الرئيسية"
+                label={t('nav_home')}
                 targetPage="/"></DrawerItem>
               <DrawerItem
                 Icon={GraduationCap}
                 setDrawerVisible={setDrawerVisible}
-                label="دورات"
+                label={t('nav_courses')}
                 targetPage="/Courses"></DrawerItem>
               <DrawerItem
                 Icon={LibraryBig}
                 setDrawerVisible={setDrawerVisible}
-                label="كتب"
+                label={t('nav_books')}
                 targetPage="/Books"></DrawerItem>
               <DrawerItem
                 Icon={CalendarDays}
                 setDrawerVisible={setDrawerVisible}
-                label="أحجز أستشارة"
+                label={t('nav_booking')}
                 targetPage="/Booking"></DrawerItem>
               <DrawerItem
                 Icon={Users}
                 setDrawerVisible={setDrawerVisible}
-                label="من نحن ؟"
+                label={t('nav_about_us')}
                 targetPage="/AboutUs"></DrawerItem>
               {isAdmin && (
                 <DrawerItem
                   Icon={ShieldUser}
                   setDrawerVisible={setDrawerVisible}
-                  label="أضافة أو تعديل المحتوي"
+                  label={t('nav_admin_content')}
                   targetPage="/Admin_SelectEditOption"></DrawerItem>
               )}
               {isAuth && (
                 <Pressable onPress={handleLogout} className="mt-auto ">
-                  <Text className="font-Kufi font-semibold text-[#525252]">تسجيل الخروج</Text>
+                  <Text className="font-Kufi font-semibold text-[#525252]">{t('sign_out')}</Text>
                 </Pressable>
               )}
             </View>

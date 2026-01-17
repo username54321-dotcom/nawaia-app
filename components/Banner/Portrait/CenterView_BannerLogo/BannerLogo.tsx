@@ -3,12 +3,17 @@ import { imgLogo } from '../../../../assets/images/ImageExports';
 import { Link } from 'expo-router';
 import { memo } from 'react';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
 
 const BannerLogo = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Link asChild href={'/'}>
-        <Pressable role="link" accessibilityLabel="Nawaia Home" className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
+        <Pressable
+          role="link"
+          accessibilityLabel="Nawaia Home"
+          className=" flex-1 translate-x-[-1px]  flex-row items-center justify-center ">
           <Image
             className="translate-x-[-4px]"
             transition={null}

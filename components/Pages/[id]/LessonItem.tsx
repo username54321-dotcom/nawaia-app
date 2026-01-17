@@ -12,18 +12,21 @@ import FadeIn from '~/components/Animations/FadeIn';
 import DraftIcon from './DraftIcon';
 import { Tables } from '~/utils/database.types';
 import { sleep } from '~/HelperFunctions/sleep';
+import { useTranslation } from 'react-i18next';
 
 type props = {
   lessonItem: Tables<'courses_lessons'> & {
     courses_lessons_completed: Tables<'courses_lessons_completed'>[];
     courses_notes: Tables<'courses_notes'>[];
-    courses_links: Tables<'courses_links'>;
+    courses_links: Tables<'courses_links'> | null;
     courses_user_video_progress: Tables<'courses_user_video_progress'>[];
   };
   note: string | null;
   refetch: () => void;
 };
+
 const LessonItem = ({ lessonItem, note, refetch }: props) => {
+  const { t } = useTranslation();
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible); // Change Not Signed in Modal Visibility
   const setPurchasedModal = useModalVisible((x: useModalVisibleType) => x.setNotPurchasedModal);
   const [expand, setExpand] = useState<boolean>(false); // Expand Accordion State
@@ -110,7 +113,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 </FadeIn>
               </>
             )}
-            <Text className="pl-4 font-Kufi font-semibold text-red-700">مشاهدة</Text>
+            <Text className="pl-4 font-Kufi font-semibold text-red-700">{t('watch_lesson')}</Text>
           </View>
         </View>
       </Pressable>
@@ -145,7 +148,9 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 role="button"
                 accessibilityLabel="Save Note"
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2">
-                <Text className="font font-Kufi font-semibold text-neutral-50">حفظ</Text>
+                <Text className="font font-Kufi font-semibold text-neutral-50">
+                  {t('save_note')}
+                </Text>
               </Pressable>
             </>
           )}
@@ -157,7 +162,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 <RenderHTML
                   contentWidth={2000}
                   baseStyle={tw`bg-slate-200 px-4 py-2 `}
-                  source={{ html: Note.current || 'لا توجد مذكرات' }}
+                  source={{ html: Note.current || t('no_notes') }}
                 />
               </ScrollView>
               {/**Edit Notes Button */}
@@ -167,7 +172,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 onPress={() => setViewEditor(true)}
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
                 <Text className="font font-Kufi font-semibold text-neutral-50">
-                  {note ? 'تعديل' : 'أضف مذكراتك'}
+                  {note ? t('edit_note') : t('add_note')}
                 </Text>
               </Pressable>
             </>

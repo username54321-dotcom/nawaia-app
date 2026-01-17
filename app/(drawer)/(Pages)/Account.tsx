@@ -3,13 +3,16 @@ import SignedOutPage from '~/components/Pages/Account/SignedOut/SignedOutPage';
 import SignedInPage from './../../../components/Pages/Account/SignedIn/SignedInPage';
 import Head from 'expo-router/head';
 
+import { useTranslation } from 'react-i18next';
+
 const Account = () => {
+  const { t } = useTranslation();
   const isAuth = useIsAuth((state: useIsAuthType) => state.isAuth);
 
   return isAuth ? (
     <>
       <Head>
-        <title>Account | Nawaia</title>
+        <title>{t('account_title')}</title>
         <meta name="robots" content="noindex" />
       </Head>
       <SignedInPage></SignedInPage>
@@ -17,8 +20,8 @@ const Account = () => {
   ) : (
     <>
       <Head>
-        <title>Sign In | Nawaia</title>
-        <meta name="description" content="Sign in to your Nawaia account." />
+        <title>{t('sign_in_title')}</title>
+        <meta name="description" content={t('sign_in_desc')} />
       </Head>
       <SignedOutPage></SignedOutPage>
     </>

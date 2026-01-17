@@ -4,7 +4,10 @@ import { useModalVisible, useModalVisibleType } from '~/store/store';
 import { MotiView, useAnimationState } from 'moti';
 import { X } from 'lucide-react-native';
 
+import { useTranslation } from 'react-i18next';
+
 const ApprovedModal = () => {
+  const { t } = useTranslation();
   const modalVisible = useModalVisible((x: useModalVisibleType) => x.approvedModal);
   const setModalVisible = useModalVisible((x: useModalVisibleType) => x.setApprovedModal);
 
@@ -40,10 +43,10 @@ const ApprovedModal = () => {
 
             {/** Not Approved Message */}
             <Text className="mb-5 font-Kufi text-xl font-extrabold text-neutral-800">
-              لم يتم أعتماد حسابك بعد !
+              {t('account_not_approved')}
             </Text>
             <Text className="mb-5 font-Kufi text-sm font-bold text-neutral-800">
-              برجاء المحاولة في وقت لاحق
+              {t('try_again_later')}
             </Text>
           </View>
         </MotiView>

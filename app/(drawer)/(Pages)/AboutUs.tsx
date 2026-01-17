@@ -5,17 +5,19 @@ import FadeIn from '~/components/Animations/FadeIn';
 import RenderHTML from 'react-native-render-html';
 import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAssests';
 import Head from 'expo-router/head';
+import { useTranslation } from 'react-i18next';
 
 const BoutUs = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQueryGetPublicAssets();
   return (
     <Background>
       <Head>
-        <title>About Us | Nawaia</title>
-        <meta name="description" content="Learn more about Nawaia and our mission." />
+        <title>{t('about_us_title')}</title>
+        <meta name="description" content={t('about_us_desc')} />
         <link rel="canonical" href="https://nawaia.net/AboutUs" />
-        <meta property="og:title" content="About Us | Nawaia" />
-        <meta property="og:description" content="Learn more about Nawaia and our mission." />
+        <meta property="og:title" content={t('about_us_title')} />
+        <meta property="og:description" content={t('about_us_desc')} />
       </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}

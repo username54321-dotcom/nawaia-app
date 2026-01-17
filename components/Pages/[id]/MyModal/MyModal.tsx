@@ -10,7 +10,10 @@ import { supabaseClient } from '~/utils/supabase';
 import FadeIn from './../../../Animations/FadeIn';
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useTranslation } from 'react-i18next';
+
 const MyModal = () => {
+  const { t } = useTranslation();
   const setModalVisible = useModalVisible((state: useModalVisibleType) => state.setModalVisible);
   const ModalVisible = useModalVisible((state: useModalVisibleType) => state.ModalVisible);
   const QueryClient = useQueryClient();
@@ -90,14 +93,14 @@ const MyModal = () => {
             </Pressable>
 
             {/**Please Login Message */}
-            <Text className="mb-5 font-Kufi font-bold">برجاء تسجيل الدخول لمشاهدة المحتوي !</Text>
+            <Text className="mb-5 font-Kufi font-bold">{t('login_prompt')}</Text>
 
             {/**Email Input */}
             <View className="  flex-row items-center justify-center rounded-md border-[1px]  bg-slate-100/40">
               <Mail className="mx-1" color={'#475569'} />
               <TextInput
                 onChangeText={(v) => (EmailInput.current = v)}
-                placeholder="البريد الالكتروني"
+                placeholder={t('email_placeholder')}
                 className="flex-grow rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
             </View>
             {/**Password Input */}
@@ -108,7 +111,7 @@ const MyModal = () => {
                   secureTextEntry={!ShowPassword}
                   onChangeText={(value) => HandleShowPassword(value)}
                   onSubmitEditing={HandleSignIn}
-                  placeholder="كلمة المرور"
+                  placeholder={t('password_placeholder')}
                   className="flex-grow  rounded-r-md border-l-[1px] bg-slate-100 p-2 outline-none placeholder:text-right  placeholder:text-gray-500  "></TextInput>
                 <Pressable
                   onPress={() => setShowPassword((prev) => !prev)}
@@ -122,7 +125,7 @@ const MyModal = () => {
               <>
                 <FadeIn>
                   <Text className={` font-Kufi text-red-800 ${LoginError ? '' : 'hidden'}`}>
-                    الرجاء التحقق من بياناتك !
+                    {t('check_data_error')}
                   </Text>
                 </FadeIn>
               </>
@@ -131,12 +134,14 @@ const MyModal = () => {
             <Pressable
               onPress={HandleSignIn}
               className="mt-4 rounded-md border-[1px] bg-red-700  px-4 py-1">
-              <Text className="font-Kufi text-sm leading-6 text-slate-100 ">تسجيل الدخول</Text>
+              <Text className="font-Kufi text-sm leading-6 text-slate-100 ">
+                {t('sign_in_link')}
+              </Text>
             </Pressable>
             {/**SignIn Succesfull */}
             {SignInSuccess && (
               <FadeIn>
-                <Text className="mt-2 font-Kufi">تم تسجبل الدخول بنجاح !</Text>
+                <Text className="mt-2 font-Kufi">{t('login_success')}</Text>
               </FadeIn>
             )}
             {/**Separator */}
@@ -145,21 +150,21 @@ const MyModal = () => {
               <FadeIn>
                 <Pressable onPress={navResetPassword} className=" size-fit">
                   <Text className=" mt-2 font-Kufi text-xs font-semibold text-blue-700 underline">
-                    نسيت كلمة المرور ؟
+                    {t('forgot_password')}
                   </Text>
                 </Pressable>
               </FadeIn>
             )}
             {/**Create Your Account */}
             <View className="mt-2 items-center justify-center">
-              <Text className="font-Kufi text-xs">غير مشترك ؟ </Text>
+              <Text className="font-Kufi text-xs">{t('not_subscriber')} </Text>
               <Pressable
                 onPress={() => {
                   setModalVisible(false);
                   router.push('/(drawer)/(Pages)/Account');
                 }}>
                 <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
-                  أنشيء حسابك الآن
+                  {t('create_account_now')}
                 </Text>
               </Pressable>
             </View>

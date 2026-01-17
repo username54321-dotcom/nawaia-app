@@ -11,8 +11,8 @@ export function GetIsApproved(isAuth: boolean) {
             if (isApprovedStore) return;
             if (!isAuth) return;
             const isApproved =
-                (await supabaseClient.from("profiles").select("approved")
-                    .single()).data?.approved;
+                (await supabaseClient.from("profiles").select("is_approved")
+                    .single()).data?.is_approved;
             if (isApprovedStore === isApproved) return;
             setIsApprovedStore(isApproved);
         },
