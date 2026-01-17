@@ -32,11 +32,6 @@ const BookList = () => {
     [contWidth]
   );
 
-  const sortedBookList = useMemo(() => {
-    if (!bookList) return [];
-    return [...bookList].sort((a, b) => b.id - a.id);
-  }, [bookList]);
-
   const renderItem = useCallback(
     ({ item, index }: { item: any; index: number }) => <BookCard key={index} bookItem={item} />,
     []
@@ -55,8 +50,7 @@ const BookList = () => {
           className="mx-auto w-[90%] md:w-2/3 ">
           <FlashList
             numColumns={colNum}
-            estimatedItemSize={300}
-            data={sortedBookList}
+            data={bookList}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
           />

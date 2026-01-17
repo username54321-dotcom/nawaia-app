@@ -10,7 +10,8 @@ export function useQueryGetCourseList() {
         .from("courses")
         .select(
           "*,courses_user_favourites(is_favourite),courses_chapters(*,courses_lessons(*,courses_lessons_completed(*)))",
-        );
+        )
+        .order("id", { ascending: false });
       return data;
     },
     staleTime: Infinity,

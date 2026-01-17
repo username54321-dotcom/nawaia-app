@@ -53,11 +53,6 @@ const CourseList = () => {
     [contWidth]
   );
 
-  const sortedCourseList = useMemo(() => {
-    if (!courseList) return [];
-    return [...courseList].sort((a, b) => b.id - a.id);
-  }, [courseList]);
-
   const renderItem: ListRenderItem<Course> = useCallback(
     ({ item }) => (
       <CourseCard
@@ -76,15 +71,14 @@ const CourseList = () => {
       {/** Loading Indicator */}
       <LoadingAnimation show={isLoading} />
 
-      {sortedCourseList.length > 0 && (
+      {courseList && (
         <View
           onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
           className="mx-auto w-[90%] md:w-2/3 ">
           <FlashList
             numColumns={colNum}
             // estimatedItemSize={450}
-            estimatedItemSize={450}
-            data={sortedCourseList}
+            data={courseList}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
           />
