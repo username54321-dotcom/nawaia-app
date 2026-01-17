@@ -3,6 +3,7 @@ import '../global.css';
 import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
+import Head from 'expo-router/head';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
@@ -66,6 +67,10 @@ export default function RootLayout() {
     // <StrictMode>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={tanstackQueryClient}>
+        <Head>
+          <link rel="shortcut icon" href="/favicon.png" />
+          <link rel="icon" type="image/png" href="/favicon.png" />
+        </Head>
         <Stack screenOptions={{ headerShown: false }}>
           <SafeAreaView>
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />

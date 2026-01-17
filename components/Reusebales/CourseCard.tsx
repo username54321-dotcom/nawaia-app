@@ -29,6 +29,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
           source={{ uri: courseItem.cover_image }}
           percentCompleted={percentCompleted}
+          accessibilityLabel={courseItem.title}
           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
         {/** Favourite Animation */}
         {/* <View className="ml-4 w-full flex-row items-center justify-center">

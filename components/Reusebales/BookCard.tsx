@@ -26,6 +26,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
         <MyImage
           className="m-2 rounded-b-md rounded-t-2xl  shadow-md shadow-neutral-300"
           source={{ uri: bookItem.image }}
+          accessibilityLabel={bookItem.title}
           style={{ aspectRatio: 1, width: 350, height: 350 }}></MyImage>
 
         {/** Course Details Container */}

@@ -66,5 +66,9 @@
   "not_subscriber": "غير مشترك ؟",
   "create_account_now": "أنشيء حسابك الآن",
   "show_more": "عرض المزيد",
-  "hide": "أخفاء"
+  "hide": "أخفاء",
+  "courses_title": "دورات | نوايا",
+  "courses_desc": "تصفح دوراتنا .",
+  "books_title": "كتب | نوايا",
+  "books_desc": "تصفح مكتبتنا المتنوعة."
 }

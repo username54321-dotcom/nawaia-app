@@ -13,7 +13,9 @@
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
-    "generate-sitemap": "node generate-sitemap.js"
+    "generate-sitemap": "node generate-sitemap.js",
+    "sitemap": "node generate-sitemap.js",
+    "build": "npm run sitemap && npx expo export -p web"
   },
   "dependencies": {
     "@10play/react-native-web-webview": "^0.0.3",
