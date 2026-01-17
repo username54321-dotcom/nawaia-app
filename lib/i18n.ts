@@ -14,7 +14,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
     resources,
-    lng: I18nManager.isRTL ? "ar" : "en", // default language based on layout
+    lng: "ar",
     fallbackLng: "ar",
     interpolation: {
         escapeValue: false,
