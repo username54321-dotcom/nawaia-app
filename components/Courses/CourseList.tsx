@@ -1,31 +1,12 @@
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { supabaseClient } from '~/utils/supabase';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import CourseCard from '../Reusebales/CourseCard';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import { FlashList } from '@shopify/flash-list';
+import { FlashList, type ListRenderItem } from '@shopify/flash-list';
 import { Tables } from '~/utils/database.types';
 
-// export interface itemCourseTypes {
-//   created_at: string;
-//   duration: string;
-//   genre: string;
-//   id: number;
-//   image: string;
-//   long_description: string;
-//   price: number;
-//   published: boolean;
-//   short_description: string;
-//   title: string;
-//   chapters: {
-//     lessons: {
-//       lesson_completed: {
-//         is_completed: boolean;
-//       }[];
-//     }[];
-//   }[];
-// }
 export type Course = Tables<'courses'> & {
   courses_chapters: (Tables<'courses_chapters'> & {
     courses_lessons: (Tables<'courses_lessons'> & {
@@ -34,21 +15,24 @@ export type Course = Tables<'courses'> & {
   })[];
 };
 
-const CourseList = () => {
-  const getCompletedPercent = useCallback((item_Course: Course) => {
-    const allLessons = item_Course.courses_chapters.flatMap((chapter) => chapter.courses_lessons);
+const getCompletedPercent = (item_Course: Course) => {
+  const allLessons = item_Course.courses_chapters.flatMap((chapter) => chapter.courses_lessons);
 
-    const allLessonsNum = item_Course.courses_chapters.flatMap(
-      (chapter) => chapter.courses_lessons
-    ).length;
-    const completedLessonsNum = allLessons.filter(
-      (lesson) => lesson.courses_lessons_completed[0] ?? false
-    ).length;
-    const percentComplete = (completedLessonsNum / allLessonsNum) * 100;
-    return percentComplete.toFixed(0);
-  }, []);
+  const allLessonsNum = allLessons.length;
+  const completedLessonsNum = allLessons.filter(
+    (lesson) => lesson.courses_lessons_completed[0] ?? false
+  ).length;
+
+  if (allLessonsNum === 0) return '0';
+
+  const percentComplete = (completedLessonsNum / allLessonsNum) * 100;
+  return percentComplete.toFixed(0);
+};
+
+const CourseList = () => {
   //Main Query
   const { data: courseList, refetch, isLoading } = useQueryGetCourseList();
+
   //Real Time
   useEffect(() => {
     const channel = supabaseClient.channel('refetch courses');
@@ -63,30 +47,48 @@ const CourseList = () => {
     };
   }, [refetch]);
 
-  const [contWidth, setContWidth] = useState(0);
-  const colNum = Math.floor(contWidth / 375) > 3 ? 3 : Math.floor(contWidth / 375);
+  const [contWidth, setContWidth] = useState(() => Dimensions.get('window').width);
+  const colNum = useMemo(
+    () => (Math.floor(contWidth / 375) > 3 ? 3 : Math.floor(contWidth / 375)),
+    [contWidth]
+  );
+
+  const sortedCourseList = useMemo(() => {
+    if (!courseList) return [];
+    return [...courseList].sort((a, b) => b.id - a.id);
+  }, [courseList]);
+
+  const renderItem: ListRenderItem<Course> = useCallback(
+    ({ item }) => (
+      <CourseCard
+        // is_favourite={item.courses_user_favourites?.[0]?.is_favourite ?? false}
+        percentCompleted={+getCompletedPercent(item)}
+        courseItem={item}
+      />
+    ),
+    []
+  );
+
+  const keyExtractor = useCallback((item: Course) => item.id.toString(), []);
+
   return (
     <>
       {/** Loading Indicator */}
-      <LoadingAnimation show={isLoading}></LoadingAnimation>
+      <LoadingAnimation show={isLoading} />
 
-      {courseList && (
-        <>
-          <View
-            onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
-            className="mx-auto w-[90%] md:w-2/3 ">
-            <FlashList
-              numColumns={colNum}
-              data={courseList.sort((a, b) => b.id - a.id)}
-              keyExtractor={(i) => i.id.toString()}
-              renderItem={({ item }) => (
-                <CourseCard
-                  is_favourite={item.courses_user_favourites[0]?.is_favourite ?? false}
-                  percentCompleted={+getCompletedPercent(item)}
-                  courseItem={item}></CourseCard>
-              )}></FlashList>
-          </View>
-        </>
+      {sortedCourseList.length > 0 && (
+        <View
+          onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
+          className="mx-auto w-[90%] md:w-2/3 ">
+          <FlashList
+            numColumns={colNum}
+            // estimatedItemSize={450}
+            estimatedItemSize={450}
+            data={sortedCourseList}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+          />
+        </View>
       )}
     </>
   );
