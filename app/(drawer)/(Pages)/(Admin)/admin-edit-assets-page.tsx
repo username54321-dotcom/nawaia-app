@@ -1,5 +1,5 @@
 import Background from '~/components/Background';
-import { useLocalSearchParams, Head } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import AdminUpdateField from '~/components/Pages/AdminPage/AdminUpdateField';
@@ -43,7 +43,7 @@ const Admin_EditAssetsPage = () => {
                 fieldName={fieldName as string}
                 id={+id}
                 label={label as string}
-                liveValue={data[0][fieldName]}
+                liveValue={(data[0] as any)[fieldName]}
                 table={table}
                 refetch={handleRefetch}></AdminUpdateField>
             </FadeIn>

@@ -1,0 +1,27 @@
+app/(drawer)/(Pages)/(Admin)/admin-edit-assets-page.tsx(2,32): error TS2305: Module '"expo-router"' has no exported member 'Head'.
+app/(drawer)/(Pages)/(Admin)/admin-edit-assets-page.tsx(46,36): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+components/MyDrawer/MyDrawer.tsx(75,17): error TS2820: Type '"/courses"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | `/_sitemap?${string}` | `/_sitemap#${string}` | "/(drawer)" | `/(drawer)?${string}` | `/(drawer)#${string}` | "/" | `/?${string}` | ... 130 more ... | { ...; }'. Did you mean '"/Courses"'?
+components/MyDrawer/MyDrawer.tsx(80,17): error TS2820: Type '"/books"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | `/_sitemap?${string}` | `/_sitemap#${string}` | "/(drawer)" | `/(drawer)?${string}` | `/(drawer)#${string}` | "/" | `/?${string}` | ... 130 more ... | { ...; }'. Did you mean '"/Books"'?
+components/MyDrawer/MyDrawer.tsx(85,17): error TS2820: Type '"/booking"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | `/_sitemap?${string}` | `/_sitemap#${string}` | "/(drawer)" | `/(drawer)?${string}` | `/(drawer)#${string}` | "/" | `/?${string}` | ... 130 more ... | { ...; }'. Did you mean '"/Booking"'?
+components/MyDrawer/MyDrawer.tsx(90,17): error TS2820: Type '"/about-us"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | `/_sitemap?${string}` | `/_sitemap#${string}` | "/(drawer)" | `/(drawer)?${string}` | `/(drawer)#${string}` | "/" | `/?${string}` | ... 130 more ... | { ...; }'. Did you mean '"/AboutUs"'?
+components/MyDrawer/MyDrawer.tsx(96,19): error TS2820: Type '"/admin-select-edit-option"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | `/_sitemap?${string}` | `/_sitemap#${string}` | "/(drawer)" | `/(drawer)?${string}` | `/(drawer)#${string}` | "/" | `/?${string}` | ... 130 more ... | { ...; }'. Did you mean '"/Admin_SelectEditOption"'?
+components/Pages/Account/SignedOut/PhoneController.tsx(5,24): error TS2307: Cannot find module 'react-native-phone-number-input' or its corresponding type declarations.
+components/Reusebales/BookCard.tsx(43,33): error TS2820: Type '"/book"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | "/(drawer)" | "/" | "/(drawer)/(Pages)/AboutUs" | "/AboutUs" | "/(drawer)/(Pages)/Account" | ... 32 more ... | "/send_reset_password"'. Did you mean '"/Book"'?
+components/Reusebales/CourseCard.tsx(50,33): error TS2820: Type '"/course"' is not assignable to type 'RelativePathString | ExternalPathString | "/_sitemap" | "/(drawer)" | "/" | "/(drawer)/(Pages)/AboutUs" | "/AboutUs" | "/(drawer)/(Pages)/Account" | ... 32 more ... | "/send_reset_password"'. Did you mean '"/Course"'?
+supabase/functions/telemetry/clients/hono.ts(1,22): error TS2307: Cannot find module '@hono/hono' or its corresponding type declarations.
+supabase/functions/telemetry/clients/hono.ts(2,22): error TS2307: Cannot find module '@hono/hono/cors' or its corresponding type declarations.
+supabase/functions/telemetry/index.ts(2,21): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+supabase/functions/telemetry/index.ts(5,21): error TS7006: Parameter 'ctx' implicitly has an 'any' type.
+supabase/functions/telemetry/index.ts(26,1): error TS2304: Cannot find name 'Deno'.
+supabase/functions/tgNewUser/Clients/hono.ts(1,22): error TS2307: Cannot find module '@hono/hono' or its corresponding type declarations.
+supabase/functions/tgNewUser/Clients/supabase.ts(4,13): error TS2304: Cannot find name 'Deno'.
+supabase/functions/tgNewUser/Clients/supabase.ts(5,13): error TS2304: Cannot find name 'Deno'.
+supabase/functions/tgNewUser/Clients/telegram.ts(1,31): error TS2307: Cannot find module 'grammy' or its corresponding type declarations.
+supabase/functions/tgNewUser/Clients/telegram.ts(3,13): error TS2304: Cannot find name 'Deno'.
+supabase/functions/tgNewUser/index.ts(2,21): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+supabase/functions/tgNewUser/index.ts(3,21): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+supabase/functions/tgNewUser/index.ts(4,26): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+supabase/functions/tgNewUser/index.ts(5,49): error TS2307: Cannot find module 'grammy' or its corresponding type declarations.
+supabase/functions/tgNewUser/index.ts(8,22): error TS7006: Parameter 'ctx' implicitly has an 'any' type.
+supabase/functions/tgNewUser/index.ts(44,33): error TS7006: Parameter 'ctx' implicitly has an 'any' type.
+supabase/functions/tgNewUser/index.ts(135,1): error TS2304: Cannot find name 'Deno'.

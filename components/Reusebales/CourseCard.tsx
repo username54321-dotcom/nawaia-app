@@ -47,7 +47,7 @@ const CourseCard = ({ courseItem, className, percentCompleted, is_favourite }: p
             {courseItem.short_description}
           </Text>
           {/** Navigate to Course Button */}
-          <Link asChild href={{ pathname: '/Course', params: { id: courseItem.id } }}>
+          <Link asChild href={{ pathname: '/course', params: { id: courseItem.id } }}>
             <Pressable
               role="link"
               accessibilityLabel={`View details for ${courseItem.title}`}

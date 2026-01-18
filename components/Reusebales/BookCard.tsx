@@ -40,7 +40,7 @@ const CourseCard = ({ bookItem, className }: propTypes) => {
             {bookItem.short_description}
           </Text>
           {/** Navigate to Course Button */}
-          <Link asChild href={{ pathname: '/Book', params: { id: bookItem.id } }}>
+          <Link asChild href={{ pathname: '/book', params: { id: bookItem.id } }}>
             <Pressable
               role="link"
               accessibilityLabel={`View details for ${bookItem.title}`}

@@ -15,7 +15,7 @@ const Admin_EditAssestsComponent = () => {
   const handleNavigate = useCallback(
     ({ table, id, fieldName, label }: navTypes) => {
       nav.navigate({
-        pathname: '/Admin_EditAssetsPage',
+        pathname: '/admin-edit-assets-page',
         params: { table: table, id: id, fieldName: fieldName, label: label },
       });
     },
@@ -63,17 +63,17 @@ const Admin_EditAssestsComponent = () => {
         <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة من نحن ؟</Text>
       </Pressable>
       <Pressable
-        onPress={() => simpleNav('/Admin_SelectBook')}
+        onPress={() => simpleNav('/admin-select-book')}
         className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الكتب</Text>
       </Pressable>{' '}
       <Pressable
-        onPress={() => simpleNav('/(drawer)/(Pages)/(Admin)/Admin_SelectCourse')}
+        onPress={() => simpleNav('/(drawer)/(Pages)/(Admin)/admin-select-course')}
         className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الدورات</Text>
       </Pressable>
       <Pressable
-        onPress={() => simpleNav('/Admin_GiveAccess')}
+        onPress={() => simpleNav('/admin-give-access')}
         className="m-2 rounded-md bg-red-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">منح الأذونات</Text>
       </Pressable>

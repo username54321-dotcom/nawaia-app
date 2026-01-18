@@ -72,28 +72,28 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
                 Icon={GraduationCap}
                 setDrawerVisible={setDrawerVisible}
                 label={t('nav_courses')}
-                targetPage="/Courses"></DrawerItem>
+                targetPage="/courses"></DrawerItem>
               <DrawerItem
                 Icon={LibraryBig}
                 setDrawerVisible={setDrawerVisible}
                 label={t('nav_books')}
-                targetPage="/Books"></DrawerItem>
+                targetPage="/books"></DrawerItem>
               <DrawerItem
                 Icon={CalendarDays}
                 setDrawerVisible={setDrawerVisible}
                 label={t('nav_booking')}
-                targetPage="/Booking"></DrawerItem>
+                targetPage="/booking"></DrawerItem>
               <DrawerItem
                 Icon={Users}
                 setDrawerVisible={setDrawerVisible}
                 label={t('nav_about_us')}
-                targetPage="/AboutUs"></DrawerItem>
+                targetPage="/about-us"></DrawerItem>
               {isAdmin && (
                 <DrawerItem
                   Icon={ShieldUser}
                   setDrawerVisible={setDrawerVisible}
                   label={t('nav_admin_content')}
-                  targetPage="/Admin_SelectEditOption"></DrawerItem>
+                  targetPage="/admin-select-edit-option"></DrawerItem>
               )}
               {isAuth && (
                 <Pressable onPress={handleLogout} className="mt-auto ">

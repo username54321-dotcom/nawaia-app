@@ -161,7 +161,7 @@ const MyModal = () => {
               <Pressable
                 onPress={() => {
                   setModalVisible(false);
-                  router.push('/(drawer)/(Pages)/Account');
+                  router.push('/account');
                 }}>
                 <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
                   {t('create_account_now')}
