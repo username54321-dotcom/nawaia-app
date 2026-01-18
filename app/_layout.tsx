@@ -12,8 +12,7 @@ import { useEffect } from 'react';
 import { PortalHost } from '@rn-primitives/portal';
 
 import { supabaseClient } from '~/utils/supabase';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ApprovedModal from './../components/ApprovedModal';
+import ApprovedModal from '~/components/ApprovedModal';
 import NotPurchasedModal from '~/components/NotPurchasedModal';
 
 //Tanstack Query Init
@@ -72,7 +71,7 @@ export default function RootLayout() {
           <link rel="icon" type="image/png" href="/favicon.png" />
         </Head>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="index" />
         </Stack>
         <PortalHost />
         {registerModal && <MyModal></MyModal>}
