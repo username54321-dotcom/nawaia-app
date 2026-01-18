@@ -1,12 +1,11 @@
-import { View, Text, Pressable, Linking } from 'react-native';
+import { View } from 'react-native';
 import Background from '~/components/Background';
-import { DotLottie } from '@lottiefiles/dotlottie-react-native';
 
 import { RenderHTML } from 'react-native-render-html';
 import { useQueryGetPublicAssets } from '~/HelperFunctions/Queries/GetPublicAssests';
 import FadeIn from '~/components/Animations/FadeIn';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import ContactWhatsApp from './../../../components/ContactWhatsApp';
+import ContactWhatsApp from '~/components/ContactWhatsApp';
 import Head from 'expo-router/head';
 
 const Booking = () => {
@@ -32,7 +31,7 @@ const Booking = () => {
           </>
         )}
       </View>
-      <ContactWhatsApp message="أحجز أستشارتك الآن"></ContactWhatsApp>
+      <ContactWhatsApp className="self-center" message="أحجز أستشارتك الآن"></ContactWhatsApp>
     </Background>
   );
 };

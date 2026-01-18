@@ -1,16 +1,17 @@
 import { View, Text, Pressable, Linking } from 'react-native';
 import { DotLottie } from '@lottiefiles/dotlottie-react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   message: string;
+  className?: string;
 };
 
-const ContactWhatsApp = ({ message }: Props) => {
+const ContactWhatsApp = ({ message, className }: Props) => {
   const [showAnim, setShowAnim] = useState(false);
 
   return (
-    <View className=" ">
+    <View className={className ?? ''}>
       <Pressable
         role="link"
         accessibilityLabel="Contact via WhatsApp"

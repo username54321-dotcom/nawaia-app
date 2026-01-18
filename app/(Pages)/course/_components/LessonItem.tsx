@@ -3,7 +3,7 @@ import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useModalVisibleType, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
-import Lexical from './../../Reusebales/Lexical';
+import Lexical from '~/components/Reusebales/Lexical';
 import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
 import VideoModal from './PIPVideo';

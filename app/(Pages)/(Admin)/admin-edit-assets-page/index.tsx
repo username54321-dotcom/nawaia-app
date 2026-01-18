@@ -2,7 +2,7 @@ import Background from '~/components/Background';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
-import AdminUpdateField from '~/components/Pages/AdminPage/AdminUpdateField';
+import AdminUpdateField from '../_components/AdminUpdateField';
 import FadeIn from '~/components/Animations/FadeIn';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { Database } from '~/utils/database.types';

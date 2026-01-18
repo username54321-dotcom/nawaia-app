@@ -5,7 +5,7 @@ import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
 import Background from '~/components/Background';
 import MyImage from '../../../components/Reusebales/MyImage';
-import IdContent from '../../../components/Pages/[id]/Content';
+import IdContent from './_components/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { memo, useCallback, useEffect, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
@@ -123,31 +123,37 @@ const CoursePage = () => {
         {courseData?.title && (
           <Head>
             <title>{courseData.title} | Nawaia</title>
-            <meta name="description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
+            <meta
+              name="description"
+              content={courseData.short_description ?? `Course: ${courseData.title}`}
+            />
             <link rel="canonical" href={`https://nawaia.net/Course?id=${id}`} />
             <meta property="og:title" content={`${courseData.title} | Nawaia`} />
-            <meta property="og:description" content={courseData.short_description ?? `Course: ${courseData.title}`} />
+            <meta
+              property="og:description"
+              content={courseData.short_description ?? `Course: ${courseData.title}`}
+            />
             <meta property="og:image" content={courseData.cover_image} />
             <meta property="og:type" content="video.course" />
             <meta property="og:url" content={`https://nawaia.net/Course?id=${id}`} />
             <meta name="twitter:card" content="summary_large_image" />
             <script type="application/ld+json">
               {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Course",
-                "name": courseData.title,
-                "description": courseData.short_description,
-                "provider": {
-                  "@type": "Organization",
-                  "name": "Nawaia",
-                  "sameAs": "https://nawaia.net"
+                '@context': 'https://schema.org',
+                '@type': 'Course',
+                name: courseData.title,
+                description: courseData.short_description,
+                provider: {
+                  '@type': 'Organization',
+                  name: 'Nawaia',
+                  sameAs: 'https://nawaia.net',
                 },
-                "image": courseData.cover_image,
-                "offers": {
-                  "@type": "Offer",
-                  "price": courseData.price,
-                  "priceCurrency": "SAR"
-                }
+                image: courseData.cover_image,
+                offers: {
+                  '@type': 'Offer',
+                  price: courseData.price,
+                  priceCurrency: 'SAR',
+                },
               })}
             </script>
           </Head>

@@ -7,7 +7,7 @@ import { useModalVisible, useModalVisibleType } from '~/store/store';
 
 import { useRouter } from 'expo-router';
 import { supabaseClient } from '~/utils/supabase';
-import FadeIn from './../../../Animations/FadeIn';
+import FadeIn from '../Animations/FadeIn';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useTranslation } from 'react-i18next';

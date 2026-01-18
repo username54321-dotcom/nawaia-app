@@ -9,7 +9,7 @@ import { imgLogo } from '~/assets/images/ImageExports';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import MyController from '~/components/Pages/Account/SignedOut/MyController';
+import MyController from '~/app/(Pages)/account/_components/SignedOut/MyController';
 import { Check } from 'lucide-react-native';
 // *Schema
 const schema = z

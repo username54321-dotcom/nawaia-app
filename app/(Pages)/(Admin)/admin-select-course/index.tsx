@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
-import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminPublishButton from '../_components/AdminPublishButton';
 import { Plus, Trash2 } from 'lucide-react-native';
 import { addDummyCourse } from '~/HelperFunctions/Add_Dummy_Course';
 import { useFocusEffect, useRouter } from 'expo-router';

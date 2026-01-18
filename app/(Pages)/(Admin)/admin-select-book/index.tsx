@@ -3,7 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
-import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminPublishButton from '../_components/AdminPublishButton';
 import { Plus, Trash2 } from 'lucide-react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import MyImage from '~/components/Reusebales/MyImage';

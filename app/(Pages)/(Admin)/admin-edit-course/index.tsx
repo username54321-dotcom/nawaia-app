@@ -1,8 +1,8 @@
 import Background from '~/components/Background';
 import { supabaseClient } from '~/utils/supabase';
 import { Text, View, TouchableOpacity } from 'react-native';
-import AdminUpdateField from '../../../../components/Pages/AdminPage/AdminUpdateField';
-import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminUpdateField from '../_components/AdminUpdateField';
+import AdminPublishButton from '../_components/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
 import { memo, useCallback, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
@@ -14,7 +14,7 @@ import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import DropDown from './../../../../components/Reusebales/DropDown';
 import { TierList, tierList } from '~/data/tierList';
 import { ValueOf } from 'react-native-gesture-handler/lib/typescript/typeUtils';
-import UpdateCourseTier from './../../../../components/Pages/AdminPage/UpdateCourseTier';
+import UpdateCourseTier from './_components/UpdateCourseTier';
 
 const Admin_EditCourse = () => {
   useAdminOnly(); // Admin Only

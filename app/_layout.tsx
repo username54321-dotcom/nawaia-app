@@ -6,7 +6,7 @@ import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
-import MyModal from '~/components/Pages/[id]/MyModal/MyModal';
+import MyModal from '~/components/MyModal/MyModal';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import { useEffect } from 'react';
 import { PortalHost } from '@rn-primitives/portal';

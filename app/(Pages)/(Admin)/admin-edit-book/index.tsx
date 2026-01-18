@@ -1,7 +1,7 @@
 import Background from '~/components/Background';
 import { Text, View } from 'react-native';
-import AdminUpdateField from '../../../../components/Pages/AdminPage/AdminUpdateField';
-import AdminPublishButton from '../../../../components/Pages/AdminPage/AdminPublishButton';
+import AdminUpdateField from '../_components/AdminUpdateField';
+import AdminPublishButton from '../_components/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
 import { memo } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';

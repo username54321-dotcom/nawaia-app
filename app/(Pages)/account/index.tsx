@@ -1,6 +1,6 @@
 import { useIsAuth, useIsAuthType } from '~/store/store';
-import SignedOutPage from '~/components/Pages/Account/SignedOut/SignedOutPage';
-import SignedInPage from './../../../components/Pages/Account/SignedIn/SignedInPage';
+import SignedOutPage from './_components/SignedOut/SignedOutPage';
+import SignedInPage from './_components/SignedInPage';
 import Head from 'expo-router/head';
 
 import { useTranslation } from 'react-i18next';
