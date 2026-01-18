@@ -5,7 +5,7 @@ import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign } from 'lucide-react-native';
 import Background from '~/components/Background';
 import MyImage from '../../../components/Reusebales/MyImage';
-import IdContent from './_components/Content';
+import Content from './_components/Content';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { memo, useCallback, useEffect, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
@@ -201,10 +201,10 @@ const CoursePage = () => {
                 shortDescription={courseData.short_description}
                 longDescription={courseData.long_description}></TextAccordion>
 
-              <IdContent
+              <Content
                 refetch={refetch}
                 // courseId={courseData.id}
-                chaptersData={courseData.courses_chapters}></IdContent>
+                chaptersData={courseData.courses_chapters}></Content>
             </View>
           </FadeIn>
         )}

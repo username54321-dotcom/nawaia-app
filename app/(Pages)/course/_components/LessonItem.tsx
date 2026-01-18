@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useModalVisibleType, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
@@ -34,8 +34,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
   const isApproved = useIsAuth((x: useIsAuthType) => x.isApproved);
   const setApprovedModal = useModalVisible((x: useModalVisibleType) => x.setApprovedModal);
   // Auth State
-  const Note = useRef<string | null>(null); // State for note user input
-  console.log(Note);
+  const Note = useRef<string | null>(note ?? null); // State for note user input
   const [ViewEditor, setViewEditor] = useState(false);
   const [VideoPlayer, setVideoPlayer] = useState(false);
   const lessonOnPress = async () => {
@@ -72,6 +71,9 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
       setVideoPlayer(!VideoPlayer);
     }
   };
+  const showEditor = useCallback(() => {
+    setViewEditor(true);
+  }, []);
 
   return (
     <>
@@ -169,7 +171,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
               <Pressable
                 role="button"
                 accessibilityLabel={note ? 'Edit Note' : 'Add Note'}
-                onPress={() => setViewEditor(true)}
+                onPress={showEditor}
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
                 <Text className="font font-Kufi font-semibold text-neutral-50">
                   {note ? t('edit_note') : t('add_note')}

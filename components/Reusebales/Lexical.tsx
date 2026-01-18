@@ -91,6 +91,7 @@ interface LexicalPropTypes {
   initialHtml?: string | null;
 }
 function Lexical({ onChange, onStateChange, initialHtml }: LexicalPropTypes) {
+  console.log('sdasd');
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className=" w-full bg-white">

@@ -13,7 +13,7 @@ type test = (Tables<'courses_chapters'> & {
 })[];
 type refetchType = () => void;
 
-const IdContent = ({ chaptersData, refetch }: { chaptersData: test; refetch: refetchType }) => {
+const Content = ({ chaptersData, refetch }: { chaptersData: test; refetch: refetchType }) => {
   return (
     <>
       {chaptersData
@@ -33,7 +33,7 @@ const IdContent = ({ chaptersData, refetch }: { chaptersData: test; refetch: ref
                   <LessonItem
                     lessonItem={Lesson}
                     refetch={refetch}
-                    note={Lesson.courses_notes[0]?.note_content}></LessonItem>
+                    note={Lesson.courses_notes[0]?.note_content ?? null}></LessonItem>
                 </>
               ))}
             </View>
@@ -43,4 +43,4 @@ const IdContent = ({ chaptersData, refetch }: { chaptersData: test; refetch: ref
   );
 };
 
-export default memo(IdContent);
+export default memo(Content);
