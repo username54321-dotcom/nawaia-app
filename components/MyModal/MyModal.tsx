@@ -56,7 +56,7 @@ const MyModal = () => {
   // Navigate to reset password page
   const navResetPassword = useCallback(() => {
     HandleCancelButton();
-    router.push('/(drawer)/(Pages)/(ResetPassword)/send_reset_password');
+    router.push('/send_reset_password');
   }, [router, HandleCancelButton]);
 
   // Show Password
