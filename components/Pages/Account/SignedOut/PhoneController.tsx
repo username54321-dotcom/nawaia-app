@@ -2,7 +2,6 @@ import { Pressable, Text, TextInput, View } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { Eye } from 'lucide-react-native';
 import { memo, useCallback, useState } from 'react';
-import PhoneInput from 'react-native-phone-number-input';
 
 const MyController = ({
   control,
@@ -34,9 +33,7 @@ const MyController = ({
               {title}
             </Text>
             {/** Text Input View */}
-            <View className="w-full">
-              <PhoneInput></PhoneInput>
-            </View>
+            <View className="w-full"></View>
             {error && (
               <Text className="w-full text-right font-Kufi text-xs text-red-600">
                 {error.message}

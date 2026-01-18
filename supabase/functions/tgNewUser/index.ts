@@ -2,6 +2,7 @@ import "@supabase/functions-js/";
 import { bot } from "./Clients/telegram.ts";
 import { app } from "./Clients/hono.ts";
 import { supabase } from "./Clients/supabase.ts";
+// eslint-disable-next-line import/no-unresolved
 import { InlineKeyboard, webhookCallback } from "grammy";
 
 // New User Webhook

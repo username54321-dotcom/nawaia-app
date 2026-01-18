@@ -1,7 +1,7 @@
-import Background from './../../components/Background';
+import Background from '~/components/Background';
 import Head from 'expo-router/head';
 import { Dimensions, View } from 'react-native';
-import FadeIn from './../../components/Animations/FadeIn';
+import FadeIn from '~/components/Animations/FadeIn';
 import { memo } from 'react';
 
 import { RenderHTML } from 'react-native-render-html';

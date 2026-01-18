@@ -1,5 +1,8 @@
+// eslint-disable-next-line import/no-unresolved
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+// eslint-disable-next-line import/no-unresolved
 import { app } from "./clients/hono.ts";
+// eslint-disable-next-line import/no-unresolved
 import axios from "axios";
 
 app.get("/", async (ctx) => {

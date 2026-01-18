@@ -69,30 +69,36 @@ const BookPage = () => {
           <FadeIn>
             <Head>
               <title>{bookData.title} | Nawaia</title>
-              <meta name="description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
+              <meta
+                name="description"
+                content={bookData.short_description ?? `Details about ${bookData.title}`}
+              />
               <link rel="canonical" href={`https://nawaia.net/Book?id=${id}`} />
               <meta property="og:title" content={`${bookData.title} | Nawaia`} />
-              <meta property="og:description" content={bookData.short_description ?? `Details about ${bookData.title}`} />
+              <meta
+                property="og:description"
+                content={bookData.short_description ?? `Details about ${bookData.title}`}
+              />
               <meta property="og:image" content={bookData.image} />
               <meta property="og:type" content="book" />
               <meta property="og:url" content={`https://nawaia.net/Book?id=${id}`} />
               <meta name="twitter:card" content="summary_large_image" />
               <script type="application/ld+json">
                 {JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "Book",
-                  "name": bookData.title,
-                  "description": bookData.short_description,
-                  "author": {
-                    "@type": "Organization",
-                    "name": "Nawaia"
+                  '@context': 'https://schema.org',
+                  '@type': 'Book',
+                  name: bookData.title,
+                  description: bookData.short_description,
+                  author: {
+                    '@type': 'Organization',
+                    name: 'Nawaia',
                   },
-                  "image": bookData.image,
-                  "offers": {
-                    "@type": "Offer",
-                    "price": bookData.price,
-                    "priceCurrency": "SAR"
-                  }
+                  image: bookData.image,
+                  offers: {
+                    '@type': 'Offer',
+                    price: bookData.price,
+                    priceCurrency: 'SAR',
+                  },
                 })}
               </script>
             </Head>
@@ -140,7 +146,7 @@ const BookPage = () => {
                   className=" size-fit self-center rounded-xl bg-[#BE1E2D] px-10 py-2">
                   <Text className="font-Kufi text-xl font-bold text-neutral-50">رابط التحميل</Text>
                 </Pressable>
-                <Link asChild href={'/Books'}>
+                <Link asChild href={'/books'}>
                   <Pressable className="my-4 flex-row items-center gap-2">
                     <Text className="font-Kufi font-semibold text-neutral-700">
                       تصفح المزيد من الكتب

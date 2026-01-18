@@ -72,9 +72,7 @@ export default function RootLayout() {
           <link rel="icon" type="image/png" href="/favicon.png" />
         </Head>
         <Stack screenOptions={{ headerShown: false }}>
-          <SafeAreaView>
-            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-          </SafeAreaView>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
         </Stack>
         <PortalHost />
         {registerModal && <MyModal></MyModal>}

@@ -68,7 +68,7 @@ const Admin_EditAssestsComponent = () => {
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الكتب</Text>
       </Pressable>{' '}
       <Pressable
-        onPress={() => simpleNav('/(drawer)/(Pages)/(Admin)/admin-select-course')}
+        onPress={() => simpleNav('/admin-select-course')}
         className="m-2 rounded-md bg-blue-500 p-4">
         <Text className="font-Kufi font-semibold text-blue-50">تعديل الدورات</Text>
       </Pressable>

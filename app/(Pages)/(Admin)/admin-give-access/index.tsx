@@ -14,7 +14,7 @@ const Admin_GiveAccess = () => {
   const router = useRouter();
   const handleNav = useCallback(
     (userId: string) => {
-      router.navigate({ pathname: '/Admin_EditUser', params: { userId: userId } });
+      router.navigate({ pathname: '/admin-edit-user', params: { userId: userId } });
     },
     [router]
   );
