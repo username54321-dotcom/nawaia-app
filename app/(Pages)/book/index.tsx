@@ -73,7 +73,7 @@ const BookPage = () => {
                 name="description"
                 content={bookData.short_description ?? `Details about ${bookData.title}`}
               />
-              <link rel="canonical" href={`https://nawaia.net/Book?id=${id}`} />
+              <link rel="canonical" href={`https://nawaia.net/book?id=${id}`} />
               <meta property="og:title" content={`${bookData.title} | Nawaia`} />
               <meta
                 property="og:description"
@@ -81,8 +81,7 @@ const BookPage = () => {
               />
               <meta property="og:image" content={bookData.image} />
               <meta property="og:type" content="book" />
-              <meta property="og:url" content={`https://nawaia.net/Book?id=${id}`} />
-              <meta name="twitter:card" content="summary_large_image" />
+              <meta property="og:url" content={`https://nawaia.net/book?id=${id}`} />
               <script type="application/ld+json">
                 {JSON.stringify({
                   '@context': 'https://schema.org',

@@ -15,7 +15,7 @@ const BoutUs = () => {
       <Head>
         <title>{t('about_us_title')}</title>
         <meta name="description" content={t('about_us_desc')} />
-        <link rel="canonical" href="https://nawaia.net/AboutUs" />
+        <link rel="canonical" href="https://nawaia.net/about-us" />
         <meta property="og:title" content={t('about_us_title')} />
         <meta property="og:description" content={t('about_us_desc')} />
       </Head>

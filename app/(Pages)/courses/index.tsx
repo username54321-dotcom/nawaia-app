@@ -11,7 +11,7 @@ const Courses = () => {
       <Head>
         <title>{t('courses_title')}</title>
         <meta name="description" content={t('courses_desc')} />
-        <link rel="canonical" href="https://nawaia.net/Courses" />
+        <link rel="canonical" href="https://nawaia.net/courses" />
         <meta property="og:title" content={t('courses_title')} />
         <meta property="og:description" content={t('courses_desc')} />
       </Head>

@@ -27,10 +27,7 @@ const Home = () => {
         <meta property="og:description" content={t('meta_description')} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nawaia.net/" />
-        <meta property="og:image" content="https://nawaia.net/assets/icon.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={t('home_title')} />
-        <meta name="twitter:description" content={t('meta_description')} />
+        <meta property="og:image" content="https://nawaia.net/favicon.png" />
       </Head>
       {/* * Loading Indicator */}
       <LoadingAnimation show={isLoading}></LoadingAnimation>

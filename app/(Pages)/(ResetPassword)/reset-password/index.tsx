@@ -11,6 +11,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import MyController from '~/app/(Pages)/account/_components/SignedOut/MyController';
 import { Check } from 'lucide-react-native';
+import Head from 'expo-router/head';
+import { useTranslation } from 'react-i18next';
 // *Schema
 const schema = z
   .object({
@@ -40,6 +42,7 @@ const schema = z
 type FormTypes = z.infer<typeof schema>;
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const params = useLocalSearchParams()['#'];
   const router = useRouter();
   const [userName, setUserName] = useState<null | string>(null);
@@ -87,6 +90,10 @@ const ResetPassword = () => {
   }, [params, router]);
   return (
     <Background>
+      <Head>
+        <title>{t('reset_password_title')}</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <FadeIn>
         {/** Parent Container */}
         <View className="mx-auto mt-8 w-4/5 max-w-[400px] self-center rounded-md border-[1px] border-gray-500 bg-neutral-200 p-8 pb-8">

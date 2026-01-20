@@ -67,8 +67,40 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={tanstackQueryClient}>
         <Head>
+          {/* Language & Direction */}
+          <html lang="ar" dir="rtl" />
+
+          {/* Essential Meta */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#BE1E2D" />
+          <meta name="author" content="نوايا" />
+
+          {/* Favicon */}
           <link rel="shortcut icon" href="/favicon.png" />
           <link rel="icon" type="image/png" href="/favicon.png" />
+          <link rel="apple-touch-icon" href="/favicon.png" />
+
+          {/* Open Graph Global */}
+          <meta property="og:locale" content="ar_SA" />
+          <meta property="og:locale:alternate" content="en_US" />
+          <meta property="og:site_name" content="نوايا" />
+
+          {/* Organization Schema */}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'نوايا',
+              alternateName: 'Nawaia',
+              url: 'https://nawaia.net',
+              logo: 'https://nawaia.net/favicon.png',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'customer service',
+                availableLanguage: ['Arabic', 'English'],
+              },
+            })}
+          </script>
         </Head>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />

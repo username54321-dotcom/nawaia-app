@@ -26,7 +26,7 @@ async function getDynamicRoutes() {
       console.error('Error fetching books:', booksError);
     } else {
       books.forEach((book) => {
-        routes.push(`/Book?id=${book.id}`);
+        routes.push(`/book?id=${book.id}`);
       });
       console.log(`Fetched ${books.length} books.`);
     }
@@ -38,7 +38,7 @@ async function getDynamicRoutes() {
       console.error('Error fetching courses:', coursesError);
     } else {
       courses.forEach((course) => {
-        routes.push(`/Course?id=${course.id}`);
+        routes.push(`/course?id=${course.id}`);
       });
       console.log(`Fetched ${courses.length} courses.`);
     }
@@ -114,8 +114,12 @@ async function main() {
   const dynamicRoutes = await getDynamicRoutes();
 
   const allRoutes = [...new Set([...staticRoutes, ...dynamicRoutes])].filter((route) => {
+    const lowerRoute = route.toLowerCase();
     return (
-      !route.toLowerCase().includes('Admin') &&
+      !lowerRoute.includes('admin') &&
+      !lowerRoute.includes('reset-password') &&
+      !lowerRoute.includes('send-reset-password') &&
+      !lowerRoute.includes('test') &&
       !route.includes('_layout') &&
       !route.includes('+html')
     );

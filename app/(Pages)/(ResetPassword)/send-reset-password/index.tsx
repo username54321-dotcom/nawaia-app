@@ -6,8 +6,11 @@ import MyImage from '~/components/Reusebales/MyImage';
 import { imgLogo } from '~/assets/images/ImageExports';
 import FadeIn from '~/components/Animations/FadeIn';
 import { Check } from 'lucide-react-native';
+import Head from 'expo-router/head';
+import { useTranslation } from 'react-i18next';
 
 const SendResetPassword = () => {
+  const { t } = useTranslation();
   const emailInput = useRef<string>('');
   const [invalidEmail, setinvalidEmail] = useState<null | boolean>(null);
   const [emailSent, setEmailSent] = useState(false);
@@ -43,6 +46,10 @@ const SendResetPassword = () => {
 
   return (
     <Background>
+      <Head>
+        <title>{t('send_reset_title')}</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <FadeIn>
         {/** Parent View */}
         <View className="  flex-row  justify-center ">

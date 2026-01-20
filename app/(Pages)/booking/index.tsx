@@ -8,15 +8,22 @@ import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import ContactWhatsApp from '~/components/ContactWhatsApp';
 import Head from 'expo-router/head';
 
+import { useTranslation } from 'react-i18next';
+
 const Booking = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQueryGetPublicAssets();
   return (
     <Background>
       <Head>
-        <title>Booking | Nawaia</title>
-        <meta name="description" content="Book your consultation now." />
-        <meta property="og:title" content="Booking | Nawaia" />
-        <meta property="og:description" content="Book your consultation now." />
+        <title>{t('booking_title')}</title>
+        <meta name="description" content={t('booking_desc')} />
+        <link rel="canonical" href="https://nawaia.net/booking" />
+        <meta property="og:title" content={t('booking_title')} />
+        <meta property="og:description" content={t('booking_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nawaia.net/booking" />
+        <meta property="og:image" content="https://nawaia.net/favicon.png" />
       </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}

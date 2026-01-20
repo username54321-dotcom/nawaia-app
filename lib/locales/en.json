@@ -70,5 +70,11 @@
   "courses_title": "Courses | Nawaia",
   "courses_desc": "Explore our courses.",
   "books_title": "Books | Nawaia",
-  "books_desc": "Explore our collection of books."
+  "books_desc": "Explore our collection of books.",
+  "booking_title": "Book Consultation | Nawaia",
+  "booking_desc": "Book your consultation now with Nawaia team",
+  "reset_password_title": "Reset Password | Nawaia",
+  "send_reset_title": "Request Password Reset | Nawaia",
+  "og_site_name": "Nawaia",
+  "og_image_alt": "Nawaia Logo"
 }

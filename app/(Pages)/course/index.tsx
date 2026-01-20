@@ -127,7 +127,7 @@ const CoursePage = () => {
               name="description"
               content={courseData.short_description ?? `Course: ${courseData.title}`}
             />
-            <link rel="canonical" href={`https://nawaia.net/Course?id=${id}`} />
+            <link rel="canonical" href={`https://nawaia.net/course?id=${id}`} />
             <meta property="og:title" content={`${courseData.title} | Nawaia`} />
             <meta
               property="og:description"
@@ -135,8 +135,7 @@ const CoursePage = () => {
             />
             <meta property="og:image" content={courseData.cover_image} />
             <meta property="og:type" content="video.course" />
-            <meta property="og:url" content={`https://nawaia.net/Course?id=${id}`} />
-            <meta name="twitter:card" content="summary_large_image" />
+            <meta property="og:url" content={`https://nawaia.net/course?id=${id}`} />
             <script type="application/ld+json">
               {JSON.stringify({
                 '@context': 'https://schema.org',

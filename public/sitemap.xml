@@ -2,92 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://nawaia.net/Admin_EditAssetsPage</loc>
+    <loc>https://nawaia.net/about-us</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_EditBook</loc>
+    <loc>https://nawaia.net/account</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_EditCourse</loc>
+    <loc>https://nawaia.net/book</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_EditUser</loc>
+    <loc>https://nawaia.net/booking</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_GiveAccess</loc>
+    <loc>https://nawaia.net/books</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_SelectBook</loc>
+    <loc>https://nawaia.net/course</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Admin_SelectCourse</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Admin_SelectEditOption</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/reset_password</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/send_reset_password</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/AboutUs</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Account</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Book</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Booking</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Books</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Course</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Courses</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nawaia.net/Test</loc>
+    <loc>https://nawaia.net/courses</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
@@ -97,22 +42,22 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Book?id=3</loc>
+    <loc>https://nawaia.net/book?id=3</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Book?id=1</loc>
+    <loc>https://nawaia.net/book?id=1</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Course?id=104</loc>
+    <loc>https://nawaia.net/course?id=104</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nawaia.net/Course?id=106</loc>
+    <loc>https://nawaia.net/course?id=106</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
