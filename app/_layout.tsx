@@ -67,8 +67,8 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={tanstackQueryClient}>
         <Head>
-          {/* Language & Direction */}
-          <html lang="ar" dir="rtl" />
+          {/* Language */}
+          <html lang="ar" />
 
           {/* Essential Meta */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
