@@ -1,17 +1,14 @@
-import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useLanguageStore } from '~/store/store';
+import { Globe } from 'lucide-react-native';
+import { Text, Pressable } from 'react-native';
+import i18n from '~/lib/i18n';
+import tw from 'twrnc';
 
 export const LanguageSwitcher = () => {
-  const { t, i18n } = useTranslation();
-  const setLanguage = useLanguageStore(
-    (state: { setLanguage: (lang: string) => void }) => state.setLanguage
-  );
+  const currentLang = i18n.language === 'ar' ? 'English' : 'العربية';
 
   const toggleLanguage = async () => {
     const newLang = i18n.language === 'en' ? 'ar' : 'en';
-    setLanguage(newLang);
+    i18n.changeLanguage(newLang);
 
     // Optional: Handle RTL layout changes if necessary
     // const isRTL = newLang === 'ar';
@@ -23,10 +20,13 @@ export const LanguageSwitcher = () => {
   };
 
   return (
-    <TouchableOpacity
-      onPress={toggleLanguage}
-      className="items-center justify-center rounded-lg bg-primary/20 p-2">
-      <Text className="font-bold text-primary">{t('change_language')}</Text>
-    </TouchableOpacity>
+    <>
+      <Pressable
+        onPress={toggleLanguage}
+        className="defaultBorder  min-h-12 flex-row items-center justify-center rounded-full  ">
+        <Text className="defaultText px-2">{currentLang}</Text>
+        <Globe className="mr-2" color={tw.color('neutral-800')} size={18} />
+      </Pressable>
+    </>
   );
 };
