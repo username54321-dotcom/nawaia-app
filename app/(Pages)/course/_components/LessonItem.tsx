@@ -1,9 +1,8 @@
-import { memo, useCallback, useRef, useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import React, { memo, useCallback, useRef, useState, lazy, Suspense } from 'react';
+import { View, Text, Pressable, ScrollView, ActivityIndicator } from 'react-native';
 import { useModalVisibleType, useIsAuth, useIsAuthType, useModalVisible } from '~/store/store';
 import { supabaseClient } from '~/utils/supabase';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
-import Lexical from '~/components/Reusebales/Lexical';
 import RenderHTML from 'react-native-render-html';
 import tw from 'twrnc';
 import VideoModal from './PIPVideo';
@@ -13,6 +12,7 @@ import DraftIcon from './DraftIcon';
 import { Tables } from '~/utils/database.types';
 import { sleep } from '~/HelperFunctions/sleep';
 import { useTranslation } from 'react-i18next';
+const Lexical = lazy(() => import('~/components/Reusebales/Lexical'));
 
 type props = {
   lessonItem: Tables<'courses_lessons'> & {
@@ -128,9 +128,16 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
           {expand && ViewEditor && (
             <>
               <View className="mt-2 w-full items-center self-center rounded-md  p-2">
-                <Lexical
-                  initialHtml={note}
-                  onStateChange={({ html }) => (Note.current = html)}></Lexical>
+                <Suspense
+                  fallback={
+                    <View className="h-24 w-full items-center justify-center">
+                      <ActivityIndicator size="large" color="red" />
+                    </View>
+                  }>
+                  <Lexical
+                    initialHtml={note}
+                    onStateChange={({ html }) => (Note.current = html)}></Lexical>
+                </Suspense>
               </View>
 
               <Pressable
