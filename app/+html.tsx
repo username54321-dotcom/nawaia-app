@@ -22,6 +22,10 @@ export default function Root({ children }: PropsWithChildren) {
         {/* Using raw CSS to ensure the body background matches the app theme immediately (prevents white flash) */}
         <style dangerouslySetInnerHTML={{ __html: `body { background-color: #fff; }` }} />
       </head>
+      <noscript>
+        نوايا هي منصة تعليمية متكاملة تقدم دورات أونلاين، مكتبة كتب متنوعة، واستشارات متخصصة لدعم
+        مسيرتك في النمو والتطوير الشخصي.
+      </noscript>
       <body>{children}</body>
     </html>
   );

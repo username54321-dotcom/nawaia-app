@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "nawaia",
+    "name": "Nawaia",
     "slug": "nawaia",
     "version": "1.0.0",
     "scheme": "nawaia",
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./public/favicon.png"
+      "favicon": "./public/favicon.png",
+      "description": "نوايا هي منصة تعليمية متكاملة تقدم دورات أونلاين، مكتبة كتب متنوعة، واستشارات متخصصة لدعم مسيرتك في النمو والتطوير الشخصي."
     },
     "plugins": [
       "expo-router",
