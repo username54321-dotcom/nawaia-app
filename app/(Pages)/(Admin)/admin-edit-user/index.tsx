@@ -42,7 +42,7 @@ const Admin_EditUser = () => {
       );
     if (!error) refetch();
   };
-  const { data: userRow, refetch: refetchUserRow } = GetUserRow(userId);
+  const { data: userRow } = GetUserRow(userId);
   const { data: tierUpdated, mutate: updateTier } = useMutation({
     mutationKey: ['updateTier'],
     mutationFn: async () => {
@@ -71,7 +71,9 @@ const Admin_EditUser = () => {
                 <Pressable
                   onPress={() => updateTier()}
                   className="defaultPressable mb-4 border-red-500 px-4 py-2 ">
-                  <Text className="defaultText">تحديث مستوي الأشتراك</Text>
+                  <Text selectable={false} className="defaultText">
+                    تحديث مستوي الأشتراك
+                  </Text>
                 </Pressable>
               </FadeIn>
             </>
@@ -110,19 +112,21 @@ const Admin_EditUser = () => {
                   <Pressable
                     onPress={() => handleAddCourse(Number(item.course_id?.id))}
                     className="defaultPressable m-2">
-                    <Text className="mx-auto mb-4 font-Kufi text-2xl font-bold text-colorMain underline underline-offset-4">
+                    <Text
+                      selectable={false}
+                      className="mx-auto mb-4 font-Kufi text-2xl font-bold text-colorMain underline underline-offset-4">
                       {item.course_id?.id}
                     </Text>
-                    <Text className="font-Kufi text-colorMain">
+                    <Text selectable={false} className="font-Kufi text-colorMain">
                       أسم الدورة : {item.course_id?.title}
                     </Text>
-                    <Text className="font-Kufi text-colorMain">
+                    <Text selectable={false} className="font-Kufi text-colorMain">
                       سعر الدورة : {item.course_id?.price}
                     </Text>
-                    <Text className="font-Kufi text-colorMain">
+                    <Text selectable={false} className="font-Kufi text-colorMain">
                       تاريخ الأذن : {item.created_at}
                     </Text>
-                    <Text className="font-Kufi text-colorMain">
+                    <Text selectable={false} className="font-Kufi text-colorMain">
                       نوع الأشتراك : {item.course_id?.tier}
                     </Text>
                   </Pressable>
@@ -145,16 +149,24 @@ const Admin_EditUser = () => {
                 <Pressable
                   onPress={() => handleAddCourse(item.id)}
                   className={`defaultPressable m-2  ${purCourseIds?.includes(item.id) ? 'bg-green-300' : null} `}>
-                  <Text className="mx-auto text-xl font-bold text-neutral-800 underline underline-offset-4">
+                  <Text
+                    selectable={false}
+                    className="mx-auto text-xl font-bold text-neutral-800 underline underline-offset-4">
                     {item.id}
                   </Text>
-                  <Text className="  text-right font-Kufi">أسم الدورة : {item.title}</Text>
-                  <Text className="  text-right font-Kufi">سعر الدورة : {item.price}</Text>
-                  <Text className="  text-right font-Kufi">
+                  <Text selectable={false} className="  text-right font-Kufi">
+                    أسم الدورة : {item.title}
+                  </Text>
+                  <Text selectable={false} className="  text-right font-Kufi">
+                    سعر الدورة : {item.price}
+                  </Text>
+                  <Text selectable={false} className="  text-right font-Kufi">
                     {' '}
                     حالة النشر : {item.is_published.toString()}
                   </Text>
-                  <Text className="  text-right font-Kufi">نوع الأشتراك : {item.tier}</Text>
+                  <Text selectable={false} className="  text-right font-Kufi">
+                    نوع الأشتراك : {item.tier}
+                  </Text>
                 </Pressable>
               </>
             )}></FlashList>

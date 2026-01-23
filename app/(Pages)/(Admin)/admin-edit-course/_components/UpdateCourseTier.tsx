@@ -44,7 +44,9 @@ const UpdateCourseTier = ({ initialValue, courseId }: props) => {
             <Pressable
               onPress={() => updateTier()}
               className="defaultPressable mb-4 border-red-500 px-4 py-2 ">
-              <Text className="defaultText">تحديث مستوي الأشتراك</Text>
+              <Text selectable={false} className="defaultText">
+                تحديث مستوي الأشتراك
+              </Text>
             </Pressable>
           </FadeIn>
         </>

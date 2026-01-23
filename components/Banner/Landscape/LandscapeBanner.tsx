@@ -26,7 +26,9 @@ const LandscapeBanner = () => {
                 {/** Sign Up Button */}
                 <Link asChild href={'/account'}>
                   <Pressable className="m-2 flex-row items-center  rounded-md bg-[#BE1E2D] p-2 py-1">
-                    <Text className="font-Kufi text-neutral-50">{t('create_membership')}</Text>
+                    <Text selectable={false} className="font-Kufi text-neutral-50">
+                      {t('create_membership')}
+                    </Text>
                     <UserRoundPen size={18} className="mb-1 ml-1" color={tw.color('neutral-50')} />
                   </Pressable>
                 </Link>
@@ -34,7 +36,7 @@ const LandscapeBanner = () => {
 
                 <Pressable onPress={() => showSignIn(true)}>
                   <View className="flex-row items-center rounded-md border-[1px] border-neutral-400 p-2 py-1">
-                    <Text className="font-Kufi font-semibold text-[#BE1E2D]">
+                    <Text selectable={false} className="font-Kufi font-semibold text-[#BE1E2D]">
                       {t('sign_in_link')}
                     </Text>
                     <LogIn className="ml-1" color={'#BE1E2D'} size={18} />
@@ -48,7 +50,9 @@ const LandscapeBanner = () => {
               <>
                 <Link asChild href={'/account'}>
                   <Pressable className="m-2 flex-row items-center  rounded-md bg-[#BE1E2D] p-2 py-1">
-                    <Text className="font-Kufi text-neutral-50">{t('my_account')} </Text>
+                    <Text selectable={false} className="font-Kufi text-neutral-50">
+                      {t('my_account')}{' '}
+                    </Text>
 
                     <CircleUser size={18} className="mb-1 ml-1" color={tw.color('neutral-50')} />
                   </Pressable>
@@ -60,7 +64,9 @@ const LandscapeBanner = () => {
           <View className="h-full w-fit flex-1 flex-row-reverse items-center  ">
             <Link asChild href={'/'}>
               <Pressable className=" ml-4 flex-row items-center  justify-center  ">
-                <Text className=" font-Playywrite  translate-y-0 text-3xl font-bold  text-[#BE1E2D]">
+                <Text
+                  selectable={false}
+                  className=" font-Playywrite  translate-y-0 text-3xl font-bold  text-[#BE1E2D]">
                   {t('app_name')}
                 </Text>
                 {/* <Text className="font-Playywrite font-base  ml-1 translate-y-0 text-3xl  text-slate-600">
@@ -72,35 +78,41 @@ const LandscapeBanner = () => {
             <View className="flex-row-reverse ">
               <Link asChild href={'/'}>
                 <Pressable>
-                  <Text className="m-2 font-Kufi text-base hover:text-[#BE1E2D]">
+                  <Text selectable={false} className="m-2 font-Kufi text-base hover:text-[#BE1E2D]">
                     {t('nav_home')}
                   </Text>
                 </Pressable>
               </Link>
               <Link asChild href={'/courses'}>
                 <Pressable>
-                  <Text className="m-2 font-Kufi text-base hover:text-[#BE1E2D]">
+                  <Text selectable={false} className="m-2 font-Kufi text-base hover:text-[#BE1E2D]">
                     {t('nav_courses')}
                   </Text>
                 </Pressable>
               </Link>
               <Link asChild href={'/books'}>
                 <Pressable className="group">
-                  <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
+                  <Text
+                    selectable={false}
+                    className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
                     {t('nav_books')}
                   </Text>
                 </Pressable>
               </Link>
               <Link asChild href={'/booking'}>
                 <Pressable className="group">
-                  <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
+                  <Text
+                    selectable={false}
+                    className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
                     {t('nav_booking')}
                   </Text>
                 </Pressable>
               </Link>
               <Link asChild href={'/about-us'}>
                 <Pressable className="group">
-                  <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
+                  <Text
+                    selectable={false}
+                    className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
                     {t('nav_about_us')}
                   </Text>
                 </Pressable>
@@ -108,7 +120,9 @@ const LandscapeBanner = () => {
               {isAdmin && (
                 <Link asChild href={'/admin-select-edit-option'}>
                   <Pressable className="bg- rounded-lg bg-slate-300">
-                    <Text className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
+                    <Text
+                      selectable={false}
+                      className="m-2 font-Kufi  text-base text-neutral-800 group-hover:text-[#BE1E2D]">
                       ({t('nav_admin_content')})
                     </Text>
                   </Pressable>

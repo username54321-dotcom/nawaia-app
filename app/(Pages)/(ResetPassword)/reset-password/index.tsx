@@ -129,7 +129,9 @@ const ResetPassword = () => {
               <Pressable
                 onPress={handleSubmit(updatePassword)}
                 className="mt-6 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
-                <Text className="font-Kufi   text-gray-50">تغيير كلمة السر</Text>
+                <Text selectable={false} className="font-Kufi   text-gray-50">
+                  تغيير كلمة السر
+                </Text>
               </Pressable>
             </>
           )}

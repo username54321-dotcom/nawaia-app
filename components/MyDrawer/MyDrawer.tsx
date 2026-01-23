@@ -5,9 +5,7 @@ import { style } from 'twrnc';
 import DrawerItem from './DrawerItem';
 import { useIsAuth, useIsAuthType } from '~/store/store';
 import {
-  ArrowBigDown,
   CalendarDays,
-  CircleUserRound,
   GraduationCap,
   House,
   LibraryBig,
@@ -16,13 +14,11 @@ import {
 } from 'lucide-react-native';
 import { supabaseClient } from '~/utils/supabase';
 import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 interface propTypes {
   drawerVisible: boolean;
   setDrawerVisible: (value: boolean) => void;
 }
-
-import { useTranslation } from 'react-i18next';
 
 const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
   const { t } = useTranslation();
@@ -97,7 +93,9 @@ const MyDrawer = ({ drawerVisible, setDrawerVisible }: propTypes) => {
               )}
               {isAuth && (
                 <Pressable onPress={handleLogout} className="mt-auto ">
-                  <Text className="font-Kufi font-semibold text-[#525252]">{t('sign_out')}</Text>
+                  <Text selectable={false} className="font-Kufi font-semibold text-[#525252]">
+                    {t('sign_out')}
+                  </Text>
                 </Pressable>
               )}
             </View>

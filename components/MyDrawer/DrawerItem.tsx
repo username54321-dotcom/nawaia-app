@@ -25,6 +25,7 @@ const DrawerItem = ({ targetPage, label, setDrawerVisible, Icon }: propTypes) =>
           onPress={handleNavigation}
           className={`my-2 w-full flex-row items-center justify-between rounded-xl py-1 ${samePath && ' bg-neutral-600'}`}>
           <Text
+            selectable={false}
             className={`mx-auto px-4 pr-2 font-Kufi font-semibold  ${samePath ? ' text-neutral-200' : ' text-neutral-600'}`}>
             {label}
           </Text>

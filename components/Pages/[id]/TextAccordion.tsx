@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MotiView, useAnimationState } from 'moti';
 import tw from 'twrnc';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -63,7 +63,9 @@ const TextAccordion = ({ shortDescription, longDescription }: propTypes) => {
             className="  absolute bottom-0 w-full flex-col items-center justify-end "
             onPress={() => setTextExpand((state) => !state)}>
             <View className="mb-2  rounded-lg border-[1px] bg-red-700/90">
-              <Text className="m-2 font-Kufi font-semibold leading-3     text-slate-100 ">
+              <Text
+                selectable={false}
+                className="m-2 font-Kufi font-semibold leading-3     text-slate-100 ">
                 {TextExpand ? t('hide') : t('show_more')}
               </Text>
             </View>

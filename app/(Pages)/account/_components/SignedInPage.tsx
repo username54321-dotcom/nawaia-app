@@ -195,7 +195,9 @@ const SignedInPage = () => {
           <Pressable
             onPress={handleSignOut}
             className="size-fit items-center justify-center self-center rounded-md bg-nawaiaRed px-6 py-4">
-            <Text className="font-Kufi text-base font-semibold text-white">{t('sign_out')}</Text>
+            <Text selectable={false} className="font-Kufi text-base font-semibold text-white">
+              {t('sign_out')}
+            </Text>
           </Pressable>
         </>
       )}

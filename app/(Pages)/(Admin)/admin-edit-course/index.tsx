@@ -11,9 +11,7 @@ import MyAccordion from '~/components/Reusebales/MyAccordion';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryEditCourse } from '~/HelperFunctions/Queries/EditCourse';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import DropDown from './../../../../components/Reusebales/DropDown';
-import { TierList, tierList } from '~/data/tierList';
-import { ValueOf } from 'react-native-gesture-handler/lib/typescript/typeUtils';
+import { TierList } from '~/data/tierList';
 import UpdateCourseTier from './_components/UpdateCourseTier';
 
 const Admin_EditCourse = () => {
@@ -22,7 +20,6 @@ const Admin_EditCourse = () => {
 
   // Selected Tier
   const [selectedTier, setSelectedTier] = useState<null | Pick<TierList[number], 'label'>>(null);
-
   // Main Query
   const { data: course, refetch, isLoading } = useQueryEditCourse(+id);
 
@@ -165,7 +162,9 @@ const Admin_EditCourse = () => {
                   <TouchableOpacity
                     onPress={() => handleAddChapter(course.id)}
                     className=" rounded-full bg-blue-500 p-4">
-                    <Text className="font-Kufi font-semibold text-slate-100">أضافة فصل </Text>
+                    <Text selectable={false} className="font-Kufi font-semibold text-slate-100">
+                      أضافة فصل{' '}
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 {course.courses_chapters

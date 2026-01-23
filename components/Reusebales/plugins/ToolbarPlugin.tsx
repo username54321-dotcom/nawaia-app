@@ -38,7 +38,7 @@ function ToolbarPlugin() {
         setElementFormat(element.getFormatType());
       }
     }
-  }, [editor]);
+  }, []);
 
   useEffect(() => {
     const unregister = editor.registerUpdateListener(({ editorState }) => {
@@ -62,12 +62,16 @@ function ToolbarPlugin() {
       <TouchableOpacity
         onPress={() => formatText('bold')}
         className={`mr-1 rounded  p-2 ${isBold ? 'bg-gray-300' : 'bg-white'}`}>
-        <Text className="font-bold">B</Text>
+        <Text selectable={false} className="font-bold">
+          B
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatText('italic')}
         className={`mr-1 rounded p-2 ${isItalic ? 'bg-gray-300' : 'bg-white'}`}>
-        <Text className="italic">I</Text>
+        <Text selectable={false} className="italic">
+          I
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => formatText('underline')}

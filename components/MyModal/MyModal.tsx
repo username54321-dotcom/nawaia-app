@@ -134,7 +134,7 @@ const MyModal = () => {
             <Pressable
               onPress={HandleSignIn}
               className="mt-4 rounded-md border-[1px] bg-red-700  px-4 py-1">
-              <Text className="font-Kufi text-sm leading-6 text-slate-100 ">
+              <Text selectable={false} className="font-Kufi text-sm leading-6 text-slate-100 ">
                 {t('sign_in_link')}
               </Text>
             </Pressable>
@@ -149,7 +149,9 @@ const MyModal = () => {
             {LoginError && (
               <FadeIn>
                 <Pressable onPress={navResetPassword} className=" size-fit">
-                  <Text className=" mt-2 font-Kufi text-xs font-semibold text-blue-700 underline">
+                  <Text
+                    selectable={false}
+                    className=" mt-2 font-Kufi text-xs font-semibold text-blue-700 underline">
                     {t('forgot_password')}
                   </Text>
                 </Pressable>
@@ -163,7 +165,9 @@ const MyModal = () => {
                   setModalVisible(false);
                   router.push('/account');
                 }}>
-                <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
+                <Text
+                  selectable={false}
+                  className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
                   {t('create_account_now')}
                 </Text>
               </Pressable>

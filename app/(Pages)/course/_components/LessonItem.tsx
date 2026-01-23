@@ -97,7 +97,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
         <View className="flex-row-reverse items-center justify-end px-4">
           {isAuth && <DraftIcon setExpand={setExpand}></DraftIcon>}
 
-          <Text className="font-Kufi font-semibold group-hover:text-red-700">
+          <Text selectable={false} className="font-Kufi font-semibold group-hover:text-red-700">
             {lessonItem.lesson_name}
           </Text>
         </View>
@@ -115,7 +115,9 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 </FadeIn>
               </>
             )}
-            <Text className="pl-4 font-Kufi font-semibold text-red-700">{t('watch_lesson')}</Text>
+            <Text selectable={false} className="pl-4 font-Kufi font-semibold text-red-700">
+              {t('watch_lesson')}
+            </Text>
           </View>
         </View>
       </Pressable>
@@ -150,7 +152,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 role="button"
                 accessibilityLabel="Save Note"
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2">
-                <Text className="font font-Kufi font-semibold text-neutral-50">
+                <Text selectable={false} className="font font-Kufi font-semibold text-neutral-50">
                   {t('save_note')}
                 </Text>
               </Pressable>
@@ -173,7 +175,7 @@ const LessonItem = ({ lessonItem, note, refetch }: props) => {
                 accessibilityLabel={note ? 'Edit Note' : 'Add Note'}
                 onPress={showEditor}
                 className="m-2 size-fit self-center rounded-lg bg-red-700 px-6 py-2 ">
-                <Text className="font font-Kufi font-semibold text-neutral-50">
+                <Text selectable={false} className="font font-Kufi font-semibold text-neutral-50">
                   {note ? t('edit_note') : t('add_note')}
                 </Text>
               </Pressable>

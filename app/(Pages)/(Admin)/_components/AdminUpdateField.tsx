@@ -50,7 +50,9 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
           <Pressable
             onPress={handleUpdate}
             className=" mr-auto size-fit self-center rounded-lg bg-red-500 px-6 py-2 ">
-            <Text className="  font-bold text-white">Update</Text>
+            <Text selectable={false} className="  font-bold text-white">
+              Update
+            </Text>
           </Pressable>
           {}
         </View>

@@ -3,7 +3,6 @@ import { Text, View, Pressable, Linking, ActivityIndicator } from 'react-native'
 import { supabaseClient } from '~/utils/supabase';
 import { AlarmClock, DollarSign, SquareArrowOutUpRight } from 'lucide-react-native';
 import Background from '~/components/Background';
-import { GenreIcons } from '../../../components/GenresIcons';
 import MyImage from '../../../components/Reusebales/MyImage';
 import TextAccordion from '../../../components/Pages/[id]/TextAccordion';
 import { memo, useCallback, useEffect } from 'react';
@@ -143,11 +142,13 @@ const BookPage = () => {
                 <Pressable
                   onPress={handleOpenBookLink}
                   className=" size-fit self-center rounded-xl bg-[#BE1E2D] px-10 py-2">
-                  <Text className="font-Kufi text-xl font-bold text-neutral-50">رابط التحميل</Text>
+                  <Text selectable={false} className="font-Kufi text-xl font-bold text-neutral-50">
+                    رابط التحميل
+                  </Text>
                 </Pressable>
                 <Link asChild href={'/books'}>
                   <Pressable className="my-4 flex-row items-center gap-2">
-                    <Text className="font-Kufi font-semibold text-neutral-700">
+                    <Text selectable={false} className="font-Kufi font-semibold text-neutral-700">
                       تصفح المزيد من الكتب
                     </Text>
                     <SquareArrowOutUpRight size={18} color={tw.color('blue-600')} strokeWidth={3} />

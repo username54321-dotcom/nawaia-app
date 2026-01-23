@@ -99,7 +99,9 @@ const Admin_SelectBook = () => {
                             <Pressable
                               onPress={() => handleEditBook(item_book.id)}
                               className="items-center justify-center rounded-md bg-blue-500">
-                              <Text className="px-6 py-2 text-xl font-semibold text-white">
+                              <Text
+                                selectable={false}
+                                className="px-6 py-2 text-xl font-semibold text-white">
                                 Edit
                               </Text>
                             </Pressable>

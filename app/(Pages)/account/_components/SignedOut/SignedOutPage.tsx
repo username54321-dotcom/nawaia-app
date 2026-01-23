@@ -161,7 +161,9 @@ const SignUp = () => {
           <Pressable
             onPress={handleSubmit(HandleOnSubmit)}
             className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
-            <Text className="font-Kufi   text-gray-50">{t('sign_up_btn')}</Text>
+            <Text selectable={false} className="font-Kufi   text-gray-50">
+              {t('sign_up_btn')}
+            </Text>
           </Pressable>
           {/** Approval Notice */}
           <View className="mx-auto mt-2 w-full  py-2 ">
@@ -174,7 +176,9 @@ const SignUp = () => {
           <View className=" mb-4 mt-2 w-4/5 self-center border-t-[1px] border-gray-500"></View>
           <Pressable onPress={() => setModalVisible(true)} className="items-center justify-center">
             <Text className="font-Kufi text-xs">{t('already_subscriber')}</Text>
-            <Text className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
+            <Text
+              selectable={false}
+              className="textbase mb-2 font-Kufi font-semibold text-blue-700 underline underline-offset-8 ">
               {t('sign_in_link')}
             </Text>
           </Pressable>

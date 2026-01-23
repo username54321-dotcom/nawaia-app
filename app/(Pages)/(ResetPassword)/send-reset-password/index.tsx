@@ -85,7 +85,9 @@ const SendResetPassword = () => {
                 <Pressable
                   onPress={verifyEmail}
                   className="mt-4 size-fit self-center rounded-md border-[1px] bg-red-700  px-4 py-1">
-                  <Text className="font-Kufi   text-gray-50">متابعة</Text>
+                  <Text selectable={false} className="font-Kufi   text-gray-50">
+                    متابعة
+                  </Text>
                 </Pressable>
               </View>
             )}

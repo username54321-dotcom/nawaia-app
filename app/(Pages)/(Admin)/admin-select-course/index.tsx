@@ -1,6 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
 import { memo, useCallback, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '~/utils/supabase';
 import Background from '~/components/Background';
 import FadeIn from '~/components/Animations/FadeIn';
@@ -97,7 +96,9 @@ const Admin_SelectCourse = () => {
                             <Pressable
                               onPress={() => handleEditCourse(itemCourse.id)}
                               className="items-center justify-center rounded-md bg-blue-500">
-                              <Text className="px-6 py-2 text-xl font-semibold text-white">
+                              <Text
+                                selectable={false}
+                                className="px-6 py-2 text-xl font-semibold text-white">
                                 Edit
                               </Text>
                             </Pressable>

@@ -36,7 +36,9 @@ const Admin_EditAssestsComponent = () => {
           })
         }
         className="m-2 rounded-md bg-blue-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">تعديل الصفحة الرئيسية</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          تعديل الصفحة الرئيسية
+        </Text>
       </Pressable>
       <Pressable
         onPress={() =>
@@ -48,7 +50,9 @@ const Admin_EditAssestsComponent = () => {
           })
         }
         className="m-2 rounded-md bg-blue-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة حجز الاستشارة</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          تعديل صفحة حجز الاستشارة
+        </Text>
       </Pressable>
       <Pressable
         onPress={() =>
@@ -60,22 +64,30 @@ const Admin_EditAssestsComponent = () => {
           })
         }
         className="m-2 rounded-md bg-blue-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">تعديل صفحة من نحن ؟</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          تعديل صفحة من نحن ؟
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => simpleNav('/admin-select-book')}
         className="m-2 rounded-md bg-blue-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">تعديل الكتب</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          تعديل الكتب
+        </Text>
       </Pressable>{' '}
       <Pressable
         onPress={() => simpleNav('/admin-select-course')}
         className="m-2 rounded-md bg-blue-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">تعديل الدورات</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          تعديل الدورات
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => simpleNav('/admin-give-access')}
         className="m-2 rounded-md bg-red-500 p-4">
-        <Text className="font-Kufi font-semibold text-blue-50">منح الأذونات</Text>
+        <Text selectable={false} className="font-Kufi font-semibold text-blue-50">
+          منح الأذونات
+        </Text>
       </Pressable>
     </View>
   );
