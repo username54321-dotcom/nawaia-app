@@ -1,116 +1,121 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { View } from 'react-native';
-import { useEffect, useRef } from 'react';
+
 import { VideoView, useVideoPlayer } from 'expo-video';
-import { supabaseClient } from '~/utils/supabase';
-import { useQueryClient } from '@tanstack/react-query';
-import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import tw from 'twrnc';
 
-type propTypes = {
+import { useQueryClient } from '@tanstack/react-query';
+
+import { supabaseClient } from '~/utils/supabase';
+
+const COMPLETION_THRESHOLD = 0.9;
+const PROGRESS_SAVE_INTERVAL_MS = 30_000;
+const PAUSE_DEBOUNCE_MS = 1000;
+
+type PIPVideoProps = {
   link: string;
   lessonId: number;
   isCompleted: boolean;
   courseId: number | null;
 };
 
-const VideoModal = ({ link, lessonId, isCompleted, courseId }: propTypes) => {
+const PIPVideo = ({ link, lessonId, isCompleted, courseId }: PIPVideoProps) => {
   const queryClient = useQueryClient();
-  const player = useVideoPlayer(link, (player) => {
-    player.timeUpdateEventInterval = 1000;
-    player.muted = true;
-  });
   const playerRef = useRef<VideoView>(null);
-  const didLoad = useRef(false);
-  const didSeek = useRef(false);
+  const hasLoadedRef = useRef(false);
 
-  // Save Progress on Pause
+  const player = useVideoPlayer(link, (p) => {
+    p.timeUpdateEventInterval = 1000;
+    p.muted = true;
+  });
+
+  const saveProgress = useCallback(
+    async (timestamp: number) => {
+      await supabaseClient
+        .from('courses_user_video_progress')
+        .upsert({ timestamp, lesson_id: lessonId }, { onConflict: 'user_id,lesson_id' });
+    },
+    [lessonId]
+  );
+
+  const markLessonCompleted = useCallback(async () => {
+    await supabaseClient
+      .from('courses_lessons_completed')
+      .insert({ is_completed: true, lesson_id: lessonId });
+    queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+  }, [lessonId, courseId, queryClient]);
+
+  // Save progress on pause (debounced)
   useEffect(() => {
-    const playEventListener = player.addListener(
-      'playingChange',
-      async ({ isPlaying, oldIsPlaying }) => {
-        if (!isPlaying && oldIsPlaying) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          !isPlaying &&
-            oldIsPlaying &&
-            (await supabaseClient
-              .from('courses_user_video_progress')
-              .upsert(
-                { timestamp: +player.currentTime.toFixed(0), lesson_id: lessonId },
-                { onConflict: 'user_id,lesson_id' }
-              ));
+    const listener = player.addListener('playingChange', async ({ isPlaying, oldIsPlaying }) => {
+      if (!isPlaying && oldIsPlaying) {
+        await new Promise((resolve) => setTimeout(resolve, PAUSE_DEBOUNCE_MS));
+        if (!player.playing) {
+          await saveProgress(Math.floor(player.currentTime));
         }
       }
-    );
-    return () => {
-      playEventListener.remove();
-    };
-  }, [player, lessonId]);
+    });
+    return () => listener.remove();
+  }, [player, saveProgress]);
 
-  // Set Video Watched on 90%
+  // Mark lesson as completed when 90% watched
   useEffect(() => {
+    if (isCompleted) return;
+
     const interval = setInterval(async () => {
-      const duration = player.duration;
-      const timestamp = player.currentTime;
-      const is90percent = timestamp / duration >= 0.9;
-      if (is90percent && !isCompleted) {
-        await supabaseClient
-          .from('courses_lessons_completed')
-          .insert({ is_completed: true, lesson_id: lessonId });
-        queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+      const { duration, currentTime } = player;
+      if (duration > 0 && currentTime / duration >= COMPLETION_THRESHOLD) {
+        await markLessonCompleted();
+        clearInterval(interval);
       }
     }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isCompleted, player, markLessonCompleted]);
+
+  // Periodic progress save
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (hasLoadedRef.current && player.playing) {
+        await saveProgress(Math.floor(player.currentTime));
+      }
+    }, PROGRESS_SAVE_INTERVAL_MS);
+
     return () => {
       clearInterval(interval);
+      player.release();
     };
-  }, [isCompleted, queryClient, lessonId, player.currentTime, player.duration, courseId]);
+  }, [player, saveProgress]);
 
-  const handleOnFirstFrame = async () => {
-    didLoad.current = true;
-    const { data, error } = await supabaseClient
+  const handleFirstFrameRender = useCallback(async () => {
+    hasLoadedRef.current = true;
+
+    const { data } = await supabaseClient
       .from('courses_user_video_progress')
       .select('timestamp')
       .eq('lesson_id', lessonId)
       .single();
-    player.seekBy(data?.timestamp ?? 0);
-    player.play();
-    didSeek.current = true;
-  };
-  //Interval sendTimestamp
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      if (didLoad) {
-        const currentTimeStamp = +player.currentTime.toFixed(0);
-        const { data, error } = await supabaseClient
-          .from('courses_user_video_progress')
-          .upsert(
-            { lesson_id: lessonId, timestamp: currentTimeStamp },
-            { onConflict: 'user_id,lesson_id' }
-          );
-      }
-    }, 30 * 1000);
-    return () => {
-      clearInterval(interval);
 
-      player.release();
-    };
-  }, [player, lessonId]);
+    if (data?.timestamp) {
+      player.seekBy(data.timestamp);
+    }
+    player.play();
+  }, [lessonId, player]);
 
   return (
-    <View
-      className={` aspect-video w-full self-center 
-    border-2
-    `}>
+    <View className="aspect-video w-full self-center border-2">
       <VideoView
-        style={tw`flex-1`}
         ref={playerRef}
-        fullscreenOptions={{ enable: true }}
-        allowsPictureInPicture={true}
-        startsPictureInPictureAutomatically={false}
-        onFirstFrameRender={handleOnFirstFrame}
+        style={tw`flex-1`}
+        player={player}
         contentFit="fill"
-        player={player}></VideoView>
+        allowsPictureInPicture
+        startsPictureInPictureAutomatically={false}
+        fullscreenOptions={{ enable: true }}
+        onFirstFrameRender={handleFirstFrameRender}
+      />
     </View>
   );
 };
 
-export default VideoModal;
+export default PIPVideo;
