@@ -15,9 +15,15 @@ const BoutUs = () => {
       <Head>
         <title>{t('about_us_title')}</title>
         <meta name="description" content={t('about_us_desc')} />
+        <meta name="keywords" content={t('about_us_keywords')} />
         <link rel="canonical" href="https://nawaia.net/about-us" />
         <meta property="og:title" content={t('about_us_title')} />
         <meta property="og:description" content={t('about_us_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nawaia.net/about-us" />
+        <meta property="og:image" content="https://nawaia.net/favicon.png" />
+        <meta name="twitter:title" content={t('about_us_title')} />
+        <meta name="twitter:description" content={t('about_us_desc')} />
       </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}

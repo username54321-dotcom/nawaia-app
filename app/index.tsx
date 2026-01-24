@@ -22,12 +22,15 @@ const Home = () => {
       <Head>
         <title>{t('home_title')}</title>
         <meta name="description" content={t('meta_description')} />
+        <meta name="keywords" content={t('home_keywords')} />
         <link rel="canonical" href="https://nawaia.net/" />
         <meta property="og:title" content={t('home_title')} />
         <meta property="og:description" content={t('meta_description')} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nawaia.net/" />
         <meta property="og:image" content="https://nawaia.net/favicon.png" />
+        <meta name="twitter:title" content={t('home_title')} />
+        <meta name="twitter:description" content={t('meta_description')} />
       </Head>
       {/* * Loading Indicator */}
       <LoadingAnimation show={isLoading}></LoadingAnimation>

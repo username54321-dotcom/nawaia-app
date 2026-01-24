@@ -18,12 +18,15 @@ const Booking = () => {
       <Head>
         <title>{t('booking_title')}</title>
         <meta name="description" content={t('booking_desc')} />
+        <meta name="keywords" content={t('booking_keywords')} />
         <link rel="canonical" href="https://nawaia.net/booking" />
         <meta property="og:title" content={t('booking_title')} />
         <meta property="og:description" content={t('booking_desc')} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nawaia.net/booking" />
         <meta property="og:image" content="https://nawaia.net/favicon.png" />
+        <meta name="twitter:title" content={t('booking_title')} />
+        <meta name="twitter:description" content={t('booking_desc')} />
       </Head>
       <View className=" flex-col items-center justify-start">
         {/** Loading Indicator */}

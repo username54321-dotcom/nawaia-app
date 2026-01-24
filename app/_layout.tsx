@@ -83,7 +83,10 @@ export default function RootLayout() {
           {/* Open Graph Global */}
           <meta property="og:locale" content="ar_SA" />
           <meta property="og:locale:alternate" content="en_US" />
-          <meta property="og:site_name" content="نوايا" />
+          <meta property="og:site_name" content="نوايا | Nawaia" />
+          <meta property="og:image:width" content="512" />
+          <meta property="og:image:height" content="512" />
+          <meta property="og:image:alt" content="شعار نوايا - Nawaia Logo" />
 
           {/* Organization Schema */}
           <script type="application/ld+json">
@@ -94,10 +97,32 @@ export default function RootLayout() {
               alternateName: 'Nawaia',
               url: 'https://nawaia.net',
               logo: 'https://nawaia.net/favicon.png',
+              description:
+                'منصة تعليمية متكاملة تقدم دورات أونلاين، مكتبة كتب متنوعة، واستشارات متخصصة',
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'customer service',
                 availableLanguage: ['Arabic', 'English'],
+              },
+            })}
+          </script>
+
+          {/* WebSite Schema for Sitelinks Searchbox */}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'نوايا | Nawaia',
+              alternateName: 'Nawaia Educational Platform',
+              url: 'https://nawaia.net',
+              inLanguage: ['ar', 'en'],
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://nawaia.net/courses?search={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
               },
             })}
           </script>

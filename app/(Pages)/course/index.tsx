@@ -137,6 +137,10 @@ const CoursePage = () => {
               name="description"
               content={courseData.short_description ?? `Course: ${courseData.title}`}
             />
+            <meta
+              name="keywords"
+              content={`${courseData.title}, ${courseData.genre}, دورة, كورس, نوايا, تعليم, course, Nawaia, online learning, ${courseData.genre} course`}
+            />
             <link rel="canonical" href={`https://nawaia.net/course?id=${id}`} />
             <meta property="og:title" content={`${courseData.title} | Nawaia`} />
             <meta
@@ -146,12 +150,19 @@ const CoursePage = () => {
             <meta property="og:image" content={courseData.cover_image} />
             <meta property="og:type" content="video.course" />
             <meta property="og:url" content={`https://nawaia.net/course?id=${id}`} />
+            <meta name="twitter:title" content={`${courseData.title} | Nawaia`} />
+            <meta
+              name="twitter:description"
+              content={courseData.short_description ?? `Course: ${courseData.title}`}
+            />
+            <meta name="twitter:image" content={courseData.cover_image} />
             <script type="application/ld+json">
               {JSON.stringify({
                 '@context': 'https://schema.org',
                 '@type': 'Course',
                 name: courseData.title,
                 description: courseData.short_description,
+                inLanguage: 'ar',
                 provider: {
                   '@type': 'Organization',
                   name: 'Nawaia',

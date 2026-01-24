@@ -1,4 +1,29 @@
+# Nawaia - robots.txt
+# https://nawaia.net
+
 User-agent: *
 Allow: /
 
+# Block admin and private pages
+Disallow: /admin
+Disallow: /reset-password
+Disallow: /send-reset-password
+Disallow: /test
+
+# Block API and internal routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*?*token=
+
+# Crawl-delay for rate limiting (optional)
+# Crawl-delay: 1
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /reset-password
+Disallow: /send-reset-password
+
+# Sitemap location
 Sitemap: https://nawaia.net/sitemap.xml

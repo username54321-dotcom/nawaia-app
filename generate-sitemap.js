@@ -84,14 +84,30 @@ function getStaticRoutes(dir, basePath = '') {
   return routes;
 }
 
+function getPriority(url) {
+  if (url === '/') return '1.0'; // Homepage highest priority
+  if (['/courses', '/books', '/booking', '/about-us'].includes(url)) return '0.9'; // Main pages
+  if (url.startsWith('/course?') || url.startsWith('/book?')) return '0.8'; // Dynamic content
+  return '0.7'; // Other pages
+}
+
+function getChangeFreq(url) {
+  if (url === '/') return 'daily';
+  if (url.startsWith('/course?') || url.startsWith('/book?')) return 'weekly';
+  return 'weekly';
+}
+
 function generateXml(urls) {
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+
   const xmlUrls = urls
     .map(
       (url) => `
   <url>
     <loc>${BASE_URL}${url}</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <lastmod>${today}</lastmod>
+    <changefreq>${getChangeFreq(url)}</changefreq>
+    <priority>${getPriority(url)}</priority>
   </url>`
     )
     .join('');

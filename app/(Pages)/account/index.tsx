@@ -22,6 +22,13 @@ const Account = () => {
       <Head>
         <title>{t('sign_in_title')}</title>
         <meta name="description" content={t('sign_in_desc')} />
+        <meta name="keywords" content={t('sign_in_keywords')} />
+        <link rel="canonical" href="https://nawaia.net/account" />
+        <meta property="og:title" content={t('sign_in_title')} />
+        <meta property="og:description" content={t('sign_in_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nawaia.net/account" />
+        <meta property="og:image" content="https://nawaia.net/favicon.png" />
       </Head>
       <SignedOutPage></SignedOutPage>
     </>

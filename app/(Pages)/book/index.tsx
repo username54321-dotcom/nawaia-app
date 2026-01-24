@@ -81,6 +81,10 @@ const BookPage = () => {
                 name="description"
                 content={bookData.short_description ?? `Details about ${bookData.title}`}
               />
+              <meta
+                name="keywords"
+                content={`${bookData.title}, ${bookData.genre}, كتاب, كتب, نوايا, قراءة, book, Nawaia, reading, ${bookData.genre} book`}
+              />
               <link rel="canonical" href={`https://nawaia.net/book?id=${id}`} />
               <meta property="og:title" content={`${bookData.title} | Nawaia`} />
               <meta
@@ -90,12 +94,19 @@ const BookPage = () => {
               <meta property="og:image" content={bookData.image} />
               <meta property="og:type" content="book" />
               <meta property="og:url" content={`https://nawaia.net/book?id=${id}`} />
+              <meta name="twitter:title" content={`${bookData.title} | Nawaia`} />
+              <meta
+                name="twitter:description"
+                content={bookData.short_description ?? `Details about ${bookData.title}`}
+              />
+              <meta name="twitter:image" content={bookData.image} />
               <script type="application/ld+json">
                 {JSON.stringify({
                   '@context': 'https://schema.org',
                   '@type': 'Book',
                   name: bookData.title,
                   description: bookData.short_description,
+                  inLanguage: 'ar',
                   author: {
                     '@type': 'Organization',
                     name: 'Nawaia',
