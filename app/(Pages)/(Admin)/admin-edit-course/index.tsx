@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import AdminUpdateField from '../_components/AdminUpdateField';
 import AdminPublishButton from '../_components/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
-import { memo, useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import { Trash2 } from 'lucide-react-native';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
@@ -13,6 +13,7 @@ import { useQueryEditCourse } from '~/HelperFunctions/Queries/EditCourse';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { TierList } from '~/data/tierList';
 import UpdateCourseTier from './_components/UpdateCourseTier';
+import { useMutation } from '@tanstack/react-query';
 
 const Admin_EditCourse = () => {
   useAdminOnly(); // Admin Only
@@ -23,53 +24,59 @@ const Admin_EditCourse = () => {
   // Main Query
   const { data: course, refetch, isLoading } = useQueryEditCourse(+id);
 
-  // Add Chapter
-  const handleAddChapter = useCallback(
-    async (course_id: number) => {
+  // Add Chapter mutation
+  const { mutate: addChapter } = useMutation({
+    mutationKey: ['addChapter', id],
+    mutationFn: async (course_id: number) => {
       const { error } = await supabaseClient
         .from('courses_chapters')
         .insert({ chapter_name: '_فصل جديد', course_id: course_id });
-      refetch();
+      if (error) throw error;
     },
-    [refetch]
-  );
-  // Add Lesson
-  const handleAddLesson = useCallback(
-    async (chapter_id: number) => {
-      const { data: lesson } = await supabaseClient
+    onSuccess: () => refetch(),
+  });
+
+  // Add Lesson mutation
+  const { mutate: addLesson } = useMutation({
+    mutationKey: ['addLesson', id],
+    mutationFn: async (chapter_id: number) => {
+      const { data: lesson, error: lessonError } = await supabaseClient
         .from('courses_lessons')
         .insert({ lesson_name: 'درس جديد', chapter_id: chapter_id })
         .select()
         .single();
-      await supabaseClient.from('courses_links').insert({
+      if (lessonError) throw lessonError;
+
+      const { error: linkError } = await supabaseClient.from('courses_links').insert({
         lesson_id: lesson?.id ?? 999,
         lesson_link:
           'https://res.cloudinary.com/dhbctone5/video/upload/v1762383158/samples/sea-turtle.mp4',
         course_id: +id,
       });
-
-      refetch();
+      if (linkError) throw linkError;
     },
-    [refetch, id]
-  );
+    onSuccess: () => refetch(),
+  });
 
-  // Delete Chapter
-  const handleDeleteChapter = useCallback(
-    async (chapter_id: number) => {
+  // Delete Chapter mutation
+  const { mutate: deleteChapter } = useMutation({
+    mutationKey: ['deleteChapter', id],
+    mutationFn: async (chapter_id: number) => {
       const { error } = await supabaseClient.from('courses_chapters').delete().eq('id', chapter_id);
-      refetch();
+      if (error) throw error;
     },
-    [refetch]
-  );
+    onSuccess: () => refetch(),
+  });
 
-  // Delete Lesson
-  const handleDeleteLesson = useCallback(
-    async (lesson_id: number) => {
+  // Delete Lesson mutation
+  const { mutate: deleteLesson } = useMutation({
+    mutationKey: ['deleteLesson', id],
+    mutationFn: async (lesson_id: number) => {
       const { error } = await supabaseClient.from('courses_lessons').delete().eq('id', lesson_id);
-      refetch();
+      if (error) throw error;
     },
-    [refetch]
-  );
+    onSuccess: () => refetch(),
+  });
 
   return (
     <Background>
@@ -160,7 +167,7 @@ const Admin_EditCourse = () => {
                     بيانات الفصول
                   </Text>
                   <TouchableOpacity
-                    onPress={() => handleAddChapter(course.id)}
+                    onPress={() => addChapter(course.id)}
                     className=" rounded-full bg-blue-500 p-4">
                     <Text selectable={false} className="font-Kufi font-semibold text-slate-100">
                       أضافة فصل{' '}
@@ -178,7 +185,7 @@ const Admin_EditCourse = () => {
                           </Text>
                           <TouchableOpacity
                             delayLongPress={3000}
-                            onLongPress={() => handleDeleteChapter(itemChapter.id)}
+                            onLongPress={() => deleteChapter(itemChapter.id)}
                             className="m-2 items-center justify-center rounded-full bg-red-500 p-2">
                             <Trash2 color={'white'} />
                           </TouchableOpacity>
@@ -197,7 +204,7 @@ const Admin_EditCourse = () => {
                               بيانات الدروس
                             </Text>
                             <TouchableOpacity
-                              onPress={() => handleAddLesson(itemChapter.id)}
+                              onPress={() => addLesson(itemChapter.id)}
                               className=" rounded-full bg-blue-500 p-4">
                               <Text className="font-Kufi font-semibold text-slate-100">
                                 أضافة درس
@@ -215,7 +222,7 @@ const Admin_EditCourse = () => {
                                         {itemLesson.lesson_name}
                                       </Text>
                                       <TouchableOpacity
-                                        onLongPress={() => handleDeleteLesson(itemLesson.id)}
+                                        onLongPress={() => deleteLesson(itemLesson.id)}
                                         delayLongPress={3000}>
                                         <Trash2 className="m-2"></Trash2>
                                       </TouchableOpacity>

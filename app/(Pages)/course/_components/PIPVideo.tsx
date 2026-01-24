@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import tw from 'twrnc';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { supabaseClient } from '~/utils/supabase';
 
@@ -29,21 +29,28 @@ const PIPVideo = ({ link, lessonId, isCompleted, courseId }: PIPVideoProps) => {
     p.muted = true;
   });
 
-  const saveProgress = useCallback(
-    async (timestamp: number) => {
-      await supabaseClient
+  const { mutate: saveProgress } = useMutation({
+    mutationKey: ['saveVideoProgress', lessonId],
+    mutationFn: async (timestamp: number) => {
+      const { error } = await supabaseClient
         .from('courses_user_video_progress')
         .upsert({ timestamp, lesson_id: lessonId }, { onConflict: 'user_id,lesson_id' });
+      if (error) throw error;
     },
-    [lessonId]
-  );
+  });
 
-  const markLessonCompleted = useCallback(async () => {
-    await supabaseClient
-      .from('courses_lessons_completed')
-      .insert({ is_completed: true, lesson_id: lessonId });
-    queryClient.invalidateQueries({ queryKey: ['course', courseId] });
-  }, [lessonId, courseId, queryClient]);
+  const { mutate: markLessonCompleted } = useMutation({
+    mutationKey: ['markLessonCompleted', lessonId],
+    mutationFn: async () => {
+      const { error } = await supabaseClient
+        .from('courses_lessons_completed')
+        .insert({ is_completed: true, lesson_id: lessonId });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+    },
+  });
 
   // Save progress on pause (debounced)
   useEffect(() => {

@@ -11,6 +11,7 @@ import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetBookList } from '~/HelperFunctions/Queries/GetBookList';
 import { addDummyBook } from '~/HelperFunctions/addDummyBook';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
+import { useMutation } from '@tanstack/react-query';
 
 const Admin_SelectBook = () => {
   const router = useRouter();
@@ -20,21 +21,29 @@ const Admin_SelectBook = () => {
   //Main Query
   const { data: bookList, refetch, isLoading } = useQueryGetBookList();
 
-  //Delete a Book
-  const handleDelete = useCallback(async (id: number) => {
-    await supabaseClient.from('books').delete().eq('id', id);
-  }, []);
+  //Delete a Book mutation
+  const { mutate: deleteBook } = useMutation({
+    mutationKey: ['deleteBook'],
+    mutationFn: async (id: number) => {
+      const { error } = await supabaseClient.from('books').delete().eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => refetch(),
+  });
 
-  //Prevent Double Adding Courses
+  //Prevent Double Adding Books
   const [cantAdd, setCantAdd] = useState(false);
 
-  // Add a Dummy Course
-  const handleAddDummyBook = useCallback(async () => {
-    setCantAdd(true);
-    await addDummyBook();
-    refetch();
-    setCantAdd(false);
-  }, [refetch]);
+  // Add a Dummy Book mutation
+  const { mutate: addBook, isPending: isAddingBook } = useMutation({
+    mutationKey: ['addDummyBook'],
+    mutationFn: async () => {
+      await addDummyBook();
+    },
+    onMutate: () => setCantAdd(true),
+    onSuccess: () => refetch(),
+    onSettled: () => setCantAdd(false),
+  });
 
   //Navigate to edit page
   const handleEditBook = useCallback(
@@ -90,7 +99,7 @@ const Admin_SelectBook = () => {
                             {/**Delete Button */}
 
                             <Pressable
-                              onLongPress={() => handleDelete(item_book.id)}
+                              onLongPress={() => deleteBook(item_book.id)}
                               delayLongPress={7000}
                               className="m-2 size-fit rounded-md bg-red-500 p-2 active:scale-105">
                               <Trash2 color={'white'} />
@@ -120,7 +129,7 @@ const Admin_SelectBook = () => {
             {/**Add a new course */}
             <Pressable
               disabled={cantAdd}
-              onPress={handleAddDummyBook}
+              onPress={() => addBook()}
               className={`m-4 size-24 items-center justify-center rounded-full bg-blue-500 ${cantAdd && 'bg-red-500'}`}>
               <Plus size={50} color={'white'} />
             </Pressable>
