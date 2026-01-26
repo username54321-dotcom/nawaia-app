@@ -2,7 +2,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useCallback } from 'react';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import Background from '~/components/Background';
-import { ListUsers } from '~/HelperFunctions/Queries/ListUsers';
+import { useListUsers } from '~/HelperFunctions/Queries/ListUsers';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import { useIsPortrait } from '~/utils/Hooks';
@@ -10,7 +10,7 @@ import { useIsPortrait } from '~/utils/Hooks';
 const Admin_GiveAccess = () => {
   useAdminOnly();
   const isPortrait = useIsPortrait();
-  const { data, refetch } = ListUsers();
+  const { data, refetch } = useListUsers();
   const router = useRouter();
   const handleNav = useCallback(
     (userId: string) => {

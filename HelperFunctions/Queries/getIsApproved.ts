@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useIsAuth, useIsAuthType } from "~/store/store";
 import { supabaseClient } from "~/utils/supabase";
 
-export function GetIsApproved(isAuth: boolean) {
+export function useGetIsApproved(isAuth: boolean) {
     const isApprovedStore = useIsAuth((x: useIsAuthType) => x.isApproved);
     const setIsApprovedStore = useIsAuth((x: useIsAuthType) => x.setIsApproved);
     return useQuery({
