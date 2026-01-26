@@ -114,7 +114,7 @@ const Admin_EditCourse = () => {
                   refetch={refetch}></AdminUpdateField>
                 <AdminUpdateField
                   label="رابط صورة الدورة"
-                  fieldName="image"
+                  fieldName="cover_image"
                   id={course.id}
                   table="courses"
                   liveValue={course.cover_image}
