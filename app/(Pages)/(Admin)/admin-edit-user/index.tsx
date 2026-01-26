@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import { View, Text, Pressable } from 'react-native';
 import Background from '~/components/Background';
-import { ListPurchaseCourses } from '~/HelperFunctions/Queries/ListPurchasedCourses';
+import { useListPurchaseCourses } from '~/HelperFunctions/Queries/ListPurchasedCourses';
 import { FlashList } from '@shopify/flash-list';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import { useIsPortrait } from '~/utils/Hooks';
@@ -11,7 +11,7 @@ import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import DropDown from '../../../../components/Reusebales/DropDown';
 import { useState } from 'react';
 import { tierList } from '~/data/tierList';
-import { GetUserRow } from '~/HelperFunctions/Queries/GetUser';
+import { useGetUserRow } from '~/HelperFunctions/Queries/GetUser';
 import { Tables } from '~/utils/database.types';
 import { Check } from 'lucide-react-native';
 import { useMutation } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ import { useMutation } from '@tanstack/react-query';
 const Admin_EditUser = () => {
   useAdminOnly();
   const userId = useLocalSearchParams()?.userId as string;
-  const { data, refetch } = ListPurchaseCourses(userId as string);
+  const { data, refetch } = useListPurchaseCourses(userId as string);
   const purCourseIds = data?.map((i) => i.course_id?.id);
   const { data: courseList } = useQueryGetCourseList();
   const isPortrait = useIsPortrait();
@@ -42,7 +42,7 @@ const Admin_EditUser = () => {
       );
     if (!error) refetch();
   };
-  const { data: userRow } = GetUserRow(userId);
+  const { data: userRow } = useGetUserRow(userId);
   const { data: tierUpdated, mutate: updateTier } = useMutation({
     mutationKey: ['updateTier'],
     mutationFn: async () => {

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabaseClient } from "~/utils/supabase";
 
-export function ListPurchaseCourses(uuid: string) {
+export function useListPurchaseCourses(uuid: string) {
     return useQuery(
         {
             queryKey: ["list purchased courses", uuid],
