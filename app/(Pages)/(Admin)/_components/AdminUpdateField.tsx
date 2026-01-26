@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from 'react';
-import { View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
-import { useMutation } from '@tanstack/react-query';
+import { View, Text, TextInput, Pressable } from 'react-native';
 import { Database } from '~/utils/database.types';
 import { supabaseClient } from '~/utils/supabase';
 
@@ -18,21 +17,14 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
   // Dont Touch
   const [visibleValue, setVisibleValue] = useState(liveValue);
 
-  // Update Value mutation
-  const { mutate: updateField, isPending } = useMutation({
-    mutationKey: ['updateField', table, id, fieldName],
-    mutationFn: async () => {
-      const { error } = await supabaseClient
-        .from(table)
-        .update({ [fieldName]: visibleValue })
-        .eq('id', id ?? 99999);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      refetch && refetch();
-    },
-  });
-
+  // Update Value
+  const handleUpdate = async () => {
+    const { data } = await supabaseClient
+      .from(table)
+      .update({ [fieldName]: visibleValue })
+      .eq('id', id ?? 99999);
+    refetch && refetch();
+  };
   // Dont Touch
   useEffect(() => {
     setVisibleValue(liveValue);
@@ -56,16 +48,11 @@ const AdminUpdateField = ({ liveValue, table, id, fieldName, refetch, label }: p
             className=" w-2/5 flex-1 rounded-md border-[1px] bg-slate-100 p-2"></TextInput>
           {/**Update Button */}
           <Pressable
-            onPress={() => updateField()}
-            disabled={isPending}
+            onPress={handleUpdate}
             className=" mr-auto size-fit self-center rounded-lg bg-red-500 px-6 py-2 ">
-            {isPending ? (
-              <ActivityIndicator color="white" />
-            ) : (
-              <Text selectable={false} className="  font-bold text-white">
-                Update
-              </Text>
-            )}
+            <Text selectable={false} className="  font-bold text-white">
+              Update
+            </Text>
           </Pressable>
           {}
         </View>

@@ -12,7 +12,6 @@ import FadeIn from '~/components/Animations/FadeIn';
 import TelegramButton from './../../../components/Pages/[id]/TelegramButton';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
 import { useQueryGetCourse } from '~/HelperFunctions/Queries/GetCourse';
-import { useMutation } from '@tanstack/react-query';
 
 const CoursePage = () => {
   const [allLessonNumber, setAllLessonNumber] = useState(0);
@@ -36,17 +35,6 @@ const CoursePage = () => {
   }, []);
   // Course Query
   const { data: courseData, refetch, status, isLoading } = useQueryGetCourse(+id);
-
-  // Add to History mutation
-  const { mutate: addToHistory } = useMutation({
-    mutationKey: ['addCourseHistory', id],
-    mutationFn: async (courseId: number) => {
-      const { error } = await supabaseClient
-        .from('courses_user_history')
-        .insert({ course_id: courseId });
-      if (error) throw error;
-    },
-  });
 
   // Track Percentage of Lessons Completed
   useEffect(() => {
@@ -122,10 +110,12 @@ const CoursePage = () => {
   //Add to History
   useEffect(() => {
     const seenBefore = courseData?.courses_user_history.length !== 0;
-    if (!seenBefore && courseData) {
-      addToHistory(courseData.id);
-    }
-  }, [courseData, courseData?.courses_user_history.length, addToHistory]);
+    const addToHistory = async () => {
+      !seenBefore &&
+        (await supabaseClient.from('courses_user_history').insert({ course_id: courseData.id }));
+    };
+    addToHistory();
+  }, [courseData?.id, courseData?.courses_user_history.length]);
 
   return (
     <>

@@ -11,7 +11,6 @@ import MyImage from '~/components/Reusebales/MyImage';
 import useAdminOnly from '~/HelperFunctions/Hooks/AdminOnly';
 import { useQueryGetCourseList } from '~/HelperFunctions/Queries/GetCourseList';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import { useMutation } from '@tanstack/react-query';
 
 const Admin_SelectCourse = () => {
   const router = useRouter();
@@ -21,29 +20,21 @@ const Admin_SelectCourse = () => {
   //Main Query
   const { data: courseList, refetch, isLoading } = useQueryGetCourseList();
 
-  //Delete a Course mutation
-  const { mutate: deleteCourse } = useMutation({
-    mutationKey: ['deleteCourse'],
-    mutationFn: async (id: number) => {
-      const { error } = await supabaseClient.from('courses').delete().eq('id', id);
-      if (error) throw error;
-    },
-    onSuccess: () => refetch(),
-  });
+  //Delete a Course
+  const handleDelete = useCallback(async (id: number) => {
+    await supabaseClient.from('courses').delete().eq('id', id);
+  }, []);
 
   //Prevent Double Adding Courses
   const [cantAdd, setCantAdd] = useState(false);
 
-  // Add a Dummy Course mutation
-  const { mutate: addCourse, isPending: isAddingCourse } = useMutation({
-    mutationKey: ['addDummyCourse'],
-    mutationFn: async () => {
-      await addDummyCourse();
-    },
-    onMutate: () => setCantAdd(true),
-    onSuccess: () => refetch(),
-    onSettled: () => setCantAdd(false),
-  });
+  // Add a Dummy Course
+  const handleAddDummyCourse = useCallback(async () => {
+    setCantAdd(true);
+    await addDummyCourse();
+    refetch();
+    setCantAdd(false);
+  }, [refetch]);
 
   //Navigate to edit page
   const handleEditCourse = useCallback(
@@ -96,7 +87,7 @@ const Admin_SelectCourse = () => {
                             {/**Delete Button */}
 
                             <Pressable
-                              onLongPress={() => deleteCourse(itemCourse.id)}
+                              onLongPress={() => handleDelete(itemCourse.id)}
                               delayLongPress={7000}
                               className="m-2 size-fit rounded-md bg-red-500 p-2 transition-all duration-1000  active:scale-150 ">
                               <Trash2 color={'white'} />
@@ -126,7 +117,7 @@ const Admin_SelectCourse = () => {
             {/**Add a new course */}
             <Pressable
               disabled={cantAdd}
-              onPress={() => addCourse()}
+              onPress={handleAddDummyCourse}
               className={`m-4 size-24 items-center justify-center rounded-full bg-blue-500 ${cantAdd && 'bg-red-500'}`}>
               <Plus size={50} color={'white'} />
             </Pressable>

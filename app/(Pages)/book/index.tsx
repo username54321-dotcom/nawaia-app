@@ -12,7 +12,7 @@ import { useQueryGetBook } from '~/HelperFunctions/Queries/GetBook';
 import tw from 'twrnc';
 import { useIsAuth, useIsAuthType, useModalVisible, useModalVisibleType } from '~/store/store';
 import LoadingAnimation from '~/components/Reusebales/LoadingAnimation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import Head from 'expo-router/head';
 
 const BookPage = () => {
@@ -24,19 +24,6 @@ const BookPage = () => {
 
   // Main Query
   const { data: bookData, refetch, status, isLoading } = useQueryGetBook(+id);
-
-  // Add to History mutation
-  const { mutate: addToHistory } = useMutation({
-    mutationKey: ['addBookHistory', id],
-    mutationFn: async (bookId: number) => {
-      const { error } = await supabaseClient.from('user_book_history').insert({ book_id: bookId });
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['CourseBookHistory'] });
-    },
-  });
-
   // Open Book Link
   const handleOpenBookLink = useCallback(() => {
     if (!isAuth) {
@@ -64,10 +51,14 @@ const BookPage = () => {
   // Add to History
   useEffect(() => {
     const seenBefore = bookData?.user_book_history.length !== 0;
-    if (!seenBefore && bookData) {
-      addToHistory(bookData.id);
-    }
-  }, [bookData, addToHistory]);
+    const addToHistory = async () => {
+      if (bookData) {
+        await supabaseClient.from('user_book_history').insert({ book_id: bookData?.id });
+        queryClient.invalidateQueries({ queryKey: ['CourseBookHistory'] });
+      }
+    };
+    !seenBefore && addToHistory();
+  }, [bookData, queryClient]);
 
   return (
     <>

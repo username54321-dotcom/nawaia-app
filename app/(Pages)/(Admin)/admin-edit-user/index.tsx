@@ -24,30 +24,24 @@ const Admin_EditUser = () => {
   const { data: courseList } = useQueryGetCourseList();
   const isPortrait = useIsPortrait();
   const [selectedTier, setSelectedTier] = useState<null | Tables<'profiles'>['tier']>(null);
-
-  // Toggle course access mutation
-  const { mutate: toggleCourseAccess } = useMutation({
-    mutationKey: ['toggleCourseAccess', userId],
-    mutationFn: async (courseId: number) => {
-      if (purCourseIds?.includes(courseId)) {
-        const { error } = await supabaseClient
-          .from('courses_purchase')
-          .delete()
-          .eq('user_id', userId)
-          .eq('course_id', courseId);
-        if (error) throw error;
-      } else {
-        const { error } = await supabaseClient
-          .from('courses_purchase')
-          .upsert(
-            { course_id: courseId, user_id: userId as string },
-            { onConflict: 'user_id, course_id' }
-          );
-        if (error) throw error;
-      }
-    },
-    onSuccess: () => refetch(),
-  });
+  const handleAddCourse = async (courseId: number) => {
+    if (purCourseIds?.includes(courseId)) {
+      const { error } = await supabaseClient
+        .from('courses_purchase')
+        .delete()
+        .eq('user_id', userId)
+        .eq('course_id', courseId);
+      !error && refetch();
+      return;
+    }
+    const { error } = await supabaseClient
+      .from('courses_purchase')
+      .upsert(
+        { course_id: courseId, user_id: userId as string },
+        { onConflict: 'user_id, course_id' }
+      );
+    if (!error) refetch();
+  };
   const { data: userRow } = GetUserRow(userId);
   const { data: tierUpdated, mutate: updateTier } = useMutation({
     mutationKey: ['updateTier'],
@@ -116,7 +110,7 @@ const Admin_EditUser = () => {
               <>
                 <FadeIn>
                   <Pressable
-                    onPress={() => toggleCourseAccess(Number(item.course_id?.id))}
+                    onPress={() => handleAddCourse(Number(item.course_id?.id))}
                     className="defaultPressable m-2">
                     <Text
                       selectable={false}
@@ -153,7 +147,7 @@ const Admin_EditUser = () => {
             renderItem={({ item }) => (
               <>
                 <Pressable
-                  onPress={() => toggleCourseAccess(item.id)}
+                  onPress={() => handleAddCourse(item.id)}
                   className={`defaultPressable m-2  ${purCourseIds?.includes(item.id) ? 'bg-green-300' : null} `}>
                   <Text
                     selectable={false}
