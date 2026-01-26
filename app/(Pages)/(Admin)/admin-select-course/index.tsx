@@ -88,7 +88,7 @@ const Admin_SelectCourse = () => {
 
                             <Pressable
                               onLongPress={() => handleDelete(itemCourse.id)}
-                              delayLongPress={7000}
+                              delayLongPress={2000}
                               className="m-2 size-fit rounded-md bg-red-500 p-2 transition-all duration-1000  active:scale-150 ">
                               <Trash2 color={'white'} />
                             </Pressable>
