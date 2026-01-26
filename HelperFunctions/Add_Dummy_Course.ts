@@ -21,8 +21,7 @@ export const addDummyCourse = async () => {
     .from("courses")
     .insert({
       title: "أسم الكورس_",
-      cover_image:
-        "https://www.shutterstock.com/image-vector/blank-image-photo-placeholder-icon-600nw-2501054919.jpg",
+      cover_image: "https://i.postimg.cc/QMWgYzhn/nwaya-nt-swr-alkwrsat.png",
       short_description: " الوصف القصير_",
       price: 999,
       long_description:
