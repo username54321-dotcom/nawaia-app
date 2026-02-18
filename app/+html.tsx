@@ -40,7 +40,27 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
         <meta name="google" content="notranslate" />
 
-        {/* 
+        {/* Preconnect to external resources */}
+        <link rel="preconnect" href="https://hdxnyotrpjmrigmpdpkn.supabase.co" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
+        {/* Preload Critical Fonts for Performance */}
+        <link
+          rel="preload"
+          href="/assets/fonts/NotoKufiArabic-VariableFont_wght.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+
+        {/*
           This resets the default scroll view styles to behavior more like a native app.
           It ensures the body takes up the full height of the viewport.
         */}
