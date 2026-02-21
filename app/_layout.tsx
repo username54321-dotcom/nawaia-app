@@ -16,7 +16,22 @@ import ApprovedModal from '~/components/ApprovedModal';
 import NotPurchasedModal from '~/components/NotPurchasedModal';
 
 //Tanstack Query Init
-const tanstackQueryClient = new QueryClient();
+const tanstackQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * (60 * 1000),
+      gcTime: 10 * (60 * 1000),
+      retry: 3,
+      retryDelay: (attemptNumber) => attemptNumber * 500,
+      refetchOnWindowFocus: false,
+      refetchOnMount: 'always',
+    },
+    mutations: {
+      retry: 3,
+      retryDelay: (attemptNumber) => attemptNumber * 500,
+    },
+  },
+});
 
 export default function RootLayout() {
   // Track Auth Changes
