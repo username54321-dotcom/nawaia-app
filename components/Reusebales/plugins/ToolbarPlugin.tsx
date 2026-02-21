@@ -57,49 +57,58 @@ function ToolbarPlugin() {
     editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, format);
   };
 
+  const formatBold = useCallback(() => formatText('bold'), [formatText]);
+  const formatItalic = useCallback(() => formatText('italic'), [formatText]);
+  const formatUnderline = useCallback(() => formatText('underline'), [formatText]);
+  const formatHighlight = useCallback(() => formatText('highlight'), [formatText]);
+  const formatCode = useCallback(() => formatText('code'), [formatText]);
+  const formatAlignLeft = useCallback(() => formatElement('left'), [formatElement]);
+  const formatAlignCenter = useCallback(() => formatElement('center'), [formatElement]);
+  const formatAlignRight = useCallback(() => formatElement('right'), [formatElement]);
+
   return (
     <View className="flex-row items-center justify-center rounded-t-md border-2 border-gray-200  p-2">
       <TouchableOpacity
-        onPress={() => formatText('bold')}
+        onPress={formatBold}
         className={`mr-1 rounded  p-2 ${isBold ? 'bg-gray-300' : 'bg-white'}`}>
         <Text selectable={false} className="font-bold">
           B
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatText('italic')}
+        onPress={formatItalic}
         className={`mr-1 rounded p-2 ${isItalic ? 'bg-gray-300' : 'bg-white'}`}>
         <Text selectable={false} className="italic">
           I
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatText('underline')}
+        onPress={formatUnderline}
         className={`mr-1 rounded p-2 ${isUnderline ? 'bg-gray-300' : 'bg-white'}`}>
         <Text style={{ textDecorationLine: 'underline' }}>U</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatText('highlight')}
+        onPress={formatHighlight}
         className={`mr-1 rounded p-2 ${isHighlight ? 'bg-gray-300' : 'bg-white'}`}>
         <Highlighter size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatText('code')}
+        onPress={formatCode}
         className={`mr-1 rounded p-2 ${isCode ? 'bg-gray-300' : 'bg-white'}`}>
         <Text>&lt;/&gt;</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatElement('left')}
+        onPress={formatAlignLeft}
         className={`mr-1 rounded p-2 ${elementFormat === 'left' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignLeft size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatElement('center')}
+        onPress={formatAlignCenter}
         className={`mr-1 rounded p-2 ${elementFormat === 'center' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignCenter size={20} color="black" />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => formatElement('right')}
+        onPress={formatAlignRight}
         className={`rounded p-2 ${elementFormat === 'right' ? 'bg-gray-300' : 'bg-white'}`}>
         <AlignRight size={20} color="black" />
       </TouchableOpacity>
