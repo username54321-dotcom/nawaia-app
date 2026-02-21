@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import AdminUpdateField from '../_components/AdminUpdateField';
 import AdminPublishButton from '../_components/AdminPublishButton';
 import { useLocalSearchParams } from 'expo-router';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import FadeIn from '~/components/Animations/FadeIn';
 import { Trash2 } from 'lucide-react-native';
 import MyAccordion from '~/components/Reusebales/MyAccordion';
@@ -22,6 +22,20 @@ const Admin_EditCourse = () => {
   const [selectedTier, setSelectedTier] = useState<null | Pick<TierList[number], 'label'>>(null);
   // Main Query
   const { data: course, refetch, isLoading } = useQueryEditCourse(+id);
+
+  // Memoized sorted chapters
+  const sortedChapters = useMemo(() => {
+    if (!course?.courses_chapters) return [];
+    return [...course.courses_chapters].sort((a, b) => a.id - b.id);
+  }, [course?.courses_chapters]);
+
+  // Memoized function to sort lessons per chapter
+  const getSortedLessons = useCallback(
+    (lessons: (typeof course.courses_chapters)[0]['courses_lessons']) => {
+      return [...lessons].sort((a, b) => a.id - b.id);
+    },
+    []
+  );
 
   // Add Chapter
   const handleAddChapter = useCallback(
@@ -167,82 +181,78 @@ const Admin_EditCourse = () => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                {course.courses_chapters
-                  .sort((a, b) => a.id - b.id)
-                  .map((itemChapter, index) => {
-                    return (
-                      <View className="  w-full flex-col  bg-slate-300 p-2" key={index}>
-                        <View className="flex-row items-center justify-center">
-                          <Text className="self-center font-Kufi text-lg font-bold">
-                            {itemChapter.chapter_name}
+                {sortedChapters.map((itemChapter, index) => {
+                  return (
+                    <View className="  w-full flex-col  bg-slate-300 p-2" key={index}>
+                      <View className="flex-row items-center justify-center">
+                        <Text className="self-center font-Kufi text-lg font-bold">
+                          {itemChapter.chapter_name}
+                        </Text>
+                        <TouchableOpacity
+                          delayLongPress={3000}
+                          onLongPress={() => handleDeleteChapter(itemChapter.id)}
+                          className="m-2 items-center justify-center rounded-full bg-red-500 p-2">
+                          <Trash2 color={'white'} />
+                        </TouchableOpacity>
+                      </View>
+                      <View className="w-full items-center rounded-md  p-2">
+                        <AdminUpdateField
+                          label="عنوان الفصل"
+                          fieldName="name"
+                          id={itemChapter.id}
+                          table="courses_chapters"
+                          liveValue={itemChapter.chapter_name}
+                          refetch={refetch}></AdminUpdateField>
+                        {/**lesson Infromation Header */}
+                        <View className="w-full flex-row-reverse items-center justify-between ">
+                          <Text className="m-2 mr-4 mt-8 place-self-end font-Kufi text-2xl font-semibold">
+                            بيانات الدروس
                           </Text>
                           <TouchableOpacity
-                            delayLongPress={3000}
-                            onLongPress={() => handleDeleteChapter(itemChapter.id)}
-                            className="m-2 items-center justify-center rounded-full bg-red-500 p-2">
-                            <Trash2 color={'white'} />
+                            onPress={() => handleAddLesson(itemChapter.id)}
+                            className=" rounded-full bg-blue-500 p-4">
+                            <Text className="font-Kufi font-semibold text-slate-100">
+                              أضافة درس
+                            </Text>
                           </TouchableOpacity>
                         </View>
-                        <View className="w-full items-center rounded-md  p-2">
-                          <AdminUpdateField
-                            label="عنوان الفصل"
-                            fieldName="name"
-                            id={itemChapter.id}
-                            table="courses_chapters"
-                            liveValue={itemChapter.chapter_name}
-                            refetch={refetch}></AdminUpdateField>
-                          {/**lesson Infromation Header */}
-                          <View className="w-full flex-row-reverse items-center justify-between ">
-                            <Text className="m-2 mr-4 mt-8 place-self-end font-Kufi text-2xl font-semibold">
-                              بيانات الدروس
-                            </Text>
-                            <TouchableOpacity
-                              onPress={() => handleAddLesson(itemChapter.id)}
-                              className=" rounded-full bg-blue-500 p-4">
-                              <Text className="font-Kufi font-semibold text-slate-100">
-                                أضافة درس
-                              </Text>
-                            </TouchableOpacity>
-                          </View>
-                          {itemChapter.courses_lessons
-                            .sort((a, b) => a.id - b.id)
-                            .map((itemLesson, index) => {
-                              return (
-                                <View className=" w-full flex-col   bg-slate-300 " key={index}>
-                                  <View className="w-full items-center rounded-md  ">
-                                    <View className="flex-row items-center justify-center">
-                                      <Text className="font-Kufi font-semibold">
-                                        {itemLesson.lesson_name}
-                                      </Text>
-                                      <TouchableOpacity
-                                        onLongPress={() => handleDeleteLesson(itemLesson.id)}
-                                        delayLongPress={3000}>
-                                        <Trash2 className="m-2"></Trash2>
-                                      </TouchableOpacity>
-                                    </View>
-                                    <AdminUpdateField
-                                      label="عنوان الدرس"
-                                      fieldName="name"
-                                      id={itemLesson.id}
-                                      table="courses_lessons"
-                                      liveValue={itemLesson.lesson_name}
-                                      refetch={refetch}></AdminUpdateField>
-
-                                    <AdminUpdateField
-                                      label="رابط فيديو الدرس"
-                                      fieldName="link"
-                                      id={itemLesson.courses_links?.id}
-                                      table="courses_links"
-                                      liveValue={itemLesson.courses_links?.lesson_link}
-                                      refetch={refetch}></AdminUpdateField>
-                                  </View>
+                        {getSortedLessons(itemChapter.courses_lessons).map((itemLesson, index) => {
+                          return (
+                            <View className=" w-full flex-col   bg-slate-300 " key={index}>
+                              <View className="w-full items-center rounded-md  ">
+                                <View className="flex-row items-center justify-center">
+                                  <Text className="font-Kufi font-semibold">
+                                    {itemLesson.lesson_name}
+                                  </Text>
+                                  <TouchableOpacity
+                                    onLongPress={() => handleDeleteLesson(itemLesson.id)}
+                                    delayLongPress={3000}>
+                                    <Trash2 className="m-2"></Trash2>
+                                  </TouchableOpacity>
                                 </View>
-                              );
-                            })}
-                        </View>
+                                <AdminUpdateField
+                                  label="عنوان الدرس"
+                                  fieldName="name"
+                                  id={itemLesson.id}
+                                  table="courses_lessons"
+                                  liveValue={itemLesson.lesson_name}
+                                  refetch={refetch}></AdminUpdateField>
+
+                                <AdminUpdateField
+                                  label="رابط فيديو الدرس"
+                                  fieldName="link"
+                                  id={itemLesson.courses_links?.id}
+                                  table="courses_links"
+                                  liveValue={itemLesson.courses_links?.lesson_link}
+                                  refetch={refetch}></AdminUpdateField>
+                              </View>
+                            </View>
+                          );
+                        })}
                       </View>
-                    );
-                  })}
+                    </View>
+                  );
+                })}
               </View>
             </View>
           </MyAccordion>
